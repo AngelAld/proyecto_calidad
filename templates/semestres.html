@@ -6,40 +6,46 @@
         <div class="column">
             <h3 class="is-size-3">Semestre</h3>
             <a href="{{url_for('formulario_agregar_semestre')}}" class="button is-success">Agregar</a>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Código</th>
-                        <th>Nombre</th>
-                        <th>Fecha Inicio</th>
-                        <th>Fecha Fin</th>
-                        <th>Estado</th>
-                        <th>Editar</th>
-                        <th>Eliminar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for semestre in semestres %}
-                    <tr>
-                        <td>{{semestre[0]}}</td>
-                        <td>{{semestre[1]}}</td>
-                        <td>{{semestre[2]}}</td>
-                        <td>{{semestre[3]}}</td>
-                        <td>{{semestre[4]}}</td>
-                        <td>
-                            {# Pasar el id (lo que hay en semestre[0] #}
-                            <a href="{{url_for('editar_semestre', id=semestre[0])}}" class="button is-info">Editar</a>
-                        </td>
-                        <td>
-                            <form action="{{url_for('eliminar_semestre')}}" method="POST">
-                                <input type="hidden" name="id" value="{{semestre[0]}}">
-                                <button class="button is-danger">Eliminar</button>
-                            </form>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="d-none d-sm-table-cell">Código</th>
+                            <th>Nombre</th>
+                            <th class="d-none d-sm-table-cell">Fecha Inicio</th>
+                            <th class="d-none d-sm-table-cell">Fecha Fin</th>
+                            <th class="d-none d-sm-table-cell">Estado</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for semestre in semestres %}
+                        <tr>
+                            <td class="d-none d-sm-table-cell">{{semestre[0]}}</td>
+                            <td>{{semestre[1]}}</td>
+                            <td class="d-none d-sm-table-cell">{{semestre[2]}}</td>
+                            <td class="d-none d-sm-table-cell">{{semestre[3]}}</td>
+                            <td class="d-none d-sm-table-cell">
+                                {% if semestre[4] == "A" %}
+                                    Activo
+                                {% else %}
+                                    Inactivo
+                                {% endif %}
+                            </td>
+                            <td>
+                                {# Pasar el id (lo que hay en semestre[0] #}
+                                <a href="{{url_for('editar_semestre', id=semestre[0])}}" class="button is-info">Editar</a>
+                            </td>
+                            <td>
+                                <form action="{{url_for('eliminar_semestre')}}" method="POST">
+                                    <input type="hidden" name="id" value="{{semestre[0]}}">
+                                    <button class="button is-danger">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>            
         </div>
     </div>
 </section>

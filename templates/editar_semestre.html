@@ -26,8 +26,13 @@ Editar Semestre
                 
                     <label for="estado">estado</label>
                     <select value="{{semestre[4]}}" class="form-select" name="estado" id="estado"> 
-                        <option>Activo</option>
-                        <option>Inactivo</option>
+                        {% if semestre[4] == "A" %}
+                            <option selected>Activo</option>
+                            <option>Inactivo</option>
+                        {% else %}
+                            <option>Activo</option>
+                            <option selected>Inactivo</option>
+                        {% endif %}
                     </select>
              
                 
