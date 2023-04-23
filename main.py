@@ -22,7 +22,7 @@ def guardar_semestre():
         flash(f"Semestre Registrado con Exito", "success")
         url = "/semestres"
     else:
-        flash(f"Error al registrar", "error")
+        flash(mensaje[0], "error")
         url = "/agregar_semestre"
     
     return redirect(url)
@@ -40,7 +40,7 @@ def eliminar_semestre():
     if mensaje[0] == "Operación realizada con éxito":
         flash(f"Semestre Eliminado con Exito", "success")
     else:
-        flash(f"Error al eliminar", "error")
+        flash(mensaje[0], "error")
     
     return redirect("/semestres")
 
@@ -67,7 +67,7 @@ def actualizar_semestre():
         flash(f"Semestre Actualizado con Exito", "success")
         url = "/semestres"
     else:
-        flash(f"Error al Actualizar", "error")
+        flash(mensaje[0], "error")
         url = "/formulario_editar_semestre/"+id
     
     return redirect(url)

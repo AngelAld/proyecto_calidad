@@ -21,7 +21,11 @@ BEGIN
   IF semestre_existe > 0 THEN
     RETURN 'Semestre ya existe';
   END IF;
-  
+
+  IF p_fecha_fin <= p_fecha_inicio THEN
+    RETURN 'La fecha de fin debe ser posterior a la fecha de inicio';
+  END IF;
+
   SET fecha_actual = CURDATE();
   IF fecha_actual BETWEEN p_fecha_inicio AND p_fecha_fin THEN
     SET p_estado = 'A';
@@ -48,9 +52,10 @@ BEGIN
   IF semestre_existe > 0 THEN
     RETURN 'Semestre ya existe';
   END IF;
-  
+  IF p_fecha_fin <= p_fecha_inicio THEN
+    RETURN 'La fecha de fin debe ser posterior a la fecha de inicio';
+  END IF;
   UPDATE SEMESTRE_ACADEMICO SET nombre = p_nombre, fecha_inicio = p_fecha_inicio, fecha_fin = p_fecha_fin, estado = p_estado WHERE id_semestre = p_id_semestre;
-  
   RETURN 'Operación realizada con éxito';
 END;
 

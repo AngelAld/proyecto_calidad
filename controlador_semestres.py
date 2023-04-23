@@ -4,7 +4,7 @@ def getAll():
     conexion = obtener_conexion()
     semestres = []
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT id_semestre, nombre, fecha_inicio, fecha_fin, estado FROM SEMESTRE_ACADEMICO;")
+        cursor.execute("SELECT id_semestre, nombre, fecha_inicio, fecha_fin, estado FROM SEMESTRE_ACADEMICO ORDER BY estado, nombre asc")
         semestres = cursor.fetchall()
     conexion.close()
     return semestres 
