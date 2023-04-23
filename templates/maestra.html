@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -12,7 +13,7 @@
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.css">
-
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -58,30 +59,10 @@
     </nav>
 
     <div class="container-md"> {%block contenido %} {% endblock %} </div>
-
+   
     
 </body>
 
-{% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <script>
-                window.onload = function() {
-                    let icon = "{{ 'success' if messages[0] == 'Operación realizada con éxito' else 'error' }}";
-                    Swal.fire({
-                        title: "{{ messages[0] }}",
-                        icon: icon,
-                        confirmButtonText: 'OK'
-                    });
-                }
-            </script>
-        {% endif %}
-{% endwith %}
-
-
-{%block scripts %} 
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-{% endblock %}
+{% include "sweet_alerts.html" %}
 
 </html>

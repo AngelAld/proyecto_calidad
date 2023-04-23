@@ -18,11 +18,11 @@ def guardar_semestre():
     fecha_fin = request.form["fecha_fin"]
     mensaje = c_semestres.insert(nombre, fecha_inicio, fecha_fin)
 
-    flash(mensaje[0])
-    redirect("/agregar_semestre")
     if mensaje[0] == "Operación realizada con éxito":
+        flash(f"Semestre Registrado con Exito", "success")
         url = "/semestres"
     else:
+        flash(f"Error al registrar", "error")
         url = "/agregar_semestre"
     
     return redirect(url)
@@ -35,10 +35,14 @@ def semestres():
 
 @app.route("/eliminar_semestre", methods=["POST"])
 def eliminar_semestre():
+    
     mensaje = c_semestres.delete(request.form["id"])
-    flash(mensaje[0])
+    if mensaje[0] == "Operación realizada con éxito":
+        flash(f"Semestre Eliminado con Exito", "success")
+    else:
+        flash(f"Error al eliminar", "error")
+    
     return redirect("/semestres")
-
 
 @app.route("/formulario_editar_semestre/<int:id>")
 def editar_semestre(id):
@@ -58,12 +62,12 @@ def actualizar_semestre():
     else:
         estado = 'I'
     mensaje = c_semestres.update(id, nombre, fecha_inicio, fecha_fin, estado)
-  
-    flash(mensaje[0])
-    
+
     if mensaje[0] == "Operación realizada con éxito":
+        flash(f"Semestre Actualizado con Exito", "success")
         url = "/semestres"
     else:
+        flash(f"Error al Actualizar", "error")
         url = "/formulario_editar_semestre/"+id
     
     return redirect(url)
