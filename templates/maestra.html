@@ -13,6 +13,7 @@
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.css">
+        
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
@@ -60,7 +61,7 @@
 
     <div class="container-md"> {%block contenido %} {% endblock %} </div>
    
-    
+    {% block scripts %} {% endblock%} 
 </body>
 
 {% include "Assets/sweet_alerts.html" %}

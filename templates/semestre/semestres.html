@@ -4,9 +4,19 @@
 <section class="section">
     <div class="columns">
         <div class="column">
-            <h3 class="is-size-3">Semestre Académico</h3>
-            <a href="{{url_for('formulario_agregar_semestre')}}" class="button is-success">Agregar</a>
-                <table class="table">
+          <h3 class="is-size-3">Semestre Académico</h3>
+          <div class="row">
+            <div class="col-md-1">
+                          <a href="{{url_for('formulario_agregar_semestre')}}" class="button is-success">Agregar</a>
+            </div>
+            <div class="col">
+              <input type="text" id="busqueda" placeholder="Buscar un semestre académico" onkeyup="buscar_semestre()" class="input">
+            </div>
+            <div class="col">
+              
+            </div>
+          </div>
+          <table class="table">
                     <thead>
                         <tr>
                             <th class="d-none d-sm-table-cell">Código</th>
@@ -18,7 +28,7 @@
                             <th>Eliminar</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tabla">
                         {% for semestre in semestres %}
                         <tr>
                             <td class="d-none d-sm-table-cell">{{semestre[0]}}</td>
@@ -51,3 +61,6 @@
 </section>
 {% endblock%}
 
+{% block scripts %} 
+<script src="{{ url_for('static', filename='js/busqueda.js') }}"></script>
+{% endblock%}

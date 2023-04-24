@@ -33,6 +33,14 @@ def semestres():
     semestres = c_semestres.getAll()
     return render_template('semestre/semestres.html', semestres=semestres)
 
+
+def buscar_semestre(p_nombre, p_semestre):
+    resultados = []
+    for semestre in semestres:
+        if p_nombre.lower() in semestre[1].lower():
+            resultados.append(semestre)
+    return resultados
+
 @app.route("/eliminar_semestre", methods=["POST"])
 def eliminar_semestre():
     
@@ -49,7 +57,6 @@ def editar_semestre(id):
     # Obtener el semestre por ID
     semestre = c_semestres.getById(id)
     return render_template('semestre/frm_editar_semestre.html', semestre=semestre)
-
 
 @app.route("/actualizar_semestre", methods=["POST"])
 def actualizar_semestre():
