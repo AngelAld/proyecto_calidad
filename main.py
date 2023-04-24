@@ -8,7 +8,7 @@ app.secret_key = 'nose'
 
 @app.route("/agregar_semestre")
 def formulario_agregar_semestre():
-    return render_template("agregar_semestre.html")
+    return render_template('semestre/frm_agregar_semestre.html')
 
 
 @app.route("/guardar_semestre", methods=["POST"])
@@ -31,7 +31,7 @@ def guardar_semestre():
 @app.route("/semestres")
 def semestres():
     semestres = c_semestres.getAll()
-    return render_template("semestres.html", semestres=semestres)
+    return render_template('semestre/semestres.html', semestres=semestres)
 
 @app.route("/eliminar_semestre", methods=["POST"])
 def eliminar_semestre():
@@ -48,7 +48,7 @@ def eliminar_semestre():
 def editar_semestre(id):
     # Obtener el semestre por ID
     semestre = c_semestres.getById(id)
-    return render_template("editar_semestre.html", semestre=semestre)
+    return render_template('semestre/frm_editar_semestre.html', semestre=semestre)
 
 
 @app.route("/actualizar_semestre", methods=["POST"])

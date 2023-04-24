@@ -1,0 +1,39 @@
+{% extends "maestra.html" %}
+{% block contenido %}
+<section class="section">
+    <div class="columns">
+        <div class="column">
+            
+            <h3 class="is-size-3"> {% block titulo %} {% endblock %} </h3>
+            <form action="{{url}}" method="post">
+                {# Enviar el id en un campo oculto #}
+                <input value="{{id}}" type="hidden" name="id">
+
+
+                <label for="nombre">Nombre</label>
+                <input value="{{nombre}}" required type="text" class="input" placeholder="Nombre" name="nombre" id="nombre">
+                
+                
+                <label for="fecha_inicio">Fecha inicio</label>
+                <input value="{{fecha_inicio}}" required type="date" class="input" name="fecha_inicio" id="fecha_inicio">
+                
+                
+                <label for="fecha_fin">Fecha fin</label>
+                <input value="{{fecha_fin}}" required type="date" class="input" name="fecha_fin" id="fecha_fin">
+                
+                
+                    <label for="estado">Estado</label>
+                    <select class="form-select" name="estado" id="estado"> 
+                    
+                    </select>
+
+                <button type="submit" class="button is-success mt-2">Guardar</button>
+                <a href="{{url_for('semestres')}}" class="button is-primary mt-2">Regresar</a>  
+                
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
