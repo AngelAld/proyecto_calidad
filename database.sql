@@ -7,6 +7,22 @@ CREATE TABLE IF NOT EXISTS SEMESTRE_ACADEMICO (
   PRIMARY KEY (id_semestre));
 
 DELIMITER //
+CREATE OR REPLACE PROCEDURE sp_read_semestres()
+BEGIN
+SELECT id_semestre, nombre, 
+DATE_FORMAT(fecha_inicio, '%d/%m/%Y') AS fecha_inicio, 
+DATE_FORMAT(fecha_fin, '%d/%m/%Y') AS fecha_fin, 
+estado
+FROM SEMESTRE_ACADEMICO
+ORDER BY estado, nombre asc
+;
+END;
+// DELIMITER ;
+
+
+
+
+DELIMITER //
 CREATE OR REPLACE FUNCTION fn_create_semestre(
 p_nombre VARCHAR(50),
 p_fecha_inicio DATE,
