@@ -16,7 +16,7 @@
               
             </div>
           </div>
-          <table class="table">
+          <table class="table text-center">
                     <thead>
                         <tr>
                             <th class="d-none d-sm-table-cell">Código</th>
@@ -37,36 +37,32 @@
                             <td class="d-none d-sm-table-cell">{{semestre[3]}}</td>
                             <td class="d-none d-sm-table-cell">
                               <div class="row">
-                                <div class="col-md-1">
+                                <div class="col-md-1 container">
                                   <form action="{{url_for('actualizar_estado')}}" method="POST" class="actualizar_estado">
                                     <input type="hidden" name="id" value="{{semestre[0]}}">
-                                    <input type="hidden" name="nombre" value="{{semestre[1]}}">
-                                    <input type="hidden" name="fecha_inicio" value="{{semestre[2]}}">
-                                    <input type="hidden" name="fecha_fin" value="{{semestre[3]}}">
                                     <div class="form-check">
                                       <input class="form-check-input estado" type="checkbox"  name="estado" id="estado" {% if semestre[4] == "A" %}checked{% endif %}>
-                                      <label class="form-check-label" for="flexRadioDefault1"></label>
+                                      <label class="form-check-label" for="flexRadioDefault1">
+                                        {% if semestre[4] == "A" %}
+                                        Activo
+                                        {% else %}
+                                        Inactivo
+                                        {% endif %}
+                                      </label>
                                     </div>
                                   </form> 
-                                </div>
-                                <div class="col-md-1">
-                                  {% if semestre[4] == "A" %}
-                                    Activo
-                                  {% else %}
-                                    Inactivo
-                                  {% endif %}
                                 </div>
                               </div>
                               
                             </td>
                             <td>
                                 {# Pasar el id (lo que hay en semestre[0] #}
-                                <a href="{{url_for('editar_semestre', id=semestre[0])}}" class="button is-info">Editar</a>
+                                <a href="{{url_for('editar_semestre', id=semestre[0])}}" class="button is-info" style="width: 95px;">Editar</a>
                             </td>
                             <td>
                                 <form action="{{url_for('eliminar_semestre')}}" method="POST" id="eliminar_form">
                                     <input type="hidden" name="id" value="{{semestre[0]}}">
-                                    <button class="button is-danger" id="eliminar_btn">Eliminar</button>
+                                    <button class="button is-danger" id="eliminar_btn" style="width: 95px;">Eliminar</button>
                                 </form>
                             </td>
                         </tr>

@@ -9,11 +9,14 @@
           //  title:"{{ category.title() }}!",
           // success , error , warning ,info
 
+          //  text: "{{ message }}",
             title: "{{ message }}",
           // Custom message flashed from your flask routes
 
-            icon: "{{ category }}" == "danger" ? "error" : "{{ category }}"
+            icon: "{{ category }}" == "danger" ? "error" : "{{ category }}",
           // success , error , warning ,info
+
+            width: '400px'
         });
     }
    </script>
