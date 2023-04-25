@@ -19,7 +19,7 @@ pip install pymysql
 
 
 
-TO-DO 04/24/2023: 
+TO-DO 04/24/2023 - 04/27/2023: 
 
 HUGO:
 * centrar botones tabla (semestre) 
