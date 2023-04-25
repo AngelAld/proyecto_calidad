@@ -38,13 +38,13 @@
                             <td class="d-none d-sm-table-cell">
                               <div class="row">
                                 <div class="col-md-1">
-                                  <form action="{{url_for('actualizar_semestre')}}" method="POST" id="actualizar_estado">
+                                  <form action="{{url_for('actualizar_estado')}}" method="POST" class="actualizar_estado">
                                     <input type="hidden" name="id" value="{{semestre[0]}}">
                                     <input type="hidden" name="nombre" value="{{semestre[1]}}">
                                     <input type="hidden" name="fecha_inicio" value="{{semestre[2]}}">
                                     <input type="hidden" name="fecha_fin" value="{{semestre[3]}}">
                                     <div class="form-check">
-                                      <input class="form-check-input" type="checkbox"  name="estado" id="estado" {% if semestre[4] == "A" %}checked{% endif %}>
+                                      <input class="form-check-input estado" type="checkbox"  name="estado" id="estado" {% if semestre[4] == "A" %}checked{% endif %}>
                                       <label class="form-check-label" for="flexRadioDefault1"></label>
                                     </div>
                                   </form> 

@@ -88,6 +88,24 @@ def actualizar_semestre():
     return redirect(url)
     
 
+@app.route("/actualizar_estado", methods=["POST"])
+def actualizar_estado():
+    id = request.form["id"]
+    frm_estado = request.form.get("estado")
+    if frm_estado == 'on':
+        estado = 'A'
+    else:
+        estado = 'I'
+    mensaje = c_semestres.update_estado(id, estado)
+
+    if mensaje[0] == "Operación realizada con éxito":
+        flash(f"Semestre Actualizado con Exito", "success")
+    else:
+        flash(mensaje[0], "error")
+    
+    return redirect("/semestres")
+
+
 
 # Iniciar el servidor
 if __name__ == "__main__":

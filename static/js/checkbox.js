@@ -1,5 +1,5 @@
   $(function() {
-    $('#estado').on('click', function() {
-      $('#actualizar_estado').submit();
+    $('.estado').on('click', function() {
+      $('.actualizar_estado').submit();
     });
   });
