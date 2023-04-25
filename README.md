@@ -32,6 +32,6 @@ IVAN:
 
 
 ANGEL: 
-* cuadro de busqueda (semestre)                 hecho 
-* estado con checkbox (semestre)                hecho
-* Modularización de funciones general                
+* cuadro de busqueda (semestre) __________________ hecho 
+* estado con checkbox (semestre) __________________ hecho
+* Modularización de funciones (general)                
