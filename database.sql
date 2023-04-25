@@ -1,4 +1,4 @@
-CREATE TABLE SEMESTRE_ACADEMICO (
+CREATE TABLE IF NOT EXISTS SEMESTRE_ACADEMICO (
   id_semestre  int(11) NOT NULL AUTO_INCREMENT, 
   nombre       varchar(50) NOT NULL, 
   fecha_inicio date NOT NULL, 
