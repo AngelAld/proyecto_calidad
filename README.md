@@ -1,4 +1,4 @@
-# Proyecto de Calidad
+# Proyecto Calidad de Software
 
 ```
 git clone https://github.com/AngelAld/proyecto_calidad.git
@@ -37,3 +37,4 @@ ANGEL:
 * estado con checkbox (semestre) _________________ hecho
 * formato fecha dd/mm/aaaa _______________________ hecho
 * Modularización de funciones (general) __________ hecho               
+* Manejo de excepciones SQL ______________________ hecho
