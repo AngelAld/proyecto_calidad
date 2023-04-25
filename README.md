@@ -34,4 +34,5 @@ IVAN:
 ANGEL: 
 * cuadro de busqueda (semestre) __________________ hecho 
 * estado con checkbox (semestre) __________________ hecho
+* formato fecha dd/mm/aaaa      __________________ hecho
 * Modularización de funciones (general)                
