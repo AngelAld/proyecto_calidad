@@ -10,12 +10,12 @@ def getAll():
     return semestres 
 
 
-def insert(nombre, fecha_inicio, fecha_fin):
+def insert(nombre, fecha_inicio, fecha_fin, estado):
     conexion = obtener_conexion()
     msg = []
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT fn_create_semestre(%s, %s, %s)",
-                        (nombre, fecha_inicio, fecha_fin))
+        cursor.execute("SELECT fn_create_semestre(%s, %s, %s, %s)",
+                        (nombre, fecha_inicio, fecha_fin, estado))
     msg = cursor.fetchone()
     conexion.commit()
     conexion.close()

@@ -3,16 +3,16 @@
 {% block contenido %}
 <section class="section">
     <div class="columns">
-        <div class="column">
+        <div class="col">
           <h3 class="is-size-3">Semestre Académico</h3>
           <div class="row">
-            <div class="col-md-1">
+            <div class="col-auto">
                           <a href="{{url_for('formulario_agregar_semestre')}}" class="button is-success">Agregar</a>
             </div>
-            <div class="col">
-              <input type="text" id="busqueda" placeholder="Buscar un semestre académico" onkeyup="buscar_semestre()" class="input">
+            <div class="col-auto">
+              <input type="text" id="busqueda" placeholder="Buscar" onkeyup="buscar_semestre()" class="input">
             </div>
-            <div class="col">
+            <div class="col-auto">
               
             </div>
           </div>
@@ -36,11 +36,28 @@
                             <td class="d-none d-sm-table-cell">{{semestre[2]}}</td>
                             <td class="d-none d-sm-table-cell">{{semestre[3]}}</td>
                             <td class="d-none d-sm-table-cell">
-                                {% if semestre[4] == "A" %}
+                              <div class="row">
+                                <div class="col-md-1">
+                                  <form action="{{url_for('actualizar_semestre')}}" method="POST" id="actualizar_estado">
+                                    <input type="hidden" name="id" value="{{semestre[0]}}">
+                                    <input type="hidden" name="nombre" value="{{semestre[1]}}">
+                                    <input type="hidden" name="fecha_inicio" value="{{semestre[2]}}">
+                                    <input type="hidden" name="fecha_fin" value="{{semestre[3]}}">
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="checkbox"  name="estado" id="estado" {% if semestre[4] == "A" %}checked{% endif %}>
+                                      <label class="form-check-label" for="flexRadioDefault1"></label>
+                                    </div>
+                                  </form> 
+                                </div>
+                                <div class="col-md-1">
+                                  {% if semestre[4] == "A" %}
                                     Activo
-                                {% else %}
+                                  {% else %}
                                     Inactivo
-                                {% endif %}
+                                  {% endif %}
+                                </div>
+                              </div>
+                              
                             </td>
                             <td>
                                 {# Pasar el id (lo que hay en semestre[0] #}
@@ -63,4 +80,5 @@
 
 {% block scripts %} 
 <script src="{{ url_for('static', filename='js/busqueda.js') }}"></script>
+<script src="{{ url_for('static', filename='js/checkbox.js') }}"></script>
 {% endblock%}

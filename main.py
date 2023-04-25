@@ -16,7 +16,13 @@ def guardar_semestre():
     nombre = request.form["nombre"]
     fecha_inicio = request.form["fecha_inicio"]
     fecha_fin = request.form["fecha_fin"]
-    mensaje = c_semestres.insert(nombre, fecha_inicio, fecha_fin)
+    frm_estado = request.form.get("estado")
+    if frm_estado == 'on':
+        estado = 'A'
+    else:
+        estado = 'I'
+
+    mensaje = c_semestres.insert(nombre, fecha_inicio, fecha_fin, estado)
 
     if mensaje[0] == "Operación realizada con éxito":
         flash(f"Semestre Registrado con Exito", "success")
@@ -64,10 +70,12 @@ def actualizar_semestre():
     nombre = request.form["nombre"]
     fecha_inicio = request.form["fecha_inicio"]
     fecha_fin = request.form["fecha_fin"]
-    if request.form["estado"] == 'Activo':
+    frm_estado = request.form.get("estado")
+    if frm_estado == 'on':
         estado = 'A'
     else:
         estado = 'I'
+
     mensaje = c_semestres.update(id, nombre, fecha_inicio, fecha_fin, estado)
 
     if mensaje[0] == "Operación realizada con éxito":
