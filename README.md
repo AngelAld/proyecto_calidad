@@ -14,3 +14,24 @@ pip install Flask
 pip install pymysql
 
 ```
+
+
+
+
+
+TO-DO 04/24/2023: 
+
+HUGO:
+* centrar botones tabla (semestre) 
+* manejar por paginas tabla (semestre)
+* tamaño de los botones (semestre)
+
+
+IVAN:
+* cuadro de confirmación eliminar (semestre)
+
+
+ANGEL: 
+* cuadro de busqueda (semestre)                 hecho 
+* estado con checkbox (semestre)                hecho
+* Modularización de funciones general                
