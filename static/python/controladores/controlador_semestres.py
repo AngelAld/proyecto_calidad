@@ -4,7 +4,7 @@ def getAll():
     conexion = obtener_conexion()
     semestres = []
     with conexion.cursor() as cursor:
-        cursor.execute("call sp_read_semestres()")
+        cursor.execute("select * from fn_read_semestres()")
         semestres = cursor.fetchall()
     conexion.close()
     return semestres 
@@ -16,7 +16,7 @@ def insert(nombre, fecha_inicio, fecha_fin, estado):
     with conexion.cursor() as cursor:
         cursor.execute("SELECT fn_create_semestre(%s, %s, %s, %s)",
                         (nombre, fecha_inicio, fecha_fin, estado))
-    msg = cursor.fetchone()
+        msg = cursor.fetchone()
     conexion.commit()
     conexion.close()
     return msg 
@@ -27,9 +27,9 @@ def delete(id):
     with conexion.cursor() as cursor:
         cursor.execute("SELECT fn_delete_semestre(%s)", (id,))
         msg = cursor.fetchone()
-        conexion.commit()
-        conexion.close()
-        return msg
+    conexion.commit()
+    conexion.close()
+    return msg
     
 
 def getById(id):
@@ -47,7 +47,7 @@ def update(id, nombre, fecha_inicio, fecha_fin, estado):
     with conexion.cursor() as cursor:
         cursor.execute("SELECT fn_update_semestre(%s, %s, %s, %s, %s)",
                         (id, nombre, fecha_inicio, fecha_fin, estado))
-    msg = cursor.fetchone()
+        msg = cursor.fetchone()
     conexion.commit()
     conexion.close()
     return msg 
@@ -58,7 +58,7 @@ def update_estado(id, estado):
     with conexion.cursor() as cursor:
         cursor.execute("SELECT fn_update_estado(%s, %s)",
                         (id, estado))
-    msg = cursor.fetchone()
+        msg = cursor.fetchone()
     conexion.commit()
     conexion.close()
     return msg 
