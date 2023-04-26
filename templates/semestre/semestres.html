@@ -2,80 +2,83 @@
 {% block titulo %} Semestre Académico {% endblock %}
 {% block contenido %}
 <section class="section">
-    <div class="columns">
-        <div class="col">
-          <h3 class="is-size-3">Semestre Académico</h3>
-          <div class="row">
-            <div class="col-auto">
-                          <a href="{{url_for('formulario_agregar_semestre')}}" class="button is-success">Agregar</a>
-            </div>
-            <div class="col-auto">
-              <input type="text" id="busqueda" placeholder="Buscar" onkeyup="buscar_semestre()" class="input">
-            </div>
-            <div class="col-auto">
-              
-            </div>
-          </div>
-          <table class="table text-center">
-                    <thead>
-                        <tr>
-                            <th class="d-none d-sm-table-cell">Código</th>
-                            <th>Nombre</th>
-                            <th class="d-none d-sm-table-cell">Fecha Inicio</th>
-                            <th class="d-none d-sm-table-cell">Fecha Fin</th>
-                            <th class="d-none d-sm-table-cell">Estado</th>
-                            <th>Editar</th>
-                            <th>Eliminar</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabla">
-                        {% for semestre in semestres %}
-                        <tr>
-                            <td class="d-none d-sm-table-cell">{{semestre[0]}}</td>
-                            <td>{{semestre[1]}}</td>
-                            <td class="d-none d-sm-table-cell">{{semestre[2]}}</td>
-                            <td class="d-none d-sm-table-cell">{{semestre[3]}}</td>
-                            <td class="d-none d-sm-table-cell">
-                              <div class="row">
-                                <div class="col-md-1 container">
-                                  <form action="{{url_for('actualizar_estado')}}" method="POST" class="actualizar_estado">
-                                    <input type="hidden" name="id" value="{{semestre[0]}}">
-                                    <div class="form-check">
-                                      <input class="form-check-input estado" type="checkbox"  name="estado" id="estado" {% if semestre[4] == "A" %}checked{% endif %}>
-                                      <label class="form-check-label" for="flexRadioDefault1">
-                                        {% if semestre[4] == "A" %}
-                                        Activo
-                                        {% else %}
-                                        Inactivo
-                                        {% endif %}
-                                      </label>
-                                    </div>
-                                  </form> 
-                                </div>
-                              </div>
-                              
-                            </td>
-                            <td>
-                                {# Pasar el id (lo que hay en semestre[0] #}
-                                <a href="{{url_for('editar_semestre', id=semestre[0])}}" class="button is-info" style="width: 95px;">Editar</a>
-                            </td>
-                            <td>
-                                <form action="{{url_for('eliminar_semestre')}}" method="POST" id="eliminar_form" class="eliminar_form">
-                                    <input type="hidden" name="id" value="{{semestre[0]}}">
-                                    <button class="button is-danger eliminar_btn" id="eliminar_btn" style="width: 95px;">Eliminar</button>
-                                </form>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>            
+  <div class="columns">
+    <div class="col">
+      <h3 class="is-size-3">Semestre Académico</h3>
+      <div class="row">
+        <div class="col-auto">
+          <a href="{{url_for('formulario_agregar_semestre')}}" class="button is-success">Agregar</a>
         </div>
+        <div class="col-auto">
+          <input type="text" id="busqueda" placeholder="Buscar" onkeyup="buscar_semestre()" class="input">
+        </div>
+        <div class="col-auto">
+
+        </div>
+      </div>
+      <table class="table text-center">
+        <thead>
+          <tr>
+            <th class="d-none d-sm-table-cell">Código</th>
+            <th>Nombre</th>
+            <th class="d-none d-sm-table-cell">Fecha Inicio</th>
+            <th class="d-none d-sm-table-cell">Fecha Fin</th>
+            <th class="d-none d-sm-table-cell">Estado</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody id="tabla">
+          {% for semestre in semestres %}
+          <tr>
+            <td class="d-none d-sm-table-cell">{{semestre[0]}}</td>
+            <td>{{semestre[1]}}</td>
+            <td class="d-none d-sm-table-cell">{{semestre[2]}}</td>
+            <td class="d-none d-sm-table-cell">{{semestre[3]}}</td>
+            <td class="d-none d-sm-table-cell">
+              <div class="row">
+                <div class="col-md-1 container">
+                  <form action="{{url_for('actualizar_estado')}}" method="POST" class="actualizar_estado">
+                    <input type="hidden" name="id" value="{{semestre[0]}}">
+                    <div class="form-check">
+                      <input class="form-check-input estado" type="checkbox" name="estado" id="estado" {% if
+                        semestre[4]=="A" %}checked{% endif %}>
+                      <label class="form-check-label" for="flexRadioDefault1">
+                        {% if semestre[4] == "A" %}
+                        Activo
+                        {% else %}
+                        Inactivo
+                        {% endif %}
+                      </label>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+            </td>
+            <td>
+              {# Pasar el id (lo que hay en semestre[0] #}
+              <a href="{{url_for('editar_semestre', id=semestre[0])}}" class="button is-info"
+                style="width: 95px;">Editar</a>
+            </td>
+            <td>
+              <form action="{{url_for('eliminar_semestre')}}" method="POST" id="eliminar_form">
+                <input type="hidden" name="id" value="{{semestre[0]}}">
+                <button class="button is-danger" id="eliminar_btn" style="width: 95px;"
+                  onclick="event.preventDefault(); eliminar(this.parentNode)">Eliminar</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
+  </div>
 </section>
 {% endblock%}
 
-{% block scripts %} 
+{% block scripts %}
 <script src="{{ url_for('static', filename='js/busqueda.js') }}"></script>
 <script src="{{ url_for('static', filename='js/checkbox.js') }}"></script>
-<script src="{{ url_for('static', filename='js/confirm.js') }}"></script>
+<script src="{{ url_for('static', filename='js/eliminar.js') }}"></script>
 {% endblock%}

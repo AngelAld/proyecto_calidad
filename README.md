@@ -15,26 +15,23 @@ pip install pymysql
 
 ```
 
-
-
-
-
-TO-DO 04/24/2023 - 04/27/2023: 
+TO-DO 04/24/2023 - 04/27/2023:
 
 HUGO:
+
 * centrar botones tabla (semestre) _______________ hecho
 * manejar por paginas tabla (semestre)
 * tamaño de los botones (semestre) _______________ hecho
-* Ajustar espaciado cuadro de busqueda - botón 
-
+* Ajustar espaciado cuadro de busqueda - botón
 
 IVAN:
+
 * cuadro de confirmación eliminar (semestre)
 
+ANGEL:
 
-ANGEL: 
-* cuadro de busqueda (semestre) __________________ hecho 
+* cuadro de busqueda (semestre) __________________ hecho
 * estado con checkbox (semestre) _________________ hecho
 * formato fecha dd/mm/aaaa _______________________ hecho
-* Modularización de funciones (general) __________ hecho               
+* Modularización de funciones (general) __________ hecho
 * Manejo de excepciones SQL ______________________ hecho
