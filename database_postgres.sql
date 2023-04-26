@@ -38,16 +38,16 @@ DECLARE
 semestre_existe INTEGER;
 fecha_actual DATE;
 error_message VARCHAR(255);
-error_code INTEGER DEFAULT 99999;
+error_code VARCHAR(5) DEFAULT '99999';
 BEGIN
 BEGIN
 SELECT COUNT(*) INTO semestre_existe FROM SEMESTRE_ACADEMICO WHERE nombre = p_nombre;
 IF semestre_existe > 0 THEN
-    RAISE EXCEPTION 'Semestre ya existe';
+    RETURN 'Semestre ya existe';
 END IF;
 
 IF p_fecha_fin <= p_fecha_inicio THEN
-    RAISE EXCEPTION 'La fecha de fin debe ser posterior a la fecha de inicio';
+    RETURN 'La fecha de fin debe ser posterior a la fecha de inicio';
 END IF;
 
 fecha_actual := CURRENT_DATE;
@@ -61,7 +61,7 @@ EXCEPTION
 WHEN OTHERS THEN
 GET STACKED DIAGNOSTICS error_message = MESSAGE_TEXT, error_code = RETURNED_SQLSTATE;
 error_message := CONCAT('Error: ', error_message);
-RAISE EXCEPTION '%', error_message;
+RETURN '%', error_message;
 END;
 
 RETURN 'Operación realizada con éxito';
@@ -84,11 +84,11 @@ BEGIN
 BEGIN
 SELECT COUNT(*) INTO semestre_existe FROM SEMESTRE_ACADEMICO WHERE nombre = p_nombre AND id_semestre != p_id_semestre;
 IF semestre_existe > 0 THEN
-    RAISE EXCEPTION 'Semestre ya existe';
+    RETURN 'Semestre ya existe';
 END IF;
 
 IF p_fecha_fin <= p_fecha_inicio THEN
-    RAISE EXCEPTION 'La fecha de fin debe ser posterior a la fecha de inicio';
+    RETURN 'La fecha de fin debe ser posterior a la fecha de inicio';
 END IF;
 
 UPDATE SEMESTRE_ACADEMICO SET nombre = p_nombre, fecha_inicio = p_fecha_inicio, fecha_fin = p_fecha_fin, estado = p_estado WHERE id_semestre = p_id_semestre;
@@ -96,7 +96,7 @@ EXCEPTION
 WHEN OTHERS THEN
 GET STACKED DIAGNOSTICS error_message = MESSAGE_TEXT, error_code = RETURNED_SQLSTATE;
 error_message := CONCAT('Error: ', error_message);
-RAISE EXCEPTION '%', error_message;
+RETURN '%', error_message;
 END;
 
 RETURN 'Operación realizada con éxito';
@@ -116,12 +116,12 @@ DELETE FROM SEMESTRE_ACADEMICO WHERE id_semestre = p_id;
 IF FOUND THEN
     mensaje := 'Operación realizada con éxito';
 ELSE
-    RAISE EXCEPTION 'No se pudo eliminar el registro.';
+    RETURN 'No se pudo eliminar el registro.';
 END IF;
 EXCEPTION
 WHEN OTHERS THEN
 error_msg := CONCAT('Error: ', SQLERRM);
-RAISE EXCEPTION '%', error_msg;
+RETURN '%', error_msg;
 END;
 
 RETURN mensaje;
@@ -143,7 +143,7 @@ EXCEPTION
 WHEN OTHERS THEN
 GET STACKED DIAGNOSTICS error_message = MESSAGE_TEXT, error_code = RETURNED_SQLSTATE;
 error_message := CONCAT('Error: ', error_message);
-RAISE EXCEPTION '%', error_message;
+RETURN '%', error_message;
 END;
 
 RETURN 'Operación realizada con éxito';

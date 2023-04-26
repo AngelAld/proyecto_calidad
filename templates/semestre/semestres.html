@@ -60,9 +60,9 @@
                                 <a href="{{url_for('editar_semestre', id=semestre[0])}}" class="button is-info" style="width: 95px;">Editar</a>
                             </td>
                             <td>
-                                <form action="{{url_for('eliminar_semestre')}}" method="POST" id="eliminar_form">
+                                <form action="{{url_for('eliminar_semestre')}}" method="POST" id="eliminar_form" class="eliminar_form">
                                     <input type="hidden" name="id" value="{{semestre[0]}}">
-                                    <button class="button is-danger" id="eliminar_btn" style="width: 95px;">Eliminar</button>
+                                    <button class="button is-danger eliminar_btn" id="eliminar_btn" style="width: 95px;">Eliminar</button>
                                 </form>
                             </td>
                         </tr>
@@ -77,4 +77,5 @@
 {% block scripts %} 
 <script src="{{ url_for('static', filename='js/busqueda.js') }}"></script>
 <script src="{{ url_for('static', filename='js/checkbox.js') }}"></script>
+<script src="{{ url_for('static', filename='js/confirm.js') }}"></script>
 {% endblock%}
