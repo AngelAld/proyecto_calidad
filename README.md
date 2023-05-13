@@ -49,3 +49,10 @@ Esto es para poder implementar sus cambios en el proyecto principal
 ![paso4](https://hackmd.io/_uploads/Skqbson4h.png)
 
 ![paso5](https://hackmd.io/_uploads/rkgsoshV3.png)
+
+### Luego de que los cambios fueran aprobados
+
+```bash
+git pull origin main # para descargar los cambios
+
+```
