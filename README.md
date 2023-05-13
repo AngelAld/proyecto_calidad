@@ -1,4 +1,4 @@
-# Proyecto Calidad de Software
+# Proyecto de Calidad de Software
 
 ```bash
 git clone https://github.com/AngelAld/proyecto_calidad.git
