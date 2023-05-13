@@ -41,13 +41,19 @@ Esto es para poder implementar sus cambios en el proyecto principal
 
 ![paso1](https://hackmd.io/_uploads/HyUuFin43.png)
 
+---
 ![paso2](https://hackmd.io/_uploads/SysCOin4n.png)
 
+---
 ![paso3](https://hackmd.io/_uploads/BJOEYj3N3.png)
 
+---
 ![paso4](https://hackmd.io/_uploads/Skqbson4h.png)
 
+---
 ![paso5](https://hackmd.io/_uploads/rkgsoshV3.png)
+
+---
 
 ### Luego de que los cambios fueran aprobados
 
