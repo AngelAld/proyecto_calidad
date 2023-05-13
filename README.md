@@ -31,3 +31,11 @@ git commit -m "lo que quieran comentar" # para confirmar los cambios
 
 git push -u origin 'nombre de su rama' # para enviar los cambios a su rama en el repo
 ```
+
+### Luego de eso abren el repo en Github
+
+![paso1](https://hackmd.io/_uploads/HyUuFin43.png)
+
+![paso2](https://hackmd.io/_uploads/SysCOin4n.png)
+
+![paso3](https://hackmd.io/_uploads/BJOEYj3N3.png)
