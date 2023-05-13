@@ -31,9 +31,7 @@ git add . # para añadir los cambios
 git commit -m "lo que quieran comentar" # para confirmar los cambios
 
 git push -u origin nombre_de_su_rama # para enviar los cambios a su rama en el repo
-```
-
-algo  
+```  
 
 ### Luego de eso abren el repo en Github
 
