@@ -32,7 +32,6 @@ def guardar_semestre():
     return redirect(url)
 
 
-@app.route("/")
 @app.route("/semestres")
 def semestres():
     semestres = c_semestres.getAll()

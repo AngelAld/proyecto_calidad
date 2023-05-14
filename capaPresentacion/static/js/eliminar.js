@@ -5,7 +5,7 @@ async function eliminar(formulario) {
 
     const result = await Swal.fire({
         title: '¿Estás seguro?',
-        text: 'Esta acción no se puede recuperar',
+        text: 'Esta acción no se puede deshacer',
         icon: 'warning',
         showCancelButton: true,
         cancelButtonText: 'NO',
