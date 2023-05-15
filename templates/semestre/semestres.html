@@ -5,7 +5,8 @@
   <div class="columns">
     <div class="col">
       <h3 class="is-size-3">Semestre Académico</h3>
-      <a href="{{url_for('formulario_agregar_semestre')}}" class="button is-success">Agregar</a>
+      <a href="{{url_for('formulario_agregar_semestre')}}" class="button is-success flotante"><i
+          class="fas fa-plus"></i></a>
       <table class="table text-center" id="tablita">
         <thead>
           <tr>
@@ -65,6 +66,7 @@
     </div>
   </div>
 </section>
+
 {% endblock%}
 
 {% block scripts %}
