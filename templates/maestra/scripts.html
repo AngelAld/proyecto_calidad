@@ -12,5 +12,10 @@
             [10, 25, 50, -1],
             [10, 25, 50, 'All'],
         ],
+        dom: 'tp',
+    });
+
+    $('#searchbar').on('keyup', function () {
+        table.search(this.value).draw();
     });
 </script>

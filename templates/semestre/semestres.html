@@ -5,7 +5,18 @@
 <section class="section">
   <div class="columns">
     <div class="col">
-      <a href="{{url_for('formulario_agregar_semestre')}}" class="btn btn-success">Agregar</a>
+      <div class="row">
+        <div class="col d-none d-lg-block above-table">
+        </div>
+        <div class="col-md-6 text-end above-table">
+          <input id="searchbar" class="form-control" type="text" placeholder="&#xF002; Buscar">
+        </div>
+        <div class="col text-end bg-danger above-table">
+          <a href="{{url_for('formulario_agregar_semestre')}}" class="btn btn-success"><i
+              class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
+        </div>
+      </div>
+
       <table class="table" id="tablita">
         <thead>
           <tr>
@@ -29,7 +40,7 @@
               <form action="{{url_for('actualizar_estado')}}" method="POST" class="actualizar_estado">
                 <input type="hidden" name="id" value="{{semestre[0]}}">
                 <input type="hidden" name="estado" value="{{semestre[4]}}">
-                <button type="button" class="estado btn ls-button {% if semestre[4]=="A" %}btn-primary{% else
+                <button type="button" class="estado btn ls-button {% if semestre[4]=='A' %}btn-primary{% else
                   %}btn-danger{% endif %}">{% if semestre[4]
                   == "A" %}
                   <i class="bi bi-check-square-fill"></i>

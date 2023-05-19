@@ -2,10 +2,23 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+#searchbar {
+    font-family: Arial, FontAwesome
+}
+
+.pagination {
+    padding-top: 10px;
+}
+
+.above-table {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 .flotante {
     position: fixed;
-    bottom: 7%;
-    left: 15%;
+    bottom: 5%;
+    right: 3%;
     border-radius: 50px;
     width: 55px;
     height: 55px;
@@ -83,19 +96,24 @@ body {
 @media (min-width: 960px) {
     #sidebar-wrapper {
         margin-left: 0;
+
     }
 
     #page-content-wrapper {
         min-width: 0;
         width: 100%;
+
     }
 
     #wrapper.toggled #sidebar-wrapper {
         margin-left: -15rem;
     }
+
+    .navbar {
+        background-color: #DC3545;
+    }
 }
 
 .btn-success {
     background-color: #48C774;
-    /* Aquí puedes cambiar el color a tu preferencia */
 }
