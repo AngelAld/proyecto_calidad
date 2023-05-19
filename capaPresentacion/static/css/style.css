@@ -11,8 +11,6 @@
 }
 
 .ls-button {
-    height: 2vb;
-    width: 1vb;
     font-size: 2vb;
 }
 :root {
@@ -76,7 +74,7 @@
     border: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 960px) {
     #sidebar-wrapper {
         margin-left: 0;
     }

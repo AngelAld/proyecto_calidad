@@ -1,8 +1,8 @@
 {% extends "maestra/maestra.html" %}
 {% block contenido %}
 <section class="section">
-    <div class="columns">
-        <div class="column">
+    <div class="row">
+        <div class="col">
 
             <form action="{{url}}" method="post">
                 {# Enviar el id en un campo oculto #}
@@ -36,10 +36,12 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn is-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
-                <a href="{{url_for('semestres')}}" class="button btn is-primary"><i class="fas fa-arrow-to-left"></i>&nbsp;&nbsp;Regresar</a>
+                <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
+                <a href="{{url_for('semestres')}}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
 
             </form>
+        </div>
+        <div class="col d-none d-md-block">
         </div>
     </div>
 </section>

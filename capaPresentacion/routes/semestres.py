@@ -92,11 +92,11 @@ def actualizar_semestre():
 @app.route("/actualizar_estado", methods=["POST"])
 def actualizar_estado():
     id = request.form["id"]
-    frm_estado = request.form.get("estado")
-    if frm_estado == 'on':
-        estado = 'A'
-    else:
-        estado = 'I'
+    estado = request.form["estado"]
+    # print('#########################')
+    # print(id)
+    # print(estado)
+    # print('#########################')
     mensaje = c_semestres.update_estado(id, estado)
 
     if mensaje[0] == "Operación realizada con éxito":
