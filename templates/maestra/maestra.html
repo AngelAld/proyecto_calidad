@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Prácticas - {% block titulo %}{% endblock %}</title>
+    {% include "maestra/links.html" %}
+</head>
+
+<body>
+    <div class="d-flex" id="wrapper">
+        {% include "maestra/sidebar.html" %}
+        <div id="page-content-wrapper">
+            {% include "maestra/header.html" %}
+            <div class="container-fluid px-4">
+                <div class="row">
+                    <div class="col">
+                        <div id="container-lg contenido" class="col mx-0 mx-md-auto mx-lg-auto">
+                            {% block contenido %}{% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    {% include "maestra/scripts.html" %}
+    {% include "assets/sweet_alerts.html" %}
+</body>
+
+</html>
