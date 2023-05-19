@@ -1,3 +1,7 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
 .flotante {
     position: fixed;
     bottom: 7%;
@@ -13,6 +17,7 @@
 .ls-button {
     font-size: 2vb;
 }
+
 :root {
     --second-text-color: #24262d;
     --second-bg-color: #c1efde;
@@ -21,6 +26,7 @@
 
 .second-text {
     color: var(--second-text-color);
+    text-decoration: none;
 }
 
 
@@ -87,4 +93,9 @@
     #wrapper.toggled #sidebar-wrapper {
         margin-left: -15rem;
     }
+}
+
+.btn-success {
+    background-color: #48C774;
+    /* Aquí puedes cambiar el color a tu preferencia */
 }
