@@ -1,17 +1,33 @@
+:root {
+    --second-text-color: #24262d;
+    --second-bg-color: #c1efde;
+}
+
 body {
     font-family: 'Open Sans', sans-serif;
+}
+
+.contenido {
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.col-custom {
+    flex-basis: 1%;
+    max-width: 1%;
 }
 
 #searchbar {
     font-family: Arial, FontAwesome
 }
 
+
 .pagination {
-    padding-top: 10px;
+    padding-top: 13px;
 }
 
 .above-table {
-    padding-top: 10px;
+    padding-top: 13px;
     padding-bottom: 10px;
 }
 
@@ -31,17 +47,15 @@ body {
     font-size: 2vb;
 }
 
-:root {
-    --second-text-color: #24262d;
-    --second-bg-color: #c1efde;
-}
-
 
 .second-text {
     color: var(--second-text-color);
     text-decoration: none;
 }
-
+.first-text{
+    color: var(--second-bg-color);
+    text-decoration: none;
+}
 
 .secondary-bg {
     background-color: var(--second-bg-color);
@@ -107,10 +121,6 @@ body {
 
     #wrapper.toggled #sidebar-wrapper {
         margin-left: -15rem;
-    }
-
-    .navbar {
-        background-color: #DC3545;
     }
 }
 
