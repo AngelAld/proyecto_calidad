@@ -8,4 +8,7 @@ def login():
 
 @app.route("/inicio")
 def inicio():
-    return render_template('principal/login.html')
+    return render_template('principal/inicio.html')
+
+
+usuario = "Admin"
