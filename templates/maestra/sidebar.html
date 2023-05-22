@@ -1,58 +1,57 @@
-<div class="bg-light" id="sidebar-wrapper">
+<div id="sidebar-wrapper" class="border-end offcanvas-lg offcanvas-start">
+
   <div class="sidebar-heading bg-danger text-center py-4 fs-4 fw-bolder text-uppercase">
     <a class="first-text" href="{{url_for('inicio')}}">Sistema de Prácticas</a>
   </div>
-  <div class="list-group list-group-flush my-3">
+
+  <div class="list-group list-group-flush">
+
     <a href="#moduloInstitucion" data-bs-toggle="collapse" aria-expanded="false"
-      class="list-group-item list-group-item-action bg-transparent second-text fw-bolder"><i
-        class="fas fa-university"></i>
-      <span class="d-none d-sm-inline">Módulo de Institución</span></a>
-    <ul class="collapse list-unstyled" id="moduloInstitucion">
-      <li><a class="list-group-item list-group-item-action bg-transparent second-text" href="#">Facultad</a></li>
-      <li><a class="list-group-item list-group-item-action bg-transparent second-text" href="#">Escuela Profesional</a>
-      </li>
-      <li><a class="list-group-item list-group-item-action bg-transparent second-text" href="#">Plan de estudio</a>
-      </li>
-      <li><a class="list-group-item list-group-item-action bg-transparent second-text" href="#">Línea de desarrollo</a>
-      </li>
-      <li><a class="list-group-item list-group-item-action bg-transparent second-text"
-          href="{{url_for('semestres')}}">Semestre Académico</a>
-      </li>
-      <li><a class="list-group-item list-group-item-action bg-transparent second-text" href="#">Estudiante</a></li>
-      <li><a class="list-group-item list-group-item-action bg-transparent second-text" href="#">Docente de apoyo</a>
-      </li>
+      class="list-group-item list-group-item-action fw-bolder flex-wrap ">
+      <i class="fas fa-university"></i>
+      <span class="d-none d-sm-inline">Institución</span></a>
+
+    <ul class="collapse " id="moduloInstitucion">
+      <a class="list-group-item list-group-item-action" href="#">Facultad</a>
+      <a class="list-group-item list-group-item-action" href="#">Escuela Profesional</a>
+      <a class="list-group-item list-group-item-action" href="#">Plan de estudio</a>
+      <a class="list-group-item list-group-item-action" href="#">Línea de desarrollo</a>
+      <a class="list-group-item list-group-item-action" href="{{url_for('semestres')}}">Semestre Académico</a>
+      <a class="list-group-item list-group-item-action" href="#">Estudiante</a>
+      <a class="list-group-item list-group-item-action" href="#">Docente de apoyo</a>
     </ul>
+
+
     <a href="#moduloPractica" data-bs-toggle="collapse" aria-expanded="false"
-      class="list-group-item list-group-item-action bg-transparent second-text fw-bolder"><i
-        class="fas fa-file-alt"></i>
-      <span class="d-none d-sm-inline">Módulo de Práctica</span></a>
+      class="list-group-item list-group-item-action  fw-bolder"><i class="fas fa-file-alt"></i>
+      <span class="d-none d-sm-inline">Práctica</span></a>
+
     <ul class="collapse list-unstyled" id="moduloPractica">
-      <li><a class="list-group-item list-group-item-action bg-transparent second-text" href="#">Práctica</a></li>
-      <li><a class="list-group-item list-group-item-action bg-transparent second-text" href="#submoduloDocumentos"
-          data-bs-toggle="collapse" aria-expanded="false">Documentos</a></li>
+      <a class="list-group-item list-group-item-action " href="#">Práctica</a>
+      <a class="list-group-item list-group-item-action " href="#submoduloDocumentos"
+        data-bs-toggle="collapse" aria-expanded="false">Documentos</a>
+
       <ul class="collapse list-unstyled" id="submoduloDocumentos">
-
-        <li><a class="list-group-item list-group-item-action bg-transparent second-text" href="#">Informe Inicial</a>
-        </li>
-        <li><a class="list-group-item list-group-item-action bg-transparent second-text" href="#">Evaluación de
-            desempeño</a></li>
-        <li><a class="list-group-item list-group-item-action bg-transparent second-text" href="#">Informe Final</a></li>
-
-        <li></li>
+        <a class="list-group-item list-group-item-action " href="#">Informe Inicial</a>
+        <a class="list-group-item list-group-item-action " href="#">Evaluación de desempeño</a>
+        <a class="list-group-item list-group-item-action " href="#">Informe Final</a>
       </ul>
-      <li><a class="list-group-item list-group-item-action bg-transparent second-text" href="#">Jefe inmediato</a></li>
-      <li><a class="list-group-item list-group-item-action bg-transparent second-text" href="#">Centro de prácticas</a>
-      </li>
+
+      <a class="list-group-item list-group-item-action " href="#">Jefe inmediato</a>
+      <a class="list-group-item list-group-item-action " href="#">Centro de prácticas</a>
     </ul>
+
     <a href="#moduloUbicacion" data-bs-toggle="collapse" aria-expanded="false"
-      class="list-group-item list-group-item-action bg-transparent second-text fw-bolder"><i
-        class="fas fa-map-marker-alt"></i>
-      <span class="d-none d-sm-inline">Módulo de Ubicación</span></a>
+      class="list-group-item list-group-item-action fw-bolder"><i class="fas fa-map-marker-alt"></i><span
+        class="d-none d-sm-inline">Ubicación</span></a>
+
     <ul class="collapse list-unstyled" id="moduloUbicacion">
-      <li><a class="list-group-item list-group-item-action bg-transparent second-text" href="#">País</a></li>
-      <li><a class="list-group-item list-group-item-action bg-transparent second-text" href="#">Departamento</a></li>
-      <li><a class="list-group-item list-group-item-action bg-transparent second-text" href="#">Provincia</a></li>
-      <li><a class="list-group-item list-group-item-action bg-transparent second-text" href="#">Distrito</a></li>
+      <a class="list-group-item list-group-item-action " href="#">País</a>
+      <a class="list-group-item list-group-item-action " href="#">Departamento</a>
+      <a class="list-group-item list-group-item-action " href="#">Provincia</a>
+      <a class="list-group-item list-group-item-action " href="#">Distrito</a>
     </ul>
+
   </div>
+
 </div>

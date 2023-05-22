@@ -13,7 +13,7 @@ OR REPLACE FUNCTION fn_read_semestres() RETURNS TABLE (
     fecha_inicio VARCHAR(10),
     fecha_fin VARCHAR(10),
     estado CHAR(1)
-) AS $ $ BEGIN RETURN QUERY
+) AS $$ BEGIN RETURN QUERY
 SELECT
     sa.id_semestre,
     sa.nombre,
@@ -28,7 +28,7 @@ ORDER BY
 
 END;
 
-$ $ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;
 
 CREATE
 OR REPLACE FUNCTION fn_create_semestre(
@@ -36,7 +36,7 @@ OR REPLACE FUNCTION fn_create_semestre(
     p_fecha_inicio DATE,
     p_fecha_fin DATE,
     p_estado CHAR(1)
-) RETURNS VARCHAR(255) AS $ $ DECLARE semestre_existe INTEGER;
+) RETURNS VARCHAR(255) AS $$ DECLARE semestre_existe INTEGER;
 
 fecha_actual DATE;
 
@@ -87,7 +87,7 @@ RETURN 'Operación realizada con éxito';
 
 END;
 
-$ $ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;
 
 CREATE
 OR REPLACE FUNCTION fn_update_semestre(
@@ -96,7 +96,7 @@ OR REPLACE FUNCTION fn_update_semestre(
     p_fecha_inicio DATE,
     p_fecha_fin DATE,
     p_estado CHAR(1)
-) RETURNS VARCHAR(255) AS $ $ DECLARE semestre_existe INTEGER;
+) RETURNS VARCHAR(255) AS $$ DECLARE semestre_existe INTEGER;
 
 error_message VARCHAR(255);
 
@@ -144,10 +144,10 @@ RETURN 'Operación realizada con éxito';
 
 END;
 
-$ $ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;
 
 CREATE
-OR REPLACE FUNCTION fn_delete_semestre(p_id INTEGER) RETURNS VARCHAR(100) AS $ $ DECLARE mensaje VARCHAR(100);
+OR REPLACE FUNCTION fn_delete_semestre(p_id INTEGER) RETURNS VARCHAR(100) AS $$ DECLARE mensaje VARCHAR(100);
 
 error_msg VARCHAR(100);
 
@@ -176,10 +176,10 @@ RETURN mensaje;
 
 END;
 
-$ $ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;
 
 CREATE
-OR REPLACE FUNCTION fn_update_estado(p_id_semestre INTEGER, p_estado CHAR(1)) RETURNS VARCHAR(255) AS $ $ DECLARE error_message VARCHAR(255);
+OR REPLACE FUNCTION fn_update_estado(p_id_semestre INTEGER, p_estado CHAR(1)) RETURNS VARCHAR(255) AS $$ DECLARE error_message VARCHAR(255);
 
 error_code INTEGER DEFAULT 99999;
 
@@ -206,4 +206,4 @@ RETURN 'Operación realizada con éxito';
 
 END;
 
-$ $ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;

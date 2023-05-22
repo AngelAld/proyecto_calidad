@@ -1,6 +1,6 @@
 var el = document.getElementById("wrapper");
 var toggleButton = document.getElementById("menu-toggle");
-var sidebar = document.getElementById("sidebar-wrapper");
+
 toggleButton.onclick = function () {
     el.classList.toggle("toggled");
 };
