@@ -10,7 +10,7 @@ async function eliminar(formulario) {
         showCancelButton: true,
         cancelButtonText: 'NO',
         confirmButtonText: 'SI',
-        reverseButtons: true
+        reverseButtons: false
     });
 
     if (result.isConfirmed) {

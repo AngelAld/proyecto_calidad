@@ -60,9 +60,14 @@ def update(id, nombre, fecha_inicio, fecha_fin, estado):
 def update_estado(id, estado):
     conexion = obtener_conexion()
     msg = []
+    new_estado = ""
+    if estado=="A":
+        new_estado="I"
+    else:
+        new_estado="A"
     with conexion.cursor() as cursor:
         cursor.execute("SELECT fn_update_estado(%s, %s)",
-                       (id, estado))
+                       (id, new_estado))
         msg = cursor.fetchone()
     conexion.commit()
     conexion.close()

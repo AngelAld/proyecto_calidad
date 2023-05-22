@@ -1,81 +1,79 @@
-{% extends "maestra.html" %}
+{% extends "maestra/maestra.html" %}
 {% block titulo %} Semestre Académico {% endblock %}
+{% set titulo2 = "Semestre Académico" %}
 {% block contenido %}
-<section class="section">
+<section class="section contenido">
   <div class="columns">
     <div class="col">
-      <h3 class="is-size-3">Semestre Académico</h3>
-      <a href="{{url_for('formulario_agregar_semestre')}}" class="button is-success flotante"><i
-          class="fas fa-plus"></i></a>
-      <table class="table text-center" id="tablita">
-        <thead>
-          <tr>
-            <th class="d-none d-sm-table-cell">Código</th>
-            <th>Nombre</th>
-            <th class="d-none d-sm-table-cell">Fecha Inicio</th>
-            <th class="d-none d-sm-table-cell">Fecha Fin</th>
-            <th class="d-none d-sm-table-cell">Estado</th>
-            <th>Editar</th>
-            <th>Eliminar</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for semestre in semestres %}
-          <tr>
-            <td class="d-none d-sm-table-cell">{{semestre[0]}}</td>
-            <td>{{semestre[1]}}</td>
-            <td class="d-none d-sm-table-cell">{{semestre[2]}}</td>
-            <td class="d-none d-sm-table-cell">{{semestre[3]}}</td>
-            <td class="d-none d-sm-table-cell">
-              <div class="row">
-                <div class="col-md-1 container">
-                  <form action="{{url_for('actualizar_estado')}}" method="POST" class="actualizar_estado">
-                    <input type="hidden" name="id" value="{{semestre[0]}}">
-                    <div class="form-check">
-                      <input class="form-check-input estado" type="checkbox" name="estado" id="estado" {% if
-                        semestre[4]=="A" %}checked{% endif %}>
-                      <label class="form-check-label" for="flexRadioDefault1">
-                        {% if semestre[4] == "A" %}
-                        Activo
-                        {% else %}
-                        Inactivo
-                        {% endif %}
-                      </label>
-                    </div>
-                  </form>
-                </div>
-              </div>
+      <div class="row">
+        <div class="col d-none d-sm-block above-table">
+        </div>
+        <div class="col-auto text-end above-table">
+          <input id="searchbar" class="form-control" type="text" placeholder="&#xF002; Buscar">
+        </div>
+        <div class="col-auto text-end above-table">
+          <a href="{{url_for('formulario_agregar_semestre')}}" class="btn btn-success"><i
+              class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
+        </div>
+      </div>
+      <div class="col-auto">
+        <table class="table table-hover align-middle table-bordered" id="tablita">
+          <thead>
+            <tr class="table-danger">
+              <th class="col-1 text-center d-none d-xl-table-cell">Código</th>
+              <th class="col-2 text-center">Nombre</th>
+              <th class="col-2 text-center d-none d-lg-table-cell">Fecha de Inicio</th>
+              <th class="col-2 text-center d-none d-lg-table-cell">Fecha de Fin</th>
+              <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
+              <th class="col-1 text-center">Editar</th>
+              <th class="col-1 text-center">Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for semestre in semestres %}
+            <tr>
+              <td class="col-1 text-center d-none d-xl-table-cell">{{semestre[0]}}</td>
+              <td class="col-2 text-center">{{semestre[1]}}</td>
+              <td class="col-2 text-center d-none d-lg-table-cell">{{semestre[2]}}</td>
+              <td class="col-2 text-center d-none d-lg-table-cell">{{semestre[3]}}</td>
+              <td class="col-1 text-center d-none d-md-table-cell">
+                <form action="{{url_for('actualizar_estado')}}" method="POST" class="actualizar_estado">
+                  <input type="hidden" name="id" value="{{semestre[0]}}">
+                  <input type="hidden" name="estado" value="{{semestre[4]}}">
+                  {% if semestre[4]=='A' %}
+                  <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
+                    data-bs-title="Desactivar semestre">
+                    <i class="bi bi-check-square-fill"></i>
+                  </button>
+                  {% else %}
+                  <button type="button" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip"
+                    data-bs-title="Activar semestre">
+                    
+                    <i class="bi bi-x-square-fill"></i>
+                  </button>
+                  {% endif %}
+                </form>
+              </td>
+              <td class="col-1 text-center">
+                {# Pasar el id lo que hay en semestre[0] #}
+                <a href="{{url_for('editar_semestre', id=semestre[0])}}" class="text-center btn btn-primary ls-button"
+                  data-bs-toggle="tooltip" data-bs-title="Editar semestre"><i class="fas fa-edit"></i></a>
+              </td>
+              <td class="col-1 text-center">
+                <form action="{{url_for('eliminar_semestre')}}" method="POST" id="eliminar_form">
+                  <input type="hidden" name="id" value="{{semestre[0]}}">
+                  <button class="btn btn-danger ls-button" id="eliminar_btn"
+                    onclick="event.preventDefault(); eliminar(this.parentNode)" data-bs-toggle="tooltip"
+                    data-bs-title="Eliminar semestre"><i class="fas fa-trash"></i></button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
 
-            </td>
-            <td>
-              {# Pasar el id (lo que hay en semestre[0] #}
-              <a href="{{url_for('editar_semestre', id=semestre[0])}}" class="button is-info"
-                style="width: 70px; height: 25px;">Editar</a>
-            </td>
-            <td>
-              <form action="{{url_for('eliminar_semestre')}}" method="POST" id="eliminar_form">
-                <input type="hidden" name="id" value="{{semestre[0]}}">
-                <button class="button is-danger" id="eliminar_btn" style="width: 70px; height: 25px;"
-                  onclick="event.preventDefault(); eliminar(this.parentNode)">Eliminar</button>
-              </form>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
     </div>
   </div>
 </section>
-
-{% endblock%}
-
-{% block scripts %}
-<script src="{{ url_for('static', filename='js/checkbox.js') }}"></script>
-<script src="{{ url_for('static', filename='js/eliminar.js') }}"></script>
-<script src="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.js"></script>
-<script>var table = new DataTable('#tablita', {
-    language: {
-      url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
-    },
-  });</script>
 {% endblock%}
