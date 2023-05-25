@@ -20,24 +20,24 @@
             
         </div>
 
-        <form class="formulario">
+        <form class="formulario" action="{{url_for('usuario.iniciar_sesion')}}" method="POST">
             <div class="texto-formulario">
                 <h2>Bienvenido de nuevo</h2>
                 <p>Inicia sesión con tu cuenta</p>
             </div>
             <div class="input">
                 <label for="usuario">Usuario</label>
-                <input placeholder="Ingresa tu nombre" type="text" id="usuario">
+                <input placeholder="Ingresa tu usuario" type="text" name="usuario" id="usuario">
             </div>
             <div class="input">
                 <label for="contraseña">Contraseña</label>
-                <input placeholder="Ingresa tu contraseña" type="password" id="contraseña">
+                <input placeholder="Ingresa tu contraseña" type="password" name="contraseña" id="contraseña">
             </div>
             <div class="password-olvidada">
                 <a href="#">¿Olvidaste tu contraseña?</a>
             </div>
             <div class="input">
-                <input type="submit" value="Login">
+                <input type="submit">
             </div>
         </form>
     </div>

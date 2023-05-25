@@ -15,12 +15,14 @@ def insert(nombre, fecha_inicio, fecha_fin, estado):
     conexion = obtener_conexion()
     msg = []
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT fn_create_semestre(%s, %s, %s, %s)",
-                       (nombre, fecha_inicio, fecha_fin, estado))
+        cursor.execute(
+            "SELECT fn_create_semestre(%s, %s, %s, %s)",
+            (nombre, fecha_inicio, fecha_fin, estado),
+        )
         msg = cursor.fetchone()
     conexion.commit()
     conexion.close()
-    return msg
+    return msg[0] if msg is not None else None
 
 
 def delete(id):
@@ -31,7 +33,7 @@ def delete(id):
         msg = cursor.fetchone()
     conexion.commit()
     conexion.close()
-    return msg
+    return msg[0] if msg is not None else None
 
 
 def getById(id):
@@ -39,7 +41,9 @@ def getById(id):
     semestre = None
     with conexion.cursor() as cursor:
         cursor.execute(
-            "SELECT id_semestre, nombre, fecha_inicio, fecha_fin, estado FROM SEMESTRE_ACADEMICO WHERE id_semestre=%s", (id,))
+            "SELECT id_semestre, nombre, fecha_inicio, fecha_fin, estado FROM SEMESTRE_ACADEMICO WHERE id_semestre=%s",
+            (id,),
+        )
         semestre = cursor.fetchone()
     conexion.close()
     return semestre
@@ -49,26 +53,27 @@ def update(id, nombre, fecha_inicio, fecha_fin, estado):
     conexion = obtener_conexion()
     msg = []
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT fn_update_semestre(%s, %s, %s, %s, %s)",
-                       (id, nombre, fecha_inicio, fecha_fin, estado))
+        cursor.execute(
+            "SELECT fn_update_semestre(%s, %s, %s, %s, %s)",
+            (id, nombre, fecha_inicio, fecha_fin, estado),
+        )
         msg = cursor.fetchone()
     conexion.commit()
     conexion.close()
-    return msg
+    return msg[0] if msg is not None else None
 
 
 def update_estado(id, estado):
     conexion = obtener_conexion()
     msg = []
     new_estado = ""
-    if estado=="A":
-        new_estado="I"
+    if estado == "A":
+        new_estado = "I"
     else:
-        new_estado="A"
+        new_estado = "A"
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT fn_update_estado(%s, %s)",
-                       (id, new_estado))
+        cursor.execute("SELECT fn_update_estado(%s, %s)", (id, new_estado))
         msg = cursor.fetchone()
     conexion.commit()
     conexion.close()
-    return msg
+    return msg[0] if msg is not None else None

@@ -12,7 +12,7 @@
           <input id="searchbar" class="form-control" type="text" placeholder="&#xF002; Buscar">
         </div>
         <div class="col-auto text-end above-table">
-          <a href="{{url_for('formulario_agregar_semestre')}}" class="btn btn-success"><i
+          <a href="{{url_for('semestre.formulario_agregar_semestre')}}" class="btn btn-success"><i
               class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
         </div>
       </div>
@@ -37,7 +37,7 @@
               <td class="col-2 text-center d-none d-lg-table-cell">{{semestre[2]}}</td>
               <td class="col-2 text-center d-none d-lg-table-cell">{{semestre[3]}}</td>
               <td class="col-1 text-center d-none d-md-table-cell">
-                <form action="{{url_for('actualizar_estado')}}" method="POST" class="actualizar_estado">
+                <form action="{{url_for('semestre.actualizar_estado')}}" method="POST" class="actualizar_estado">
                   <input type="hidden" name="id" value="{{semestre[0]}}">
                   <input type="hidden" name="estado" value="{{semestre[4]}}">
                   {% if semestre[4]=='A' %}
@@ -56,11 +56,11 @@
               </td>
               <td class="col-1 text-center">
                 {# Pasar el id lo que hay en semestre[0] #}
-                <a href="{{url_for('editar_semestre', id=semestre[0])}}" class="text-center btn btn-primary ls-button"
+                <a href="{{url_for('semestre.editar_semestre', id=semestre[0])}}" class="text-center btn btn-primary ls-button"
                   data-bs-toggle="tooltip" data-bs-title="Editar semestre"><i class="fas fa-edit"></i></a>
               </td>
               <td class="col-1 text-center">
-                <form action="{{url_for('eliminar_semestre')}}" method="POST" id="eliminar_form">
+                <form action="{{url_for('semestre.eliminar_semestre')}}" method="POST" id="eliminar_form">
                   <input type="hidden" name="id" value="{{semestre[0]}}">
                   <button class="btn btn-danger ls-button" id="eliminar_btn"
                     onclick="event.preventDefault(); eliminar(this.parentNode)" data-bs-toggle="tooltip"

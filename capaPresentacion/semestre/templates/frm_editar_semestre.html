@@ -1,4 +1,4 @@
-{% extends "semestre/mantenimiento_semestre.html" %}
+{% extends "mantenimiento_semestre.html" %}
 
 {% block titulo %} Editar Semestre Académico {% endblock %}
 {% set titulo2 = "Editar Semestre Académico" %}
@@ -7,4 +7,4 @@
 {% set fecha_inicio = semestre[2] %}
 {% set fecha_fin = semestre[3] %}
 {% set estado = semestre[4] %}
-{% set url = url_for('actualizar_semestre') %}
+{% set url = url_for('semestre.actualizar_semestre') %}

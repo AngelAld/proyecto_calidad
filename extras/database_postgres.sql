@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS SEMESTRE_ACADEMICO (
+CREATE TABLE IF NOT EXISTS SEMESTREACADEMICO(
     id_semestre SERIAL PRIMARY KEY,
     nombre varchar(50) NOT NULL,
     fecha_inicio date NOT NULL,
@@ -6,8 +6,63 @@ CREATE TABLE IF NOT EXISTS SEMESTRE_ACADEMICO (
     estado char(1) NOT NULL
 );
 
-CREATE
-OR REPLACE FUNCTION fn_read_semestres() RETURNS TABLE (
+CREATE TABLE IF NOT EXISTS ROL(
+    id SERIAL PRIMARY KEY,
+    nombre varchar(50) NOT NULL,
+    estado CHAR(1) NOT NULL
+);
+
+
+INSERT INTO ROL(nombre, estado) VALUES ("Administrador", "A");
+INSERT INTO ROL(nombre, estado) VALUES ("Docente de Apoyo", "A");
+
+CREATE TABLE IF NOT EXISTS USUARIO(
+    id SERIAL PRIMARY KEY,
+    idrol int DEFAULT NULL,
+    foreign key(idrol) references rol(id),
+    nombre varchar(100) DEFAULT NULL,
+    usuario VARCHAR(100),
+    clave text NOT NULL,
+    correo varchar(100) DEFAULT NULL,
+    estado CHAR(1) NOT NULL
+);
+
+INSERT INTO USUARIO(idrol, nombre, usuario, clave, correo, estado) VALUES(
+    1,
+    "Usuario de pruebas",
+    "Admin123"
+    "pbkdf2:sha256:600000$M09Hs8m0HnOgjHEN$9e09f13c3f67a284b1457535ec98155af7591427150c9cc069ef1e25bd728398",
+    "Admin123@gmail.com",
+    "A"
+);
+
+CREATE OR REPLACE FUNCTION fn_login
+(p_usuario VARCHAR(20),
+p_clave VARCHAR(100)
+)
+RETURNS TABLE(
+	id integer, 
+    idrol integer, 
+    nombre VARCHAR(100), 
+    usuario VARCHAR(100),
+	clave VARCHAR(100), 
+    correo VARCHAR(100), 
+    estado CHAR(1), 
+    rol VARCHAR(50))
+LANGUAGE 'plpgsql'
+AS $BODY$
+BEGIN
+	RETURN QUERY
+		SELECT 
+			u.*, r.nombre as rol
+		FROM usuarios u
+			INNER JOIN roles r on r.id=u.idrol
+		WHERE u.usuario=p_usuario AND u.clave=p_clave AND u.estado='A';
+END
+$BODY$;
+
+
+CREATE OR REPLACE FUNCTION fn_read_semestres() RETURNS TABLE (
     id_semestre INTEGER,
     nombre VARCHAR(50),
     fecha_inicio VARCHAR(10),
