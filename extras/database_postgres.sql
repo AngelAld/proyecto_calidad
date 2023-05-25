@@ -29,11 +29,11 @@ CREATE TABLE IF NOT EXISTS USUARIO(
 
 INSERT INTO USUARIO(idrol, nombre, usuario, clave, correo, estado) VALUES(
     1,
-    "Usuario de pruebas",
-    "Admin123"
-    "pbkdf2:sha256:600000$M09Hs8m0HnOgjHEN$9e09f13c3f67a284b1457535ec98155af7591427150c9cc069ef1e25bd728398",
-    "Admin123@gmail.com",
-    "A"
+    'Usuario de pruebas',
+    'Admin12',
+    'pbkdf2:sha256:600000$M09Hs8m0HnOgjHEN$9e09f13c3f67a284b1457535ec98155af7591427150c9cc069ef1e25bd728398',
+    'Admin123@gmail.com',
+    'A'
 );
 
 CREATE OR REPLACE FUNCTION fn_login
