@@ -37,15 +37,14 @@ INSERT INTO USUARIO(idrol, nombre, usuario, clave, correo, estado) VALUES(
 );
 
 CREATE OR REPLACE FUNCTION fn_login
-(p_usuario VARCHAR(20),
-p_clave VARCHAR(100)
+(p_usuario VARCHAR(20)
 )
 RETURNS TABLE(
 	id integer, 
     idrol integer, 
     nombre VARCHAR(100), 
     usuario VARCHAR(100),
-	clave VARCHAR(100), 
+	clave text, 
     correo VARCHAR(100), 
     estado CHAR(1), 
     rol VARCHAR(50))
@@ -55,12 +54,11 @@ BEGIN
 	RETURN QUERY
 		SELECT 
 			u.*, r.nombre as rol
-		FROM usuarios u
-			INNER JOIN roles r on r.id=u.idrol
-		WHERE u.usuario=p_usuario AND u.clave=p_clave AND u.estado='A';
+		FROM usuario u
+			INNER JOIN rol r on r.id=u.idrol
+		WHERE u.usuario=p_usuario;
 END
 $BODY$;
-
 
 CREATE OR REPLACE FUNCTION fn_read_semestres() RETURNS TABLE (
     id_semestre INTEGER,

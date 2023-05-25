@@ -11,13 +11,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
-
     <div class="contenedor-formulario contenedor">
         <div class="imagen-formulario">
-            
+
         </div>
 
         <form class="formulario" action="{{url_for('usuario.iniciar_sesion')}}" method="POST">
@@ -27,11 +28,11 @@
             </div>
             <div class="input">
                 <label for="usuario">Usuario</label>
-                <input placeholder="Ingresa tu usuario" type="text" name="usuario" id="usuario">
+                <input placeholder="Ingresa tu usuario" required type="text" name="usuario" id="usuario">
             </div>
             <div class="input">
                 <label for="contraseña">Contraseña</label>
-                <input placeholder="Ingresa tu contraseña" type="password" name="contraseña" id="contraseña">
+                <input placeholder="Ingresa tu contraseña" required type="password" name="contraseña" id="contraseña">
             </div>
             <div class="password-olvidada">
                 <a href="#">¿Olvidaste tu contraseña?</a>
@@ -42,6 +43,7 @@
         </form>
     </div>
 
+    {% include "assets/sweet_alerts.html" %}
 </body>
 
 </html>
