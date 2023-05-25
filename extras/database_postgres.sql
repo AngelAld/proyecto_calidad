@@ -13,8 +13,8 @@ CREATE TABLE IF NOT EXISTS ROL(
 );
 
 
-INSERT INTO ROL(nombre, estado) VALUES ("Administrador", "A");
-INSERT INTO ROL(nombre, estado) VALUES ("Docente de Apoyo", "A");
+INSERT INTO ROL(nombre, estado) VALUES ('Administrador', 'A');
+INSERT INTO ROL(nombre, estado) VALUES ('Docente de Apoyo', 'A');
 
 CREATE TABLE IF NOT EXISTS USUARIO(
     id SERIAL PRIMARY KEY,
