@@ -1,5 +1,5 @@
 from capaDatos.bd import obtener_conexion
-from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import check_password_hash
 
 
 def check_password(hashed_password, password):

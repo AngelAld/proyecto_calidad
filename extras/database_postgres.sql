@@ -13,8 +13,9 @@ CREATE TABLE IF NOT EXISTS ROL(
 );
 
 
-INSERT INTO ROL(nombre, estado) VALUES ('Administrador', 'A');
+INSERT INTO ROL(nombre, estado) VALUES ('Director de escuela', 'A');
 INSERT INTO ROL(nombre, estado) VALUES ('Docente de Apoyo', 'A');
+INSERT INTO ROL(nombre, estado) VALUES ('Estudiante', 'A');
 
 CREATE TABLE IF NOT EXISTS USUARIO(
     id SERIAL PRIMARY KEY,
@@ -30,11 +31,22 @@ CREATE TABLE IF NOT EXISTS USUARIO(
 INSERT INTO USUARIO(idrol, nombre, usuario, clave, correo, estado) VALUES(
     1,
     'Usuario de pruebas',
-    'Admin12',
+    'Admin123',
     'pbkdf2:sha256:600000$M09Hs8m0HnOgjHEN$9e09f13c3f67a284b1457535ec98155af7591427150c9cc069ef1e25bd728398',
-    'Admin123@gmail.com',
+    'admin123@gmail.com',
     'A'
 );
+
+INSERT INTO USUARIO(idrol, nombre, usuario, clave, correo, estado) VALUES(
+    2,
+    'Docente de pruebas',
+    'Docente123',
+    'pbkdf2:sha256:600000$M09Hs8m0HnOgjHEN$9e09f13c3f67a284b1457535ec98155af7591427150c9cc069ef1e25bd728398',
+    'docente12@gmail.com',
+    'A'
+);
+
+
 
 CREATE OR REPLACE FUNCTION fn_login
 (p_usuario VARCHAR(20)
