@@ -17,12 +17,13 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-user me-2"></i>Usuario
+                    <i class="fas fa-user me-2"></i>{{session['nombre']}}
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="{{url_for('usuario.cerrar_sesion')}}">Logout</a></li>
+                    <li><a class="dropdown-item dropdown-item-red" href="#">Perfil</a></li>
+                    <li><a class="dropdown-item dropdown-item-red" href="#">Ajustes</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item dropdown-item-red" href="{{url_for('usuario.cerrar_sesion')}}">Cerrar sesión</a></li>
                 </ul>
             </li>
         </ul>

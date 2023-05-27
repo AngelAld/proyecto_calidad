@@ -156,3 +156,8 @@ body {
 .btn-success {
     background-color: #48C774;
 }
+
+.dropdown-item-red:hover {
+    background-color: #dc3545 !important;
+    color: white !important;
+}

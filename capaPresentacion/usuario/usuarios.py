@@ -27,5 +27,4 @@ def iniciar_sesion():
 @usuarios_bp.route("/cerrar_sesion")
 def cerrar_sesion():
     session.clear()
-    print(session)
     return redirect(url_for('usuario.login'))
