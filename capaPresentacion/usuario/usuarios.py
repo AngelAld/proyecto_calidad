@@ -5,9 +5,9 @@ usuarios_bp = Blueprint("usuario", __name__, template_folder="templates")
 @usuarios_bp.route("/")
 def login():
     if 'nombre' in session:
-        return redirect(url_for('inicio.inicio'))
+        return redirect(url_for('inicio.inicio')) #
     else:
-        return render_template('login.html')
+        return render_template('login.html') #cargar un html
 
 @usuarios_bp.route("/iniciar_sesion" , methods=["POST"])
 def iniciar_sesion():
