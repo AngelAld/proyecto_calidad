@@ -1,0 +1,9 @@
+{% extends "mantenimiento_facultad.html" %}
+
+{% block titulo %} Editar Facultad {% endblock %}
+{% set titulo2 = "Editar Facultad" %}
+{% set id = facultad[0] %}
+{% set nombre = facultad[1] %}
+{% set descripcion = facultad[2] %}
+{% set estado = <facultad 3=""></facultad> %}
+{% set url = url_for('facultad.actualizar_facultad') %}
