@@ -1,0 +1,100 @@
+{% extends "maestra/maestra.html" %}
+{% block titulo %} Linea de Desarrollo {% endblock %}
+{% set titulo2 = "Linea de Desarrollo " %}
+{% block contenido %}
+<section class="section contenido">
+  <div class="columns">
+    <div class="col">
+      <div class="row">
+        <div class="col d-none d-sm-block above-table">
+
+          <!-- The second value will be selected initially -->
+          </p>Escuela</p>
+
+          <select class="col-auto text-end above-table" class="form-select" aria-label="Default select example">
+            <option selected> </option>
+            <option value="1">Ingenieria</option>
+            <option value="2"></option>
+            <option value="3"></option>
+          </select>
+
+          </p>Facultad</p>
+
+          <select class="col-auto text-end above-table" class="form-select" aria-label="Default select example">
+            <option selected> </option>
+            <option value="1">Ingenieria de Sistemas y Computacion</option>
+            <option value="2"></option>
+            <option value="3"></option>
+          </select>
+
+
+        </div>
+        <div class="col-auto text-end above-table">
+          <input id="searchbar" class="form-control" type="text" placeholder="&#xF002; Buscar">
+        </div>
+
+        <div class="col-auto text-end above-table">
+          <a href="#" class="btn btn-success"><i class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
+        </div>
+      </div>
+      <div class="col-auto">
+        <table class="table table-hover align-middle table-bordered" id="tablita">
+          <thead>
+            <tr class="table-danger">
+              <th class="col-1 text-center d-none d-xl-table-cell">Código</th>
+              <th class="col-2 text-center">Nombre</th>
+              <th class="col-2 text-center">Descripcion</th>
+              <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
+              <th class="col-1 text-center">Editar</th>
+              <th class="col-1 text-center">Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for lineaDesarrollo in linea_desarrollo %}
+            <tr>
+              <td class="col-1 text-center d-none d-xl-table-cell">{{lineaDesarrollo[0]}}</td>
+              <td class="col-2 text-center">{{lineaDesarrollo[1]}}</td>
+              <td class="col-2 text-center">{{lineaDesarrollo[2]}}</td>
+              <td class="col-1 text-center d-none d-md-table-cell">
+                <form action="{{url_for('lineaDesarrollo.actualizar_lineaDesarrollo')}}" method="POST"
+                  class="actualizar_lineaDesarrollo">
+                  <input type="hidden" name="id" value="{{lineaDesarrollo[0]}}">
+                  <input type="hidden" name="estado" value="{{lineaDesarrollo[3]}}">
+                  {% if lineaDesarrollo[4]=='A' %}
+                  <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
+                    data-bs-title="Desactivar Linea de Desarrollo">
+                    <i class="bi bi-check-square-fill"></i>
+                  </button>
+                  {% else %}
+                  <button type="button" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip"
+                    data-bs-title="Activar Linea de Desarrollo">
+
+                    <i class="bi bi-x-square-fill"></i>
+                  </button>
+                  {% endif %}
+                </form>
+              </td>
+              <td class="col-1 text-center">
+                {# Pasar el id lo que hay en semestre[0] #}
+                <a href="{{url_for('lineaDesarrollo.editar_lineaDesarrollo', id=lineaDesarrollo[0])}}"
+                  class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
+                  data-bs-title="Editar Linea de Desarrollo"><i class="fas fa-edit"></i></a>
+              </td>
+              <td class="col-1 text-center">
+                <form action="{{url_for('lineaDesarrollo.eliminar_lineaDesarrollo')}}" method="POST" id="eliminar_form">
+                  <input type="hidden" name="id" value="{{lineaDesarrollo[0]}}">
+                  <button class="btn btn-danger ls-button" id="eliminar_btn"
+                    onclick="event.preventDefault(); eliminar(this.parentNode)" data-bs-toggle="tooltip"
+                    data-bs-title="Eliminar Linea de Desarrollo"><i class="fas fa-trash"></i></button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock%}
