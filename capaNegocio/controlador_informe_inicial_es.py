@@ -25,7 +25,13 @@ def insert(nombre, fecha_inicio, fecha_fin, estado):
     return msg[0] if msg is not None else None
 
 
-
+def delete(id):
+    conexion = obtener_conexion()
+    msg = []
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT fn_delete_semestre(%s)", (id,))
+        msg = cursor.fetchone()
+    conexion.commit()
     conexion.close()
     return msg[0] if msg is not None else None
 
