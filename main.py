@@ -24,6 +24,5 @@ if __name__ == "__main__":
         ssl_context=app.config.get("SSL"),
     )
 
-
 #Comentario para pushear
 #aldana malo

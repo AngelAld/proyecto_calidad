@@ -59,7 +59,8 @@
                 <a href="{{url_for('semestre.editar_semestre', id=semestre[0])}}" class="text-center btn btn-primary ls-button"
                   data-bs-toggle="tooltip" data-bs-title="Editar semestre"><i class="fas fa-edit"></i></a>
               </td>
-              <td class="col-1 text-center">
+              <
+              td class="col-1 text-center">
                 <form action="{{url_for('semestre.eliminar_semestre')}}" method="POST" id="eliminar_form">
                   <input type="hidden" name="id" value="{{semestre[0]}}">
                   <button class="btn btn-danger ls-button" id="eliminar_btn"
