@@ -27,7 +27,7 @@ def guardar_semestre():
         else:
             estado = "I"
 
-        mensaje = c_semestres.insert(nombre, fecha_inicio, fecha_fin, estado)
+        mensaje = c_semestres.agregar_semestre(nombre, fecha_inicio, fecha_fin, estado)
 
         if mensaje == "Operación realizada con éxito":
             flash(f"Semestre Registrado con Exito", "success")
@@ -44,7 +44,7 @@ def semestres():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        semestres = c_semestres.getAll()
+        semestres = c_semestres.listar_semestres()
         return render_template("semestres.html", semestres=semestres)
 
 
@@ -53,7 +53,7 @@ def eliminar_semestre():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        mensaje = c_semestres.delete(request.form["id"])
+        mensaje = c_semestres.eliminar_semestre(request.form["id"])
         if mensaje == "Operación realizada con éxito":
             flash(f"Semestre Eliminado con Exito", "success")
         else:
@@ -67,7 +67,7 @@ def editar_semestre(id):
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        semestre = c_semestres.getById(id)
+        semestre = c_semestres.buscar_semestreID(id)
         return render_template("frm_editar_semestre.html", semestre=semestre)
 
 
@@ -86,7 +86,7 @@ def actualizar_semestre():
         else:
             estado = "I"
 
-        mensaje = c_semestres.update(id, nombre, fecha_inicio, fecha_fin, estado)
+        mensaje = c_semestres.actualizar_semestre(id, nombre, fecha_inicio, fecha_fin, estado)
 
         if mensaje == "Operación realizada con éxito":
             flash(f"Semestre Actualizado con Exito", "success")
@@ -104,7 +104,7 @@ def actualizar_estado():
     else:
         id = request.form["id"]
         estado = request.form["estado"]
-        mensaje = c_semestres.update_estado(id, estado)
+        mensaje = c_semestres.dar_baja_semestre(id, estado)
 
         if mensaje == "Operación realizada con éxito":
             flash(f"Semestre Actualizado con Exito", "success")

@@ -1,7 +1,7 @@
 from capaDatos.bd import obtener_conexion
 
 
-def getAll():
+def listar_semestres():
     conexion = obtener_conexion()
     semestres = []
     with conexion.cursor() as cursor:
@@ -11,7 +11,7 @@ def getAll():
     return semestres
 
 
-def insert(nombre, fecha_inicio, fecha_fin, estado):
+def agregar_semestre(nombre, fecha_inicio, fecha_fin, estado):
     conexion = obtener_conexion()
     msg = []
     with conexion.cursor() as cursor:
@@ -25,7 +25,7 @@ def insert(nombre, fecha_inicio, fecha_fin, estado):
     return msg[0] if msg is not None else None
 
 
-def delete(id):
+def eliminar_semestre(id):
     conexion = obtener_conexion()
     msg = []
     with conexion.cursor() as cursor:
@@ -36,7 +36,7 @@ def delete(id):
     return msg[0] if msg is not None else None
 
 
-def getById(id):
+def buscar_semestreID(id):
     conexion = obtener_conexion()
     semestre = None
     with conexion.cursor() as cursor:
@@ -49,7 +49,7 @@ def getById(id):
     return semestre
 
 
-def update(id, nombre, fecha_inicio, fecha_fin, estado):
+def actualizar_semestre(id, nombre, fecha_inicio, fecha_fin, estado):
     conexion = obtener_conexion()
     msg = []
     with conexion.cursor() as cursor:
@@ -63,7 +63,7 @@ def update(id, nombre, fecha_inicio, fecha_fin, estado):
     return msg[0] if msg is not None else None
 
 
-def update_estado(id, estado):
+def dar_baja_semestre(id, estado):
     conexion = obtener_conexion()
     msg = []
     new_estado = ""

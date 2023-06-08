@@ -28,3 +28,5 @@ def iniciar_sesion():
 def cerrar_sesion():
     session.clear()
     return redirect(url_for('usuario.login'))
+
+
