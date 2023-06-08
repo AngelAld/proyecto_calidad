@@ -1,0 +1,80 @@
+{% extends "maestra/maestra.html" %}
+{% block titulo %} Informe Incial Estudiante {% endblock %}
+{% set titulo2 = "Informe Incial Estudiante" %}
+{% block contenido %}
+<section class="section contenido">
+  <div class="columns">
+    <div class="col">
+      <div class="row">
+        <div class="col d-none d-sm-block above-table">
+        </div>
+        <div class="col-auto text-end above-table">
+          <input id="searchbar" class="form-control" type="text" placeholder="&#xF002; Buscar">
+        </div>
+        <div class="col-auto text-end above-table">
+          <a href="#" class="btn btn-success"><i
+              class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
+        </div>
+      </div>
+      <div class="col-auto">
+        <table class="table table-hover align-middle table-bordered" id="tablita">
+          <thead>
+            <tr class="table-danger">
+              <th class="col-1 text-center d-none d-xl-table-cell">Código</th>
+              <th class="col-2 text-center">Estudiantes</th>
+              <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
+              <th class="col-1 text-center">Editar</th>
+              <th class="col-1 text-center">Eliminar</th>
+              <th class="col-1 text-center">Ver</th>
+              <th class="col-1 text-center">Descargar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for informe_inicial_es in informes_inicial_es %}
+            <tr>
+              <td class="col-1 text-center d-none d-xl-table-cell">{{informe_inicial_es[0]}}</td>
+              <td class="col-2 text-center">{{informe_inicial_es[1]}}</td>
+              <td class="col-2 text-center">{{informe_inicial_es[3]}}</td>
+              <td class="col-2 text-center">{{informe_inicial_es[4]}}</td>
+              <td class="col-2 text-center">{{informe_inicial_es[5]}}</td>
+              <td class="col-1 text-center d-none d-md-table-cell">
+                <form action="{{url_for('informe_inicial_es.actualizar_estado')}}" method="POST" class="actualizar_estado">
+                  <input type="hidden" name="id" value="{{informe_inicial_es[0]}}">
+                  <input type="hidden" name="estado" value="{{informe_inicial_es[2]}}">
+                  {% if informe_inicial_es[2]=='A' %}
+                  <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
+                    data-bs-title="Desactivar semestre">
+                    <i class="bi bi-check-square-fill"></i>
+                  </button>
+                  {% else %}
+                  <button type="button" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip"
+                    data-bs-title="Activar Informe Inicial Estudiante">
+                    
+                    <i class="bi bi-x-square-fill"></i>
+                  </button>
+                  {% endif %}
+                </form>
+              </td>
+              <td class="col-1 text-center">
+                {# Pasar el id lo que hay en informe_inicial_es[0] #}
+                <a href="{{url_for('informe_inicial_es.editar_informe_inicial_es', id=informe_inicial_es[0])}}" class="text-center btn btn-primary ls-button"
+                  data-bs-toggle="tooltip" data-bs-title="Editar informe_inicial_es"><i class="fas fa-edit"></i></a>
+              </td>
+              <td class="col-1 text-center">
+                <form action="{{url_for('informe_iniciales.eliminar_informe_inicial_es')}}" method="POST" id="eliminar_form">
+                  <input type="hidden" name="id" value="{{informe_inicial_es[0]}}">
+                  <button class="btn btn-danger ls-button" id="eliminar_btn"
+                    onclick="event.preventDefault(); eliminar(this.parentNode)" data-bs-toggle="tooltip"
+                    data-bs-title="Eliminar informe_inicial_es"><i class="fas fa-trash"></i></button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock%}
