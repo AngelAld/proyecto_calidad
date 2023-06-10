@@ -20,6 +20,21 @@ INSERT INTO USUARIO(idrol, nombre, usuario, clave, correo, estado) VALUES(
     'A'
 );
 
+--FUNCIONES DE FACULTAD PROBADAS -----------------------------------------------------------------
+select * from fn_agregar_facultad('Ingenieria', 'AAA', 'A');
+
+select * from fn_agregar_facultad('Medicina', 'AAA', 'A');
+
+select * from  fn_listar_facultad();
+
+select * from fn_consultar_facultad_id(1);
+
+select * from fn_editar_facultad(1, 'Ingenieria Editada', 'AAA', 'A'); 
+
+select * from fn_eliminar_facultad(1); 
+
+select * from fn_actualizar_estado_facultad(2, 'I');
+
 
 
 
