@@ -1,0 +1,84 @@
+{% extends "maestra/maestra.html" %}
+{% block titulo %} Docente de Apoyo {% endblock %}
+{% set titulo2 = "Docente de Apoyo" %}
+{% block contenido %}
+
+<section class="section contenido">
+    <div class="columns">
+      <div class="col">
+        <div class="row">
+          <div class="col d-none d-sm-block above-table">
+          </div>
+          <div class="col-auto text-end above-table">
+            <input id="searchbar" class="form-control" type="text" placeholder="&#xF002; Buscar">
+          </div>
+          <div class="col-auto text-end above-table">
+            <a href="{{url_for('semestre.formulario_agregar_semestre')}}" class="btn btn-success"><i
+                class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
+          </div>
+        </div>
+        <div class="col-auto">
+          <table class="table table-hover align-middle table-bordered" id="tablita">
+            <thead>
+              <tr class="table-danger">
+                <th class="col-2 text-center">Nombre</th>
+                <th class="col-2 text-center d-none d-lg-table-cell">Correo</th>
+                <th class="col-2 text-center d-none d-lg-table-cell">Título</th>
+                <th class="col-2 text-center d-none d-lg-table-cell">Escuela Profesional</th>
+                <th class="col-2 text-center d-none d-lg-table-cell">Usuario</th>
+                <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
+                <th class="col-1 text-center">Editar</th>
+                <th class="col-1 text-center">Eliminar</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for docente in docentes %}
+              <tr>
+                <td class="col-1 text-center d-none d-xl-table-cell">{{docente[0]}}</td>
+                <td class="col-2 text-center">{{docente[1]}}</td>
+                <td class="col-2 text-center d-none d-lg-table-cell">{{docente[2]}}</td>
+                <td class="col-2 text-center d-none d-lg-table-cell">{{docente[3]}}</td>
+                <td class="col-2 text-center d-none d-lg-table-cell">{{docente[4]}}</td>
+                <td class="col-2 text-center d-none d-lg-table-cell">{{docente[5]}}</td>
+                <td class="col-1 text-center d-none d-md-table-cell">
+                  <form action="{{url_for('docente.actualizar_estado')}}" method="POST" class="actualizar_estado">
+                    <input type="hidden" name="id" value="{{docente[0]}}">
+                    <input type="hidden" name="estado" value="{{docente[6]}}">
+                    {% if docente[6]=='A' %}
+                    <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
+                      data-bs-title="Desactivar docente">
+                      <i class="bi bi-check-square-fill"></i>
+                    </button>
+                    {% else %}
+                    <button type="button" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip"
+                      data-bs-title="Activar docente">
+                      
+                      <i class="bi bi-x-square-fill"></i>
+                    </button>
+                    {% endif %}
+                  </form>
+                </td>
+                <td class="col-1 text-center">
+                  {# Pasar el id lo que hay en docente[0] #}
+                  <a href="{{url_for('docente.editar_docente', id=docente[0])}}" class="text-center btn btn-primary ls-button"
+                    data-bs-toggle="tooltip" data-bs-title="Editar docente"><i class="fas fa-edit"></i></a>
+                </td>
+                <td class="col-1 text-center">
+                  <form action="{{url_for('docente.eliminar_docente')}}" method="POST" id="eliminar_form">
+                    <input type="hidden" name="id" value="{{docente[0]}}">
+                    <button class="btn btn-danger ls-button" id="eliminar_btn"
+                      onclick="event.preventDefault(); eliminar(this.parentNode)" data-bs-toggle="tooltip"
+                      data-bs-title="Eliminar docente"><i class="fas fa-trash"></i></button>
+                  </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+  
+      </div>
+    </div>
+  </section>
+
+{% endblock%}
