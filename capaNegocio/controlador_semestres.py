@@ -5,7 +5,7 @@ def listar_semestres():
     conexion = obtener_conexion()
     semestres = []
     with conexion.cursor() as cursor:
-        cursor.execute("select * from fn_read_semestres()")
+        cursor.execute("select * from fn_listar_semestre_academico()")
         semestres = cursor.fetchall()
     conexion.close()
     return semestres
@@ -16,7 +16,7 @@ def agregar_semestre(nombre, fecha_inicio, fecha_fin, estado):
     msg = []
     with conexion.cursor() as cursor:
         cursor.execute(
-            "SELECT fn_create_semestre(%s, %s, %s, %s)",
+            "SELECT fn_agregar_semestre(%s, %s, %s, %s)",
             (nombre, fecha_inicio, fecha_fin, estado),
         )
         msg = cursor.fetchone()
@@ -29,7 +29,7 @@ def eliminar_semestre(id):
     conexion = obtener_conexion()
     msg = []
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT fn_delete_semestre(%s)", (id,))
+        cursor.execute("SELECT fn_eliminar_semestre(%s)", (id,))
         msg = cursor.fetchone()
     conexion.commit()
     conexion.close()
@@ -41,7 +41,7 @@ def buscar_semestreID(id):
     semestre = None
     with conexion.cursor() as cursor:
         cursor.execute(
-            "SELECT id_semestre, nombre, fecha_inicio, fecha_fin, estado FROM SEMESTRE_ACADEMICO WHERE id_semestre=%s",
+            "select * from fn_consultar_semestre_academico_ID(%s)",
             (id,),
         )
         semestre = cursor.fetchone()
@@ -54,7 +54,7 @@ def actualizar_semestre(id, nombre, fecha_inicio, fecha_fin, estado):
     msg = []
     with conexion.cursor() as cursor:
         cursor.execute(
-            "SELECT fn_update_semestre(%s, %s, %s, %s, %s)",
+            "SELECT fn_editar_semestre(%s, %s, %s, %s, %s)",
             (id, nombre, fecha_inicio, fecha_fin, estado),
         )
         msg = cursor.fetchone()
@@ -72,7 +72,7 @@ def dar_baja_semestre(id, estado):
     else:
         new_estado = "A"
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT fn_update_estado(%s, %s)", (id, new_estado))
+        cursor.execute("SELECT fn_actualizar_estado_semestre(%s, %s)", (id, new_estado))
         msg = cursor.fetchone()
     conexion.commit()
     conexion.close()

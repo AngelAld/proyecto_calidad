@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, flash, session, url_for
-from capaNegocio import controlador_lineaDesarrollo as c_lineaDesarrollo
+from capaNegocio import controlador_lineadesarrollo as c_lineaDesarrollo
 
 
 linea_desarrollo_bp = Blueprint("lineaDesarrollo", __name__, template_folder="templates")
