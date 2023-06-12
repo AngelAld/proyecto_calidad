@@ -1,4 +1,16 @@
 from capaDatos import bd
+from capaDatos.bd import obtener_conexion
+
+
+
+def getAll():
+    conexion = obtener_conexion()
+    centroPractica = []
+ #   with conexion.cursor() as cursor:
+ #       cursor.execute("select * from fn_read_lineaDesarrollo()")
+  #      lineaDesarrollo = cursor.fetchall()
+    conexion.close()
+    return centroPractica
 
 def listar_cppp():
     conexion = bd.obtener_conexion()
