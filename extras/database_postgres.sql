@@ -6,28 +6,6 @@ CREATE TABLE IF NOT EXISTS SEMESTRE_ACADEMICO(
     estado char(1) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS INFORME_INICIAL_ES(
-    id_informe_inicial_es SERIAL PRIMARY KEY,
-    estado char(1) NOT NULL
-);
-CREATE TABLE IF NOT EXISTS OBJETIVO(
-    id_objetivo SERIAL PRIMARY KEY,
-    descripcion varchar(255) NOT NULL,
-    id_informe_inicial_es INTEGER NOT NULL,
-    CONSTRAINT fk_informe_inicial_es FOREIGN KEY (id_informe_inicial_es) REFERENCES INFORME_INICIAL_ES(id_informe_inicial_es)
-);
-
-CREATE TABLE IF NOT EXISTS PLAN_TRABAJO(
-    id_plan_trabajo SERIAL PRIMARY KEY,
-    n_semana INTEGER NOT NULL,
-    fecha_inicio date NOT NULL,
-    fecha_fin date NOT NULL,
-    actividad varchar(255) NOT NULL,
-    num_horas inicio INTEGER NOT NULL
-    id_informe_inicial_es INTEGER NOT NULL,
-    CONSTRAINT fk_informe_inicial_es FOREIGN KEY (id_informe_inicial_es) REFERENCES INFORME_INICIAL_ES(id_informe_inicial_es)
-);
-
 CREATE TABLE IF NOT EXISTS ROL(
     id SERIAL PRIMARY KEY,
     nombre varchar(50) NOT NULL,
