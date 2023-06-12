@@ -53,3 +53,8 @@ select * from fn_eliminar_linea_desarrollo (1);
 
 select * from fn_eliminar_linea_desarrollo (1);
 
+
+--FUNCIONES DE DOCENTE DE APOYO PROBADAS ----------------------------------------------------------------------------------
+
+
+select * from fn_agregar_docente_apoyo('Docente de prueba1', 'docente_prueba1@gmail.com', )

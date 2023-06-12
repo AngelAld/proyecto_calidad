@@ -51,7 +51,7 @@ CREATE TABLE DIRECTOR_ESCUELA (
   correo                 varchar(255) NOT NULL, 
   estado                 char(1) NOT NULL, 
   id_escuela_profesional int4 NOT NULL, 
-  id_usuario             int4 NOT NULL, 
+  id_usuario             int4, 
   PRIMARY KEY (id_director_escuela));
 CREATE TABLE DOCENTE_APOYO (
   id_docente_apoyo       SERIAL NOT NULL, 
@@ -60,7 +60,7 @@ CREATE TABLE DOCENTE_APOYO (
   estado                 char(1) NOT NULL, 
   id_titulo              int4 NOT NULL, 
   id_escuela_profesional int4 NOT NULL, 
-  id_usuario             int4 NOT NULL, 
+  id_usuario             int4, 
   PRIMARY KEY (id_docente_apoyo));
 CREATE TABLE ESCUELA_PROFESIONAL (
   id_escuela_profesional SERIAL NOT NULL, 
@@ -75,7 +75,7 @@ CREATE TABLE ESTUDIANTE (
   nombre                        varchar(255) NOT NULL, 
   correo                        varchar(255) NOT NULL, 
   estado                        char(1), 
-  id_usuario                    int4 NOT NULL, 
+  id_usuario                    int4, 
   id_semestre_academico_ingreso int4 NOT NULL, 
   id_plan_estudio               int4 NOT NULL, 
   PRIMARY KEY (id_estudiante));
