@@ -1,6 +1,6 @@
 {% extends "maestra/maestra.html" %}
-{% block titulo %} Informe Incial Estudiante {% endblock %}
-{% set titulo2 = "Informe Incial Estudiante" %}
+{% block titulo %} Informe Incial Empresa {% endblock %}
+{% set titulo2 = "Informe Incial Empresa" %}
 {% block contenido %}
 <section class="section contenido">
   <div class="columns">
@@ -21,7 +21,7 @@
           <thead>
             <tr class="table-danger">
               <th class="col-1 text-center d-none d-xl-table-cell">Código</th>
-              <th class="col-2 text-center">Estudiantes</th>
+              <th class="col-2 text-center">Empresas</th>
               <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
               <th class="col-1 text-center">Editar</th>
               <th class="col-1 text-center">Eliminar</th>
@@ -30,25 +30,25 @@
             </tr>
           </thead>
           <tbody>
-            {% for informe_inicial_es in informes_inicial_es %}
+            {% for informe_inicial_em in informes_inicial_em %}
             <tr>
-              <td class="col-1 text-center d-none d-xl-table-cell">{{informe_inicial_es[0]}}</td>
-              <td class="col-2 text-center">{{informe_inicial_es[1]}}</td>
-              <td class="col-2 text-center">{{informe_inicial_es[3]}}</td>
-              <td class="col-2 text-center">{{informe_inicial_es[4]}}</td>
-              <td class="col-2 text-center">{{informe_inicial_es[5]}}</td>
+              <td class="col-1 text-center d-none d-xl-table-cell">{{informe_inicial_em[0]}}</td>
+              <td class="col-2 text-center">{{informe_inicial_em[1]}}</td>
+              <td class="col-2 text-center">{{informe_inicial_em[3]}}</td>
+              <td class="col-2 text-center">{{informe_inicial_em[4]}}</td>
+              <td class="col-2 text-center">{{informe_inicial_em[5]}}</td>
               <td class="col-1 text-center d-none d-md-table-cell">
-                <form action="{{url_for('informe_inicial_es.actualizar_estado')}}" method="POST" class="actualizar_estado">
-                  <input type="hidden" name="id" value="{{informe_inicial_es[0]}}">
+                <form action="{{url_for('informe_inicial_em.actualizar_estado')}}" method="POST" class="actualizar_estado">
+                  <input type="hidden" name="id" value="{{informe_inicial_em[0]}}">
                   <input type="hidden" name="estado" value="{{informe_inicial_es[2]}}">
-                  {% if informe_inicial_es[2]=='A' %}
+                  {% if informe_inicial_em[2]=='A' %}
                   <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
                     data-bs-title="Desactivar informe">
                     <i class="bi bi-check-square-fill"></i>
                   </button>
                   {% else %}
                   <button type="button" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip"
-                    data-bs-title="Activar Informe Inicial Estudiante">
+                    data-bs-title="Activar Informe Inicial Empresa">
                     
                     <i class="bi bi-x-square-fill"></i>
                   </button>
@@ -56,16 +56,16 @@
                 </form>
               </td>
               <td class="col-1 text-center">
-                {# Pasar el id lo que hay en informe_inicial_es[0] #}
-                <a href="{{url_for('informe_inicial_es.editar_informe_inicial_es', id=informe_inicial_es[0])}}" class="text-center btn btn-primary ls-button"
-                  data-bs-toggle="tooltip" data-bs-title="Editar informe_inicial_es"><i class="fas fa-edit"></i></a>
+                {# Pasar el id lo que hay en informe_inicial_em[0] #}
+                <a href="{{url_for('informe_inicial_em.editar_informe_inicial_em', id=informe_inicial_em[0])}}" class="text-center btn btn-primary ls-button"
+                  data-bs-toggle="tooltip" data-bs-title="Editar informe_inicial_em"><i class="fas fa-edit"></i></a>
               </td>
               <td class="col-1 text-center">
-                <form action="{{url_for('informe_iniciales.eliminar_informe_inicial_es')}}" method="POST" id="eliminar_form">
+                <form action="{{url_for('informe_inicial_em.eliminar_informe_inicial_em')}}" method="POST" id="eliminar_form">
                   <input type="hidden" name="id" value="{{informe_inicial_es[0]}}">
                   <button class="btn btn-danger ls-button" id="eliminar_btn"
                     onclick="event.preventDefault(); eliminar(this.parentNode)" data-bs-toggle="tooltip"
-                    data-bs-title="Eliminar informe_inicial_es"><i class="fas fa-trash"></i></button>
+                    data-bs-title="Eliminar informe_inicial_em"><i class="fas fa-trash"></i></button>
                 </form>
               </td>
             </tr>
