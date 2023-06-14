@@ -1,0 +1,8 @@
+{% extends "mantenimiento_plan_estudio.html" %}
+
+{% block titulo %} Editar Plan de Estudio {% endblock %}
+{% set titulo2 = "Editar Plan de Estudio" %}
+{% set id = planEstudio[0] %}
+{% set nombre = planEstudio[1] %}
+{% set estado = planEstudio[2] %}
+{% set url = url_for('planEstudio.actualizar_plan_estudio') %}
