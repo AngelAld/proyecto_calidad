@@ -1,0 +1,87 @@
+{% extends "maestra/maestra.html" %}
+{% block titulo %} estudiante {% endblock %}
+{% set titulo2 = "estudiante" %}
+{% block contenido %}
+<section class="section contenido">
+  <div class="columns">
+    <div class="col">
+      <div class="row">
+        <div class="col d-none d-sm-block above-table">
+        </div>
+        <div class="col-auto text-end above-table">
+          <input id="searchbar" class="form-control" type="text" placeholder="&#xF002; Buscar">
+        </div>
+        <div class="col-auto text-end above-table">
+          <a href="{{url_for('estudiante.formulario_agregar_estudiante')}}" class="btn btn-success"><i
+              class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
+              <a href="#" class="btn btn-success"><i
+                class="fas fa-plus-circle"></i>&nbsp;Importar</a>
+        </div>
+      </div>
+      <div class="col-auto">
+        <table class="table table-hover align-middle table-bordered" id="tablita">
+          <thead>
+            <tr class="table-danger">
+              <th class="col-1 text-center d-none d-xl-table-cell">Código</th>
+              <th class="col-2 text-center">Cod_universitario</th>
+              <th class="col-2 text-center">Nombre</th>
+              <th class="col-2 text-center">Correo</th>
+              <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
+              <th class="col-2 text-center">id_usuario</th>
+              <th class="col-2 text-center">id_semestre_academico_ingreso</th>
+              <th class="col-2 text-center">id_plan_estudio</th>
+              <th class="col-1 text-center">Editar</th>
+              <th class="col-1 text-center">Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for estudiante in estudiante %}
+            <tr>
+              <td class="col-1 text-center d-none d-xl-table-cell">{{estudiante[0]}}</td>
+              <td class="col-2 text-center">{{estudiante[1]}}</td>
+              <td class="col-2 text-center">{{estudiante[2]}}</td>
+              <td class="col-2 text-center">{{estudiante[3]}}</td>
+              <td class="col-1 text-center d-none d-md-table-cell">
+                <form action="{{url_for('estudiante.actualizar_estado')}}" method="POST" class="actualizar_estado">
+                  <input type="hidden" name="id" value="{{estudiante[0]}}">
+                  <input type="hidden" name="estado" value="{{estudiante[4]}}">
+                  {% if estudiante[4]=='A' %}
+                  <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
+                    data-bs-title="Desactivar estudiante">
+                    <i class="bi bi-check-square-fill"></i>
+                  </button>
+                  {% else %}
+                  <button type="button" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip"
+                    data-bs-title="Activar estudiante">
+                    
+                    <i class="bi bi-x-square-fill"></i>
+                  </button>
+                  {% endif %}
+                </form>
+              </td>
+              <td class="col-2 text-center">{{estudiante[5]}}</td>
+              <td class="col-2 text-center">{{estudiante[6]}}</td>
+              <td class="col-2 text-center">{{estudiante[7]}}</td>
+              <td class="col-1 text-center">
+                {# Pasar el id lo que hay en estudiante[0] #}
+                <a href="{{url_for('estudiante.editar_estudiante', id=estudiante[0])}}" class="text-center btn btn-primary ls-button"
+                  data-bs-toggle="tooltip" data-bs-title="Editar estudiante"><i class="fas fa-edit"></i></a>
+              </td>
+              <td class="col-1 text-center">
+                <form action="{{url_for('estudiante.eliminar_estudiante')}}" method="POST" id="eliminar_form">
+                  <input type="hidden" name="id" value="{{estudiante[0]}}">
+                  <button class="btn btn-danger ls-button" id="eliminar_btn"
+                    onclick="event.preventDefault(); eliminar(this.parentNode)" data-bs-toggle="tooltip"
+                    data-bs-title="Eliminar estudiante"><i class="fas fa-trash"></i></button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock%}
