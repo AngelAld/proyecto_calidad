@@ -1,20 +1,20 @@
 from flask import Blueprint, render_template, request, redirect, flash, session, url_for
-from capaNegocio import controlador_semestres as c_semestres
+from capaNegocio import controlador_Estudiante as c_estudiante
 
 
-semestres_bp = Blueprint("semestre", __name__, template_folder="templates")
+estudiante_bp = Blueprint("estudiante", __name__, template_folder="templates")
 
 
-@semestres_bp.route("/agregar_semestre")
-def formulario_agregar_semestre():
+@estudiante_bp.route("/agregar_estudiante")
+def formulario_agregar_estudiante():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        return render_template("frm_agregar_semestre.html")
+        return render_template("frm_agregar_estudiante.html")
 
 
-@semestres_bp.route("/guardar_semestre", methods=["POST"])
-def guardar_semestre():
+@estudiante_bp.route("/guardar_estudiante", methods=["POST"])
+def guardar_estudiante():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
@@ -27,52 +27,52 @@ def guardar_semestre():
         else:
             estado = "I"
 
-        mensaje = c_semestres.agregar_semestre(nombre, fecha_inicio, fecha_fin, estado)
+        mensaje = c_estudiante.insert(nombre, fecha_inicio, fecha_fin, estado)
 
         if mensaje == "Operación realizada con éxito":
-            flash(f"Semestre Registrado con Exito", "success")
-            url = "/semestres"
+            flash(f"estudiante Registrado con Exito", "success")
+            url = "/estudiante"
         else:
             flash(str(mensaje), "error")
-            url = "/agregar_semestre"
+            url = "/agregar_estudiante"
 
         return redirect(url)
 
 
-@semestres_bp.route("/semestres")
-def semestres():
+@estudiante_bp.route("/estudiante")
+def estudiante():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        semestres = c_semestres.listar_semestres()
-        return render_template("semestres.html", semestres=semestres)
+        estudiante = c_estudiante.getAll()
+        return render_template("estudiante.html", estudiante=estudiante)
 
 
-@semestres_bp.route("/eliminar_semestre", methods=["POST"])
-def eliminar_semestre():
+@estudiante_bp.route("/eliminar_estudiante", methods=["POST"])
+def eliminar_estudiante():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        mensaje = c_semestres.eliminar_semestre(request.form["id"])
+        mensaje = c_estudiante.delete(request.form["id"])
         if mensaje == "Operación realizada con éxito":
-            flash(f"Semestre Eliminado con Exito", "success")
+            flash(f"estudiante Eliminado con Exito", "success")
         else:
             flash(str(mensaje), "error")
 
-        return redirect("/semestres")
+        return redirect("/estudiante")
 
 
-@semestres_bp.route("/formulario_editar_semestre/<int:id>")
-def editar_semestre(id):
+@estudiante_bp.route("/formulario_editar_estudiante/<int:id>")
+def editar_estudiante(id):
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        semestre = c_semestres.buscar_semestreID(id)
-        return render_template("frm_editar_semestre.html", semestre=semestre)
+        estudiante = c_estudiante.getById(id)
+        return render_template("frm_editar_estudiante.html", estudiante=estudiante)
 
 
-@semestres_bp.route("/actualizar_semestre", methods=["POST"])
-def actualizar_semestre():
+@estudiante_bp.route("/actualizar_estudiante", methods=["POST"])
+def actualizar_estudiante():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
@@ -86,29 +86,29 @@ def actualizar_semestre():
         else:
             estado = "I"
 
-        mensaje = c_semestres.actualizar_semestre(id, nombre, fecha_inicio, fecha_fin, estado)
+        mensaje = c_estudiante.update(id, nombre, fecha_inicio, fecha_fin, estado)
 
         if mensaje == "Operación realizada con éxito":
-            flash(f"Semestre Actualizado con Exito", "success")
-            url = "/semestres"
+            flash(f"estudiante Actualizado con Exito", "success")
+            url = "/estudiante"
         else:
             flash(str(mensaje), "error")
-            url = "/formulario_editar_semestre/" + id
+            url = "/formulario_editar_estudiante/" + id
         return redirect(url)
 
 
-@semestres_bp.route("/actualizar_estado", methods=["POST"])
+@estudiante_bp.route("/actualizar_estado", methods=["POST"])
 def actualizar_estado():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
         id = request.form["id"]
         estado = request.form["estado"]
-        mensaje = c_semestres.dar_baja_semestre(id, estado)
+        mensaje = c_estudiante.update_estado(id, estado)
 
         if mensaje == "Operación realizada con éxito":
-            flash(f"Semestre Actualizado con Exito", "success")
+            flash(f"estudiante Actualizado con Exito", "success")
         else:
             flash(str(mensaje), "error")
 
-        return redirect("/semestres")
+        return redirect("/estudiante")
