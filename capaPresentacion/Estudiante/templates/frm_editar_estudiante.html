@@ -1,0 +1,13 @@
+{% extends "mantenimiento_estudiante.html" %}
+
+{% block titulo %} Editar estudiante Académico {% endblock %}
+{% set titulo2 = "Editar estudiante Académico" %}
+{% set id = estudiante[0] %}
+{% set cod_universitario = estudiante[1] %}
+{% set nombre = estudiante[2] %}
+{% set correo = estudiante[3] %}
+{% set estado = estudiante[4] %}
+{% set id_usuario = estudiante[5] %}
+{% set id_semestre_academico_ingreso = estudiante[6] %}
+{% set id_plan_estudio = estudiante[7] %}
+{% set url = url_for('estudiante.actualizar_estudiante') %}
