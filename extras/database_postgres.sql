@@ -17,23 +17,7 @@ INSERT INTO ROL(nombre, estado) VALUES ('Director de escuela', 'A');
 INSERT INTO ROL(nombre, estado) VALUES ('Docente de Apoyo', 'A');
 INSERT INTO ROL(nombre, estado) VALUES ('Estudiante', 'A');
 
---ELIANA BARTUREN TRUJILLANO
-CREATE TABLE IF NOT EXISTS FACULTAD(
-    id_facultad SERIAL PRIMARY KEY,
-    nombre varchar(50) NOT NULL,
-    descripcion varchar(200) NOT NULL,
-    estado char(1) NOT NULL
-);
 
-CREATE TABLE IF NOT EXISTS ESCUELA_PROFESIONAL(
-    id_escuela_profesional SERIAL PRIMARY KEY,
-    nombre varchar(50) NOT NULL,
-    descripcion varchar(200) NOT NULL,
-    estado char(1) NOT NULL,
-    id_facultad int NOT NULL
-    CONSTRAINT fk_facultad FOREIGN KEY (id_facultad)
-    REFERENCES FACULTAD (id_facultad)
-);
 
 
 
@@ -293,4 +277,4 @@ END;
 
 $$ LANGUAGE plpgsql;
 
---FUNCIONES: BARTUREN TRUJILLANO
+
