@@ -5,6 +5,7 @@ from capaPresentacion.usuario.usuarios import usuarios_bp
 from capaPresentacion.lineaDesarrollo.linea_desarrollo import linea_desarrollo_bp
 from capaPresentacion.Estudiante.estudiante import estudiante_bp
 from capaPresentacion.docenteApoyo.docentes import docentes_bp
+from capaPresentacion.planEstudio.plan_estudio import plan_estudio_bp
 
 app = Flask(__name__, static_url_path=None)
 app.secret_key = "nose"
@@ -14,6 +15,7 @@ app.register_blueprint(usuarios_bp)
 app.register_blueprint(linea_desarrollo_bp)
 app.register_blueprint(estudiante_bp)
 app.register_blueprint(docentes_bp)
+app.register_blueprint(plan_estudio_bp)
 
 # Iniciar el servidor
 if __name__ == "__main__":
