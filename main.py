@@ -3,6 +3,7 @@ from capaPresentacion.inicio.inicio import inicio_bp
 from capaPresentacion.semestre.semestres import semestres_bp
 from capaPresentacion.usuario.usuarios import usuarios_bp
 from capaPresentacion.facultad.facultades import facultad_bp
+from capaPresentacion.escuela_profesional.escuelas import escuela_bp
 
 from capaPresentacion.lineaDesarrollo.linea_desarrollo import linea_desarrollo_bp
 from capaPresentacion.Estudiante.estudiante import estudiante_bp
@@ -15,6 +16,7 @@ app.register_blueprint(inicio_bp)
 app.register_blueprint(semestres_bp)
 app.register_blueprint(usuarios_bp)
 app.register_blueprint(facultad_bp)
+app.register_blueprint(escuela_bp)
 
 # Iniciar el servidor
 if __name__ == "__main__":
