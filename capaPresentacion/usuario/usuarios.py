@@ -15,10 +15,10 @@ def iniciar_sesion():
     if usuario == None:
         flash("El usuario no existe", "error")
     else:
-        if usuario[4]:
+        if usuario[3]:
             session['id'] = usuario[0]
             session['nombre'] = usuario[2]
-            session['rol'] = usuario[7]
+            session['rol'] = usuario[6]
             return redirect(url_for('inicio.inicio'))
         else:
             flash("Contraseña incorrecta", "error")

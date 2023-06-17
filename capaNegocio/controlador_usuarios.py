@@ -22,10 +22,10 @@ def login(username, password):
             row[0],
             row[1],
             row[2],
-            row[3],
-            check_password(row[4], password),
+            check_password(row[3], password),
+            row[4],
             row[5],
-            row[6],
-            row[7],
+            row[6]
         ]
+        print(list(row))
     return user

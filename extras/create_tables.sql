@@ -42,7 +42,7 @@ CREATE TABLE DETALLE_PRACTICA (
   horas                 int4, 
   id_practica           int4 NOT NULL, 
   id_jefe_inmediato     int4 NOT NULL, 
-  id_semestre_academico int4 NOT NULL, 
+  id_semestre int4 NOT NULL, 
   id_linea_desarrollo   int4 NOT NULL, 
   PRIMARY KEY (id_detalle_practica));
 CREATE TABLE DIRECTOR_ESCUELA (
@@ -76,7 +76,7 @@ CREATE TABLE ESTUDIANTE (
   correo                        varchar(255) NOT NULL, 
   estado                        char(1), 
   id_usuario                    int4, 
-  id_semestre_academico_ingreso int4 NOT NULL, 
+  id_semestre_ingreso int4 NOT NULL, 
   id_plan_estudio               int4 NOT NULL, 
   PRIMARY KEY (id_estudiante));
 CREATE TABLE FACULTAD (
@@ -198,12 +198,12 @@ CREATE TABLE ROL (
   estado char(1) NOT NULL, 
   PRIMARY KEY (id_rol));
 CREATE TABLE SEMESTRE_ACADEMICO (
-  id_semestre_academico SERIAL NOT NULL, 
+  id_semestre           SERIAL NOT NULL, 
   nombre                varchar(255) NOT NULL UNIQUE, 
   fecha_inicio          date NOT NULL, 
   fecha_fin             date NOT NULL, 
   estado                char(1) NOT NULL, 
-  PRIMARY KEY (id_semestre_academico));
+  PRIMARY KEY (id_semestre));
 CREATE TABLE TITULO_PROFESIONAL (
   id_titulo   SERIAL NOT NULL, 
   nombre      varchar(255) NOT NULL, 
@@ -222,7 +222,8 @@ CREATE TABLE UBICACION (
   PRIMARY KEY (id_ubicacion));
 CREATE TABLE USUARIO (
   id_usuario SERIAL NOT NULL, 
-  usuario    varchar(50) NOT NULL, 
+  usuario    varchar(50) NOT NULL,
+  nombre     varchar(255) NOT NULL,
   clave      text NOT NULL, 
   estado     char(1) NOT NULL, 
   id_rol     int4 NOT NULL, 
@@ -241,8 +242,8 @@ ALTER TABLE ESTUDIANTE ADD CONSTRAINT FKESTUDIANTE529263 FOREIGN KEY (id_usuario
 ALTER TABLE DIRECTOR_ESCUELA ADD CONSTRAINT FKDIRECTOR_E761047 FOREIGN KEY (id_usuario) REFERENCES USUARIO (id_usuario);
 ALTER TABLE DOCENTE_APOYO ADD CONSTRAINT FKDOCENTE_AP163628 FOREIGN KEY (id_usuario) REFERENCES USUARIO (id_usuario);
 ALTER TABLE PRACTICA ADD CONSTRAINT FKPRACTICA599798 FOREIGN KEY (id_estudiante) REFERENCES ESTUDIANTE (id_estudiante);
-ALTER TABLE DETALLE_PRACTICA ADD CONSTRAINT FKDETALLE_PR837463 FOREIGN KEY (id_semestre_academico) REFERENCES SEMESTRE_ACADEMICO (id_semestre_academico);
-ALTER TABLE ESTUDIANTE ADD CONSTRAINT FKESTUDIANTE878495 FOREIGN KEY (id_semestre_academico_ingreso) REFERENCES SEMESTRE_ACADEMICO (id_semestre_academico);
+ALTER TABLE DETALLE_PRACTICA ADD CONSTRAINT FKDETALLE_PR837463 FOREIGN KEY (id_semestre) REFERENCES SEMESTRE_ACADEMICO (id_semestre);
+ALTER TABLE ESTUDIANTE ADD CONSTRAINT FKESTUDIANTE878495 FOREIGN KEY (id_semestre_ingreso) REFERENCES SEMESTRE_ACADEMICO (id_semestre);
 ALTER TABLE PLAN_TRABAJO ADD CONSTRAINT FKPLAN_TRABA223183 FOREIGN KEY (id_informe_inicial_es) REFERENCES INFORME_INICIAL_ES (id_informe_inicial_es);
 ALTER TABLE OBJETIVO ADD CONSTRAINT FKOBJETIVO739515 FOREIGN KEY (id_informe_inicial_es) REFERENCES INFORME_INICIAL_ES (id_informe_inicial_es);
 ALTER TABLE INFORME_INICIAL_ES ADD CONSTRAINT FKINFORME_IN64603 FOREIGN KEY (id_detalle_practica) REFERENCES DETALLE_PRACTICA (id_detalle_practica);

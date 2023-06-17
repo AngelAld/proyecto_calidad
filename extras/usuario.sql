@@ -3,13 +3,12 @@ CREATE OR REPLACE FUNCTION fn_login
 (p_usuario VARCHAR(20)
 )
 RETURNS TABLE(
-	id integer, 
-    idrol integer, 
-    nombre VARCHAR(100), 
-    usuario VARCHAR(100),
-	clave text, 
-    correo VARCHAR(100), 
-    estado CHAR(1), 
+	id_usuario integer, 
+    usuario VARCHAR(50),
+	nombre VARCHAR,
+	clave text,
+    estado CHAR(1),
+	idrol integer,  
     rol VARCHAR(50))
 LANGUAGE 'plpgsql'
 AS $BODY$
@@ -18,7 +17,7 @@ BEGIN
 		SELECT 
 			u.*, r.nombre as rol
 		FROM usuario u
-			INNER JOIN rol r on r.id=u.idrol
+			INNER JOIN rol r on r.id_rol=u.id_rol
 		WHERE u.usuario=p_usuario;
 END
 $BODY$;
