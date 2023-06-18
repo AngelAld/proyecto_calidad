@@ -63,5 +63,7 @@ git commit -m "comentario"
 git pull origin main # para descargar los cambios a tu rama
 ```
 Probablemente aparezcan los dos cambios en su editor
-Le dan a **"accept both changes"** (si ven que hay muchos conflictos, hagan una copia de seguridad de sus cosas por si acaso)
+Le dan a **"accept both changes"** o **"aceptar ambos cambios"** (si ven que hay muchos conflictos, hagan una copia de seguridad de sus cosas por si acaso)
+
+SI APARECE UN "!" NO SE PREOCUPEN, SOLO HAGAN DE NUEVO UN GIT ADD Y GIT COMMIT Y SE ARREGLA
 

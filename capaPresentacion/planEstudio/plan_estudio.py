@@ -45,18 +45,18 @@ def guardar_plan_estudio():
 
         return redirect(url)
     
-#@plan_estudio.route("/eliminar_plan_estudio", methods=["POST"])
-#def eliminar_plan_estudio():
-#    if "rol" not in session or session["rol"] != "Docente de Apoyo":
- #       return redirect(url_for("inicio.inicio"))
-  #  else:
-   #     mensaje = c_planEstudio.eliminar_plan_estudio(request.form["id"])
-    #    if mensaje == "Operación realizada con éxito":
-     #       flash(f"Plan Estudio Eliminado con Exito", "success")
-      #  else:
-       #     flash(str(mensaje), "error")
+@plan_estudio_bp.route("/eliminar_plan_estudio", methods=["POST"])
+def eliminar_plan_estudio():
+    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+        return redirect(url_for("inicio.inicio"))
+    else:
+        mensaje = c_planEstudio.eliminar_plan_estudio(request.form["id"])
+        if mensaje == "Operación realizada con éxito":
+            flash(f"Plan Estudio Eliminado con Exito", "success")
+        else:
+            flash(str(mensaje), "error")
 
-        #return redirect("/plan_estudio")
+        return redirect("/plan_estudio")
 
 @plan_estudio_bp.route("/formulario_editar_plan_estudio/<int:id>")
 def editar_plan_estudio(id):
@@ -90,13 +90,15 @@ def actualizar_plan_estudio():
             url = "/formulario_editar_plan_estudio/" + id
         return redirect(url)
     
-@plan_estudio_bp.route("/actualizar_estado", methods=["POST"])
-def actualizar_estado():
+@plan_estudio_bp.route("/actualizar_estado_plan_estudio", methods=["POST"])
+def actualizar_estado_plan_estudio():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
         id = request.form["id"]
         estado = request.form["estado"]
+        print(estado)
+        print("aquiiiii")
         mensaje = c_planEstudio.dar_baja_plan_estudio(id, estado)
 
         if mensaje == "Operación realizada con éxito":
