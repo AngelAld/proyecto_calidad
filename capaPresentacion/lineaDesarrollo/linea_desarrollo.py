@@ -18,7 +18,8 @@ def formulario_agregar_lineaDesarrollo():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        return render_template("frm_agregar_lineaDesarrollo.html")
+        escuelas = c_lineaDesarrollo.obtener_escuelas()
+        return render_template("frm_agregar_lineaDesarrollo.html", escuelas=escuelas)
 
 
 @linea_desarrollo_bp.route("/guardar_lineaDesarrollo", methods=["POST"])
@@ -33,7 +34,7 @@ def guardar_lineaDesarrollo():
             estado = "A"
         else:
             estado = "I"
-        id_escuela_profesional = request.form["escuela_profesional"]
+        id_escuela_profesional = request.form["escuelas"]
         
         mensaje = c_lineaDesarrollo.agregar_lineaDesarrollo(nombre, descripcion, estado,id_escuela_profesional)
 
@@ -82,7 +83,7 @@ def actualizar_lineaDesarrollo():
             estado = "A"
         else:
             estado = "I"
-        id_escuela_profesional = request.form["escuela_profesional"]
+        id_escuela_profesional = request.form["escuelas"]
         
         mensaje = c_lineaDesarrollo.actualizar_lineaDesarrollo(id, nombre, descripcion, estado,id_escuela_profesional)
 
@@ -117,12 +118,12 @@ def actualizar_estado_lineaDesarrollo():
 
 #********************************************* Lo uso para listar en combo a linea de desarrollo (NO BORRAR ESTA FUNCION) *
 
-# @linea_desarrollo_bp.route("/cmb_escuelas")
-# def cmb_escuelas():
-#     if "rol" not in session or session["rol"] != "Docente de Apoyo":
-#         return redirect(url_for("inicio.inicio"))
-#     else:
-#         escuelas = c_lineaDesarrollo.obtener_escuelas()
-#         return render_template("lineaDesarrollo.html", escuelas=escuelas)
+@linea_desarrollo_bp.route("/cmb_escuelas")
+def cmb_escuelas():
+    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+        return redirect(url_for("inicio.inicio"))
+    else:
+        escuelas = c_lineaDesarrollo.obtener_escuelas()
+        return render_template("lineaDesarrollo.html", escuelas=escuelas)
 
 #***************************************************************
