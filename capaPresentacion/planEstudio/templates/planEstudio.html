@@ -59,8 +59,8 @@
               <td class="col-2 text-center">{{planEstudio[1]}}</td>
 
               <td class="col-1 text-center d-none d-md-table-cell">
-                <form action="{{url_for('planEstudio.actualizar_planEstudio')}}" method="POST"
-                  class="actualizar_planEstudio">
+                <form action="{{url_for('planEstudio.actualizar_estado_plan_estudio')}}" method="POST"
+                  class="actualizar_estado">
                   <input type="hidden" name="id" value="{{planEstudio[0]}}">
                   <input type="hidden" name="estado" value="{{planEstudio[2]}}">
                   {% if planEstudio[2]=='A' %}
@@ -85,7 +85,7 @@
                   data-bs-title="Editar Plan de Estudio"><i class="fas fa-edit"></i></a>
               </td>
               <td class="col-1 text-center">
-                <form action="{{url_for('planEstudio.eliminar_plan-estudio')}}" method="POST" id="eliminar_form">
+                <form action="{{url_for('planEstudio.eliminar_plan_estudio')}}" method="POST" id="eliminar_form">
                   <input type="hidden" name="id" value="{{planEstudio[0]}}">
                   <button class="btn btn-danger ls-button" id="eliminar_btn"
                     onclick="event.preventDefault(); eliminar(this.parentNode)" data-bs-toggle="tooltip"
