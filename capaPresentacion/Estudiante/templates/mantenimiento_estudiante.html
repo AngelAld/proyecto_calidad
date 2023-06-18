@@ -13,6 +13,11 @@
                         name="cod_universitario" id="cod_universitario">
                     <label for="cod_universitario">cod_universitario</label>
                 </div>
+                <div class="form-floating mb-4">
+                    <input value="{{dni}}" required type="text" class="form-control input" placeholder="dni"
+                        name="dni" id="dni">
+                    <label for="dni">DNI</label>
+                </div>
 
                 <div class="form-floating mb-4">
                     <input value="{{nombre}}" required type="text" class="form-control input" placeholder="Nombre"
@@ -20,11 +25,25 @@
                     <label for="nombre">Nombre</label>
                 </div>
                 <div class="form-floating mb-4">
-                    <input value="{{correo}}" required type="text" class="form-control input" placeholder="correo"
-                        name="correo" id="correo">
-                    <label for="correo">correo</label>
+                    <input value="{{correo_usat}}" required type="text" class="form-control input" placeholder="correo_usat"
+                        name="correo_usat" id="correo_usat">
+                    <label for="correo_usat">correo usat</label>
                 </div>
-                
+                <div class="form-floating mb-4">
+                    <input value="{{correo_personal}}" required type="text" class="form-control input" placeholder="correo_personal"
+                        name="correo_personal" id="correo_personal">
+                    <label for="correo_personal">correo personal</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <input value="{{telefono}}" required type="text" class="form-control input" placeholder="telefono"
+                        name="telefono" id="telefono">
+                    <label for="telefono">telefono</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <input value="{{telefono2}}" required type="text" class="form-control input" placeholder="telefono2"
+                        name="telefono2" id="telefono2">
+                    <label for="telefono2">telefono2</label>
+                </div>
                 <div class="form-floating mb-4">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="estado" id="estado" {% if
@@ -34,6 +53,22 @@
                         </label>
                     </div>
                 </div>
+                <div class="form-floating mb-4">
+                    <input value="{{id_usuario}}" required type="text" class="form-control input" placeholder="id_usuario"
+                        name="id_usuario" id="id_usuario">
+                    <label for="id_usuario">id_usuario</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <input value="{{id_semestre_academico_ingreso}}" required type="text" class="form-control input" placeholder="id_semestre_academico_ingreso"
+                        name="id_semestre_academico_ingreso" id="id_semestre_academico_ingreso">
+                    <label for="id_semestre_academico_ingreso">id_semestre_academico_ingreso</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <input value="{{id_plan_estudio}}" required type="text" class="form-control input" placeholder="id_plan_estudio"
+                        name="id_plan_estudio" id="id_semestre_academico_ingreso">
+                    <label for="id_plan_estudio">id_plan_estudio</label>
+                </div>
+
 
                 <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
                 <a href="{{url_for('estudiante.estudiante')}}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
