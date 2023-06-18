@@ -67,7 +67,8 @@ def editar_lineaDesarrollo(id):
         return redirect(url_for("inicio.inicio"))
     else:
         lineaDesarrollo = c_lineaDesarrollo.buscar_lineaDesarrolloID(id)
-        return render_template("frm_editar_lineaDesarrollo.html", lineaDesarrollo=lineaDesarrollo)
+        escuelas = c_lineaDesarrollo.obtener_escuelas()
+        return render_template("frm_editar_lineaDesarrollo.html", lineaDesarrollo=lineaDesarrollo, escuelas=escuelas)
 
 
 @linea_desarrollo_bp.route("/actualizar_lineaDesarrollo", methods=["POST"])
@@ -83,6 +84,7 @@ def actualizar_lineaDesarrollo():
             estado = "A"
         else:
             estado = "I"
+            
         id_escuela_profesional = request.form["escuelas"]
         
         mensaje = c_lineaDesarrollo.actualizar_lineaDesarrollo(id, nombre, descripcion, estado,id_escuela_profesional)
@@ -126,4 +128,12 @@ def cmb_escuelas():
         escuelas = c_lineaDesarrollo.obtener_escuelas()
         return render_template("lineaDesarrollo.html", escuelas=escuelas)
 
+
+@linea_desarrollo_bp.route("/cmb_facultades")
+def cmb_facultades():
+    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+        return redirect(url_for("inicio.inicio"))
+    else:
+        facultades = c_lineaDesarrollo.obtener_facultades()
+        return render_template("lineaDesarrollo.html", facultades=facultades)
 #***************************************************************

@@ -48,13 +48,13 @@ def buscar_lineaDesarrolloID(id):
     return lineaDesarrollo
 
 
-def actualizar_lineaDesarrollo(id, nombre, descripcion, estado):
+def actualizar_lineaDesarrollo(id, nombre, descripcion, estado, id_escuela):
     conexion = obtener_conexion()
     msg = []
     with conexion.cursor() as cursor:
         cursor.execute(
-            "SELECT fn_editar_linea_desarrollo(%s, %s, %s, %s)",
-            (id, nombre, descripcion, estado),
+            "SELECT fn_editar_linea_desarrollo(%s, %s, %s, %s, %s)",
+            (id, nombre, descripcion, estado, id_escuela),
         )
         msg = cursor.fetchone()
     conexion.commit()
@@ -86,5 +86,16 @@ def obtener_escuelas():
         escuelas = cursor.fetchall()
     conexion.close()
     return escuelas
+
+#***************************************************************
+
+#********************************************* Listar Escuelas y Facultades *
+def obtener_facultades():
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT id_facultad, nombre FROM FACULTAD")
+        facultades = cursor.fetchall()
+    conexion.close()
+    return facultades
 
 #***************************************************************
