@@ -40,7 +40,8 @@
         </div>
 
         <div class="col-auto text-end above-table">
-          <a href="#" class="btn btn-success"><i class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
+          <a href="{{url_for('lineaDesarrollo.formulario_agregar_lineaDesarrollo')}}" class="btn btn-success"><i
+              class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
         </div>
       </div>
       <div class="col-auto">
@@ -62,19 +63,18 @@
               <td class="col-2 text-center">{{lineaDesarrollo[1]}}</td>
               <td class="col-2 text-center">{{lineaDesarrollo[2]}}</td>
               <td class="col-1 text-center d-none d-md-table-cell">
-                <form action="{{url_for('lineaDesarrollo.actualizar_lineaDesarrollo')}}" method="POST"
-                  class="actualizar_lineaDesarrollo">
+                <form action="{{url_for('lineaDesarrollo.actualizar_estado_lineaDesarrollo')}}" method="POST"
+                  class="actualizar_estado">
                   <input type="hidden" name="id" value="{{lineaDesarrollo[0]}}">
                   <input type="hidden" name="estado" value="{{lineaDesarrollo[3]}}">
-                  {% if lineaDesarrollo[4]=='A' %}
+                  {% if lineaDesarrollo[3]=='A' %}
                   <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
-                    data-bs-title="Desactivar Linea de Desarrollo">
+                    data-bs-title="Desactivar LÍnea de Desarrollo">
                     <i class="bi bi-check-square-fill"></i>
                   </button>
                   {% else %}
                   <button type="button" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip"
-                    data-bs-title="Activar Linea de Desarrollo">
-
+                    data-bs-title="Activar LÍnea de Desarrollo">
                     <i class="bi bi-x-square-fill"></i>
                   </button>
                   {% endif %}
