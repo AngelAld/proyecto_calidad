@@ -10,13 +10,13 @@ def listar_lineaDesarrollo():
     return linea_desarrollo
 
 
-def agregar_lineaDesarrollo(nombre, descripcion, estado):
+def agregar_lineaDesarrollo(nombre, descripcion, estado, id_escuelas):
     conexion = obtener_conexion()
     msg = []
     with conexion.cursor() as cursor:
         cursor.execute(
-            "SELECT fn_agregar_linea_desarrollo(%s, %s, %s)",
-            (nombre, descripcion, estado),
+            "SELECT fn_agregar_linea_desarrollo(%s, %s, %s, %s)",
+            (nombre, descripcion, estado, id_escuelas),
         )
         msg = cursor.fetchone()
     conexion.commit()
@@ -79,12 +79,12 @@ def dar_baja_lineaDesarrollo(id, estado):
 
 
 #********************************************* Lo uso para listar en combo a linea de desarrollo (NO BORRAR ESTA FUNCION) *
-# def obtener_escuelas():
-#     conexion = obtener_conexion()
-#     with conexion.cursor() as cursor:
-#         cursor.execute("SELECT id_escuela_profesional, nombre FROM ESCUELA_PROFESIONAL")
-#         escuelas = cursor.fetchall()
-#     conexion.close()
-#     return escuelas
+def obtener_escuelas():
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT id_escuela_profesional, nombre FROM ESCUELA_PROFESIONAL")
+        escuelas = cursor.fetchall()
+    conexion.close()
+    return escuelas
 
 #***************************************************************
