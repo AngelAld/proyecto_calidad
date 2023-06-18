@@ -11,7 +11,7 @@ def login():
 
 @usuarios_bp.route("/iniciar_sesion" , methods=["POST"])
 def iniciar_sesion():
-    usuario = c_usuarios.login(request.form['usuario'], request.form['contraseña'])
+    usuario = c_usuarios.login(request.form['usuario'],request.form['contraseña'])
     if usuario == None:
         flash("El usuario no existe", "error")
     else:
@@ -28,5 +28,4 @@ def iniciar_sesion():
 def cerrar_sesion():
     session.clear()
     return redirect(url_for('usuario.login'))
-
 

@@ -12,7 +12,7 @@
           <input id="searchbar" class="form-control" type="text" placeholder="&#xF002; Buscar">
         </div>
         <div class="col-auto text-end above-table">
-          <a href="#" class="btn btn-success"><i
+          <a href="{{url_for('escuela.formulario_agregar_escuela')}}" class="btn btn-success"><i
               class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
         </div>
       </div>
@@ -54,7 +54,7 @@
               </td>
               <td class="col-1 text-center">
                 {# Pasar el id lo que hay en escuela[0] #}
-                <a href="{{url_for('escuela.editar_escuela', id=escuela[0])}}" class="text-center btn btn-primary ls-button"
+                <a href="{{url_for('escuela.editar_escuelas', id=escuela[0])}}" class="text-center btn btn-primary ls-button"
                   data-bs-toggle="tooltip" data-bs-title="Editar escuela"><i class="fas fa-edit"></i></a>
               </td>
               <td class="col-1 text-center">

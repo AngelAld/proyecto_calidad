@@ -6,8 +6,8 @@ def obtener_conexion():
     return psycopg2.connect(host='127.0.0.1',
                             port=5432,
                             user='postgres',
-                            password='USAT2023',
-                             database='proyecto_calidad')
+                            password='123456789',
+                            database='bd_calidad')
 
 # si no tienen postgres instalado pueden usar esta bd online
 

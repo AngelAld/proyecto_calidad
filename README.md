@@ -55,8 +55,13 @@ Esto es para poder implementar sus cambios en el proyecto principal
 
 ---
 
-### Luego de que los cambios fueran aprobados
+### Luego de que los cambios fueran aprobados o de que alguien haya actualizado antes que ustedes
 
 ```bash
+git add .
+git commit -m "comentario"
 git pull origin main # para descargar los cambios a tu rama
 ```
+Probablemente aparezcan los dos cambios en su editor
+Le dan a **"accept both changes"** (si ven que hay muchos conflictos, hagan una copia de seguridad de sus cosas por si acaso)
+
