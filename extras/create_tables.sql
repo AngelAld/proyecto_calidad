@@ -74,13 +74,13 @@ CREATE TABLE ESTUDIANTE (
   cod_universitario             char(10) NOT NULL, 
   dni                           char(8) NOT NULL, 
   nombre                        varchar(255) NOT NULL, 
-  correo_usat                   int4 NOT NULL, 
+  correo_usat                   varchar(255) NOT NULL, 
   correo_personal               varchar(255), 
-  telefono                      int4 NOT NULL, 
-  telefono2                     int4, 
+  telefono                      varchar(15) NOT NULL, 
+  telefono2                     varchar(15), 
   estado                        char(1) NOT NULL, 
   id_usuario                    int4, 
-  id_semestre_academico_ingreso int4 NOT NULL, 
+  id_semestre_academico_ingreso int4, 
   id_plan_estudio               int4 NOT NULL, 
   PRIMARY KEY (id_estudiante));
 CREATE TABLE FACULTAD (

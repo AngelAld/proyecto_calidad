@@ -4,14 +4,14 @@ RETURNS TABLE(
     cod_universitario char(10),
     dni char(8),
     nombre varchar(255),
-    correo_usat integer,
+    correo_usat varchar(255),
     correo_personal varchar(255),
-    telefono integer,
-    telefono2 integer,
+    telefono varchar(15),
+    telefono2 varchar(15),
     estado char(1),
-    id_usuario integer,
-    id_semestre_academico_ingreso integer,
-    id_plan_estudio integer,
+    id_usuario int4,
+    id_semestre_academico_ingreso int4,
+    id_plan_estudio int4,
     escuela_profesional varchar(50),
     plan_estudio varchar(50),
     facultad varchar(50)
@@ -51,14 +51,14 @@ RETURNS TABLE(
     cod_universitario char(10),
     dni char(8),
     nombre varchar(255),
-    correo_usat integer,
+    correo_usat varchar(255),
     correo_personal varchar(255),
-    telefono integer,
-    telefono2 integer,
+    telefono varchar(15),
+    telefono2 varchar(15),
     estado char(1),
-    id_usuario integer,
-    id_semestre_academico_ingreso integer,
-    id_plan_estudio integer,
+    id_usuario int4,
+    id_semestre_academico_ingreso int4,
+    id_plan_estudio int4,
     escuela_profesional varchar(50),
     plan_estudio varchar(50),
     facultad varchar(50)
@@ -92,8 +92,8 @@ BEGIN
 END;
 $function$;
 
-CREATE OR REPLACE FUNCTION fn_agregar_estudiante(p_cod_universitario char(10), p_dni char(8), p_nombre varchar(255), p_correo_usat int, p_correo_personal varchar(255), p_telefono int, p_telefono2 int, p_estado char(1), p_id_usuario int, p_id_semestre_academico_ingreso int, p_id_plan_estudio int)
-RETURNS varchar(255)
+CREATE OR REPLACE FUNCTION fn_agregar_estudiante(p_cod_universitario char(10), p_dni char(8), p_nombre varchar(255), p_correo_usat varchar(255), p_correo_personal varchar(255), p_telefono varchar(15), p_telefono2 varchar(15), p_estado char(1), p_id_usuario int4, p_id_semestre_academico_ingreso int4, p_id_plan_estudio int4)
+RETURNS character varying
 LANGUAGE plpgsql
 AS $function$
 DECLARE
@@ -126,88 +126,89 @@ BEGIN
 END;
 $function$;
 
-
-CREATE OR REPLACE FUNCTION fn_editar_estudiante(p_id_estudiante integer, p_cod_universitario char(10), p_dni char(8), p_nombre varchar(255), p_correo_usat int, p_correo_personal varchar(255), p_telefono int, p_telefono2 int, p_estado char(1), p_id_usuario int, p_id_semestre_academico_ingreso int, p_id_plan_estudio int)
-RETURNS varchar(255)
-LANGUAGE plpgsql
+CREATE OR REPLACE FUNCTION fn_editar_estudiante(p_id_estudiante integer, p_cod_universitario char(10), p_dni char(8), p_nombre varchar(255), p_correo_usat varchar(255), p_correo_personal varchar(255), p_telefono varchar(15), p_telefono2 varchar(15), p_estado char(1), p_id_usuario int4, p_id_semestre_academico_ingreso int4, p_id_plan_estudio int4)
+  RETURNS character varying
+  LANGUAGE plpgsql
 AS $function$
 DECLARE
-    estudiante_existe INTEGER;
-    error_message VARCHAR(255);
-    error_code INTEGER DEFAULT 99999;
+  estudiante_existe INTEGER;
+  error_message VARCHAR(255);
+  error_code INTEGER DEFAULT 99999;
 BEGIN
-    BEGIN
-        SELECT COUNT(*) INTO estudiante_existe
-        FROM ESTUDIANTE
-        WHERE dni = p_dni
-        AND id_estudiante != p_id_estudiante;
+  BEGIN
+    SELECT COUNT(*) INTO estudiante_existe
+    FROM ESTUDIANTE
+    WHERE dni = p_dni
+      AND id_estudiante != p_id_estudiante;
 
-        IF estudiante_existe > 0 THEN
-            RETURN 'Estudiante ya existe';
-        END IF;
+    IF estudiante_existe > 0 THEN
+      RETURN 'Estudiante ya existe';
+    END IF;
 
-        UPDATE ESTUDIANTE
-        SET cod_universitario = p_cod_universitario,
-            dni = p_dni,
-            nombre = p_nombre,
-            correo_usat = p_correo_usat,
-            correo_personal = p_correo_personal,
-            telefono = p_telefono,
-            telefono2 = p_telefono2,
-            estado = p_estado,
-            id_usuario = p_id_usuario,
-            id_semestre_academico_ingreso = p_id_semestre_academico_ingreso,
-            id_plan_estudio = p_id_plan_estudio
-        WHERE id_estudiante = p_id_estudiante;
+    UPDATE ESTUDIANTE
+    SET cod_universitario = p_cod_universitario,
+        dni = p_dni,
+        nombre = p_nombre,
+        correo_usat = p_correo_usat,
+        correo_personal = p_correo_personal,
+        telefono = p_telefono,
+        telefono2 = p_telefono2,
+        estado = p_estado,
+        id_usuario = p_id_usuario,
+        id_semestre_academico_ingreso = p_id_semestre_academico_ingreso,
+        id_plan_estudio = p_id_plan_estudio
+    WHERE id_estudiante = p_id_estudiante;
 
-    EXCEPTION
-        WHEN OTHERS THEN
-            GET STACKED DIAGNOSTICS error_message = MESSAGE_TEXT,
-                                   error_code = RETURNED_SQLSTATE;
-            error_message := CONCAT('Error: ', error_message);
+    EXCEPTION WHEN OTHERS THEN
+      GET STACKED DIAGNOSTICS error_message = MESSAGE_TEXT,
+                             error_code = RETURNED_SQLSTATE;
 
-            RETURN error_code || ' - ' || error_message;
-    END;
+      error_message := CONCAT('Error: ', error_message);
+      RETURN '%', error_message;
+  END;
 
-    RETURN 'Operación realizada con éxito';
+  RETURN 'Operación realizada con éxito';
 END;
 $function$;
 
-CREATE OR REPLACE FUNCTION fn_eliminar_estudiante(p_id_estudiante integer)
-RETURNS varchar(100)
-LANGUAGE plpgsql
+
+CREATE OR REPLACE FUNCTION fn_eliminar_estudiante(p_id integer)
+  RETURNS character varying
+  LANGUAGE plpgsql
 AS $function$
 DECLARE
-    mensaje VARCHAR(100);
-    error_msg VARCHAR(100);
+  mensaje    VARCHAR(100);
+  error_msg  VARCHAR(100);
 BEGIN
-    BEGIN
-        DELETE FROM ESTUDIANTE
-        WHERE id_estudiante = p_id_estudiante;
+  BEGIN
+    DELETE FROM ESTUDIANTE
+    WHERE id_estudiante = p_id;
 
-        -- Verificar si se eliminó el registro correctamente
-        IF FOUND THEN
-            mensaje := 'Operación realizada con éxito';
-        ELSE
-            RETURN 'No se pudo eliminar el registro.';
-        END IF;
+    -- Verificar si se eliminó el registro correctamente
+    IF FOUND THEN
+      mensaje := 'Operación realizada con éxito';
+    ELSE
+      RETURN 'No se pudo eliminar el registro.';
+    END IF;
 
     EXCEPTION
-        WHEN OTHERS THEN
-            error_msg := CONCAT('Error: ', SQLERRM);
-            RETURN '%', error_msg;
-    END;
+      WHEN OTHERS THEN
+        error_msg := CONCAT('Error: ', SQLERRM);
+        RETURN '%', error_msg;
+  END;
 
-    RETURN mensaje;
+  RETURN mensaje;
 END;
 $function$;
 
-CREATE OR REPLACE FUNCTION fn_actualizar_estado_estudiante(p_id_estudiante integer, p_estado char(1)) RETURNS varchar(255)
-LANGUAGE plpgsql
+
+CREATE OR REPLACE FUNCTION fn_actualizar_estado_estudiante(p_id_estudiante integer, p_estado char(1))
+  RETURNS character varying
+  LANGUAGE plpgsql
 AS $function$
 DECLARE
     error_message VARCHAR(255);
-    error_code INTEGER DEFAULT 99999;
+    error_code VARCHAR(5) DEFAULT '99999';
 BEGIN
     BEGIN
         UPDATE ESTUDIANTE
@@ -217,8 +218,7 @@ BEGIN
     EXCEPTION
         WHEN OTHERS THEN
             GET STACKED DIAGNOSTICS error_message = MESSAGE_TEXT,
-            error_code = RETURNED_SQLSTATE;
-
+                                   error_code = RETURNED_SQLSTATE;
             error_message := CONCAT('Error: ', error_message);
 
             RETURN error_code || ' - ' || error_message;
