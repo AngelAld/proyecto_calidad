@@ -21,6 +21,16 @@
                 </div>
 
                 <div class="form-floating mb-4">
+                    <label for="facultad">Selecciona una Escuela</label>
+                    <select value="{{escuela}}" required type="text" class="form-control input" placeholder="Escuela"
+                        name="escuelas" id="escuelas">
+                        {% for escuela in escuelas %}
+                            <option value="{{ escuela[0] }}">{{escuela[0] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-floating mb-4">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="estado" id="estado" {% if
                             estado=="A" %} checked {% endif %}>
