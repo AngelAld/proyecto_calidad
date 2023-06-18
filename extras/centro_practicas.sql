@@ -1,28 +1,171 @@
-CREATE TABLE
-    CENTRO_PRACTICAS (
-        id_centro_practicas serial NOT NULL,
-        ruc varchar(255) NOT NULL,
-        razon_social varchar(255) NOT NULL,
-        rubro varchar(255) NOT NULL,
-        telefono varchar(12) NOT NULL,
-        correo varchar(255) NOT NULL,
-        DIRECCIONid_direccion int4 NOT NULL,
-        PRIMARY KEY (id_centro_practicas)
-    );
-
-CREATE TABLE
-    DIRECCION (
-        id_direccion serial NOT NULL,
-        num varchar(255) NOT NULL,
-        tipo_via varchar(255) NOT NULL,
-        via varchar(255) NOT NULL,
-        lon varchar(255) NOT NULL,
-        lat varchar(255) NOT NULL,
-        ciudad varchar(255) NOT NULL,
-        pais varchar(255) NOT NULL,
-        PRIMARY KEY (id_direccion)
-    );
-
-ALTER TABLE CENTRO_PRACTICAS ADD CONSTRAINT FKCENTRO_PRA163921 FOREIGN KEY (DIRECCIONid_direccion) REFERENCES DIRECCION (id_direccion);
+CREATE OR REPLACE FUNCTION fn_listar_centro_practica()
+RETURNS TABLE (
+    id_centro_practicas integer,
+    ruc varchar(255),
+    razon_social varchar(255),
+    alias varchar(50),
+    rubro varchar(255),
+    telefono varchar(12),
+    correo varchar(255),
+    id_ubicacion integer
+)
+AS $$
+BEGIN
+    RETURN QUERY SELECT id_centro_practicas, ruc, razon_social, alias, rubro, telefono, correo, id_ubicacion
+    FROM CENTRO_PRACTICAS;
+END;
+$$ LANGUAGE plpgsql;
 
 
+CREATE OR REPLACE FUNCTION fn_agregar_centro_practicas(
+    p_ruc varchar(255),
+    p_razon_social varchar(255),
+    p_alias varchar(50),
+    p_rubro varchar(255),
+    p_telefono varchar(12),
+    p_correo varchar(255),
+    p_id_ubicacion int
+)
+RETURNS varchar(255)
+AS $$
+DECLARE
+    centro_practicas_existe integer;
+    error_message varchar(255);
+    error_code varchar(5) DEFAULT '99999';
+BEGIN
+    BEGIN
+        SELECT COUNT(*) INTO centro_practicas_existe
+        FROM CENTRO_PRACTICAS
+        WHERE ruc = p_ruc;
+
+        IF centro_practicas_existe > 0 THEN
+            RETURN 'Centro de prácticas ya existe';
+        END IF;
+
+        INSERT INTO CENTRO_PRACTICAS (ruc, razon_social, alias, rubro, telefono, correo, id_ubicacion)
+        VALUES (p_ruc, p_razon_social, p_alias, p_rubro, p_telefono, p_correo, p_id_ubicacion);
+
+    EXCEPTION
+        WHEN OTHERS THEN
+            GET STACKED DIAGNOSTICS error_message = MESSAGE_TEXT,
+                                   error_code = RETURNED_SQLSTATE;
+            error_message := CONCAT('Error: ', error_message);
+
+            RETURN error_code || ' - ' || error_message;
+    END;
+
+    RETURN 'Operación realizada con éxito';
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION fn_editar_centro_practicas(
+    p_id_centro_practicas integer,
+    p_ruc varchar(255),
+    p_razon_social varchar(255),
+    p_alias varchar(50),
+    p_rubro varchar(255),
+    p_telefono varchar(12),
+    p_correo varchar(255),
+    p_id_ubicacion int
+)
+RETURNS varchar(255)
+AS $$
+DECLARE
+    centro_practicas_existe integer;
+    error_message varchar(255);
+    error_code varchar(5) DEFAULT '99999';
+BEGIN
+    BEGIN
+        SELECT COUNT(*) INTO centro_practicas_existe
+        FROM CENTRO_PRACTICAS
+        WHERE ruc = p_ruc
+            AND id_centro_practicas != p_id_centro_practicas;
+
+        IF centro_practicas_existe > 0 THEN
+            RETURN 'Centro de prácticas ya existe';
+        END IF;
+
+        UPDATE CENTRO_PRACTICAS
+        SET ruc = p_ruc,
+            razon_social = p_razon_social,
+            alias = p_alias,
+            rubro = p_rubro,
+            telefono = p_telefono,
+            correo = p_correo,
+            id_ubicacion = p_id_ubicacion
+        WHERE id_centro_practicas = p_id_centro_practicas;
+
+    EXCEPTION
+        WHEN OTHERS THEN
+            GET STACKED DIAGNOSTICS error_message = MESSAGE_TEXT,
+                                   error_code = RETURNED_SQLSTATE;
+            error_message := CONCAT('Error: ', error_message);
+
+            RETURN error_code || ' - ' || error_message;
+    END;
+
+    RETURN 'Operación realizada con éxito';
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION fn_eliminar_centro_practicas(p_id integer)
+RETURNS varchar(255)
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    mensaje varchar(100);
+    error_message varchar(255);
+BEGIN
+    BEGIN
+        DELETE FROM CENTRO_PRACTICAS
+        WHERE id_centro_practicas = p_id;
+
+        -- Verificar si se eliminó el registro correctamente
+        IF FOUND THEN
+            mensaje := 'Operación realizada con éxito';
+        ELSE
+            RETURN 'No se pudo eliminar el registro.';
+        END IF;
+
+    EXCEPTION
+        WHEN OTHERS THEN
+            GET STACKED DIAGNOSTICS error_message = MESSAGE_TEXT;
+
+            error_message := CONCAT('Error: ', error_message);
+
+            RETURN '%', error_message;
+    END;
+
+    RETURN mensaje;
+END;
+$$;
+
+
+CREATE OR REPLACE FUNCTION fn_actualizar_estado_centro_practicas(
+    p_id_centro_practicas integer,
+    p_estado varchar
+)
+RETURNS varchar(255)
+AS $$
+DECLARE
+    error_message varchar(255);
+    error_code varchar(5) DEFAULT '99999';
+BEGIN
+    BEGIN
+        UPDATE CENTRO_PRACTICAS
+        SET estado = p_estado
+        WHERE id_centro_practicas = p_id_centro_practicas;
+
+    EXCEPTION
+        WHEN OTHERS THEN
+            GET STACKED DIAGNOSTICS error_message = MESSAGE_TEXT,
+                                   error_code = RETURNED_SQLSTATE;
+            error_message := CONCAT('Error: ', error_message);
+
+            RETURN error_code || ' - ' || error_message;
+    END;
+
+    RETURN 'Operación realizada con éxito';
+END;
+$$ LANGUAGE plpgsql;
