@@ -97,8 +97,8 @@ def actualizar_semestre():
         return redirect(url)
 
 
-@semestres_bp.route("/actualizar_estado", methods=["POST"])
-def actualizar_estado():
+@semestres_bp.route("/actualizar_estado_semestre", methods=["POST"])
+def actualizar_estado_semestre():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
