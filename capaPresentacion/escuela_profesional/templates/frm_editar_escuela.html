@@ -1,0 +1,9 @@
+{% extends "mantenimiento_escuela.html" %}
+
+{% block titulo %} Editar Escuela {% endblock %}
+{% set titulo2 = "Editar Escuela" %}
+{% set id = escuela[0] %}
+{% set nombre = escuela[1] %}
+{% set descripcion = escuela[2] %}
+{% set estado = <escuela 3=""></escuela> %}
+{% set url = url_for('escuela.actualizar_escuela') %}

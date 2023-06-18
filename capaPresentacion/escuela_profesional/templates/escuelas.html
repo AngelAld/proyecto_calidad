@@ -1,0 +1,77 @@
+{% extends "maestra/maestra.html" %}
+{% block titulo %} Escuela Profesional {% endblock %}
+{% set titulo2 = "Escuela" %}
+{% block contenido %}
+<section class="section contenido">
+  <div class="columns">
+    <div class="col">
+      <div class="row">
+        <div class="col d-none d-sm-block above-table">
+        </div>
+        <div class="col-auto text-end above-table">
+          <input id="searchbar" class="form-control" type="text" placeholder="&#xF002; Buscar">
+        </div>
+        <div class="col-auto text-end above-table">
+          <a href="{{url_for('escuela.formulario_agregar_escuela')}}" class="btn btn-success"><i
+              class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
+        </div>
+      </div>
+      <div class="col-auto">
+        <table class="table table-hover align-middle table-bordered" id="tablita">
+          <thead>
+            <tr class="table-danger">
+              <th class="col-1 text-center d-none d-xl-table-cell">Código</th>
+              <th class="col-2 text-center">Nombre</th>
+              <th class="col-2 text-center">Descripción</th>
+              <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
+              <th class="col-1 text-center">Editar</th>
+              <th class="col-1 text-center">Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for escuela in escuelas %}
+            <tr>
+              <td class="col-1 text-center d-none d-xl-table-cell">{{escuela[0]}}</td>
+              <td class="col-2 text-center">{{escuela[1]}}</td>
+              <td class="col-2 text-center">{{escuela[2]}}</td>
+              <td class="col-1 text-center d-none d-md-table-cell">
+                <form action="{{url_for('escuela.actualizar_estado')}}" method="POST" class="actualizar_estado">
+                  <input type="hidden" name="id" value="{{escuela[0]}}">
+                  <input type="hidden" name="estado" value="{{escuela[3]}}">
+                  {% if escuela[3]=='A' %}
+                  <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
+                    data-bs-title="Desactivar escuela">
+                    <i class="bi bi-check-square-fill"></i>
+                  </button>
+                  {% else %}
+                  <button type="button" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip"
+                    data-bs-title="Activar escuela">
+                    
+                    <i class="bi bi-x-square-fill"></i>
+                  </button>
+                  {% endif %}
+                </form>
+              </td>
+              <td class="col-1 text-center">
+                {# Pasar el id lo que hay en escuela[0] #}
+                <a href="{{url_for('escuela.editar_escuelas', id=escuela[0])}}" class="text-center btn btn-primary ls-button"
+                  data-bs-toggle="tooltip" data-bs-title="Editar escuela"><i class="fas fa-edit"></i></a>
+              </td>
+              <td class="col-1 text-center">
+                <form action="{{url_for('escuela.eliminar_escuela')}}" method="POST" id="eliminar_form">
+                  <input type="hidden" name="id" value="{{escuela[0]}}">
+                  <button class="btn btn-danger ls-button" id="eliminar_btn"
+                    onclick="event.preventDefault(); eliminar(this.parentNode)" data-bs-toggle="tooltip"
+                    data-bs-title="Eliminar escuela"><i class="fas fa-trash"></i></button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock%}
