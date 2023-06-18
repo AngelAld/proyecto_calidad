@@ -23,27 +23,27 @@ select * from fn_agregar_facultad('Ingenieria', 'AAA', 'A');
 
 select * from fn_agregar_facultad('Medicina', 'AAA', 'A');
 
-select * from  fn_listar_facultad();
+-- select * from  fn_listar_facultad();
 
-select * from fn_consultar_facultad_id(1);
+-- select * from fn_consultar_facultad_id(1);
 
-select * from fn_editar_facultad(1, 'Ingenieria Editada', 'AAA', 'A'); 
+-- select * from fn_editar_facultad(1, 'Ingenieria Editada', 'AAA', 'A'); 
 
-select * from fn_actualizar_estado_facultad(2, 'I');
+-- select * from fn_actualizar_estado_facultad(2, 'I');
 
 
 --FUNCIONES DE LINEA DESARROLLO PROBADAS ----------------------------------------------------------------------------------
 insert into escuela_profesional(nombre, descripcion, estado, id_facultad) values('Escuela prueba', 'aaaaa', 'A', 2);
 
-select * from fn_agregar_linea_desarrollo('Linea prueba', 'aaaa', 'A', 2);
+select * from fn_agregar_linea_desarrollo('Linea prueba', 'aaaa', 'A', 1);
 
-select * from fn_editar_linea_desarrollo(1, 'Linea Prueba editada', 'aaa', 'A', 2);
+--select * from fn_editar_linea_desarrollo(1, 'Linea Prueba editada', 'aaa', 'A', 2);
 
-select * from fn_actualizar_estado_linea_desarrollo (1, 'I');
+--select * from fn_actualizar_estado_linea_desarrollo (1, 'I');
 
-select * from fn_listar_linea_desarrollo();
+----select * from fn_listar_linea_desarrollo();
 
-select * from fn_consultar_linea_desarrollo_id (1);
+--select * from fn_consultar_linea_desarrollo_id (1);
 
 
 
@@ -102,3 +102,10 @@ select * from fn_create_semestre('A47',CURRENT_DATE+1380,CURRENT_DATE+1410,'A');
 select * from fn_create_semestre('A48',CURRENT_DATE+1410,CURRENT_DATE+1440,'A');
 select * from fn_create_semestre('A49',CURRENT_DATE+1440,CURRENT_DATE+1470,'A');
 select * from fn_create_semestre('A50',CURRENT_DATE+1470,CURRENT_DATE+1500,'A');
+
+-------
+
+
+-- select * from fn_listar_estudiante();
+-- select * from fn_consultar_estudiante_id(1);
+--select * from fn_agregar_estudiante('192AD94875', '71448693', 'ANGEL ALDANA', '71448693', NULL, '')

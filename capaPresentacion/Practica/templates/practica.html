@@ -1,6 +1,6 @@
 {% extends "maestra/maestra.html" %}
-{% block titulo %} Semestre Académico {% endblock %}
-{% set titulo2 = "Semestre Académico" %}
+{% block titulo %} practica Académico {% endblock %}
+{% set titulo2 = "practica Académico" %}
 {% block contenido %}
 <section class="section contenido">
   <div class="columns">
@@ -12,7 +12,7 @@
           <input id="searchbar" class="form-control" type="text" placeholder="&#xF002; Buscar">
         </div>
         <div class="col-auto text-end above-table">
-          <a href="{{url_for('semestre.formulario_agregar_semestre')}}" class="btn btn-success"><i
+          <a href="{{url_for('practica.formulario_agregar_practica')}}" class="btn btn-success"><i
               class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
         </div>
       </div>
@@ -30,24 +30,24 @@
             </tr>
           </thead>
           <tbody>
-            {% for semestre in semestres %}
+            {% for practica in practicas %}
             <tr>
-              <td class="col-1 text-center d-none d-xl-table-cell">{{semestre[0]}}</td>
-              <td class="col-2 text-center">{{semestre[1]}}</td>
-              <td class="col-2 text-center d-none d-lg-table-cell">{{semestre[2]}}</td>
-              <td class="col-2 text-center d-none d-lg-table-cell">{{semestre[3]}}</td>
+              <td class="col-1 text-center d-none d-xl-table-cell">{{practica[0]}}</td>
+              <td class="col-2 text-center">{{practica[1]}}</td>
+              <td class="col-2 text-center d-none d-lg-table-cell">{{practica[2]}}</td>
+              <td class="col-2 text-center d-none d-lg-table-cell">{{practica[3]}}</td>
               <td class="col-1 text-center d-none d-md-table-cell">
-                <form action="{{url_for('semestre.actualizar_estado_semestre')}}" method="POST" class="actualizar_estado">
-                  <input type="hidden" name="id" value="{{semestre[0]}}">
-                  <input type="hidden" name="estado" value="{{semestre[4]}}">
-                  {% if semestre[4]=='A' %}
+                <form action="{{url_for('practica.actualizar_estado_practica')}}" method="POST" class="actualizar_estado">
+                  <input type="hidden" name="id" value="{{practica[0]}}">
+                  <input type="hidden" name="estado" value="{{practica[4]}}">
+                  {% if practica[4]=='A' %}
                   <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
-                    data-bs-title="Desactivar semestre">
+                    data-bs-title="Desactivar practica">
                     <i class="bi bi-check-square-fill"></i>
                   </button>
                   {% else %}
                   <button type="button" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip"
-                    data-bs-title="Activar semestre">
+                    data-bs-title="Activar practica">
                     
                     <i class="bi bi-x-square-fill"></i>
                   </button>
@@ -55,16 +55,16 @@
                 </form>
               </td>
               <td class="col-1 text-center">
-                {# Pasar el id lo que hay en semestre[0] #}
-                <a href="{{url_for('semestre.editar_semestre', id=semestre[0])}}" class="text-center btn btn-primary ls-button"
-                  data-bs-toggle="tooltip" data-bs-title="Editar semestre"><i class="fas fa-edit"></i></a>
+                {# Pasar el id lo que hay en practica[0] #}
+                <a href="{{url_for('practica.editar_practica', id=practica[0])}}" class="text-center btn btn-primary ls-button"
+                  data-bs-toggle="tooltip" data-bs-title="Editar practica"><i class="fas fa-edit"></i></a>
               </td>
               <td class="col-1 text-center">
-                <form action="{{url_for('semestre.eliminar_semestre')}}" method="POST" id="eliminar_form">
-                  <input type="hidden" name="id" value="{{semestre[0]}}">
+                <form action="{{url_for('practica.eliminar_practica')}}" method="POST" id="eliminar_form">
+                  <input type="hidden" name="id" value="{{practica[0]}}">
                   <button class="btn btn-danger ls-button" id="eliminar_btn"
                     onclick="event.preventDefault(); eliminar(this.parentNode)" data-bs-toggle="tooltip"
-                    data-bs-title="Eliminar semestre"><i class="fas fa-trash"></i></button>
+                    data-bs-title="Eliminar practica"><i class="fas fa-trash"></i></button>
                 </form>
               </td>
             </tr>

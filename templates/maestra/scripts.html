@@ -2,6 +2,7 @@
 <script src="{{ url_for('static', filename='js/checkbox.js') }}"></script>
 <script src="{{ url_for('static', filename='js/eliminar.js') }}"></script>
 <script src="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
     var table = new DataTable('#tablita', {
@@ -23,3 +24,139 @@
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 </script>
+
+<script>
+    // Datos de ejemplo para los gráficos de torta
+    var data1 = {
+      labels: ['Finalizado', 'Por finalizar'],
+      datasets: [
+        {
+          data: [80, 20], // Datos ficticios, puedes cambiarlos luego
+          backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)'],
+          borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+          borderWidth: 1
+        }
+      ]
+    };
+
+    var data2 = {
+      labels: ['Finalizado', 'Por finalizar'],
+      datasets: [
+        {
+          data: [75, 25], // Datos ficticios, puedes cambiarlos luego
+          backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)'],
+          borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+          borderWidth: 1
+        }
+      ]
+    };
+
+    var data3 = {
+      labels: ['Alto', 'Medio', 'Bajo'],
+      datasets: [
+        {
+          data: [40, 30, 30], // Datos ficticios, puedes cambiarlos luego
+          backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'],
+          borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
+          borderWidth: 1
+        }
+      ]
+    };
+
+    // Configuración de los gráficos de torta
+    var options = {
+      responsive: true
+    };
+
+    // Crear los gráficos de torta
+    var ctx1 = document.getElementById('chart1').getContext('2d');
+    new Chart(ctx1, {
+      type: 'pie',
+      data: data1,
+      options: options
+    });
+
+    var ctx2 = document.getElementById('chart2').getContext('2d');
+    new Chart(ctx2, {
+      type: 'pie',
+      data: data2,
+      options: options
+    });
+
+    var ctx3 = document.getElementById('chart3').getContext('2d');
+    new Chart(ctx3, {
+      type: 'pie',
+      data: data3,
+      options: options
+    });
+  </script>
+  <script>
+    // Gráfico de barras
+    var ctxBar = document.getElementById('barChart').getContext('2d');
+    var barChart = new Chart(ctxBar, {
+      type: 'bar',
+      data: {
+        labels: ['A', 'B', 'C', 'D', 'E'],
+        datasets: [{
+          label: 'Gráfico de Barras',
+          data: [5, 2, 7, 3, 8],
+          backgroundColor: 'rgba(54, 162, 235, 0.6)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {}
+    });
+
+    // Gráfico de líneas
+    var ctxLine = document.getElementById('lineChart').getContext('2d');
+    var lineChart = new Chart(ctxLine, {
+      type: 'line',
+      data: {
+        labels: ['A', 'B', 'C', 'D', 'E'],
+        datasets: [{
+          label: 'Gráfico de Líneas',
+          data: [3, 6, 2, 9, 4],
+          backgroundColor: 'rgba(255, 99, 132, 0.6)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {}
+    });
+
+    // Gráfico de áreas
+    var ctxArea = document.getElementById('areaChart').getContext('2d');
+    var areaChart = new Chart(ctxArea, {
+      type: 'line',
+      data: {
+        labels: ['A', 'B', 'C', 'D', 'E'],
+        datasets: [{
+          label: 'Gráfico de Áreas',
+          data: [8, 4, 6, 1, 5],
+          backgroundColor: 'rgba(255, 206, 86, 0.6)',
+          borderColor: 'rgba(255, 206, 86, 1)',
+          borderWidth: 1,
+          fill: 'origin'
+        }]
+      },
+      options: {}
+    });
+
+    // Gráfico de torta
+    var ctxPie = document.getElementById('pieChart').getContext('2d');
+    var pieChart = new Chart(ctxPie, {
+      type: 'pie',
+      data: {
+        labels: ['A', 'B', 'C', 'D', 'E'],
+        datasets: [{
+          label: 'Gráfico de Torta',
+          data: [6, 3, 9, 2, 7],
+          backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(255, 99, 132, 0.6)', 'rgba(255, 206, 86, 0.6)', 'rgba(153, 102, 255, 0.6)'],
+          borderColor: 'rgba(255, 255, 255, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {}
+    });
+  </script>

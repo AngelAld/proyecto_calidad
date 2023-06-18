@@ -8,6 +8,7 @@ from capaPresentacion.docenteApoyo.docentes import docentes_bp
 from capaPresentacion.facultad.facultades import facultad_bp
 from capaPresentacion.escuela_profesional.escuelas import escuela_bp
 from capaPresentacion.planEstudio.plan_estudio import plan_estudio_bp
+from capaPresentacion.Practica.practica import practica_bp   
 
 app = Flask(__name__, static_url_path=None)
 app.secret_key = "nose"
@@ -20,6 +21,7 @@ app.register_blueprint(docentes_bp)
 app.register_blueprint(facultad_bp)
 app.register_blueprint(escuela_bp)
 app.register_blueprint(plan_estudio_bp)
+app.register_blueprint(practica_bp)
 
 # Iniciar el servidor
 if __name__ == "__main__":
@@ -33,5 +35,3 @@ if __name__ == "__main__":
         debug=True,
         ssl_context=app.config.get("SSL"),
     )
-
-# comentario para probar
