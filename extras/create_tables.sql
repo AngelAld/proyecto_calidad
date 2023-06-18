@@ -223,6 +223,7 @@ CREATE TABLE UBICACION (
   lat          varchar(255) NOT NULL, 
   pais         varchar(255) NOT NULL, 
   ciudad       varchar(255) NOT NULL, 
+  estado       char(1) NOT NULL, 
   PRIMARY KEY (id_ubicacion));
 CREATE TABLE USUARIO (
   id_usuario SERIAL NOT NULL, 
