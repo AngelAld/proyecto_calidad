@@ -23,7 +23,7 @@ CREATE TABLE CENTRO_PRACTICAS (
   rubro               varchar(255) NOT NULL, 
   telefono            varchar(12) NOT NULL, 
   correo              varchar(255) NOT NULL, 
-  id_ubicacion        int4 NOT NULL, 
+  id_ubicacion        int4, 
   PRIMARY KEY (id_centro_practicas));
 CREATE TABLE CONCLUSIONES (
   id_conclusiones        int4 NOT NULL, 
