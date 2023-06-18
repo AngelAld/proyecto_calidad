@@ -26,7 +26,7 @@ BEGIN
         pe.id_plan_estudio, 
         pe.nombre,
         pe.estado,
-        ld.estado,
+        pe.estado,
         pe.id_escuela_profesional
     FROM PLAN_ESTUDIO pe
     WHERE pe.id_plan_estudio = p_id;
@@ -42,16 +42,16 @@ RETURNS character varying
 LANGUAGE plpgsql
 AS $function$
 DECLARE
-    linea_existe INTEGER;
+    plan_existe INTEGER;
     error_message VARCHAR(255);
     error_code VARCHAR(5) DEFAULT '99999';
 BEGIN
     BEGIN
-        SELECT COUNT(*) INTO linea_existe
+        SELECT COUNT(*) INTO plan_existe
         FROM PLAN_ESTUDIO
         WHERE nombre = p_nombre;
 
-        IF linea_existe > 0 THEN
+        IF plan_existe > 0 THEN
             RETURN 'Plan estudio ya existe';
         END IF;
 

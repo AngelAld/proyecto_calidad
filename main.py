@@ -29,5 +29,3 @@ if __name__ == "__main__":
         debug=True,
         ssl_context=app.config.get("SSL"),
     )
-
-# comentario para probar

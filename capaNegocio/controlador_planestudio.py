@@ -3,9 +3,9 @@ from capaDatos.bd import obtener_conexion
 def listar_plan_estudio():
     conexion = obtener_conexion()
     planEstudio = []
-  #  with conexion.cursor() as cursor:
-   #    cursor.execute("select * from fn_listar_planEstudio()")
-    #   planEstudio = cursor.fetchall()
+    with conexion.cursor() as cursor:
+       cursor.execute("select * from fn_listar_planEstudio()")
+       planEstudio = cursor.fetchall()
     conexion.close()
     return planEstudio
 
