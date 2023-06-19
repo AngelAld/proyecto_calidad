@@ -154,3 +154,29 @@ BEGIN
 END;
 $function$;
 
+CREATE OR REPLACE FUNCTION fn_actualizar_estado_escuela(p_id_escuela integer, p_estado character)
+ RETURNS character varying
+ LANGUAGE plpgsql
+AS $function$
+DECLARE
+    error_message VARCHAR(255);
+    error_code INTEGER DEFAULT 99999;
+BEGIN
+    BEGIN
+        UPDATE ESCUELA_PROFESIONAL
+        SET estado = p_estado
+        WHERE id_escuela_profesional = p_id_escuela;
+
+        EXCEPTION
+        WHEN OTHERS THEN
+            GET STACKED DIAGNOSTICS error_message = MESSAGE_TEXT,
+            error_code = RETURNED_SQLSTATE;
+
+            error_message := CONCAT('Error: ', error_message);
+
+            RETURN '%', error_message;
+    END;
+
+    RETURN 'Operación realizada con éxito';
+END;
+$function$;

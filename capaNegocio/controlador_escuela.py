@@ -1,22 +1,30 @@
 from capaDatos.bd import obtener_conexion
-def getAll():
+def listar_facultades():
     conexion = obtener_conexion()
-    semestres = []
+    facultad = []
+    with conexion.cursor() as cursor:
+        cursor.execute("select * from fn_listar_facultad()")
+        facultad = cursor.fetchall()
+    conexion.close()
+    return facultad
+
+def listar_escuela():
+    conexion = obtener_conexion()
+    facultad = []
     with conexion.cursor() as cursor:
         cursor.execute("select * from fn_listar_escuela_profesional()")
-        semestres = cursor.fetchall()
-    print(list(semestres))
+        facultad = cursor.fetchall()
     conexion.close()
-    return semestres
+    return facultad
 
 
-def insert(nombre, fecha_inicio, fecha_fin, estado):
+def agregar_escuela(nombre, descripcion, estado, id_facultad):
     conexion = obtener_conexion()
     msg = []
     with conexion.cursor() as cursor:
         cursor.execute(
-            "SELECT fn_create_semestre(%s, %s, %s, %s)",
-             (nombre, fecha_inicio, fecha_fin, estado),
+            "SELECT fn_agregar_escuela_profesional(%s, %s, %s, %s)",
+             (nombre, descripcion, estado,id_facultad),
             )
         msg = cursor.fetchone()
     conexion.commit()
@@ -24,37 +32,37 @@ def insert(nombre, fecha_inicio, fecha_fin, estado):
     return msg[0] if msg is not None else None
 
 
-def delete(id):
+def eliminar_escuela(id):
     conexion = obtener_conexion()
     msg = []
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT fn_delete_semestre(%s)", (id,))
+        cursor.execute("SELECT fn_eliminar_escuela_profesional(%s)", (id,))
         msg = cursor.fetchone()
     conexion.commit()
     conexion.close()
     return msg[0] if msg is not None else None
 
 
-def getById(id):
+def buscar_escuela(id):
     conexion = obtener_conexion()
-    semestre = None
+    escuela = None
     with conexion.cursor() as cursor:
         cursor.execute(
-            "SELECT id_semestre, nombre, fecha_inicio, fecha_fin, estado FROM SEMESTRE_ACADEMICO WHERE id_semestre=%s",
+            "SELECT * FROM fn_consultar_escuela_profesional_id(%s)",
             (id,),
         )
-        semestre = cursor.fetchone()
+        escuela = cursor.fetchone()
     conexion.close()
-    return semestre
+    return escuela
 
 
-def update(id, nombre, fecha_inicio, fecha_fin, estado):
+def actualizar_escuela(id, nombre, descripcion, estado,id_facultad):
     conexion = obtener_conexion()
     msg = []
     with conexion.cursor() as cursor:
         cursor.execute(
-            "SELECT fn_update_semestre(%s, %s, %s, %s, %s)",
-            (id, nombre, fecha_inicio, fecha_fin, estado),
+            "SELECT fn_editar_escuela_profesional(%s, %s, %s, %s, %s )",
+            (id, nombre, descripcion,estado,id_facultad),
         )
         msg = cursor.fetchone()
     conexion.commit()
@@ -62,7 +70,7 @@ def update(id, nombre, fecha_inicio, fecha_fin, estado):
     return msg[0] if msg is not None else None
 
 
-def update_estado(id, estado):
+def dar_baja_escuela(id, estado):
     conexion = obtener_conexion()
     msg = []
     new_estado = ""
@@ -71,7 +79,7 @@ def update_estado(id, estado):
     else:
         new_estado = "A"
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT fn_update_estado(%s, %s)", (id, new_estado))
+        cursor.execute("SELECT fn_actualizar_estado_escuela(%s, %s)", (id, new_estado))
         msg = cursor.fetchone()
     conexion.commit()
     conexion.close()
