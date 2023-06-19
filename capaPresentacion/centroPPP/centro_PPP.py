@@ -24,7 +24,7 @@ def guardar_centroPPP():
         #frm_estado = request.form.get("estado")
         # if frm_estado == "on":
         #     estado = "A"
-        # else:
+        # else: aea
         #     estado = "I"
         id_ubicacion = request.form[""]
         mensaje = c_cppp.agregar_centroPPP(ruc, razon_social, alias, rubro, telefono, correo)
