@@ -1,0 +1,10 @@
+{% extends "mantenimiento_linea_desarrollo.html" %}
+
+{% block titulo %} Editar Línea de Desarrollo {% endblock %}
+{% set titulo2 = "Editar  Línea de Desarrollo" %}
+{% set id = lineaDesarrollo[0] %}
+{% set nombre = lineaDesarrollo[1] %}
+{% set descripcion = lineaDesarrollo[2] %}
+{% set estado = lineaDesarrollo[3] %}
+{% set escuela_profesional = lineaDesarrollo[4] %}
+{% set url = url_for('lineaDesarrollo.actualizar_lineaDesarrollo') %}

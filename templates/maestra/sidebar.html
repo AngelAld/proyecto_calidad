@@ -1,7 +1,7 @@
 <div id="sidebar-wrapper" class="border-end offcanvas-lg offcanvas-start">
 
   <div class="sidebar-heading bg-danger text-center py-4 fs-4 fw-bolder text-uppercase">
-    <a class="first-text" href="{{url_for('inicio.inicio')}}">Sistema de Prácticas</a>
+    <a class="first-text" href="{{url_for('inicio.inicio')}}">Prácticas pre profesionales</a>
   </div>
 
   <div class="list-group list-group-flush">
@@ -14,7 +14,6 @@
     <ul class="collapse " id="moduloInstitucion">
       <a class="list-group-item list-group-item-action" href="{{url_for('facultad.facultades')}}">Facultad</a>
       <a class="list-group-item list-group-item-action" href="{{url_for('escuela.escuelas')}}">Escuela Profesional</a>
-      <a class="list-group-item list-group-item-action" href="#">Plan de estudio</a>
       <a class="list-group-item list-group-item-action" href="{{url_for('planEstudio.plan_estudio')}}">Plan de estudio</a>
       <a class="list-group-item list-group-item-action" href="{{url_for('lineaDesarrollo.linea_desarrollo')}}">Línea de desarrollo</a>
       <a class="list-group-item list-group-item-action" href="{{url_for('semestre.semestres')}}">Semestre Académico</a>
@@ -33,9 +32,11 @@
         data-bs-toggle="collapse" aria-expanded="false">Documentos</a>
 
       <ul class="collapse list-unstyled" id="submoduloDocumentos">
-        <a class="list-group-item list-group-item-action " href="#">Informe Inicial</a>
-        <a class="list-group-item list-group-item-action " href="#">Evaluación de desempeño</a>
-        <a class="list-group-item list-group-item-action " href="#">Informe Final</a>
+        <a class="list-group-item list-group-item-action " href="{{url_for('informe_inicial_es.informe_inicial_es')}}">Informe Inicial Estudiante</a>
+        <a class="list-group-item list-group-item-action " href="{{url_for('informe_inicial_em.informe_inicial_em')}}">Informe Inicial Empresa</a>
+        <a class="list-group-item list-group-item-action " href="{{url_for('ficha_desempeno.ficha_desempeno')}}">Evaluación de desempeño</a>
+        <a class="list-group-item list-group-item-action " href="{{url_for('informe_final_es.informe_final_es')}}">Informe Final Estudiante</a>
+        <a class="list-group-item list-group-item-action " href="{{url_for('informe_final_em.informe_final_em')}}">Informe Final Empresa</a>
       </ul>
 
       <a class="list-group-item list-group-item-action " href="#">Jefe inmediato</a>

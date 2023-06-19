@@ -18,16 +18,23 @@ def guardar_estudiante():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
+        cod_universitario = request.form["cod_universitario"]
+        dni = request.form["dni"]
         nombre = request.form["nombre"]
-        fecha_inicio = request.form["fecha_inicio"]
-        fecha_fin = request.form["fecha_fin"]
+        correo_usat = request.form["correo_usat"]
+        correo_personal = request.form["correo_personal"]
+        telefono = request.form["telefono"]
+        telefono2 = request.form["telefono2"]
         frm_estado = request.form.get("estado")
         if frm_estado == "on":
             estado = "A"
         else:
             estado = "I"
+        id_usuario = request.form["id_usuario"]
+        id_semestre_academico_ingreso = request.form["id_semestre_academico_ingreso"]
+        id_plan_estudio = request.form["id_plan_estudio"]
 
-        mensaje = c_estudiante.insert(nombre, fecha_inicio, fecha_fin, estado)
+        mensaje = c_estudiante.insert(cod_universitario,dni,nombre,correo_usat,correo_personal,telefono, telefono2,  estado,id_usuario,id_semestre_academico_ingreso,id_plan_estudio)
 
         if mensaje == "Operación realizada con éxito":
             flash(f"estudiante Registrado con Exito", "success")
@@ -77,16 +84,23 @@ def actualizar_estudiante():
         return redirect(url_for("inicio.inicio"))
     else:
         id = request.form["id"]
+        cod_universitario = request.form["cod_universitario"]
+        dni = request.form["dni"]
         nombre = request.form["nombre"]
-        fecha_inicio = request.form["fecha_inicio"]
-        fecha_fin = request.form["fecha_fin"]
+        correo_usat = request.form["correo_usat"]
+        correo_personal = request.form["correo_personal"]
+        telefono = request.form["telefono"]
+        telefono2 = request.form["telefono2"]
         frm_estado = request.form.get("estado")
         if frm_estado == "on":
             estado = "A"
         else:
             estado = "I"
-
-        mensaje = c_estudiante.update(id, nombre, fecha_inicio, fecha_fin, estado)
+        id_usuario = request.form["id_usuario"]
+        id_semestre_academico_ingreso = request.form["id_semestre_academico_ingreso"]
+        id_plan_estudio = request.form["id_plan_estudio"]
+        
+        mensaje = c_estudiante.update(id, cod_universitario,dni,nombre,correo_usat,correo_personal,telefono, telefono2,  estado,id_usuario,id_semestre_academico_ingreso,id_plan_estudio)
 
         if mensaje == "Operación realizada con éxito":
             flash(f"estudiante Actualizado con Exito", "success")

@@ -10,6 +10,22 @@ def listar_semestres():
     conexion.close()
     return semestres
 
+def grafico_semestres():
+    conexion = obtener_conexion()
+    datos = []
+    semestres = []
+    with conexion.cursor() as cursor:
+        cursor.execute("select count(*) from fn_listar_semestre_academico() where estado='A'")
+        semestres = cursor.fetchone()
+        datos.append(semestres[0])
+        cursor.execute("select count(*) from fn_listar_semestre_academico() where estado='I'")
+        semestres = cursor.fetchone()
+        datos.append(semestres[0])
+        print(list(datos))
+    conexion.close()
+    return datos
+
+
 
 def agregar_semestre(nombre, fecha_inicio, fecha_fin, estado):
     conexion = obtener_conexion()

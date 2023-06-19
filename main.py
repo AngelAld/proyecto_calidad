@@ -9,6 +9,11 @@ from capaPresentacion.facultad.facultades import facultad_bp
 from capaPresentacion.escuela_profesional.escuelas import escuela_bp
 from capaPresentacion.planEstudio.plan_estudio import plan_estudio_bp
 from capaPresentacion.Practica.practica import practica_bp   
+from capaPresentacion.informe_inicial_es.informe_inicial_es import informe_inicial_es_bp
+from capaPresentacion.informe_inicial_em.informe_inicial_em import informe_inicial_em_bp
+from capaPresentacion.ficha_desempeno.ficha_desempeno import ficha_desempeno_bp
+from capaPresentacion.informe_final_em.informe_final_em import informe_final_em_bp
+from capaPresentacion.informe_final_es.informe_final_es import informe_final_es_bp
 
 app = Flask(__name__, static_url_path=None)
 app.secret_key = "nose"
@@ -22,6 +27,11 @@ app.register_blueprint(facultad_bp)
 app.register_blueprint(escuela_bp)
 app.register_blueprint(plan_estudio_bp)
 app.register_blueprint(practica_bp)
+app.register_blueprint(informe_inicial_es_bp)
+app.register_blueprint(informe_inicial_em_bp)
+app.register_blueprint(ficha_desempeno_bp)
+app.register_blueprint(informe_final_em_bp)
+app.register_blueprint(informe_final_es_bp)
 
 # Iniciar el servidor
 if __name__ == "__main__":

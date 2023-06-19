@@ -11,7 +11,7 @@ def login():
 
 @usuarios_bp.route("/iniciar_sesion" , methods=["POST"])
 def iniciar_sesion():
-    usuario = c_usuarios.login(request.form['usuario'],request.form['contraseña'])
+    usuario = c_usuarios.login(request.form['usuario'], request.form['contraseña'])
     if usuario == None:
         flash("El usuario no existe", "error")
     else:
@@ -29,3 +29,13 @@ def cerrar_sesion():
     session.clear()
     return redirect(url_for('usuario.login'))
 
+@usuarios_bp.route("/perfil")
+def perfil():
+    if "rol" not in session:
+        return redirect(url_for("inicio.inicio"))
+    else:
+        if session["rol"] == "Docente de Apoyo":
+            return render_template('perfil.html')
+        else:
+            flash('Usuario aún no soportado', "warning")
+            return redirect(url_for("inicio.inicio"))

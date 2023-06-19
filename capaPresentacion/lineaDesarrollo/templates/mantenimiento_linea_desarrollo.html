@@ -20,6 +20,17 @@
                     <label for="descripcion">Descripción</label>
                 </div>
 
+
+                <label for="escuelas">Selecciona una Escuela</label>
+                <div class="form-floating mb-4">
+                    <select value="{{escuela}}" required type="text-left" class="form-control input" placeholder="Escuela"
+                        name="escuelas" id="escuelas">
+                        {% for escuela in escuelas %}
+                            <option value="{{ escuela[0] }}">{{escuela[1] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
                 <div class="form-floating mb-4">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="estado" id="estado" {% if

@@ -24,12 +24,12 @@
             <tr class="table-danger">
               <th class="col-1 text-center d-none d-xl-table-cell">Código</th>
               <th class="col-2 text-center">Cod_universitario</th>
-              <th class="col-2 text-center">Nombre</th>
-              <th class="col-2 text-center">Correo</th>
+              <th class="col-2 text-center">DNI</th>
+              <th class="col-2 text-center">Nmbre</th>
               <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
-              <th class="col-2 text-center">id_usuario</th>
-              <th class="col-2 text-center">id_semestre_academico_ingreso</th>
-              <th class="col-2 text-center">id_plan_estudio</th>
+              <th class="col-2 text-center">Escuela</th>
+              <th class="col-2 text-center">Plan estudio</th>
+              <th class="col-2 text-center">Facultad</th>
               <th class="col-1 text-center">Editar</th>
               <th class="col-1 text-center">Eliminar</th>
             </tr>
@@ -44,8 +44,8 @@
               <td class="col-1 text-center d-none d-md-table-cell">
                 <form action="{{url_for('estudiante.actualizar_estado')}}" method="POST" class="actualizar_estado">
                   <input type="hidden" name="id" value="{{estudiante[0]}}">
-                  <input type="hidden" name="estado" value="{{estudiante[4]}}">
-                  {% if estudiante[4]=='A' %}
+                  <input type="hidden" name="estado" value="{{estudiante[8]}}">
+                  {% if estudiante[8]=='A' %}
                   <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
                     data-bs-title="Desactivar estudiante">
                     <i class="bi bi-check-square-fill"></i>
@@ -59,9 +59,9 @@
                   {% endif %}
                 </form>
               </td>
-              <td class="col-2 text-center">{{estudiante[5]}}</td>
-              <td class="col-2 text-center">{{estudiante[6]}}</td>
-              <td class="col-2 text-center">{{estudiante[7]}}</td>
+              <td class="col-2 text-center">{{estudiante[12]}}</td>
+              <td class="col-2 text-center">{{estudiante[13]}}</td>
+              <td class="col-2 text-center">{{estudiante[14]}}</td>
               <td class="col-1 text-center">
                 {# Pasar el id lo que hay en estudiante[0] #}
                 <a href="{{url_for('estudiante.editar_estudiante', id=estudiante[0])}}" class="text-center btn btn-primary ls-button"
