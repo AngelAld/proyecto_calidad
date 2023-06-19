@@ -8,6 +8,16 @@ def listar_facultades():
     conexion.close()
     return facultad
 
+def cargar_facultades():
+    conexion = obtener_conexion()
+    facultad = []
+    with conexion.cursor() as cursor:
+        cursor.execute("select f.nombre from facultad f")
+        facultad = cursor.fetchall()
+    conexion.close()
+    return facultad
+
+
 
 def agregar_facultad(nombre, descripcion, estado):
     conexion = obtener_conexion()
