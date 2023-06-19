@@ -1,0 +1,125 @@
+{% extends "maestra/maestra.html" %}
+{% set titulo2 = 'Perfil de usuario' %}
+{% block contenido %}
+<section class="section">
+    <div class="row">
+        <div class="col">
+
+
+            <form action="{{url}}" method="post">
+                <div id="elementosDiv">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5>Datos de {{session['rol']}}:</h5>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-sm-2 col-form-label">Usuario:</label>
+                                <div class="col-sm-10">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario" readonly>
+                                </div>
+                            </div>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-sm-2 col-form-label">Usuario:</label>
+                                <div class="col-sm-10">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario" readonly>
+                                </div>
+                            </div>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-sm-2 col-form-label">Usuario:</label>
+                                <div class="col-sm-10">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5>Datos de usuario:</h5>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-sm-2 col-form-label">Usuario:</label>
+                                <div class="col-sm-10">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario">
+                                </div>
+                            </div>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-sm-2 col-form-label">Rol:</label>
+                                <div class="col-sm-10">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="d-none" id="elementosForm">
+                    {# Enviar el id en un campo oculto #}
+                    <input value="{{id}}" type="hidden" name="id">
+
+                    <div class="mb-4 row">
+                        <label for="usuario" class="col-sm-2 col-form-label">Usuario:</label>
+                        <div class="col-sm-10">
+                            <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                placeholder="usuario" name="usuario" id="usuario">
+                        </div>
+
+
+                    </div>
+                    <div class="mb-4 row">
+                        <label for="usuario" class="col-sm-2 col-form-label">Rol:</label>
+                        <div class="col-sm-10">
+                            <input value="{{session['rol']}}" required type="text" class="form-control input"
+                                placeholder="usuario" name="usuario" id="usuario" disabled>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <span id="btn-editar" class="btn btn-primary"><i class="fas fa-edit"></i>&nbsp;&nbsp;Editar Datos</span>
+                <button id="btn-guardar" type="submit" class="d-none btn btn-success"><i
+                        class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
+                <span id="btn-cancelar" class="d-none btn btn-danger"><i
+                        class="fa fa-times"></i>&nbsp;&nbsp;Cancelar</span>
+                <a id="btn-regresar" href="{{url_for('inicio.inicio')}}" class="btn btn-secondary"><i
+                        class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
+
+            </form>
+        </div>
+        <div class="col d-none d-md-block">
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const botonEditar = document.getElementById('btn-editar');
+    const botonGuardar = document.getElementById('btn-guardar');
+    const botonCancelar = document.getElementById('btn-cancelar');
+    const botonRegresar = document.getElementById('btn-regresar');
+    const elementosForm = document.getElementById('elementosForm');
+
+
+    botonEditar.addEventListener('click', function () {
+        botonGuardar.classList.remove('d-none');
+        botonEditar.classList.add('d-none');
+        botonRegresar.classList.add('d-none');
+        botonCancelar.classList.remove('d-none');
+        elementosForm.classList.remove('d-none');
+    });
+
+    botonCancelar.addEventListener('click', function () {
+        botonGuardar.classList.add('d-none');
+        botonEditar.classList.remove('d-none');
+        botonRegresar.classList.remove('d-none');
+        botonCancelar.classList.add('d-none');
+        elementosForm.classList.add('d-none');
+    });
+
+</script>
+
+{% endblock %}
