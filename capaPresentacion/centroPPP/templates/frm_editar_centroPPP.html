@@ -1,0 +1,13 @@
+{% extends "mantenimiento_CentroPPP.html" %}
+
+{% block titulo %} Editar Centro de Practicas Pre Profesionales {% endblock %}
+{% set titulo2 = "Editar Centro de Practicas Pre Profesionales" %}
+{% set id = centroPPP[0] %}
+{% set ruc = centroPPP[1] %}
+{% set razon_social = centroPPP[2] %}
+{% set alias = centroPPP[3] %}
+{% set rubro = centroPPP[4] %}
+{% set telefono = centroPPP[5] %}
+{% set correo = centroPPP[6] %}
+{% set estado = semestre[7] %}
+{% set url = url_for('centroPPP.actualizar') %}

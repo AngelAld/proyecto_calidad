@@ -1,0 +1,68 @@
+{% extends "maestra/maestra.html" %}
+{% block contenido %}
+<section class="section">
+    <div class="row">
+        <div class="col">
+
+            <form action="{{url}}" method="post">
+                {# Enviar el id en un campo oculto #}
+                <input value="{{id}}" type="hidden" name="id">
+
+                <div class="form-floating mb-4">
+                    <input value="{{ruc}}" required type="text" class="form-control input" placeholder="ruc"
+                        name="ruc" id="ruc">
+                    <label for="ruc">RUC</label>
+                </div>
+
+                <div class="form-floating mb-4">
+                    <input value="{{razon_social}}" required type="text" class="form-control input" name="razon_social"
+                        id="razon_social">
+                    <label for="razon_social">Razón Social</label>
+                </div>
+
+                <div class="form-floating mb-4">
+                    <input value="{{alias}}" required type="text" class="form-control input" name="alias"
+                        id="alias">
+                    <label for="alias">Alias</label>
+                </div>
+
+                <div class="form-floating mb-4">
+                    <input value="{{rubro}}" required type="text" class="form-control input" name="rubro"
+                        id="rubro">
+                    <label for="alias">Rubro</label>
+                </div>
+
+                <div class="form-floating mb-4">
+                    <input value="{{telefono}}" required type="text" class="form-control input" name="telefono"
+                        id="telefono">
+                    <label for="alias">Teléfono</label>
+                </div>
+
+                <div class="form-floating mb-4">
+                    <input value="{{correo}}" required type="text" class="form-control input" name="correo"
+                        id="correo">
+                    <label for="correo">Correo Electrónico</label>
+                </div>
+
+                <div class="form-floating mb-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="estado" id="estado" {% if
+                            estado=="A" %} checked {% endif %}>
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            Activo
+                        </label>
+                    </div>
+
+                    
+                </div>
+
+                <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
+                <a href="{{url_for('centroPPP.centro_PPP')}}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
+
+            </form>
+        </div>
+        <div class="col d-none d-md-block">
+        </div>
+    </div>
+</section>
+{% endblock %}

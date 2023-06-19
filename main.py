@@ -5,6 +5,7 @@ from capaPresentacion.usuario.usuarios import usuarios_bp
 from capaPresentacion.lineaDesarrollo.linea_desarrollo import linea_desarrollo_bp
 from capaPresentacion.Estudiante.estudiante import estudiante_bp
 from capaPresentacion.docenteApoyo.docentes import docentes_bp
+from capaPresentacion.centroPPP.centro_PPP import cPPP_bp
 from capaPresentacion.facultad.facultades import facultad_bp
 from capaPresentacion.escuela_profesional.escuelas import escuela_bp
 from capaPresentacion.planEstudio.plan_estudio import plan_estudio_bp
@@ -26,6 +27,7 @@ app.register_blueprint(docentes_bp)
 app.register_blueprint(facultad_bp)
 app.register_blueprint(escuela_bp)
 app.register_blueprint(plan_estudio_bp)
+app.register_blueprint(cPPP_bp)
 app.register_blueprint(practica_bp)
 app.register_blueprint(informe_inicial_es_bp)
 app.register_blueprint(informe_inicial_em_bp)
