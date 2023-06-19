@@ -35,12 +35,13 @@
 {% block scripts %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+   var datos = {{ datos }}; //esto siempre va a salir error porque el script no sabe que se le esta pasando un dato desde python
   // Datos de ejemplo para los gráficos de torta
   var data1 = {
-    labels: ['Finalizado', 'Por finalizar'],
+    labels: ['Activo', 'Inactivo'],
     datasets: [
       {
-        data: [80, 20], // Datos ficticios, puedes cambiarlos luego
+        data: datos, // Datos ficticios, puedes cambiarlos luego
         backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)'],
         borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
         borderWidth: 1
@@ -84,20 +85,6 @@
     data: data1,
     options: options
   });
-
-  var ctx2 = document.getElementById('chart2').getContext('2d');
-  new Chart(ctx2, {
-    type: 'pie',
-    data: data2,
-    options: options
-  });
-
-  var ctx3 = document.getElementById('chart3').getContext('2d');
-  new Chart(ctx3, {
-    type: 'pie',
-    data: data3,
-    options: options
-  });
 </script>
 <script>
   // Gráfico de barras
@@ -105,10 +92,10 @@
   var barChart = new Chart(ctxBar, {
     type: 'bar',
     data: {
-      labels: ['A', 'B', 'C', 'D', 'E'],
+      labels: ['Activo', 'Inactivo'],
       datasets: [{
-        label: 'Gráfico de Barras',
-        data: [5, 2, 7, 3, 8],
+        label: 'Gráfico de Barras de semestres',
+        data: {{ datos }},
         backgroundColor: 'rgba(54, 162, 235, 0.6)',
         borderColor: 'rgba(54, 162, 235, 1)',
         borderWidth: 1
