@@ -11,8 +11,8 @@ RETURNS TABLE (
 )
 AS $$
 BEGIN
-    RETURN QUERY SELECT id_centro_practicas, ruc, razon_social, alias, rubro, telefono, correo, id_ubicacion
-    FROM CENTRO_PRACTICAS;
+    RETURN QUERY SELECT cp.id_centro_practicas, cp.ruc, cp.razon_social, cp.alias, cp.rubro, cp.telefono, cp.correo, cp.id_ubicacion
+    FROM CENTRO_PRACTICAS cp;
 END;
 $$ LANGUAGE plpgsql;
 
