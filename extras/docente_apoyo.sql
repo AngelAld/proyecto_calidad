@@ -1,75 +1,43 @@
-CREATE OR REPLACE FUNCTION fn_listar_docente_apoyo() 
-RETURNS TABLE(
-    id_docente_apoyo integer,
-    nombre varchar(255),
-    correo varchar(255),
-    estado char(1),
-    id_titulo integer,
-    titulo_profesional varchar(255),
-    id_escuela_profesional integer,
-    escuela_profesional varchar(255),
-    id_usuario integer
-) AS $$ 
-BEGIN 
-    RETURN QUERY 
-    SELECT 
-        da.id_docente_apoyo,
-        da.nombre,
-        da.correo,
-        da.estado,
-        da.id_titulo,
-        tp.nombre AS titulo_profesional,
-        da.id_escuela_profesional,
-        ep.nombre AS escuela_profesional,
-        da.id_usuario
-    FROM 
-        DOCENTE_APOYO da
-        INNER JOIN TITULO_PROFESIONAL tp ON da.id_titulo = tp.id_titulo
-        INNER JOIN ESCUELA_PROFESIONAL ep ON da.id_escuela_profesional = ep.id_escuela_profesional
-    ORDER BY 
-        da.estado, 
-        da.nombre ASC;
+CREATE OR REPLACE FUNCTION fn_listar_docente_apoyo()
+ RETURNS TABLE(id_docente_apoyo integer, nombre character varying, correo character varying, estado character, id_titulo integer, id_escuela_profesional integer, id_usuario integer)
+ LANGUAGE plpgsql
+AS $function$
+BEGIN
+RETURN QUERY SELECT 
+da.id_linea_desarrollo, 
+da.nombre,
+da.correo,
+da.estado,
+da.id_titulo,
+da.id_escuela_profesional,
+da.id_usuario
+FROM DOCENTE_APOYO da
+ORDER BY estado, nombre ASC;
 END;
-$$ LANGUAGE plpgsql;
+$function$
+;
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-------------------------------------------------------------------------------------------------------------------------------------------------
-
-CREATE OR REPLACE FUNCTION fn_consultar_docente_apoyo_id(p_id integer)
-RETURNS TABLE(
-    id_docente_apoyo integer,
-    nombre varchar(255),
-    correo varchar(255),
-    estado char(1),
-    id_titulo integer,
-    titulo_profesional varchar(255),
-    id_escuela_profesional integer,
-    escuela_profesional varchar(255),
-    id_usuario integer
-)
+CREATE OR REPLACE FUNCTION fn_consultar_docente_apoyo_ID(p_id integer)
+RETURNS TABLE(id_docente_apoyo integer, nombre character varying, correo character varying, estado character,  id_titulo integer, id_escuela_profesional integer, id_usuario integer)
 LANGUAGE plpgsql
 AS $function$
 BEGIN
     RETURN QUERY SELECT 
-        da.id_docente_apoyo,
+        da.id_docente_apoyo, 
         da.nombre,
         da.correo,
         da.estado,
         da.id_titulo,
-        tp.nombre AS titulo_profesional,
         da.id_escuela_profesional,
-        ep.nombre AS escuela_profesional,
         da.id_usuario
-    FROM 
-        DOCENTE_APOYO da
-        INNER JOIN TITULO_PROFESIONAL tp ON da.id_titulo = tp.id_titulo
-        INNER JOIN ESCUELA_PROFESIONAL ep ON da.id_escuela_profesional = ep.id_escuela_profesional
-    WHERE 
-        da.id_docente_apoyo = p_id;
+    FROM DOCENTE_APOYO da
+    WHERE da.id_docente_apoyo = p_id;
 END;
 $function$;
 
-------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION fn_agregar_docente_apoyo(p_nombre character varying, p_correo character varying, p_estado character, p_id_titulo int, p_id_escuela_profesional int, p_id_usuario int)
 RETURNS character varying
@@ -83,7 +51,7 @@ BEGIN
     BEGIN
         SELECT COUNT(*) INTO docente_existe
         FROM DOCENTE_APOYO
-        WHERE correo = p_correo;
+        WHERE nombre = p_nombre;
 
         IF docente_existe > 0 THEN
             RETURN 'Docente de apoyo ya existe';
@@ -105,8 +73,7 @@ BEGIN
 END;
 $function$;
 
-------------------------------------------------------------------------------------------------------------------------------------------------
-
+----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION fn_editar_docente_apoyo(p_id_docente_apoyo integer, p_nombre character varying, p_correo character varying, p_estado character, p_id_titulo integer, p_id_escuela_profesional integer, p_id_usuario integer)
   RETURNS character varying
@@ -148,8 +115,7 @@ BEGIN
 END;
 $function$;
 
-
-------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION fn_eliminar_docente_apoyo(p_id integer)
   RETURNS character varying
@@ -180,9 +146,7 @@ BEGIN
 END;
 $function$;
 
-
-------------------------------------------------------------------------------------------------------------------------------------------------
-
+------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION fn_actualizar_estado_docente_apoyo(p_id_docente_apoyo integer, p_estado character)
  RETURNS character varying
@@ -210,4 +174,3 @@ BEGIN
     RETURN 'Operación realizada con éxito';
 END;
 $function$;
-
