@@ -16,4 +16,4 @@ def agregar_ficha_desempeno():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        return render_template("desempeno.html")
+        return render_template("mantenimiento_ficha_desempeno.html")
