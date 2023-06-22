@@ -211,9 +211,11 @@ CREATE TABLE SEMESTRE_ACADEMICO (
 CREATE TABLE TITULO_PROFESIONAL (
   id_titulo   SERIAL NOT NULL, 
   nombre      varchar(255) NOT NULL, 
-  descripcion int4, 
+  descripcion varchar(255) NOT NULL, 
   estado      char(1) NOT NULL, 
   PRIMARY KEY (id_titulo));
+--ALTER TABLE TITULO_PROFESIONAL ALTER COLUMN descripcion TYPE varchar(255)
+
 CREATE TABLE UBICACION (
   id_ubicacion SERIAL NOT NULL, 
   num          varchar(255) NOT NULL, 

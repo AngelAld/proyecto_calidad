@@ -1,6 +1,6 @@
 {% extends "maestra/maestra.html" %}
-{% block titulo %} estudiante {% endblock %}
-{% set titulo2 = "Estudiante" %}
+{% block titulo %} Titulo Profesional {% endblock %}
+{% set titulo2 = "Titulo Profesional" %}
 {% block contenido %}
 <section class="section contenido">
   <div class="columns">
@@ -12,65 +12,67 @@
           <input id="searchbar" class="form-control" type="text" placeholder="&#xF002; Buscar">
         </div>
         <div class="col-auto text-end above-table">
-          <a href="{{url_for('estudiante.formulario_agregar_estudiante')}}" class="btn btn-success"><i
+          <a href="{{url_for('tituloProfesional.formulario_agregar_tituloProfesional')}}" class="btn btn-success"><i
               class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
-              <a href="#" class="btn btn-success"><i
-                class="fas fa-plus-circle"></i>&nbsp;Importar</a>
         </div>
       </div>
       <div class="col-auto">
         <table class="table table-hover align-middle table-bordered" id="tablita">
           <thead>
             <tr class="table-danger">
-
-              <th class="col-2 text-center">Cod universitario</th>
-              <th class="col-2 text-center">DNI</th>
-              <th class="col-2 text-center">Nmbre</th>
+              <th class="col-1 text-center d-none d-xl-table-cell">Código</th>
+              <th class="col-2 text-center">Nombre</th>
+              <th class="col-2 text-center">Descripcion</th>
               <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
               <th class="col-1 text-center">Editar</th>
               <th class="col-1 text-center">Eliminar</th>
             </tr>
           </thead>
           <tbody>
-            {% for estudiante in estudiante %}
+            {% for tituloProfesional in titulo_profesional %}
             <tr>
-              <td class="col-2 text-center">{{estudiante[1]}}</td>
-              <td class="col-2 text-center">{{estudiante[2]}}</td>
-              <td class="col-2 text-center">{{estudiante[3]}}</td>
+              <td class="col-1 text-center d-none d-xl-table-cell">{{tituloProfesional[0]}}</td>
+              <td class="col-2 text-center">{{tituloProfesional[1]}}</td>
+              <td class="col-2 text-center d-none d-lg-table-cell">{{tituloProfesional[2]}}</td>
               <td class="col-1 text-center d-none d-md-table-cell">
-                <form action="{{url_for('estudiante.actualizar_estado')}}" method="POST" class="actualizar_estado">
-                  <input type="hidden" name="id" value="{{estudiante[0]}}">
-                  <input type="hidden" name="estado" value="{{estudiante[8]}}">
-                  {% if estudiante[8]=='A' %}
+                <form action="{{url_for('tituloProfesional.actualizar_estado_tituloProfesional')}}" method="POST"
+                  class="actualizar_estado">
+                  <input type="hidden" name="id" value="{{tituloProfesional[0]}}">
+                  <input type="hidden" name="estado" value="{{tituloProfesional[3]}}">
+                  {% if tituloProfesional[3]=='A' %}
                   <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
-                    data-bs-title="Desactivar estudiante">
+                    data-bs-title="Desactivar Titulo Profesional">
                     <i class="bi bi-check-square-fill"></i>
                   </button>
                   {% else %}
                   <button type="button" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip"
-                    data-bs-title="Activar estudiante">
-                    
+                    data-bs-title="Activar Titulo Profesional">
+
                     <i class="bi bi-x-square-fill"></i>
                   </button>
                   {% endif %}
                 </form>
               </td>
               <td class="col-1 text-center">
-                {# Pasar el id lo que hay en estudiante[0] #}
-                <a href="{{url_for('estudiante.editar_estudiante', id=estudiante[0])}}" class="text-center btn btn-primary ls-button"
-                  data-bs-toggle="tooltip" data-bs-title="Editar estudiante"><i class="fas fa-edit"></i></a>
+                {# Pasar el id lo que hay en tituloProfesional[0] #}
+                <a href="{{url_for('tituloProfesional.editar_tituloProfesional', id=tituloProfesional[0])}}"
+                  class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
+                  data-bs-title="Editar Titulo Profesional"><i class="fas fa-edit"></i></a>
               </td>
               <td class="col-1 text-center">
-                <form action="{{url_for('estudiante.eliminar_estudiante')}}" method="POST" id="eliminar_form">
-                  <input type="hidden" name="id" value="{{estudiante[0]}}">
+                <form action="{{url_for('tituloProfesional.eliminar_tituloProfesional')}}" method="POST"
+                  id="eliminar_form">
+                  <input type="hidden" name="id" value="{{tituloProfesional[0]}}">
                   <button class="btn btn-danger ls-button" id="eliminar_btn"
                     onclick="event.preventDefault(); eliminar(this.parentNode)" data-bs-toggle="tooltip"
-                    data-bs-title="Eliminar estudiante"><i class="fas fa-trash"></i></button>
+                    data-bs-title="Eliminar Titulo Profesional"><i class="fas fa-trash"></i></button>
                 </form>
               </td>
             </tr>
             {% endfor %}
           </tbody>
+
+
         </table>
       </div>
 

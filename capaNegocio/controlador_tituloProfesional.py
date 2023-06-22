@@ -1,77 +1,66 @@
 from capaDatos.bd import obtener_conexion
-def listar_facultades():
+
+def listar_tituloProfesional():
     conexion = obtener_conexion()
-    facultad = []
+    titulo_profesional = []
     with conexion.cursor() as cursor:
-        cursor.execute("select * from fn_listar_facultad()")
-        facultad = cursor.fetchall()
+        cursor.execute("select * from fn_listar_titulo_profesional()")
+        titulo_profesional = cursor.fetchall()
     conexion.close()
-    return facultad
+    return titulo_profesional
 
-def cargar_facultades():
-    conexion = obtener_conexion()
-    facultad = []
-    with conexion.cursor() as cursor:
-        cursor.execute("select f.nombre from facultad f")
-        facultad = cursor.fetchall()
-    conexion.close()
-    return facultad
-
-
-
-def agregar_facultad(nombre, descripcion, estado):
+def agregar_tituloProfesional(nombre, descripcion, estado):
     conexion = obtener_conexion()
     msg = []
     with conexion.cursor() as cursor:
         cursor.execute(
-            "SELECT fn_agregar_facultad(%s, %s, %s)",
-             (nombre, descripcion, estado),
-            )
+            "SELECT fn_agregar_titulo_profesional(%s, %s, %s)",
+            (nombre, descripcion, estado),
+        )
         msg = cursor.fetchone()
     conexion.commit()
     conexion.close()
     return msg[0] if msg is not None else None
 
 
-def eliminar_facultad(id):
+def eliminar_tituloProfesional(id):
     conexion = obtener_conexion()
     msg = []
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT fn_eliminar_facultad(%s)", (id,))
+        cursor.execute("SELECT fn_eliminar_titulo_profesional(%s)", (id,))
         msg = cursor.fetchone()
     conexion.commit()
     conexion.close()
     return msg[0] if msg is not None else None
 
 
-def buscar_facultad(id):
+def buscar_tituloProfesionalID(id):
     conexion = obtener_conexion()
-    facultad = None
+    titulo_profesional = None
     with conexion.cursor() as cursor:
         cursor.execute(
-            "SELECT * FROM fn_consultar_facultad_ID(%s)",
+            "select * from fn_consultar_titulo_profesional_ID(%s)",
             (id,),
         )
-        facultad = cursor.fetchone()
+        titulo_profesional = cursor.fetchone()
     conexion.close()
-    return facultad
+    return titulo_profesional
 
 
-def actualizar_facultad(id, nombre, descripcion, estado):
+def actualizar_tituloProfesional(id, nombre, descripcion, estado):
     conexion = obtener_conexion()
     msg = []
     with conexion.cursor() as cursor:
         cursor.execute(
-            "SELECT fn_editar_facultad(%s, %s, %s, %s)",
-            (id, nombre, descripcion,estado),
+            "SELECT fn_editar_titulo_profesional(%s, %s, %s, %s)",
+            (id, nombre, descripcion, estado),
         )
         msg = cursor.fetchone()
     conexion.commit()
     conexion.close()
     return msg[0] if msg is not None else None
 
-
-def dar_baja_facultad(id, estado):
+def dar_baja_tituloProfesional(id, estado):
     conexion = obtener_conexion()
     msg = []
     new_estado = ""
@@ -80,8 +69,10 @@ def dar_baja_facultad(id, estado):
     else:
         new_estado = "A"
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT fn_actualizar_estado_facultad(%s, %s)", (id, new_estado))
+        cursor.execute("SELECT fn_actualizar_estado_titulo_profesional(%s, %s)", (id, new_estado))
         msg = cursor.fetchone()
     conexion.commit()
     conexion.close()
     return msg[0] if msg is not None else None
+
+

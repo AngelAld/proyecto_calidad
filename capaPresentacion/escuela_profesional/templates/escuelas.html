@@ -7,6 +7,20 @@
     <div class="col">
       <div class="row">
         <div class="col d-none d-sm-block above-table">
+          <div class="col-auto">
+            <div class="row">
+              <div class="col-auto">
+                <b><label for="Facultad" class="col-form-label">Facultad</label></b>
+              </div>
+              <div class="col-auto">
+                <select class="form-select" aria-label="Facultad">                  
+                  <option value="1">Ingenieria</option>
+                  <option value="2">Derecho</option>
+                  <option value="3">Medicina</option>
+                </select>
+              </div>             
+            </div>
+          </div>
         </div>
         <div class="col-auto text-end above-table">
           <input id="searchbar" class="form-control" type="text" placeholder="&#xF002; Buscar">
@@ -24,6 +38,7 @@
               <th class="col-2 text-center">Nombre</th>
               <th class="col-2 text-center">Descripción</th>
               <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
+              <th class="col-2 text-center">Facultad</th>
               <th class="col-1 text-center">Editar</th>
               <th class="col-1 text-center">Eliminar</th>
             </tr>
@@ -35,7 +50,7 @@
               <td class="col-2 text-center">{{escuela[1]}}</td>
               <td class="col-2 text-center">{{escuela[2]}}</td>
               <td class="col-1 text-center d-none d-md-table-cell">
-                <form action="{{url_for('escuela.actualizar_estado')}}" method="POST" class="actualizar_estado">
+                <form action="{{url_for('escuela.actualizar_estado_escuela')}}" method="POST" class="actualizar_estado">
                   <input type="hidden" name="id" value="{{escuela[0]}}">
                   <input type="hidden" name="estado" value="{{escuela[3]}}">
                   {% if escuela[3]=='A' %}
@@ -52,6 +67,7 @@
                   {% endif %}
                 </form>
               </td>
+              <td class="col-2 text-center">{{escuela[4]}}</td>
               <td class="col-1 text-center">
                 {# Pasar el id lo que hay en escuela[0] #}
                 <a href="{{url_for('escuela.editar_escuelas', id=escuela[0])}}" class="text-center btn btn-primary ls-button"

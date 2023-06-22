@@ -29,7 +29,28 @@ BEGIN
         ji.nombre ASC;
 END;
 $$ LANGUAGE plpgsql;
+-------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION fn_consultar_jefe_inmediato_ID(p_id integer)
+RETURNS TABLE(id_jefe_inmediato integer, nombre varchar, correo varchar, telefono varchar, cargo varchar, estado char, id_centro_practicas integer, razon_social varchar, alias varchar)
+LANGUAGE plpgsql
+AS $function$
+BEGIN
+    RETURN QUERY SELECT 
+        ji.id_jefe_inmediato,
+        ji.nombre,
+        ji.correo,
+        ji.telefono,
+        ji.cargo,
+        ji.estado,
+        ji.id_centro_practicas,
+        cp.razon_social,
+        cp.alias
+    FROM JEFE_INMEDIATO ji
+    WHERE ji.id_jefe_inmediato = p_id;
+END;
+$function$;
 
+--------------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION fn_agregar_jefe_inmediato(
     p_nombre varchar(255),
     p_correo varchar(255),
@@ -71,6 +92,7 @@ BEGIN
 END;
 $function$;
 
+--------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION fn_editar_jefe_inmediato(
   p_id_jefe_inmediato integer,
@@ -120,6 +142,8 @@ BEGIN
 END;
 $function$;
 
+---------------------------------------------------------------------------------------
+
 CREATE OR REPLACE FUNCTION fn_eliminar_jefe_inmediato(p_id integer)
   RETURNS varchar(255)
   LANGUAGE plpgsql
@@ -148,6 +172,8 @@ BEGIN
   RETURN mensaje;
 END;
 $function$;
+
+----------------------------------------------------------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION fn_actualizar_estado_jefe_inmediato(p_id_jefe_inmediato integer, p_estado char(1))
  RETURNS varchar(255)

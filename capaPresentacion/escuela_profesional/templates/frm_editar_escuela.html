@@ -2,8 +2,9 @@
 
 {% block titulo %} Editar Escuela {% endblock %}
 {% set titulo2 = "Editar Escuela" %}
-{% set id = escuela[0] %}
-{% set nombre = escuela[1] %}
-{% set descripcion = escuela[2] %}
-{% set estado = <escuela 3=""></escuela> %}
+{% set id = escuelas[0] %}
+{% set nombre = escuelas[1] %}
+{% set descripcion = escuelas[2] %}
+{% set estado = escuelas[3] %}
+{% set id_facultad = escuelas[4] %}
 {% set url = url_for('escuela.actualizar_escuela') %}

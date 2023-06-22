@@ -33,7 +33,7 @@ select * from fn_agregar_facultad('Medicina', 'AAA', 'A');
 
 
 --FUNCIONES DE LINEA DESARROLLO PROBADAS ----------------------------------------------------------------------------------
-insert into escuela_profesional(nombre, descripcion, estado, id_facultad) values('Escuela prueba', 'aaaaa', 'A', 2);
+insert into escuela_profesional(nombre, descripcion, estado, id_facultad) values('Escuela prueba', 'aaaaa', 'A', 1);
 
 select * from fn_agregar_linea_desarrollo('Linea prueba', 'aaaa', 'A', 1);
 
