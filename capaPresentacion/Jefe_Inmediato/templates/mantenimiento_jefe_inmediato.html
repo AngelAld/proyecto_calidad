@@ -15,18 +15,22 @@
                 </div>
 
                 <div class="form-floating mb-4">
-                    <input value="{{descripcion}}" required type="text" class="form-control input" placeholder="Descripcion"
-                        name="descripcion" id="descripcion">
-                    <label for="descripcion">Descripción</label>
+                    <input value="{{correo}}" required type="date" class="form-control input" name="correo"
+                        id="correo">
+                    <label for="correo">Correo</label>
                 </div>
 
                 <div class="form-floating mb-4">
-                    <input value="{{id_facultad}}" required type="text" class="form-control input" placeholder="id_facultad"
-                        name="id_facultad" id="id_facultad">
-                    <label for="facultad">Facultad</label>
+                    <input value="{{telefono}}" required type="date" class="form-control input" name="telefono"
+                        id="telefono">
+                    <label for="telefono">Telefono</label>
                 </div>
 
-
+                <div class="form-floating mb-4">
+                    <input value="{{cargo}}" required type="date" class="form-control input" name="cargo"
+                        id="cargo">
+                    <label for="cargo">Cargo</label>
+                </div>
 
                 <div class="form-floating mb-4">
                     <div class="form-check">
@@ -39,7 +43,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
-                <a href="{{url_for('escuela.escuelas')}}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
+                <a href="{{url_for('jefe_inmediato.jefe_inmediato')}}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
 
             </form>
         </div>

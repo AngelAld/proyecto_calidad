@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, flash, session, url_for
 from capaNegocio import controlador_escuela as c_escuela
+from capaNegocio import controlador_facultad as c_facultad
 
 
 escuela_bp = Blueprint("escuela", __name__, template_folder="templates")
@@ -10,7 +11,15 @@ def escuelas():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        escuelas = c_escuela.getAll()
+        escuelas = c_escuela.listar_escuela()
+        return render_template("escuelas.html", escuelas=escuelas)
+    
+@escuela_bp.route("/escuela")
+def cargar_facultad():
+    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+        return redirect(url_for("inicio.inicio"))
+    else:
+        escuelas = c_facultad.cargar_facultades()
         return render_template("escuelas.html", escuelas=escuelas)
     
     
@@ -35,9 +44,8 @@ def guardar_escuela():
         else:
             estado = "I"       
         id_facultad = request.form["id_facultad"]
-        nombre_facultad = request.form["nombre_facultad"]
-
-        mensaje = c_escuela.agregar_escuela(nombre, descripcion, estado, id_facultad,nombre_facultad )
+        
+        mensaje = c_escuela.agregar_escuela(nombre, descripcion, estado, id_facultad)
 
         if mensaje == "Operación realizada con éxito":
             flash(f"Escuela Registrado con Exito", "success")
@@ -54,7 +62,7 @@ def semestres():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        escuelas = c_escuela.listar_escuelas()
+        escuelas = c_escuela.listar_escuela()
         return render_template("escuelas.html", escuelas=escuelas)
 
 
@@ -77,12 +85,12 @@ def editar_escuelas(id):
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        escuelas = c_escuela.buscar_escuelaID(id)
+        escuelas = c_escuela.buscar_escuela(id)
         return render_template("frm_editar_escuela.html", escuelas=escuelas)
 
 
 @escuela_bp.route("/actualizar_escuela", methods=["POST"])
-def actualizar_facultad():
+def actualizar_escuela():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
@@ -95,9 +103,8 @@ def actualizar_facultad():
         else:
             estado = "I"       
         id_facultad = request.form["id_facultad"]
-        nombre_facultad = request.form["nombre_facultad"]
 
-        mensaje = c_escuela.agregar_escuela(nombre, descripcion, estado, id_facultad,nombre_facultad)
+        mensaje = c_escuela.actualizar_escuela(id, nombre, descripcion, estado, id_facultad)
         if mensaje == "Operación realizada con éxito":
             flash(f"Escuela Actualizada con Exito", "success")
             url = "/escuelas"
@@ -107,17 +114,16 @@ def actualizar_facultad():
         return redirect(url)
     
 
-@escuela_bp.route("/actualizar_estado", methods=["POST"])
-def actualizar_estado():
+@escuela_bp.route("/actualizar_estado_escuela", methods=["POST"])
+def actualizar_estado_escuela():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
         id = request.form["id"]
         estado = request.form["estado"]
         mensaje = c_escuela.dar_baja_escuela(id, estado)
-
         if mensaje == "Operación realizada con éxito":
-            flash(f"Semestre Actualizado con Exito", "success")
+            flash(f"Escuela Actualizado con Exito", "success")
         else:
             flash(str(mensaje), "error")
 
