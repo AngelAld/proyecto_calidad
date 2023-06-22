@@ -12,25 +12,21 @@
           <div class="col-auto">
             <div class="row">
               <div class="col-auto">
-                <b><label for="Escuela" class="col-form-label">Escuela</label></b>
+                <b><label for="Escuela" class="col-form-label">Facultad</label></b>
               </div>
 
               <div class="col-auto">
                 <select class="form-select" aria-label="Facultad">
                   <option value="1">Ingenieria</option>
-                  <option value="2"></option>
-                  <option value="3"></option>
                 </select>
               </div>
 
               <div class="col-auto">
-                <b><label for="Facultad" class="col-form-label">Facultad</label></b>
+                <b><label for="Facultad" class="col-form-label">Escuela</label></b>
               </div>
               <div class="col-auto">
                 <select class="form-select" aria-label="Facultad">
                   <option value="1">Ingenieria de Sistemas y Computación</option>
-                  <option value="2"></option>
-                  <option value="3"></option>
                 </select>
               </div>
             </div>
@@ -50,7 +46,7 @@
         <table class="table table-hover align-middle table-bordered" id="tablita">
           <thead>
             <tr class="table-danger">
-              <th class="col-1 text-center d-none d-xl-table-cell">Código</th>
+              <th class="col text-center d-none d-xl-table-cell">Código</th>
               <th class="col-2 text-center">Nombre</th>
               <th class="col-2 text-center">Descripcion</th>
 <!--              <th class="col-2 text-center">Escuela</th>                 --> 
@@ -63,8 +59,8 @@
             {% for lineaDesarrollo in linea_desarrollo %}
             <tr>
               <td class="col-1 text-center d-none d-xl-table-cell">{{lineaDesarrollo[0]}}</td>
-              <td class="col-2 text-center">{{lineaDesarrollo[1]}}</td>
-              <td class="col-2 text-center">{{lineaDesarrollo[2]}}</td>
+              <td class="col-2 text-start">{{lineaDesarrollo[1]}}</td>
+              <td class="col-2 text-star">{{lineaDesarrollo[2]}}</td>
 <!--                <td class="col-2 text-center">{{lineaDesarrollo[4]}}</td>                 --> 
               <td class="col-1 text-center d-none d-md-table-cell">
                 <form action="{{url_for('lineaDesarrollo.actualizar_estado_lineaDesarrollo')}}" method="POST"
