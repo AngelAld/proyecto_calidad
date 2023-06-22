@@ -4,7 +4,8 @@ def listar_plan_estudio():
     conexion = obtener_conexion()
     planEstudio = []
     with conexion.cursor() as cursor:
-       cursor.execute("select * from fn_listar_planEstudio()")
+       cursor.execute ("select pe.id_plan_estudio, pe.nombre, pe.estado, ep.nombre from PLAN_ESTUDIO pe INNER JOIN ESCUELA_PROFESIONAL ep ON pe.id_escuela_profesional=ep.id_escuela_profesional")
+       #("select * from fn_listar_planEstudio()")
        planEstudio = cursor.fetchall()
     conexion.close()
     return planEstudio
@@ -28,7 +29,7 @@ def eliminar_plan_estudio(id):
     conexion = obtener_conexion()
     msg = []
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT fn_eliminar_plan_estudio(%s)", (id,))
+        cursor.execute("SELECT fn_eliminar_plan_estudio(%s)", (id))
         msg = cursor.fetchone()
     conexion.commit()
     conexion.close()
@@ -73,3 +74,14 @@ def dar_baja_plan_estudio(id, estado):
     conexion.commit()
     conexion.close()
     return msg[0] if msg is not None else None
+
+#********************************************* Lo uso para listar en combo a linea de desarrollo (NO BORRAR ESTA FUNCION) *
+def obtener_escuelas():
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT id_escuela_profesional, nombre FROM ESCUELA_PROFESIONAL ")
+        escuelas = cursor.fetchall()
+    conexion.close()
+    return escuelas
+
+#***************************************************************

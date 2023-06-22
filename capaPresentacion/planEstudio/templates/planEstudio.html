@@ -46,8 +46,8 @@
             <tr class="table-danger">
               <th class="col-1 text-center d-none d-xl-table-cell">Código</th>
               <th class="col-2 text-center">Plan de Estudio</th>
-              <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
               <th class="col-2 text-center">Escuela Profesional</th>
+              <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
               <th class="col-1 text-center">Editar</th>
               <th class="col-1 text-center">Eliminar</th>
             </tr>
@@ -56,7 +56,8 @@
             {% for planEstudio in plan_estudio %}
             <tr>
               <td class="col-1 text-center d-none d-xl-table-cell">{{planEstudio[0]}}</td>
-              <td class="col-2 text-center">{{planEstudio[1]}}</td>
+              <td class="col-2 text-left">{{planEstudio[1]}}</td>
+              <td class="col-2 text-left">{{planEstudio[3]}}</td>
 
               <td class="col-1 text-center d-none d-md-table-cell">
                 <form action="{{url_for('planEstudio.actualizar_estado_plan_estudio')}}" method="POST"
@@ -77,7 +78,7 @@
                   {% endif %}
                 </form>
               </td>
-              <td class="col-2 text-center">{{planEstudio[3]}}</td>
+              
               <td class="col-1 text-center">
                 {# Pasar el id lo que hay en planEstudio[0] #}
                 <a href="{{url_for('planEstudio.editar_plan_estudio', id=planEstudio[0])}}"

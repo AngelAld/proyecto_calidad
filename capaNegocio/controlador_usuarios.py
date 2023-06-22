@@ -29,6 +29,3 @@ def login(username, password):
         ]
         print(list(row))
     return user
-
-
-def agregar_usuario
