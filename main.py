@@ -16,6 +16,7 @@ from capaPresentacion.ficha_desempeno.ficha_desempeno import ficha_desempeno_bp
 from capaPresentacion.informe_final_em.informe_final_em import informe_final_em_bp
 from capaPresentacion.informe_final_es.informe_final_es import informe_final_es_bp
 from capaPresentacion.Jefe_Inmediato.jefe_inmediato import jefe_inmediato_bp
+from capaPresentacion.tituloProfesional.titulo_profesional import titulo_profesional_bp
 
 app = Flask(__name__, static_url_path=None)
 app.secret_key = "nose"
@@ -36,6 +37,7 @@ app.register_blueprint(ficha_desempeno_bp)
 app.register_blueprint(informe_final_em_bp)
 app.register_blueprint(informe_final_es_bp)
 app.register_blueprint(jefe_inmediato_bp)
+app.register_blueprint(titulo_profesional_bp)
 
 # Iniciar el servidor
 if __name__ == "__main__":
