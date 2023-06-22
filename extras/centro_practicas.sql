@@ -16,6 +16,24 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION fn_consultar_centroPPP_ID(p_id integer)
+RETURNS TABLE(id_centro_practicas integer,
+    ruc varchar(255),
+    razon_social varchar(255),
+    alias varchar(50),
+    rubro varchar(255),
+    telefono varchar(12),
+    correo varchar(255),
+    id_ubicacion integer)
+LANGUAGE plpgsql
+AS $function$
+BEGIN
+    RETURN QUERY SELECT 
+        cp.id_centro_practicas, cp.ruc, cp.razon_social, cp.alias, cp.rubro, cp.telefono, cp.correo, cp.id_ubicacion
+    FROM CENTRO_PRACTICAS cp
+    WHERE cp.id_centro_practicas = p_id;
+END;
+$function$;
 
 CREATE OR REPLACE FUNCTION fn_agregar_centro_practicas(
     p_ruc varchar(255),
