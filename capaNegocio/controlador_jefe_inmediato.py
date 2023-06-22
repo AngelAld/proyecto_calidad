@@ -10,13 +10,13 @@ def listar_jefe_inmediato():
     return jefe_inmediato
 
 
-def agregar_jefe_inmediato(nombre, correo, telefono, cargo, id_centro_practicas, estado):
+def agregar_jefe_inmediato(nombre, correo, telefono, cargo, estado, id_centro_practicas, razon_social, alias):
     conexion = obtener_conexion()
     msg = []
     with conexion.cursor() as cursor:
         cursor.execute(
-            "SELECT fn_agregar_jefe_inmediato(%s, %s, %s, %s, %s, %s)",
-            (nombre, correo, telefono, cargo, id_centro_practicas, estado),
+            "SELECT fn_agregar_jefe_inmediato(%s, %s, %s, %s, %s, %s, %s, %s)",
+            (nombre, correo, telefono, cargo, estado, id_centro_practicas, razon_social, alias),
         )
         msg = cursor.fetchone()
     conexion.commit()
@@ -38,20 +38,21 @@ def buscar_jefe_inmediatoID(id):
     Jefe_Inmediato = None
     with conexion.cursor() as cursor:
         cursor.execute(
-            "select ji.id_jefe_inmediato, ji.nombre. ji.correo, ji.telefono, ji.cargo, cp.razon_social, ji.estado from JEFE_INMEDIATO ji INNER JOIN centro_practicas cp ON cp.id_centro_practicas = ji.id_centro_practicas WHERE ji.id_jefe_inmediato=%s",
+            "select * from fn_consultar_jefe_inmediato_ID(%s)",
+            # "select ji.id_jefe_inmediato, ji.nombre. ji.correo, ji.telefono, ji.cargo, cp.razon_social, ji.estado from JEFE_INMEDIATO ji INNER JOIN centro_practicas cp ON cp.id_centro_practicas = ji.id_centro_practicas WHERE ji.id_jefe_inmediato=%s",
             (id,),
         )
         Jefe_Inmediato = cursor.fetchone()
     conexion.close()
     return Jefe_Inmediato
 
-def actualizar_jefe_inmediato(id, nombre, correo, telefono, cargo, id_centro_practicas, estado):
+def actualizar_jefe_inmediato(id, nombre, correo, telefono, cargo, estado, id_centro_practicas, razon_social, alias):
     conexion = obtener_conexion()
     msg = []
     with conexion.cursor() as cursor:
         cursor.execute(
-            "SELECT fn_editar_jefe_inmediato(%s, %s, %s, %s, %s, %s, %s)",
-            (id, nombre, correo, telefono, cargo, id_centro_practicas, estado),
+            "SELECT fn_editar_jefe_inmediato(%s, %s, %s, %s, %s, %s, %s, %s, %s)",
+            (id, nombre, correo, telefono, cargo, estado, id_centro_practicas, razon_social, alias),
         )
         msg = cursor.fetchone()
     conexion.commit()
@@ -73,3 +74,13 @@ def dar_baja_jefe_inmediato(id, estado):
     conexion.close()
     return msg[0] if msg is not None else None
 
+#********************************************* Listar Centro de practicas *
+def obtener_centro_practicas():
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT id_centro_practicas, razon_social FROM CENTRO_PRACTICAS")
+        centro_PPP = cursor.fetchall() #verificar si está así
+    conexion.close()
+    return centro_PPP #verificar si está así
+
+#***************************************************************

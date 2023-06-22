@@ -7,6 +7,20 @@
     <div class="col">
       <div class="row">
         <div class="col d-none d-sm-block above-table">
+          <div class="col-auto">
+            <div class="row">
+              <div class="col-auto">
+                <b><label for="Centro_Practicas" class="col-form-label">Centro Practicas</label></b>
+              </div>
+              <div class="col-auto">
+                <select class="form-select" aria-label="Centro_Practicas">
+                  <option value="1">XYZ</option>
+                  <option value="2"></option>
+                  <option value="3"></option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="col-auto text-end above-table">
           <input id="searchbar" class="form-control" type="text" placeholder="&#xF002; Buscar">
@@ -25,8 +39,11 @@
               <th class="col-2 text-center d-none d-lg-table-cell">Correo</th>
               <th class="col-2 text-center d-none d-lg-table-cell">Telefono</th>
               <th class="col-2 text-center d-none d-lg-table-cell">Cargo</th>
+              <th class="col-1 text-center d-none d-md-table-cell">Alias</th>
               <th class="col-2 text-center d-none d-lg-table-cell">Centro Practica</th>
-              <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
+              <th class="col-2 text-center d-none d-lg-table-cell">Razon Social</th>
+              <th class="col-2 text-center d-none d-lg-table-cell">Estado</th>
+
               <th class="col-1 text-center">Editar</th>
               <th class="col-1 text-center">Eliminar</th>
             </tr>
@@ -39,14 +56,16 @@
               <td class="col-2 text-center d-none d-lg-table-cell">{{jefe_inmediato[2]}}</td>
               <td class="col-2 text-center d-none d-lg-table-cell">{{jefe_inmediato[3]}}</td>
               <td class="col-2 text-center d-none d-lg-table-cell">{{jefe_inmediato[4]}}</td>
-              <td class="col-2 text-center d-none d-lg-table-cell">{{jefe_inmediato[5]}}</td>
+              <td class="col-2 text-center d-none d-lg-table-cell">{{jefe_inmediato[8]}}</td>
+              <td class="col-2 text-center d-none d-lg-table-cell">{{jefe_inmediato[6]}}</td>
+              <td class="col-2 text-center d-none d-lg-table-cell">{{jefe_inmediato[7]}}</td>
 
               <td class="col-1 text-center d-none d-md-table-cell">
                 <form action="{{url_for('jefe_inmediato.actualizar_estado_jefe_inmediato')}}" method="POST"
                   class="actualizar_estado">
                   <input type="hidden" name="id" value="{{jefe_inmediato[0]}}">
-                  <input type="hidden" name="estado" value="{{jefe_inmediato[6]}}">
-                  {% if jefe_inmediato[6]=='A' %}
+                  <input type="hidden" name="estado" value="{{jefe_inmediato[5]}}">
+                  {% if jefe_inmediato[5]=='A' %}
                   <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
                     data-bs-title="Desactivar Jefe Inmediato">
                     <i class="bi bi-check-square-fill"></i>
