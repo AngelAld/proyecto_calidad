@@ -10,7 +10,10 @@ def formulario_agregar_estudiante():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        return render_template("frm_agregar_estudiante.html")
+        planestudio = c_estudiante.obtener_planestudio()
+        semesteacademico = c_estudiante.obtener_semesteacademico()
+        usuario = c_estudiante.obtener_usuario()
+        return render_template("frm_agregar_estudiante.html",planestudio=planestudio,semesteacademico=semesteacademico,usuario=usuario)
 
 
 @estudiante_bp.route("/guardar_estudiante", methods=["POST"])
@@ -30,9 +33,9 @@ def guardar_estudiante():
             estado = "A"
         else:
             estado = "I"
-        id_usuario = request.form["id_usuario"]
-        id_semestre_academico_ingreso = request.form["id_semestre_academico_ingreso"]
-        id_plan_estudio = request.form["id_plan_estudio"]
+        id_usuario = request.form["usuario"]
+        id_semestre_academico_ingreso = request.form["semesteacademico"]
+        id_plan_estudio = request.form['planestudio']
 
         mensaje = c_estudiante.insert(cod_universitario,dni,nombre,correo_usat,correo_personal,telefono, telefono2,  estado,id_usuario,id_semestre_academico_ingreso,id_plan_estudio)
 
@@ -75,7 +78,10 @@ def editar_estudiante(id):
         return redirect(url_for("inicio.inicio"))
     else:
         estudiante = c_estudiante.getById(id)
-        return render_template("frm_editar_estudiante.html", estudiante=estudiante)
+        planestudio= c_estudiante.obtener_planestudio()
+        semesteacademico= c_estudiante.obtener_semesteacademico()
+        usuario = c_estudiante.obtener_usuario()
+        return render_template("frm_editar_estudiante.html", estudiante=estudiante,planestudio=planestudio,semesteacademico=semesteacademico,usuario=usuario)
 
 
 @estudiante_bp.route("/actualizar_estudiante", methods=["POST"])
@@ -96,9 +102,9 @@ def actualizar_estudiante():
             estado = "A"
         else:
             estado = "I"
-        id_usuario = request.form["id_usuario"]
-        id_semestre_academico_ingreso = request.form["id_semestre_academico_ingreso"]
-        id_plan_estudio = request.form["id_plan_estudio"]
+        id_usuario = request.form["usuario"]
+        id_semestre_academico_ingreso = request.form["semesteacademico"]
+        id_plan_estudio = request.form['planestudio']
         
         mensaje = c_estudiante.update(id, cod_universitario,dni,nombre,correo_usat,correo_personal,telefono, telefono2,  estado,id_usuario,id_semestre_academico_ingreso,id_plan_estudio)
 
@@ -126,3 +132,28 @@ def actualizar_estado():
             flash(str(mensaje), "error")
 
         return redirect("/estudiante")
+    
+# solo cmb-----------------------------------------
+@estudiante_bp.route("/cmb_planestudio")
+def cmb_planestudio():
+    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+        return redirect(url_for("inicio.inicio"))
+    else:
+        planestudio = c_estudiante.obtener_planestudio()
+        return render_template("estudiante.html", planestudio=planestudio)
+    
+@estudiante_bp.route("/cmb_semesteacademico")
+def cmb_semesteacademico():
+    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+        return redirect(url_for("inicio.inicio"))
+    else:
+        semesteacademico = c_estudiante.obtener_semesteacademico()
+        return render_template("estudiante.html", semesteacademico=semesteacademico)
+    
+@estudiante_bp.route("/cmb_usuario")
+def cmb_usuario():
+    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+        return redirect(url_for("inicio.inicio"))
+    else:
+        usuario = c_estudiante.obtener_usuario()
+        return render_template("estudiante.html", usuario=usuario)

@@ -53,19 +53,36 @@
                         </label>
                     </div>
                 </div>
-                <div class="form-floating mb-4">
+                <!-- <div class="form-floating mb-4">
                     <input value="{{id_usuario}}" required type="text" class="form-control input" placeholder="id_usuario"
                         name="id_usuario" id="id_usuario">
                     <label for="id_usuario">id_usuario</label>
+                </div> -->
+                <div class="form-floating mb-4">
+                    <select value="{{usuario}}" required type="text-left" class="form-control input" placeholder="usuario"
+                    name="usuario" id="usuario">
+                    {% for usuario in usuario %}
+                        <option value="{{ usuario[0] }}">{{usuario[1] }}</option>
+                    {% endfor %}
+                    </select>
+                    <label for="usuario">usuario</label>
                 </div>
                 <div class="form-floating mb-4">
-                    <input value="{{id_semestre_academico_ingreso}}" required type="text" class="form-control input" placeholder="id_semestre_academico_ingreso"
-                        name="id_semestre_academico_ingreso" id="id_semestre_academico_ingreso">
-                    <label for="id_semestre_academico_ingreso">id_semestre_academico_ingreso</label>
+                    <select value="{{semesteacademico}}" required type="text-left" class="form-control input" placeholder="semesteacademico"
+                    name="semesteacademico" id="semesteacademico">
+                    {% for semesteacademico in semesteacademico %}
+                        <option value="{{ semesteacademico[0] }}">{{semesteacademico[1] }}</option>
+                    {% endfor %}
+                    </select>
+                    <label for="semesteacademico">semesteacademico</label>
                 </div>
                 <div class="form-floating mb-4">
-                    <input value="{{id_plan_estudio}}" required type="text" class="form-control input" placeholder="id_plan_estudio"
-                        name="id_plan_estudio" id="id_semestre_academico_ingreso">
+                    <select value="{{planestudio}}" required type="text-left" class="form-control input" placeholder="planestudio"
+                    name="planestudio" id="planestudio">
+                    {% for planestudio in planestudio %}
+                        <option value="{{ planestudio[0] }}">{{planestudio[1] }}</option>
+                    {% endfor %}
+                    </select>
                     <label for="id_plan_estudio">id_plan_estudio</label>
                 </div>
 
