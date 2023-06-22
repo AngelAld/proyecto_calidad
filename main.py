@@ -3,6 +3,7 @@ from capaPresentacion.inicio.inicio import inicio_bp
 from capaPresentacion.semestre.semestres import semestres_bp
 from capaPresentacion.usuario.usuarios import usuarios_bp
 from capaPresentacion.lineaDesarrollo.linea_desarrollo import linea_desarrollo_bp
+from capaPresentacion.centroPPP.centro_PPP import cPPP_bp
 from capaPresentacion.Estudiante.estudiante import estudiante_bp
 from capaPresentacion.docenteApoyo.docentes import docentes_bp
 from capaPresentacion.facultad.facultades import facultad_bp
@@ -22,6 +23,7 @@ app.register_blueprint(inicio_bp)
 app.register_blueprint(semestres_bp)
 app.register_blueprint(usuarios_bp)
 app.register_blueprint(linea_desarrollo_bp)
+app.register_blueprint(cPPP_bp)
 app.register_blueprint(estudiante_bp)
 app.register_blueprint(docentes_bp)
 app.register_blueprint(facultad_bp)

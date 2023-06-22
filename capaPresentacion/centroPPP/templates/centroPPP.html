@@ -1,0 +1,71 @@
+{% extends "maestra/maestra.html" %}
+{% block titulo %} Semestre Académico {% endblock %}
+{% set titulo2 = "Centro de Practicas Pre Profesionales" %}
+{% block contenido %}
+<section class="section contenido">
+  <div class="columns">
+    <div class="col">
+      <div class="row">
+        <div class="col d-none d-sm-block above-table">
+        </div>
+        <div class="col-auto text-end above-table">
+          <input id="searchbar" class="form-control" type="text" placeholder="&#xF002; Buscar">
+        </div>
+        <div class="col-auto text-end above-table">
+          <a href="{{url_for('centroPPP.formulario_agregar_CentroPPP')}}" class="btn btn-success"><i
+              class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
+        </div>
+      </div>
+      <div class="col-auto">
+        <table class="table table-hover align-middle table-bordered" id="tablita">
+          <thead>
+            <tr class="table-danger">
+              <th class="col-1 text-center d-none d-xl-table-cell">Código</th>
+              <th class="col-2 text-center d-none d-lg-table-cell">RUC</th>
+              <th class="col-3 text-center d-none d-lg-table-cell">Razón Social</th>
+              <th class="col-2 text-center d-none d-lg-table-cell">Alias</th>
+              <th class="col-4 text-center d-none d-md-table-cell">Rubro</th>
+              <th class="col-2 text-center d-none d-lg-table-cell">Teléfono</th>
+              <th class="col-4 text-center d-none d-md-table-cell">Correo</th>
+              <th class="col-4 text-center d-none d-md-table-cell">Ubicacion</th>
+              <th class="col-1 text-center">Editar</th>
+              <th class="col-1 text-center">Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for centroPPP in centro_PPP %}
+            <tr>
+              <td class="col-1 text-center d-none d-xl-table-cell">{{centroPPP[0]}}</td>
+              <td class="col-2 text-center">{{centroPPP[1]}}</td>
+              <td class="col-2 text-center d-none d-lg-table-cell">{{centroPPP[2]}}</td>
+              <td class="col-2 text-center d-none d-lg-table-cell">{{centroPPP[3]}}</td>
+              <td class="col-3 text-center d-none d-lg-table-cell">{{centroPPP[4]}}</td>
+              <td class="col-2 text-center d-none d-lg-table-cell">{{centroPPP[5]}}</td>
+              <td class="col-2 text-center d-none d-lg-table-cell">{{centroPPP[6]}}</td>
+              <td class="col-2 text-center d-none d-lg-table-cell">{{centroPPP[7]}}</td>
+                
+              </td>
+              <td class="col-1 text-center">
+                {# Pasar el id lo que hay en semestre[0] #}
+                <a href="{{url_for('centroPPP.modificar_centroPPP', id=centroPPP[0])}}"
+                  class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
+                  data-bs-title="Editar Centro de Practicas"><i class="fas fa-edit"></i></a>
+              </td>
+              <td class="col-1 text-center">
+                <form action="{{url_for('centroPPP.eliminar_CentroPPP')}}" method="POST" id="eliminar_form">
+                  <input type="hidden" name="id" value="{{centroPPP[0]}}">
+                  <button class="btn btn-danger ls-button" id="eliminar_btn"
+                    onclick="event.preventDefault(); eliminar(this.parentNode)" data-bs-toggle="tooltip"
+                    data-bs-title="Eliminar Centro de Practicas"><i class="fas fa-trash"></i></button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock%}
