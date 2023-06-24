@@ -1,3 +1,4 @@
+----------------------------------------------------------------------------CREADA---------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION fn_listar_practicas()
  RETURNS TABLE(id_practica integer, descripcion character varying, estado character, id_estudiante integer)
  LANGUAGE plpgsql
@@ -13,7 +14,7 @@ ORDER BY estado, nombre ASC;
 END;
 $function$
 ;
---------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------CREADA----------------------------------------------
 CREATE OR REPLACE FUNCTION fn_consultar_practica(p_id integer)
  RETURNS TABLE(id_practica integer, descripcion character varying, estado character, id_estudiante integer)
  LANGUAGE plpgsql
@@ -81,8 +82,8 @@ $function$
 ;
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
-
-CREATE OR REPLACE FUNCTION fn_agregar_practica(p_id_practica integer, p_descripcion character varying, p_estado character, p_id_estudiante integer)
+------------------------------------------------CREADA------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION fn_agregar_practica(p_id_estudiante integer, p_descripcion character varying, p_estado character )
  RETURNS character varying
  LANGUAGE plpgsql
 AS $function$ DECLARE practica_existe INTEGER;
@@ -97,20 +98,16 @@ SELECT
 FROM
     PRACTICA
 WHERE
-    id_practica = p_id_practica;
-    descripcion = p_descripcion;
-    estado = p_estado;
-    id_estudiante = p_id_estudiante;
-
+    id_estudiante = p_id_estudiante;   
 
 IF practica_existe > 0 THEN RETURN 'Practica ya existe';
 
 END IF;
 
 INSERT INTO
-    PRACTICA (id_practica, descripcion, estado, id_estudiante)
+    PRACTICA (id_estudiante, descripcion, estado)
 VALUES
-    (p_id_practica,p_descripcion,p_estado,p_id_estudiante);
+    (p_id_estudiante,p_descripcion,p_estado);
 
 EXCEPTION
 WHEN OTHERS THEN GET STACKED DIAGNOSTICS error_message = MESSAGE_TEXT,
