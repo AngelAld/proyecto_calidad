@@ -126,7 +126,7 @@ END;
 $function$;
 
 CREATE OR REPLACE FUNCTION fn_eliminar_escuela_profesional(p_id integer)
-  RETURNS character varying
+  RETURNS text
   LANGUAGE plpgsql
 AS $function$
 DECLARE
@@ -144,10 +144,10 @@ BEGIN
       RETURN 'No se pudo eliminar el registro.';
     END IF;
 
-    EXCEPTION
-      WHEN OTHERS THEN
-        error_msg := SQLERRM;
-        mensaje := CONCAT('Error: ', error_message);
+ EXCEPTION
+    WHEN OTHERS THEN
+      RETURN  SQLERRM;
+      
   END;
 
   RETURN mensaje;

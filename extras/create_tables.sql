@@ -177,8 +177,7 @@ CREATE TABLE PLAN_TRABAJO (
   id_informe_inicial_es));
 CREATE TABLE PRACTICA (
   id_practica   SERIAL NOT NULL, 
-  descripcion   varchar(255) NOT NULL, 
-  estado        char(1), 
+  estado        char(1)  NOT NULL, 
   id_estudiante int4 NOT NULL, 
   PRIMARY KEY (id_practica));
 CREATE TABLE RECOMENDACIONES (
