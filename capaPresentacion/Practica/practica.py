@@ -18,26 +18,36 @@ def guardar_practica():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        nombre = request.form["nombre"]
-        fecha_inicio = request.form["fecha_inicio"]
-        fecha_fin = request.form["fecha_fin"]
+        id_estudiante = request.form["id_estudiante"]
         frm_estado = request.form.get("estado")
         if frm_estado == "on":
             estado = "A"
         else:
             estado = "I"
 
-        mensaje = c_practica.agregar_practica(nombre, fecha_inicio, fecha_fin, estado)
+        id_linea_desarrollo = request.form["id_linea_desarrollo"]
+        fecha_inicio = request.form["fecha_inicio"]
+        fecha_fin = request.form["fecha_fin"]
+        id_semestre_academico = request.form["id_semestre_academico"]
+        horas = request.form["horas"]
+        id_jefe_inmediato = request.form["id_jefe_inmediato"]
+        informacion_adicional = request.form["informacion_adicional"]
+
+        mensaje = c_practica.agregar_practica(
+            id_estudiante, estado, id_linea_desarrollo, fecha_inicio,
+            fecha_fin, id_semestre_academico, horas, id_jefe_inmediato,
+            informacion_adicional
+        )
 
         if mensaje == "Operación realizada con éxito":
-            flash(f"practica Registrado con Exito", "success")
+            flash("Práctica registrada con éxito", "success")
             url = "/practicas"
         else:
             flash(str(mensaje), "error")
             url = "/agregar_practica"
 
         return redirect(url)
-
+    
 
 @practica_bp.route("/practicas")
 def practicas():

@@ -1,79 +1,91 @@
 {% extends "maestra/maestra.html" %}
+
 {% block contenido %}
-<div class="container-fluid">
-    <div class="row">
-      <div class="col-md-8 mx-auto">
-        <h2 class="text-center text-danger">Detalle de Práctica</h2>
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group mb-3">
-                  <label for="estudiante">Estudiante</label>
-                  <input type="text" class="form-control" id="estudiante" value="Hugo Delgado" readonly>
-                </div>
-                <div class="form-group mb-3">
-                  <label for="detallePractica">Detalle de Práctica</label>
-                  <select class="form-control" id="detallePractica">
-                    <option value="1">Práctica 1</option>
-                    <option value="2">Práctica 2</option>
-                    <option value="3">Práctica 3</option>
-                  </select>
-                </div>
-                <div class="form-group mb-3">
-                  <label for="fechaInicio">Fecha de Inicio</label>
-                  <input type="date" class="form-control" id="fechaInicio">
-                </div>
-                <div class="form-group mb-3">
-                  <label for="fechaFin">Fecha de Fin</label>
-                  <input type="date" class="form-control" id="fechaFin">
-                </div>
-                <div class="form-group mb-3">
-                  <label for="centroPractica">Centro de Práctica</label>
-                  <select class="form-control" id="centroPractica">
-                    <option value="centro1">Centro 1</option>
-                    <option value="centro2">Centro 2</option>
-                    <option value="centro3">Centro 3</option>
-                  </select>
-                </div>
-                <div class="form-group mb-3">
-                  <label for="jefeInmediato">Jefe Inmediato</label>
-                  <select class="form-control" id="jefeInmediato">
-                    <option value="jefe1">Jefe 1</option>
-                    <option value="jefe2">Jefe 2</option>
-                    <option value="jefe3">Jefe 3</option>
-                  </select>
-                </div>
-                <div class="form-group mb-3">
-                  <label for="semestreAcademico">Semestre Académico</label>
-                  <select class="form-control" id="semestreAcademico">
-                    <option value="semestre1">Semestre 1</option>
-                    <option value="semestre2">Semestre 2</option>
-                    <option value="semestre3">Semestre 3</option>
-                  </select>
-                </div>
-                <div class="form-group mb-3">
-                  <label for="lineaDesarrollo">Línea de Desarrollo</label>
-                  <select class="form-control" id="lineaDesarrollo">
-                    <option value="linea1">Línea 1</option>
-                    <option value="linea2">Línea 2</option>
-                    <option value="linea3">Línea 3</option>
-                  </select>
-                </div>
-                <div class="form-group mb-3">
-                  <label for="informacionAdicional">Información Adicional</label>
-                  <textarea class="form-control" id="informacionAdicional"></textarea>
-                </div>
-              </div>
-              <div class="col-md-6"></div>
-            </div>
+<form action="{{url}}" method="post">
+  <section class="vh-100 min-vh-100">
+    <div class="container h-100">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <h2 class="text-center text-danger mb-3">Detalle de Práctica</h2>
+          <div class="text-right mb-3">
+            <label for="detallePractica">Detalle de Práctica</label>
+            <select class="form-select" id="detallePractica" name="detallePractica">
+              <option value="1">Práctica 1</option>
+              <option value="2">Práctica 2</option>
+              <option value="3">Práctica 3</option>
+            </select>
           </div>
-          <div class="card-footer text-center">
-            <button class="btn btn-success">Guardar</button>
-            <button class="btn btn-primary">Regresar</button>
+          <div class="card">
+            <div class="card-body">
+              <div class="form-group mb-3">
+                <label for="estudiante">Estudiante</label>
+                <select class="form-select" id="estudiante" name="estudiante">
+                  {% for estudiante in estudiantes %}
+                  <option value="{{ estudiante[0] }}">{{estudiante[1] }}</option>
+                  {% endfor %}
+                  <!-- Agrega aquí más opciones de estudiantes si es necesario -->
+                </select>
+              </div>
+              <div class="form-group mb-3">
+                <label for="fechaInicio">Fecha de Inicio</label>
+                <input type="date" class="form-control" id="fechaInicio" name="fechaInicio">
+              </div>
+              <div class="form-group mb-3">
+                <label for="fechaFin">Fecha de Fin</label>
+                <input type="date" class="form-control" id="fechaFin" name="fechaFin">
+              </div>
+              <div class="form-group mb-3">
+                <label for="centroPractica">Centro de Práctica</label>
+                <select class="form-select" id="centroPractica" name="centroPractica">
+                  <option value="centro1">Centro 1</option>
+                  <option value="centro2">Centro 2</option>
+                  <option value="centro3">Centro 3</option>
+                </select>
+              </div>
+              <div class="form-group mb-3">
+                <label for="jefeInmediato">Jefe Inmediato</label>
+                <select class="form-select" id="jefeInmediato" name="jefeInmediato">
+                  <option value="jefe1">Jefe 1</option>
+                  <option value="jefe2">Jefe 2</option>
+                  <option value="jefe3">Jefe 3</option>
+                </select>
+              </div>
+              <div class="form-group mb-3">
+                <label for="semestreAcademico">Semestre Académico</label>
+                <select class="form-select" id="semestreAcademico" name="semestreAcademico">
+                  <option value="semestre1">Semestre 1</option>
+                  <option value="semestre2">Semestre 2</option>
+                  <option value="semestre3">Semestre 3</option>
+                </select>
+              </div>
+              <div class="form-group mb-3">
+                <label for="lineaDesarrollo">Línea de Desarrollo</label>
+                <select class="form-select" id="lineaDesarrollo" name="lineaDesarrollo">
+                  <option value="linea1">Línea 1</option>
+                  <option value="linea2">Línea 2</option>
+                  <option value="linea3">Línea 3</option>
+                </select>
+              </div>
+              <div class="form-group mb-3">
+                <label for="informacionAdicional">Información Adicional</label>
+                <textarea class="form-control" id="informacionAdicional" name="informacionAdicional"></textarea>
+              </div>
+            </div>
+            <div class="card-footer text-center">
+              <button class="btn btn-success">Guardar</button>
+              <a href="{{ url_for('practica.practicas') }}" class="btn btn-primary">Regresar</a>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>  
+</form>
 {% endblock %}
+
+
+
+
+
+
+
