@@ -42,12 +42,12 @@
                   <input type="hidden" name="estado" value="{{practica[4]}}">
                   {% if practica[4]=='A' %}
                   <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
-                    data-bs-title="Desactivar practica">
+                    data-bs-title="Desactivar practica" onclick="event.preventDefault(); checkbox(this.parentNode)">
                     <i class="bi bi-check-square-fill"></i>
                   </button>
                   {% else %}
                   <button type="button" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip"
-                    data-bs-title="Activar practica">
+                    data-bs-title="Activar practica" onclick="event.preventDefault(); checkbox(this.parentNode)">
                     
                     <i class="bi bi-x-square-fill"></i>
                   </button>

@@ -67,12 +67,12 @@
                   <input type="hidden" name="estado" value="{{jefe_inmediato[5]}}">
                   {% if jefe_inmediato[5]=='A' %}
                   <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
-                    data-bs-title="Desactivar Jefe Inmediato">
+                    data-bs-title="Desactivar Jefe Inmediato" onclick="event.preventDefault(); checkbox(this.parentNode)">
                     <i class="bi bi-check-square-fill"></i>
                   </button>
                   {% else %}
                   <button type="button" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip"
-                    data-bs-title="Activar Jefe Inmediato">
+                    data-bs-title="Activar Jefe Inmediato" onclick="event.preventDefault(); checkbox(this.parentNode)">
                     <i class="bi bi-x-square-fill"></i>
                   </button>
                   {% endif %}
