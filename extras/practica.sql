@@ -1,14 +1,15 @@
 ----------------------------------------------------------------------------CREADA---------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION fn_listar_practicas()
- RETURNS TABLE(id_practica integer, descripcion character varying, estado character, id_estudiante integer)
+ RETURNS TABLE(id_practica integer,id_estudiante integer,descripcion character varying, estado character)
  LANGUAGE plpgsql
 AS $function$
 BEGIN
 RETURN QUERY SELECT 
-sa.id_practica, 
+sa.id_practica,
+sa.id_estudiante, 
 sa.descripcion,
-sa.estado,
-sa.id_estudiante
+sa.estado
+
 FROM PRACTICA sa
 ORDER BY estado, nombre ASC;
 END;
@@ -16,22 +17,23 @@ $function$
 ;
 ----------------------------------------------------------------------CREADA----------------------------------------------
 CREATE OR REPLACE FUNCTION fn_consultar_practica(p_id integer)
- RETURNS TABLE(id_practica integer, descripcion character varying, estado character, id_estudiante integer)
+ RETURNS TABLE(id_practica integer,id_estudiante integer,descripcion character varying, estado character)
  LANGUAGE plpgsql
 AS $function$
 BEGIN
 RETURN QUERY SELECT 
-sa.id_practica, 
+sa.id_practica,
+sa.id_estudiante, 
 sa.descripcion,
-sa.estado,
-sa.id_estudiante
+sa.estado
+
 FROM PRACTICA sa
 WHERE sa.id_practica = p_id;
 END;
 $function$
 ;
 --------------------------------------------------------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION fn_editar_practica(p_id_practica integer, p_descripcion character varying, p_estado character, p_id_estudiante integer)
+CREATE OR REPLACE FUNCTION fn_editar_practica(p_id_practica integer,p_id_estudiante integer,p_descripcion character varying, p_estado character)
  RETURNS character varying
  LANGUAGE plpgsql
 AS $function$ DECLARE practica_existe INTEGER;

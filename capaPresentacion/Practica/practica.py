@@ -76,7 +76,7 @@ def actualizar_practica():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        id = request.form["id"]
+        id = request.form["id_practica"]
         nombre = request.form["nombre"]
         fecha_inicio = request.form["fecha_inicio"]
         fecha_fin = request.form["fecha_fin"]
