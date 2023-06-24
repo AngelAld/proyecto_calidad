@@ -41,12 +41,12 @@
                   <input type="hidden" name="estado" value="{{facultad[3]}}">
                   {% if facultad[3]=='A' %}
                   <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
-                    data-bs-title="Desactivar facultad">
+                    data-bs-title="Desactivar facultad" onclick="event.preventDefault(); checkbox(this.parentNode)">
                     <i class="bi bi-check-square-fill"></i>
                   </button>
                   {% else %}
                   <button type="button" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip"
-                    data-bs-title="Activar facultad">
+                    data-bs-title="Activar facultad" onclick="event.preventDefault(); checkbox(this.parentNode)">
                     
                     <i class="bi bi-x-square-fill"></i>
                   </button>

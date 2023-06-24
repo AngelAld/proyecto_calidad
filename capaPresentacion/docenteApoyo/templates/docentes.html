@@ -46,12 +46,12 @@
                     <input type="hidden" name="estado" value="{{docente[6]}}">
                     {% if docente[6]=='A' %}
                     <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
-                      data-bs-title="Desactivar docente">
+                      data-bs-title="Desactivar docente" onclick="event.preventDefault(); checkbox(this.parentNode)">
                       <i class="bi bi-check-square-fill"></i>
                     </button>
                     {% else %}
                     <button type="button" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip"
-                      data-bs-title="Activar docente">
+                      data-bs-title="Activar docente" onclick="event.preventDefault(); checkbox(this.parentNode)">
                       
                       <i class="bi bi-x-square-fill"></i>
                     </button>

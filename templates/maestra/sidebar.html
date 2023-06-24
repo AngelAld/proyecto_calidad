@@ -24,15 +24,15 @@
 
 
     <a href="#moduloPractica" data-bs-toggle="collapse" aria-expanded="false"
-      class="list-group-item list-group-item-action  fw-bolder"><i class="fas fa-file-alt"></i>
+      class="list-group-item list-group-item-action fw-bolder flex-wrap"><i class="fas fa-file-alt"></i>
       <span class="d-none d-sm-inline">Práctica</span></a>
 
-    <ul class="collapse list-unstyled" id="moduloPractica">
+    <ul class="collapse" id="moduloPractica">
       <a class="list-group-item list-group-item-action " href="{{url_for('practica.practicas')}}">Práctica</a>
-      <a class="list-group-item list-group-item-action " href="#submoduloDocumentos"
+      <a class="list-group-item list-group-item-action fw-bolder flex-wrap" href="#submoduloDocumentos"
         data-bs-toggle="collapse" aria-expanded="false">Documentos</a>
 
-      <ul class="collapse list-unstyled" id="submoduloDocumentos">
+      <ul class="collapse" id="submoduloDocumentos">
         <a class="list-group-item list-group-item-action " href="{{url_for('informe_inicial_es.informe_inicial_es')}}">Informe Inicial Estudiante</a>
         <a class="list-group-item list-group-item-action " href="{{url_for('informe_inicial_em.informe_inicial_em')}}">Informe Inicial Empresa</a>
         <a class="list-group-item list-group-item-action " href="{{url_for('ficha_desempeno.ficha_desempeno')}}">Evaluación de desempeño</a>
@@ -42,13 +42,7 @@
 
       <a class="list-group-item list-group-item-action " href="{{url_for('jefe_inmediato.jefe_inmediato')}}">Jefe inmediato</a>
       <a class="list-group-item list-group-item-action " href="{{url_for('centroPPP.centro_PPP')}}">Centro de prácticas</a>
-    </ul>
-
-    <a href="#moduloReportes" data-bs-toggle="collapse" aria-expanded="false"
-      class="list-group-item list-group-item-action  fw-bolder"><i class="fa-solid fa-chart-pie"></i>
-      <span class="d-none d-sm-inline">Reportes</span></a>
-
-      
+    </ul>      
   </div>
 
 </div>

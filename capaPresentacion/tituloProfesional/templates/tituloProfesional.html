@@ -41,12 +41,12 @@
                   <input type="hidden" name="estado" value="{{tituloProfesional[3]}}">
                   {% if tituloProfesional[3]=='A' %}
                   <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
-                    data-bs-title="Desactivar Titulo Profesional">
+                    data-bs-title="Desactivar Titulo Profesional" onclick="event.preventDefault(); checkbox(this.parentNode)">
                     <i class="bi bi-check-square-fill"></i>
                   </button>
                   {% else %}
                   <button type="button" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip"
-                    data-bs-title="Activar Titulo Profesional">
+                    data-bs-title="Activar Titulo Profesional" onclick="event.preventDefault(); checkbox(this.parentNode)">
 
                     <i class="bi bi-x-square-fill"></i>
                   </button>
@@ -80,3 +80,5 @@
   </div>
 </section>
 {% endblock%}
+
+
