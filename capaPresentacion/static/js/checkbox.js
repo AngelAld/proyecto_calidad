@@ -1,5 +1,7 @@
-$(function () {
-  $('.estado').on('click', function () {
-    $(this).closest('.actualizar_estado').submit();
-  });
-});
+async function checkbox(formulario) {
+  console.log('Si entramos al script')
+  const id = formulario.querySelector('input[name="id"]').value;
+
+      formulario.submit();
+};
+

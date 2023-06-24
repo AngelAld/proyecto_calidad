@@ -34,7 +34,7 @@
 
         </div>
         <div class="col-auto text-end above-table">
-          <input id="searchbar" class="form-control" type="text" placeholder="&#xF002; Buscar">
+          <input id="searchbar" class="form-control" type="text" placeholder=" Buscar">
         </div>
 
         <div class="col-auto text-end above-table">
@@ -46,10 +46,9 @@
         <table class="table table-hover align-middle table-bordered" id="tablita">
           <thead>
             <tr class="table-danger">
-              <th class="col text-center d-none d-xl-table-cell">Código</th>
-              <th class="col-2 text-center">Nombre</th>
+
+              <th class="col-2 text-center border-start">Nombre</th>
               <th class="col-2 text-center">Descripcion</th>
-<!--              <th class="col-2 text-center">Escuela</th>                 --> 
               <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
               <th class="col-1 text-center">Editar</th>
               <th class="col-1 text-center">Eliminar</th>
@@ -57,11 +56,9 @@
           </thead>
           <tbody>
             {% for lineaDesarrollo in linea_desarrollo %}
-            <tr>
-              <td class="col-1 text-center d-none d-xl-table-cell">{{lineaDesarrollo[0]}}</td>
+            <tr>             
               <td class="col-2 text-start">{{lineaDesarrollo[1]}}</td>
               <td class="col-2 text-star">{{lineaDesarrollo[2]}}</td>
-<!--                <td class="col-2 text-center">{{lineaDesarrollo[4]}}</td>                 --> 
               <td class="col-1 text-center d-none d-md-table-cell">
                 <form action="{{url_for('lineaDesarrollo.actualizar_estado_lineaDesarrollo')}}" method="POST"
                   class="actualizar_estado">
@@ -69,13 +66,14 @@
                   <input type="hidden" name="estado" value="{{lineaDesarrollo[3]}}">
                   {% if lineaDesarrollo[3]=='A' %}
                   <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
-                    data-bs-title="Desactivar LÍnea de Desarrollo">
+                    data-bs-title="Desactivar LÍnea de Desarrollo" onclick="event.preventDefault(); checkbox(this.parentNode)">
                     <i class="bi bi-check-square-fill"></i>
                   </button>
                   {% else %}
                   <button type="button" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip"
-                    data-bs-title="Activar LÍnea de Desarrollo">
+                    data-bs-title="Activar LÍnea de Desarrollo" onclick="event.preventDefault(); checkbox(this.parentNode)">
                     <i class="bi bi-x-square-fill"></i>
+                    
                   </button>
                   {% endif %}
                 </form>
