@@ -1,13 +1,27 @@
 from capaDatos import bd
+from capaDatos.bd import obtener_conexion
 
 def listar_cppp():
     conexion = bd.obtener_conexion()
     cpps = []
     with conexion.cursor() as cursor:
-        cursor.execute()
+        cursor.execute("select * from fn_listar_centro_practica()")
         cpps = cursor.fetchall()
     conexion.close()
     return cpps
+
+def actualizar_centroPPP(id, ruc, razon_social, alias, rubro, telefono, correo, id_ubicacion):
+    conexion = obtener_conexion()
+    msg = []
+    with conexion.cursor() as cursor:
+        cursor.execute(
+            "SELECT fn_editar_centro_practicas(%s, %s, %s, %s, %s, %s, %s, %s)",
+            (id, ruc, razon_social, alias, rubro, telefono, correo, id_ubicacion),
+        )
+        msg = cursor.fetchone()
+    conexion.commit()
+    conexion.close()
+    return msg[0] if msg is not None else None
 
 def obtener_cpppID(id_cppp):
     conexion = bd.obtener_conexion()
@@ -18,11 +32,42 @@ def obtener_cpppID(id_cppp):
     conexion.close()
     return cppp
 
-def agregar_cpp(ruc, razon_social, rubro, telefono, correo, num, estado, tipo_via, via, lon, lat, ciudad, pais):
-    conexion = bd.obtener_conexion()
+def agregar_centroPPP(ruc, razon_social, alias, rubro, telefono, correo, id_ubicacion):
+    if id_ubicacion == "":
+        id_ubicacion = None
+    conexion = obtener_conexion()
+    msg = []
     with conexion.cursor() as cursor:
-            cursor.execute("INSERT INTO cppp (ruc, razon_social, rubro, telefono, correo, num, estado, tipo_via, via, lon, lat, ciudad, pais) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (ruc, razon_social, rubro, telefono, correo, num, estado, tipo_via, via, lon, lat, ciudad, pais))
-            msg = cursor.fetchone()
+        cursor.execute(
+            "SELECT fn_agregar_centro_practicas(%s, %s, %s, %s, %s, %s, %s)",
+            (ruc, razon_social, alias, rubro, telefono, correo, id_ubicacion),
+        )
+        msg = cursor.fetchone()
     conexion.commit()
     conexion.close()
+    return msg[0] if msg is not None else None
 
+def eliminar_centroPPP(id):
+    conexion = obtener_conexion()
+    msg = []
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT fn_eliminar_centro_practicas(%s)", (id,))
+        msg = cursor.fetchone()
+    conexion.commit()
+    conexion.close()
+    return msg[0] if msg is not None else None
+
+def dar_baja_CPPP(id, estado):
+    conexion = obtener_conexion()
+    msg = []
+    new_estado = ""
+    if estado == "A":
+        new_estado = "I"
+    else:
+        new_estado = "A"
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT fn_actualizar_estado_centro_practicas(%s, %s)", (id, new_estado))
+        msg = cursor.fetchone()
+    conexion.commit()
+    conexion.close()
+    return msg[0] if msg is not None else None

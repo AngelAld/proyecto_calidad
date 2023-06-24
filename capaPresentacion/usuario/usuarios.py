@@ -11,6 +11,7 @@ def login():
 
 @usuarios_bp.route("/iniciar_sesion" , methods=["POST"])
 def iniciar_sesion():
+    session.clear()
     usuario = c_usuarios.login(request.form['usuario'], request.form['contraseña'])
     if usuario == None:
         flash("El usuario no existe", "error")

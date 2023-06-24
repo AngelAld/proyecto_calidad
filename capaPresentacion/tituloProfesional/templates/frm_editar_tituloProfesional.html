@@ -1,0 +1,9 @@
+{% extends "mantenimiento_tituloProfesional.html" %}
+
+{% block titulo %} Editar Titulo Profesional {% endblock %}
+{% set titulo2 = "Editar Titulo Profesional" %}
+{% set id = tituloProfesional[0] %}
+{% set nombre = tituloProfesional[1] %}
+{% set descripcion = tituloProfesional[2] %}
+{% set estado = tituloProfesional[3] %}
+{% set url = url_for('tituloProfesional.actualizar_tituloProfesional') %}

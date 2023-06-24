@@ -1,0 +1,14 @@
+{% extends "mantenimiento_jefe_inmediato.html" %}
+
+{% block titulo %} Editar Jefe Inmediato {% endblock %}
+{% set titulo2 = "Editar  Jefe Inmediato" %}
+{% set id = jefe_inmediato[0] %}
+{% set nombre = jefe_inmediato[1] %}
+{% set correo = jefe_inmediato[2] %}
+{% set telefono = jefe_inmediato[3] %}
+{% set cargo = jefe_inmediato[4] %}
+{% set estado = jefe_inmediato[5] %}
+{% set descripcion = jefe_inmediato[6] %}
+{% set estado = jefe_inmediato[7] %}
+{% set centro_practicas = jefe_inmediato[8] %}
+{% set url = url_for('Jefe_Inmediato.actualizar_jefe_inmediato') %}
