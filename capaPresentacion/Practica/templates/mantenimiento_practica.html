@@ -1,82 +1,78 @@
 {% extends "maestra/maestra.html" %}
 {% block contenido %}
-<div class="container">
-    <div class="card mt-4 p-4" style="background-color: #f8f9fa;">
-      <h1 class="text-center text-danger mb-4">Detalle de Práctica</h1>
-      <!-- Agregado del select en la parte superior derecha -->
-      <div class="row justify-content-end">
-        <div class="col-md-4">
-          <div class="mb-4">
-            <label class="form-label text-dark" for="detallePractica">Detalle de Práctica:</label>
-            <select class="form-select form-select-sm" id="detallePractica">
-              <option selected>Seleccione</option>
-              <option value="1">Detalle de Práctica uno</option>
-              <option value="2">Detalle de Práctica dos</option>
-              <option value="3">Detalle de Práctica tres</option>
-            </select>
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8 mx-auto">
+        <h2 class="text-center text-danger">Detalle de Práctica</h2>
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group mb-3">
+                  <label for="estudiante">Estudiante</label>
+                  <input type="text" class="form-control" id="estudiante" value="Hugo Delgado" readonly>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="detallePractica">Detalle de Práctica</label>
+                  <select class="form-control" id="detallePractica">
+                    <option value="1">Práctica 1</option>
+                    <option value="2">Práctica 2</option>
+                    <option value="3">Práctica 3</option>
+                  </select>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="fechaInicio">Fecha de Inicio</label>
+                  <input type="date" class="form-control" id="fechaInicio">
+                </div>
+                <div class="form-group mb-3">
+                  <label for="fechaFin">Fecha de Fin</label>
+                  <input type="date" class="form-control" id="fechaFin">
+                </div>
+                <div class="form-group mb-3">
+                  <label for="centroPractica">Centro de Práctica</label>
+                  <select class="form-control" id="centroPractica">
+                    <option value="centro1">Centro 1</option>
+                    <option value="centro2">Centro 2</option>
+                    <option value="centro3">Centro 3</option>
+                  </select>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="jefeInmediato">Jefe Inmediato</label>
+                  <select class="form-control" id="jefeInmediato">
+                    <option value="jefe1">Jefe 1</option>
+                    <option value="jefe2">Jefe 2</option>
+                    <option value="jefe3">Jefe 3</option>
+                  </select>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="semestreAcademico">Semestre Académico</label>
+                  <select class="form-control" id="semestreAcademico">
+                    <option value="semestre1">Semestre 1</option>
+                    <option value="semestre2">Semestre 2</option>
+                    <option value="semestre3">Semestre 3</option>
+                  </select>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="lineaDesarrollo">Línea de Desarrollo</label>
+                  <select class="form-control" id="lineaDesarrollo">
+                    <option value="linea1">Línea 1</option>
+                    <option value="linea2">Línea 2</option>
+                    <option value="linea3">Línea 3</option>
+                  </select>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="informacionAdicional">Información Adicional</label>
+                  <textarea class="form-control" id="informacionAdicional"></textarea>
+                </div>
+              </div>
+              <div class="col-md-6"></div>
+            </div>
+          </div>
+          <div class="card-footer text-center">
+            <button class="btn btn-success">Guardar</button>
+            <button class="btn btn-primary">Regresar</button>
           </div>
         </div>
-      </div>
-      <!-- Fin del select en la parte superior derecha -->
-      <div class="row">
-        <div class="col-md-6">
-          <div class="mb-4">
-            <label class="form-label text-dark" for="numeroPractica">ID de Práctica:</label>
-            <input type="text" class="form-control" id="numeroPractica" readonly value="1">
-          </div>
-          <div class="mb-4">
-            <label class="form-label text-dark" for="fechaInicio">Fecha de Inicio:</label>
-            <input type="date" class="form-control" id="fechaInicio">
-          </div>
-          <div class="mb-4">
-            <label class="form-label text-dark" for="fechaFin">Fecha de Fin:</label>
-            <input type="date" class="form-control" id="fechaFin">
-          </div>
-          <div class="mb-4">
-            <label class="form-label text-dark" for="informacionAdicional">Información Adicional:</label>
-            <textarea class="form-control" id="informacionAdicional" rows="3" style="text-align:center;"></textarea>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="mb-4">
-            <label class="form-label text-dark" for="horasPractica">Horas:</label>
-            <input type="text" class="form-control" id="horasPractica" value="40">
-          </div>
-          <div class="mb-4 form-check">
-            <input type="checkbox" class="form-check-input" id="estadoPractica" checked>
-            <label class="form-check-label text-dark" for="estadoPractica">Estado</label>
-          </div>
-          <div class="mb-4">
-            <label class="form-label text-dark" for="jefeInmediato">Jefe Inmediato:</label>
-            <select class="form-select" id="jefeInmediato">
-              <option selected>Seleccione</option>
-              <option value="1">Opción 1</option>
-              <option value="2">Opción 2</option>
-              <option value="3">Opción 3</option>
-            </select>
-          </div>
-          <div class="mb-4">
-            <label class="form-label text-dark" for="semestreAcademico">Semestre Académico:</label>
-            <select class="form-select" id="semestreAcademico">
-              <option selected>Seleccione</option>
-              <option value="1">Opción 1</option>
-              <option value="2">Opción 2</option>
-              <option value="3">Opción 3</option>
-            </select>
-          </div>
-          <div class="mb-4">
-            <label class="form-label text-dark" for="lineaDesarrollo">Línea de Desarrollo:</label>
-            <select class="form-select" id="lineaDesarrollo">
-              <option selected>Seleccione</option>
-              <option value="1">Opción 1</option>
-              <option value="2">Opción 2</option>
-              <option value="3">Opción 3</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="text-center mt-4">
-        <button class="btn btn-danger" type="button">Cerrar</button>
       </div>
     </div>
   </div>
