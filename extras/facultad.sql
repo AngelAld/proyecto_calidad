@@ -108,7 +108,7 @@ $function$;
 ----------------------------------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION fn_eliminar_facultad(p_id integer)
-RETURNS character varying
+RETURNS text
 LANGUAGE plpgsql
 AS $function$
 DECLARE
@@ -128,8 +128,8 @@ BEGIN
 
   EXCEPTION
     WHEN OTHERS THEN
-      error_msg := CONCAT('Error: ', SQLERRM);
-      RETURN '%' || error_msg;
+      RETURN  SQLERRM;
+      
   END;
 
   RETURN mensaje;

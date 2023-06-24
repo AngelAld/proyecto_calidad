@@ -35,8 +35,5 @@ def perfil():
     if "rol" not in session:
         return redirect(url_for("inicio.inicio"))
     else:
-        if session["rol"] == "Docente de Apoyo":
-            return render_template('perfil.html')
-        else:
-            flash('Usuario aún no soportado', "warning")
-            return redirect(url_for("inicio.inicio"))
+        return render_template('perfil.html')
+
