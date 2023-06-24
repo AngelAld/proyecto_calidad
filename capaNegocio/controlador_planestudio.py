@@ -29,7 +29,7 @@ def eliminar_plan_estudio(id):
     conexion = obtener_conexion()
     msg = []
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT fn_eliminar_plan_estudio(%s)", (id))
+        cursor.execute("SELECT fn_eliminar_plan_estudio(%s)", (id,))
         msg = cursor.fetchone()
     conexion.commit()
     conexion.close()

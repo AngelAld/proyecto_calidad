@@ -116,40 +116,33 @@ $function$;
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION fn_eliminar_plan_estudio(p_id integer)
-RETURNS character varying
- LANGUAGE plpgsql
-AS $function$ DECLARE mensaje VARCHAR(100);
+RETURNS text
+LANGUAGE plpgsql
+AS $function$ 
+DECLARE 
+    mensaje VARCHAR(100);
+    error_msg VARCHAR(100);
+BEGIN 
+    BEGIN
+        DELETE FROM PLAN_ESTUDIO
+        WHERE id_plan_estudio = p_id;
 
-error_msg VARCHAR(100);
+    -- Verificar si se eliminó el registro correctamente
+        IF FOUND THEN 
+            mensaje := 'Operación realizada con éxito';
+        ELSE 
+            RETURN 'No se pudo eliminar el registro.';
+        END IF;
 
-BEGIN BEGIN
-DELETE FROM
-    PLAN_ESTUDIO
-WHERE
-    id_plan_estudio = p_id;
-
--- Verificar si se eliminó el registro correctamente
-IF FOUND THEN mensaje := 'Operación realizada con éxito';
-
-ELSE RETURN 'No se pudo eliminar el registro.';
-
-END IF;
-
-EXCEPTION
-WHEN OTHERS THEN error_msg := CONCAT('Error: ', SQLERRM);
-
-RETURN '%',
-error_msg;
-
-END;
-
-RETURN mensaje;
+    EXCEPTION
+        WHEN OTHERS THEN 
+            RETURN  SQLERRM;
+      
+    END;
+    RETURN mensaje;
 
 END;
-
-$function$
-;
-
+$function$;
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
