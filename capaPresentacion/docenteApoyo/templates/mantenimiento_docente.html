@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="form-floating mb-4">
-                    <input value="{{correo}}" required type="text" class="form-control input" placeholder="Correo"
+                    <input value="{{correo}}" required type="text" class="form-control input" placeholder="correo"
                         name="correo" id="correo">
                     <label for="correo">Correo</label>
                 </div>
@@ -31,12 +31,38 @@
                     </div>
                 </div>
 
-                {% comment %} 
-                    Agregaré foráneas en cuanto sepa cómo se hace 
-                {% endcomment %}
+                <div class="form-floating mb-4">
+                    <select value="{{titulo}}" required type="text-left" class="form-control input" placeholder="titulo"
+                    name="titulo" id="titulo">
+                    {% for titulo in titulo %}
+                        <option value="{{ titulo[0] }}">{{titulo[1] }}</option>
+                    {% endfor %}
+                    </select>
+                    <label for="titulo">titulo</label>
+                </div>
+
+                <div class="form-floating mb-4">
+                    <select value="{{escuela_profesional}}" required type="text-left" class="form-control input" placeholder="escuela_profesional"
+                    name="escuela_profesional" id="escuela_profesional">
+                    {% for escuela_profesional in escuela_profesional %}
+                        <option value="{{ escuela_profesional[0] }}">{{escuela_profesional[1] }}</option>
+                    {% endfor %}
+                    </select>
+                    <label for="escuela_profesional">escuela_profesional</label>
+                </div>
+
+                <div class="form-floating mb-4">
+                    <select value="{{usuario}}" required type="text-left" class="form-control input" placeholder="usuario"
+                    name="usuario" id="usuario">
+                    {% for usuario in usuario %}
+                        <option value="{{ usuario[0] }}">{{usuario[1] }}</option>
+                    {% endfor %}
+                    </select>
+                    <label for="usuario">usuario</label>
+                </div>
 
                 <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
-                <a href="{{url_for('lineaDesarrollo.linea_desarrollo')}}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
+                <a href="{{url_for('docente.docentes')}}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
 
             </form>
         </div>

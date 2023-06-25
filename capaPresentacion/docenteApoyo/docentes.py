@@ -8,25 +8,29 @@ def formulario_agregar_docente():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        return render_template("frm_agregar_docente.html")
-    
+        titulo = c_docentes.obtener_titulo()
+        escuela_profesional = c_docentes.obtener_escuela_profesional()
+        usuario = c_docentes.obtener_usuario()
+        return render_template("frm_agregar_docente.html", titulo=titulo, escuela_profesional=escuela_profesional, usuario=usuario)
+
+
 @docentes_bp.route("/guardar_docente", methods=["POST"])
-def guardar_semestre():
+def guardar_docente():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
         nombre = request.form["nombre"]
         correo = request.form["correo"]
-        id_titulo = request.form["titulo"]
-        id_escuela_profesional = request.form["escuela_profesional"]
-        id_usuario = request.form["usuario"]
         frm_estado = request.form.get("estado")
         if frm_estado == "on":
             estado = "A"
         else:
             estado = "I"
-
-        mensaje = c_docentes.agregar_docente(nombre, correo, id_titulo, id_escuela_profesional, id_usuario, estado)
+        id_titulo = request.form["titulo"]
+        id_escuela_profesional = request.form["escuela_profesional"]
+        id_usuario = request.form["usuario"]
+        
+        mensaje = c_docentes.agregar_docente(nombre, correo, estado, id_titulo, id_escuela_profesional, id_usuario)
 
         if mensaje == "Operación realizada con éxito":
             flash(f"Docente Registrado con Exito", "success")
@@ -36,15 +40,17 @@ def guardar_semestre():
             url = "/agregar_docente"
 
         return redirect(url)
-    
+
+
 @docentes_bp.route("/docentes")
 def docentes():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
         docentes = c_docentes.listar_docentes()
-        return render_template("docentes.html", semestres=docentes)
+        return render_template("docentes.html", docentes=docentes)
     
+
 @docentes_bp.route("/eliminar_docente", methods=["POST"])
 def eliminar_docente():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
@@ -58,14 +64,19 @@ def eliminar_docente():
 
         return redirect("/docentes")
     
+
 @docentes_bp.route("/formulario_editar_docente/<int:id>")
 def editar_docente(id):
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
         docente = c_docentes.buscar_docenteID(id)
-        return render_template("frm_editar_docente.html", docente=docente)
+        titulo = c_docentes.obtener_titulo()
+        escuela_profesional = c_docentes.obtener_escuela_profesional()
+        usuario = c_docentes.obtener_usuario()
+        return render_template("frm_editar_docente.html", docente=docente, titulo=titulo, escuela_profesional=escuela_profesional, usuario=usuario)
     
+
 @docentes_bp.route("/actualizar_docente", methods=["POST"])
 def actualizar_docente():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
@@ -74,16 +85,17 @@ def actualizar_docente():
         id = request.form["id"]
         nombre = request.form["nombre"]
         correo = request.form["correo"]
-        id_titulo = request.form["titulo"]
-        id_escuela_profesional = request.form["escuela_profesional"]
-        id_usuario = request.form["usuario"]
         frm_estado = request.form.get("estado")
         if frm_estado == "on":
             estado = "A"
         else:
             estado = "I"
+        id_titulo = request.form["titulo"]
+        id_escuela_profesional = request.form["escuela_profesional"]
+        id_usuario = request.form["usuario"]
+        
 
-        mensaje = c_docentes.actualizar_docente(id,nombre, correo, id_titulo, id_escuela_profesional, id_usuario, estado)
+        mensaje = c_docentes.actualizar_docente(id, nombre, correo, estado, id_titulo, id_escuela_profesional, id_usuario)
 
         if mensaje == "Operación realizada con éxito":
             flash(f"Docente Actualizado con Exito", "success")
@@ -100,11 +112,37 @@ def actualizar_estado():
     else:
         id = request.form["id"]
         estado = request.form["estado"]
-        mensaje = c_docentes.dar_baja_docente(id, estado)
+        mensaje = c_docentes.actualizar_estado_docente(id, estado)
 
         if mensaje == "Operación realizada con éxito":
             flash(f"Docente Actualizado con Exito", "success")
         else:
             flash(str(mensaje), "error")
 
-        return redirect("/semestres")
+        return redirect("/docentes")
+
+
+# solo cmb-----------------------------------------
+@docentes_bp.route("/cmb_titulo")
+def cmb_titulo():
+    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+        return redirect(url_for("inicio.inicio"))
+    else:
+        titulo = c_docentes.obtener_titulo()
+        return render_template("docentes.html", titulo=titulo)
+    
+@docentes_bp.route("/cmb_escuela_profesional")
+def cmb_escuela_profesional():
+    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+        return redirect(url_for("inicio.inicio"))
+    else:
+        escuela_profesional = c_docentes.obtener_escuela_profesional()
+        return render_template("docentes.html", escuela_profesional=escuela_profesional)
+    
+@docentes_bp.route("/cmb_usuario")
+def cmb_usuario():
+    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+        return redirect(url_for("inicio.inicio"))
+    else:
+        usuario = c_docentes.obtener_usuario()
+        return render_template("docentes.html", usuario=usuario)
