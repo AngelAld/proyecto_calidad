@@ -7,7 +7,7 @@
       <div class="row justify-content-center">
         <div class="col-md-8">
           <h2 class="text-center text-danger mb-3">Detalle de Práctica</h2>
-          <div class="text-right mb-3">
+          <div class="text-right mb-3 d-none">
             <label for="detallePractica">Detalle de Práctica</label>
             <select class="form-select" id="detallePractica" name="detallePractica">
               <option value="1">Práctica 1</option>
@@ -35,36 +35,40 @@
                 <input type="date" class="form-control" id="fechaFin" name="fechaFin">
               </div>
               <div class="form-group mb-3">
-                <label for="centroPractica">Centro de Práctica</label>
-                <select class="form-select" id="centroPractica" name="centroPractica">
-                  <option value="centro1">Centro 1</option>
-                  <option value="centro2">Centro 2</option>
-                  <option value="centro3">Centro 3</option>
+                <label for="centro_practica">Centro de Práctica</label>
+                <select class="form-select" id="centro_practica" name="centro_practica">
+                  {% for centro_practica in centro_practicas %}
+                  <option value="{{ centro_practica[0] }}">{{ centro_practica[1] }}</option>
+                  {% endfor %}
                 </select>
               </div>
               <div class="form-group mb-3">
                 <label for="jefeInmediato">Jefe Inmediato</label>
                 <select class="form-select" id="jefeInmediato" name="jefeInmediato">
-                  <option value="jefe1">Jefe 1</option>
-                  <option value="jefe2">Jefe 2</option>
-                  <option value="jefe3">Jefe 3</option>
+                  {% for jefeInmediato in jefeInmediatos %}
+                  <option value="{{jefeInmediato[0]}}">{{jefeInmediato[1]}}</option>
+                  {% endfor %}
                 </select>
               </div>
               <div class="form-group mb-3">
                 <label for="semestreAcademico">Semestre Académico</label>
                 <select class="form-select" id="semestreAcademico" name="semestreAcademico">
-                  <option value="semestre1">Semestre 1</option>
-                  <option value="semestre2">Semestre 2</option>
-                  <option value="semestre3">Semestre 3</option>
+                  {% for semestre_academico in semestre_academicos %}
+                  <option value="{{semestre_academico[0]}}">{{semestre_academico[1]}}</option>
+                  {% endfor %}
                 </select>
               </div>
               <div class="form-group mb-3">
                 <label for="lineaDesarrollo">Línea de Desarrollo</label>
                 <select class="form-select" id="lineaDesarrollo" name="lineaDesarrollo">
-                  <option value="linea1">Línea 1</option>
-                  <option value="linea2">Línea 2</option>
-                  <option value="linea3">Línea 3</option>
+                  {% for lineaDesarrollo in lineaDesarrollos %}
+                  <option value="{{lineaDesarrollo[0]}}">{{lineaDesarrollo[1]}}</option>
+                  {% endfor %}
                 </select>
+              </div>
+              <div class="form-group mb-3">
+                <label for="horas">HORAS</label>
+                  <input type="text" class="form-control" id="horas" name="horas">
               </div>
               <div class="form-group mb-3">
                 <label for="informacionAdicional">Información Adicional</label>

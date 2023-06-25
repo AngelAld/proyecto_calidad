@@ -14,13 +14,15 @@ def agregar_practica(id_estudiante, estado, id_linea_desarrollo, fecha_inicio, f
     msg = []
     with conexion.cursor() as cursor:
         cursor.execute(
-            "SELECT fn_agregar_practica(%s, %s, %s, %s, %s, %s, %s, %s, %s)",
+            "SELECT * FROM fn_agregar_practica(%s, %s, %s, %s, %s, %s, %s, %s, %s)",
             (id_estudiante, estado, id_linea_desarrollo, fecha_inicio, fecha_fin, id_semestre_academico, horas, id_jefe_inmediato, informacion_adicional),
         )
         msg = cursor.fetchone()
     conexion.commit()
     conexion.close()
     return msg[0] if msg is not None else None
+
+
 
 def eliminar_practica(id):
     conexion = obtener_conexion()
@@ -75,7 +77,7 @@ def dar_baja_practica(id, estado):
 def obtener_estudiantes():
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT id_estudiante, nombre FROM ESTUDIANTE where estado='A'")
+        cursor.execute("SELECT id_estudiante, nombre FROM ESTUDIANTE")
         estudiante = cursor.fetchall()
     conexion.close()
     return estudiante
@@ -87,3 +89,27 @@ def obtener_centro_practicas():
         centro_practicas = cursor.fetchall()
     conexion.close()
     return centro_practicas
+
+def obtener_jefe_inmediato():
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT id_jefe_inmediato, nombre FROM JEFE_INMEDIATO")
+        jefeInmediato = cursor.fetchall()
+    conexion.close()
+    return jefeInmediato
+
+def obtener_semestre():
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT id_semestre, nombre FROM SEMESTRE_ACADEMICO")
+        semestre_academico = cursor.fetchall()
+    conexion.close()
+    return semestre_academico
+
+def obtener_lineaDesarrollo():
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT id_linea_desarrollo, nombre FROM LINEA_DESARROLLO")
+        lineaDesarrollo = cursor.fetchall()
+    conexion.close()
+    return lineaDesarrollo

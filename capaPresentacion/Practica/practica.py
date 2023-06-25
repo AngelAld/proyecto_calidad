@@ -10,7 +10,14 @@ def formulario_agregar_practica():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        return render_template("frm_agregar_practica.html")
+        estudiantes = c_practica.obtener_estudiantes()
+        centro_practicas = c_practica.obtener_centro_practicas()
+        jefeInmediatos=c_practica.obtener_jefe_inmediato()
+        semestre_academicos=c_practica.obtener_semestre()
+        lineaDesarrollos=c_practica.obtener_lineaDesarrollo()
+
+
+        return render_template("frm_agregar_practica.html",estudiantes=estudiantes,centro_practicas=centro_practicas,jefeInmediatos=jefeInmediatos,semestre_academicos=semestre_academicos,lineaDesarrollos=lineaDesarrollos)
 
 
 @practica_bp.route("/guardar_practica", methods=["POST"])
@@ -18,20 +25,20 @@ def guardar_practica():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        id_estudiante = request.form["id_estudiante"]
+        id_estudiante = int(request.form["estudiante"])
         frm_estado = request.form.get("estado")
         if frm_estado == "on":
             estado = "A"
         else:
             estado = "I"
 
-        id_linea_desarrollo = request.form["id_linea_desarrollo"]
-        fecha_inicio = request.form["fecha_inicio"]
-        fecha_fin = request.form["fecha_fin"]
-        id_semestre_academico = request.form["id_semestre_academico"]
+        id_linea_desarrollo = request.form["lineaDesarrollo"]
+        fecha_inicio = request.form["fechaInicio"]
+        fecha_fin = request.form["fechaFin"]
+        id_semestre_academico = request.form["semestreAcademico"]
         horas = request.form["horas"]
-        id_jefe_inmediato = request.form["id_jefe_inmediato"]
-        informacion_adicional = request.form["informacion_adicional"]
+        id_jefe_inmediato = request.form["jefeInmediato"]
+        informacion_adicional = request.form["informacionAdicional"]
 
         mensaje = c_practica.agregar_practica(
             id_estudiante, estado, id_linea_desarrollo, fecha_inicio,
