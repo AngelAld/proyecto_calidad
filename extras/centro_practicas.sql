@@ -42,7 +42,7 @@ CREATE OR REPLACE FUNCTION fn_agregar_centro_practicas(
     p_rubro varchar(255),
     p_telefono varchar(12),
     p_correo varchar(255),
-    p_id_ubicacion int
+    p_id_ubicacion varchar(100)
 )
 RETURNS varchar(255)
 AS $$
@@ -128,9 +128,9 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION fn_eliminar_centro_practicas(p_id integer)
-RETURNS varchar(255)
+RETURNS text
 LANGUAGE plpgsql
-AS $$
+AS $function$
 DECLARE
     mensaje varchar(100);
     error_message varchar(255);
@@ -148,16 +148,12 @@ BEGIN
 
     EXCEPTION
         WHEN OTHERS THEN
-            GET STACKED DIAGNOSTICS error_message = MESSAGE_TEXT;
-
-            error_message := CONCAT('Error: ', error_message);
-
-            RETURN '%', error_message;
+            RETURN SQLERRM;
     END;
 
     RETURN mensaje;
 END;
-$$;
+$function$;
 
 
 CREATE OR REPLACE FUNCTION fn_actualizar_estado_centro_practicas(

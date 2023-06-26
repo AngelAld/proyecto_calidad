@@ -11,6 +11,8 @@ def listar_cppp():
     return cpps
 
 def actualizar_centroPPP(id, ruc, razon_social, alias, rubro, telefono, correo, id_ubicacion):
+    if id_ubicacion == "":
+        id_ubicacion = "-"
     conexion = obtener_conexion()
     msg = []
     with conexion.cursor() as cursor:
@@ -23,6 +25,18 @@ def actualizar_centroPPP(id, ruc, razon_social, alias, rubro, telefono, correo, 
     conexion.close()
     return msg[0] if msg is not None else None
 
+def buscar_CentroPPPID(id):
+    conexion = obtener_conexion()
+    centroPPP = None
+    with conexion.cursor() as cursor:
+        cursor.execute(
+            "select * from fn_consultar_centroPPP_ID(%s)",
+            (id,),
+        )
+        centroPPP = cursor.fetchone()
+    conexion.close()
+    return centroPPP
+
 def obtener_cpppID(id_cppp):
     conexion = bd.obtener_conexion()
     cppp = None
@@ -34,7 +48,7 @@ def obtener_cpppID(id_cppp):
 
 def agregar_centroPPP(ruc, razon_social, alias, rubro, telefono, correo, id_ubicacion):
     if id_ubicacion == "":
-        id_ubicacion = None
+        id_ubicacion = "-"
     conexion = obtener_conexion()
     msg = []
     with conexion.cursor() as cursor:

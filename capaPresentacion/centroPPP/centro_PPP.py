@@ -52,13 +52,14 @@ def eliminar_CentroPPP():
             flash(str(centro_PPP), "error")
         return redirect("/centro_PPP")
     
+    
 @cPPP_bp.route("/formulario_editar_centroPPP/<int:id>")
 def editar_centroPPP(id):
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        centro_PPP = c_cppp.obtener_cpppID(id)
-        return render_template("frm_editar_centroPPP.html", centro_PPP=centro_PPP)
+        centro_PPP = c_cppp.buscar_CentroPPPID(id)
+        return render_template('frm_editar_centroPPP.html', centroPPP= centro_PPP)
         
 @cPPP_bp.route("/modificar_centroPPP", methods=["POST"])
 def modificar_centroPPP():
@@ -79,7 +80,7 @@ def modificar_centroPPP():
         #     estado = "I"
         #null = request.form["null"]
         id_ubicacion = request.form["id_ubicacion"]
-        mensaje = c_cppp.agregar_centroPPP(ruc, razon_social,alias, rubro, telefono, correo, id_ubicacion)
+        mensaje = c_cppp.actualizar_centroPPP(ruc, razon_social,alias, rubro, telefono, correo, id_ubicacion)
 
         if mensaje == "Operación realizada con éxito":
             flash(f"Centro de Practicas Actualizado con Exito", "success")
