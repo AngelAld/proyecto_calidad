@@ -14,7 +14,7 @@
                     <label for="cod_universitario">cod_universitario</label>
                 </div>
                 <div class="form-floating mb-4">
-                    <input value="{{dni}}" required type="text" class="form-control input" placeholder="dni"
+                    <input value="{{dni}}" required type="text" pattern="\d{8}" class="form-control input" placeholder="dni"
                         name="dni" id="dni">
                     <label for="dni">DNI</label>
                 </div>
@@ -25,22 +25,22 @@
                     <label for="nombre">Nombre</label>
                 </div>
                 <div class="form-floating mb-4">
-                    <input value="{{correo_usat}}" required type="text" class="form-control input" placeholder="correo_usat"
+                    <input value="{{correo_usat}}" required type="email" class="form-control input" placeholder="correo_usat"
                         name="correo_usat" id="correo_usat">
                     <label for="correo_usat">correo usat</label>
                 </div>
                 <div class="form-floating mb-4">
-                    <input value="{{correo_personal}}" required type="text" class="form-control input" placeholder="correo_personal"
+                    <input value="{{correo_personal}}" required type="email" class="form-control input" placeholder="correo_personal"
                         name="correo_personal" id="correo_personal">
                     <label for="correo_personal">correo personal</label>
                 </div>
                 <div class="form-floating mb-4">
-                    <input value="{{telefono}}" required type="text" class="form-control input" placeholder="telefono"
+                    <input value="{{telefono}}" required type="text" pattern="\d{6,9}" class="form-control input" placeholder="telefono"
                         name="telefono" id="telefono">
                     <label for="telefono">telefono</label>
                 </div>
                 <div class="form-floating mb-4">
-                    <input value="{{telefono2}}" required type="text" class="form-control input" placeholder="telefono2"
+                    <input value="{{telefono2}}" required type="text"pattern="\d{6,9}"  class="form-control input" placeholder="telefono2"
                         name="telefono2" id="telefono2">
                     <label for="telefono2">telefono2</label>
                 </div>

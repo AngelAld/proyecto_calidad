@@ -71,10 +71,10 @@ def editar_docente(id):
         return redirect(url_for("inicio.inicio"))
     else:
         docente = c_docentes.buscar_docenteID(id)
-        titulo = c_docentes.obtener_titulo()
-        escuela_profesional = c_docentes.obtener_escuela_profesional()
-        usuario = c_docentes.obtener_usuario()
-        return render_template("frm_editar_docente.html", docente=docente, titulo=titulo, escuela_profesional=escuela_profesional, usuario=usuario)
+        titulos = c_docentes.obtener_titulo()
+        escuela_profesionals = c_docentes.obtener_escuela_profesional()
+        usuarios = c_docentes.obtener_usuario()
+        return render_template("frm_editar_docente.html",docente=docente,titulos=titulos,escuela_profesionals=escuela_profesionals,usuarios=usuarios)
     
 
 @docentes_bp.route("/actualizar_docente", methods=["POST"])
@@ -105,7 +105,7 @@ def actualizar_docente():
             url = "/formulario_editar_docente/" + id
         return redirect(url)
 
-@docentes_bp.route("/actualizar_docente", methods=["POST"])
+@docentes_bp.route("/actualizar_docente_estado", methods=["POST"])
 def actualizar_estado():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
@@ -123,26 +123,26 @@ def actualizar_estado():
 
 
 # solo cmb-----------------------------------------
-@docentes_bp.route("/cmb_titulo")
-def cmb_titulo():
-    if "rol" not in session or session["rol"] != "Docente de Apoyo":
-        return redirect(url_for("inicio.inicio"))
-    else:
-        titulo = c_docentes.obtener_titulo()
-        return render_template("docentes.html", titulo=titulo)
+# @docentes_bp.route("/cmb_titulo")
+# def cmb_titulo():
+#     if "rol" not in session or session["rol"] != "Docente de Apoyo":
+#         return redirect(url_for("inicio.inicio"))
+#     else:
+#         titulo = c_docentes.obtener_titulo()
+#         return render_template("docentes.html", titulo=titulo)
     
-@docentes_bp.route("/cmb_escuela_profesional")
-def cmb_escuela_profesional():
-    if "rol" not in session or session["rol"] != "Docente de Apoyo":
-        return redirect(url_for("inicio.inicio"))
-    else:
-        escuela_profesional = c_docentes.obtener_escuela_profesional()
-        return render_template("docentes.html", escuela_profesional=escuela_profesional)
+# @docentes_bp.route("/cmb_escuela_profesional")
+# def cmb_escuela_profesional():
+#     if "rol" not in session or session["rol"] != "Docente de Apoyo":
+#         return redirect(url_for("inicio.inicio"))
+#     else:
+#         escuela_profesional = c_docentes.obtener_escuela_profesional()
+#         return render_template("docentes.html", escuela_profesional=escuela_profesional)
     
-@docentes_bp.route("/cmb_usuario")
-def cmb_usuario():
-    if "rol" not in session or session["rol"] != "Docente de Apoyo":
-        return redirect(url_for("inicio.inicio"))
-    else:
-        usuario = c_docentes.obtener_usuario()
-        return render_template("docentes.html", usuario=usuario)
+# @docentes_bp.route("/cmb_usuario")
+# def cmb_usuario():
+#     if "rol" not in session or session["rol"] != "Docente de Apoyo":
+#         return redirect(url_for("inicio.inicio"))
+#     else:
+#         usuario = c_docentes.obtener_usuario()
+#         return render_template("docentes.html", usuario=usuario)
