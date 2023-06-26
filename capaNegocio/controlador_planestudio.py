@@ -79,7 +79,7 @@ def dar_baja_plan_estudio(id, estado):
 def obtener_escuelas():
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT id_escuela_profesional, nombre FROM ESCUELA_PROFESIONAL ")
+        cursor.execute("SELECT id_escuela_profesional, nombre FROM ESCUELA_PROFESIONAL  where estado='A'")
         escuelas = cursor.fetchall()
     conexion.close()
     return escuelas
