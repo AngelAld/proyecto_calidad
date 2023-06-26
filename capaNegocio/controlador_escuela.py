@@ -10,12 +10,13 @@ def listar_facultades():
 
 def listar_escuela():
     conexion = obtener_conexion()
-    facultad = []
+    escuela = []
     with conexion.cursor() as cursor:
-        cursor.execute("select * from fn_listar_escuela_profesional()")
-        facultad = cursor.fetchall()
+        cursor.execute("select e.id_escuela_profesional, e.nombre, e.descripcion,e.estado, f.nombre from escuela_profesional e inner join facultad f on e.id_facultad= f.id_facultad")
+        #cursor.execute("select * from fn_listar_escuela_profesional()")
+        escuela = cursor.fetchall()
     conexion.close()
-    return facultad
+    return escuela
 
 
 def agregar_escuela(nombre, descripcion, estado, id_facultad):
@@ -84,3 +85,15 @@ def dar_baja_escuela(id, estado):
     conexion.commit()
     conexion.close()
     return msg[0] if msg is not None else None
+
+#********************************************* Lo uso para listar facultades en combo a escuela (NO BORRAR ESTA FUNCION) *
+def cargar_facultades():
+    conexion = obtener_conexion()
+    facultad = []
+    with conexion.cursor() as cursor:
+        cursor.execute("select id_facultad, nombre from facultad where estado='A'")
+        facultad = cursor.fetchall()
+    conexion.close()
+    return facultad
+
+#***************************************************************

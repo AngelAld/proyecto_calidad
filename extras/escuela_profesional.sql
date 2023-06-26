@@ -146,8 +146,8 @@ BEGIN
 
     EXCEPTION
       WHEN OTHERS THEN
-        error_msg := SQLERRM;
-        mensaje := CONCAT('Error: ', error_message);
+        error_msg := CONCAT('Error: ', SQLERRM);
+        RETURN '%', error_msg;
   END;
 
   RETURN mensaje;

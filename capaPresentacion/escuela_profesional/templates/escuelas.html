@@ -13,7 +13,7 @@
                 <b><label for="Facultad" class="col-form-label">Facultad</label></b>
               </div>
               <div class="col-auto">
-                <select class="form-select" aria-label="Facultad">                  
+                <select disabled class="form-select" aria-label="Facultad">                  
                   <option value="1">Ingenieria</option>
                   <option value="2">Derecho</option>
                   <option value="3">Medicina</option>
@@ -36,9 +36,9 @@
             <tr class="table-danger">
               <th class="col-1 text-center d-none d-xl-table-cell">Código</th>
               <th class="col-2 text-center">Nombre</th>
-              <th class="col-2 text-center">Descripción</th>
-              <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
+              <th class="col-2 text-center">Descripción</th>              
               <th class="col-2 text-center">Facultad</th>
+              <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
               <th class="col-1 text-center">Editar</th>
               <th class="col-1 text-center">Eliminar</th>
             </tr>
@@ -47,8 +47,9 @@
             {% for escuela in escuelas %}
             <tr>
               <td class="col-1 text-center d-none d-xl-table-cell">{{escuela[0]}}</td>
-              <td class="col-2 text-center">{{escuela[1]}}</td>
-              <td class="col-2 text-center">{{escuela[2]}}</td>
+              <td class="col-2 align=left ">{{escuela[1]}}</td>
+              <td class="col-2 align=left">{{escuela[2]}}</td>
+              <td class="col-2 align=left">{{escuela[4]}}</td>
               <td class="col-1 text-center d-none d-md-table-cell">
                 <form action="{{url_for('escuela.actualizar_estado_escuela')}}" method="POST" class="actualizar_estado">
                   <input type="hidden" name="id" value="{{escuela[0]}}">
@@ -67,7 +68,7 @@
                   {% endif %}
                 </form>
               </td>
-              <td class="col-2 text-center">{{escuela[4]}}</td>
+              
               <td class="col-1 text-center">
                 {# Pasar el id lo que hay en escuela[0] #}
                 <a href="{{url_for('escuela.editar_escuelas', id=escuela[0])}}" class="text-center btn btn-primary ls-button"
