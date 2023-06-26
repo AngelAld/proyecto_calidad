@@ -1,5 +1,5 @@
 from capaDatos.bd import obtener_conexion
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 
 
 def check_password(hashed_password, password):
@@ -30,5 +30,12 @@ def login(username, password):
         print(list(row))
     return user
 
-
-#def agregar_usuario
+def agregar_usuario(usuario, nombre, clave, estado, rol):
+    conexion = obtener_conexion()
+    mensaje = []
+    with conexion.cursor() as cursor:
+        cursor.execute(
+            "select * from fn_agregar_usuario(%s, %s, %s, %s, %s)", (usuario, nombre, generate_password_hash(clave), estado, rol))
+        mensaje = cursor.fetchone()
+    conexion.close()
+    return mensaje[0] if mensaje is not None else None

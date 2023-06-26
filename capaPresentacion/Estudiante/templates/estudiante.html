@@ -1,6 +1,6 @@
 {% extends "maestra/maestra.html" %}
 {% block titulo %} estudiante {% endblock %}
-{% set titulo2 = "estudiante" %}
+{% set titulo2 = "Estudiante" %}
 {% block contenido %}
 <section class="section contenido">
   <div class="columns">
@@ -22,14 +22,11 @@
         <table class="table table-hover align-middle table-bordered" id="tablita">
           <thead>
             <tr class="table-danger">
-              <th class="col-1 text-center d-none d-xl-table-cell">Código</th>
-              <th class="col-2 text-center">Cod_universitario</th>
+
+              <th class="col-2 text-center">Cod universitario</th>
               <th class="col-2 text-center">DNI</th>
-              <th class="col-2 text-center">Nmbre</th>
+              <th class="col-2 text-center">Nombre</th>
               <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
-              <th class="col-2 text-center">Escuela</th>
-              <th class="col-2 text-center">Plan estudio</th>
-              <th class="col-2 text-center">Facultad</th>
               <th class="col-1 text-center">Editar</th>
               <th class="col-1 text-center">Eliminar</th>
             </tr>
@@ -37,7 +34,6 @@
           <tbody>
             {% for estudiante in estudiante %}
             <tr>
-              <td class="col-1 text-center d-none d-xl-table-cell">{{estudiante[0]}}</td>
               <td class="col-2 text-center">{{estudiante[1]}}</td>
               <td class="col-2 text-center">{{estudiante[2]}}</td>
               <td class="col-2 text-center">{{estudiante[3]}}</td>
@@ -47,21 +43,18 @@
                   <input type="hidden" name="estado" value="{{estudiante[8]}}">
                   {% if estudiante[8]=='A' %}
                   <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
-                    data-bs-title="Desactivar estudiante">
+                    data-bs-title="Desactivar estudiante" onclick="event.preventDefault(); checkbox(this.parentNode)">
                     <i class="bi bi-check-square-fill"></i>
                   </button>
                   {% else %}
                   <button type="button" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip"
-                    data-bs-title="Activar estudiante">
+                    data-bs-title="Activar estudiante" onclick="event.preventDefault(); checkbox(this.parentNode)">
                     
                     <i class="bi bi-x-square-fill"></i>
                   </button>
                   {% endif %}
                 </form>
               </td>
-              <td class="col-2 text-center">{{estudiante[12]}}</td>
-              <td class="col-2 text-center">{{estudiante[13]}}</td>
-              <td class="col-2 text-center">{{estudiante[14]}}</td>
               <td class="col-1 text-center">
                 {# Pasar el id lo que hay en estudiante[0] #}
                 <a href="{{url_for('estudiante.editar_estudiante', id=estudiante[0])}}" class="text-center btn btn-primary ls-button"

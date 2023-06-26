@@ -1,3 +1,4 @@
+
 CREATE OR REPLACE FUNCTION fn_listar_estudiante() 
 RETURNS TABLE(
     id_estudiante integer,
@@ -104,7 +105,9 @@ BEGIN
     BEGIN
         SELECT COUNT(*) INTO estudiante_existe
         FROM ESTUDIANTE
-        WHERE dni = p_dni;
+        WHERE dni = p_dni
+        OR cod_universitarious = p_cod_universitario
+        OR nombre = p_nombre;
 
         IF estudiante_existe > 0 THEN
             RETURN 'Estudiante ya existe';

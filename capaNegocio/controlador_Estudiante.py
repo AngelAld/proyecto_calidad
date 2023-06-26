@@ -77,3 +77,27 @@ def update_estado(id, estado):
     conexion.commit()
     conexion.close()
     return msg[0] if msg is not None else None
+
+def obtener_planestudio():
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT id_plan_estudio, nombre FROM PLAN_ESTUDIO where estado='A'")
+        planestudio = cursor.fetchall()
+    conexion.close()
+    return planestudio
+
+def obtener_semesteacademico():
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT id_semestre, nombre FROM semestre_academico where estado='A'")
+        semesteacademico = cursor.fetchall()
+    conexion.close()
+    return semesteacademico
+
+def obtener_usuario():
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT id_usuario,usuario from usuario where estado='A'")
+        usuario = cursor.fetchall()
+    conexion.close()
+    return usuario

@@ -1,35 +1,50 @@
 {% extends "maestra/maestra.html" %}
 {% set titulo2 = 'Perfil de usuario' %}
 {% block contenido %}
+
+{% if session["rol"] == "Docente de Apoyo" %}
 <section class="section">
     <div class="row">
         <div class="col">
-
-
             <form action="{{url}}" method="post">
                 <div id="elementosDiv">
                     <div class="card mb-4">
                         <div class="card-body">
-                            <h5>Datos de {{session['rol']}}:</h5>
+                            <h5>Datos de Docente de Apoyo:</h5>
                             <div class="mb-4 row">
-                                <label for="usuario" class="col-sm-2 col-form-label">Usuario:</label>
-                                <div class="col-sm-10">
+                                <label for="usuario" class="col-lg-2 col-form-label">Titulo profesional:</label>
+                                <div class="col-lg-6">
                                     <input value="{{session['nombre']}}" required type="text" class="form-control input"
                                         placeholder="usuario" name="usuario" id="usuario" readonly>
                                 </div>
-                            </div>
-                            <div class="mb-4 row">
-                                <label for="usuario" class="col-sm-2 col-form-label">Usuario:</label>
-                                <div class="col-sm-10">
-                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
-                                        placeholder="usuario" name="usuario" id="usuario" readonly>
+                                <div class="col d-none d-xl-block"> 
                                 </div>
                             </div>
                             <div class="mb-4 row">
-                                <label for="usuario" class="col-sm-2 col-form-label">Usuario:</label>
-                                <div class="col-sm-10">
+                                <label for="usuario" class="col-lg-2 col-form-label">Escuela profesional:</label>
+                                <div class="col-lg-6">
                                     <input value="{{session['nombre']}}" required type="text" class="form-control input"
                                         placeholder="usuario" name="usuario" id="usuario" readonly>
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">Nombre:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario" readonly>
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">Correo electrónico:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario" readonly>
+                                </div>
+                                <div class="col d-none d-xl-block"> 
                                 </div>
                             </div>
                         </div>
@@ -38,30 +53,36 @@
                         <div class="card-body">
                             <h5>Datos de usuario:</h5>
                             <div class="mb-4 row">
-                                <label for="usuario" class="col-sm-2 col-form-label">Usuario:</label>
-                                <div class="col-sm-10">
+                                <label for="usuario" class="col-lg-2 col-form-label">Usuario:</label>
+                                <div class="col-lg-6">
                                     <input value="{{session['nombre']}}" required type="text" class="form-control input"
                                         placeholder="usuario" name="usuario" id="usuario">
                                 </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
                             </div>
                             <div class="mb-4 row">
-                                <label for="usuario" class="col-sm-2 col-form-label">Rol:</label>
-                                <div class="col-sm-10">
+                                <label for="usuario" class="col-lg-2 col-form-label">Rol:</label>
+                                <div class="col-lg-6">
                                     <input value="{{session['nombre']}}" required type="text" class="form-control input"
                                         placeholder="usuario" name="usuario" id="usuario">
+                                </div>
+                                <div class="col d-none d-xl-block"> 
                                 </div>
                             </div>
                         </div>
                     </div>
 
                 </div>
+
+
                 <div class="d-none" id="elementosForm">
                     {# Enviar el id en un campo oculto #}
                     <input value="{{id}}" type="hidden" name="id">
 
                     <div class="mb-4 row">
-                        <label for="usuario" class="col-sm-2 col-form-label">Usuario:</label>
-                        <div class="col-sm-10">
+                        <label for="usuario" class="col-lg-2 col-form-label">Usuario:</label>
+                        <div class="col-lg-6">
                             <input value="{{session['nombre']}}" required type="text" class="form-control input"
                                 placeholder="usuario" name="usuario" id="usuario">
                         </div>
@@ -69,8 +90,8 @@
 
                     </div>
                     <div class="mb-4 row">
-                        <label for="usuario" class="col-sm-2 col-form-label">Rol:</label>
-                        <div class="col-sm-10">
+                        <label for="usuario" class="col-lg-2 col-form-label">Rol:</label>
+                        <div class="col-lg-6">
                             <input value="{{session['rol']}}" required type="text" class="form-control input"
                                 placeholder="usuario" name="usuario" id="usuario" disabled>
                         </div>
@@ -89,10 +110,447 @@
 
             </form>
         </div>
-        <div class="col d-none d-md-block">
+    </div>
+</section>
+{% elif session["rol"] == "Director de Escuela" %}
+<section class="section">
+    <div class="row">
+        <div class="col">
+            <form action="{{url}}" method="post">
+                <div id="elementosDiv">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5>Datos de Director de Escuela:</h5>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">Escuela Profesional:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario" readonly>
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">Nombre:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario" readonly>
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">Correo:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario" readonly>
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5>Datos de usuario:</h5>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">Usuario:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario">
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">Rol:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario">
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                
+                <div class="d-none" id="elementosForm">
+                    {# Enviar el id en un campo oculto #}
+                    <input value="{{id}}" type="hidden" name="id">
+
+                    <div class="mb-4 row">
+                        <label for="usuario" class="col-lg-2 col-form-label">Usuario:</label>
+                        <div class="col-lg-6">
+                            <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                placeholder="usuario" name="usuario" id="usuario">
+                        </div>
+
+
+                    </div>
+                    <div class="mb-4 row">
+                        <label for="usuario" class="col-lg-2 col-form-label">Rol:</label>
+                        <div class="col-lg-6">
+                            <input value="{{session['rol']}}" required type="text" class="form-control input"
+                                placeholder="usuario" name="usuario" id="usuario" disabled>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <span id="btn-editar" class="btn btn-primary"><i class="fas fa-edit"></i>&nbsp;&nbsp;Editar Datos</span>
+                <button id="btn-guardar" type="submit" class="d-none btn btn-success"><i
+                        class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
+                <span id="btn-cancelar" class="d-none btn btn-danger"><i
+                        class="fa fa-times"></i>&nbsp;&nbsp;Cancelar</span>
+                <a id="btn-regresar" href="{{url_for('inicio.inicio')}}" class="btn btn-secondary"><i
+                        class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
+
+            </form>
         </div>
     </div>
 </section>
+{% elif session["rol"] == "Estudiante" %}
+<section class="section">
+    <div class="row">
+        <div class="col">
+            <form action="{{url}}" method="post">
+                <div id="elementosDiv">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5>Datos de Estudiante:</h5>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">Codigo Universitario:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario" readonly>
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">DNI:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario" readonly>
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">Nombre:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario" readonly>
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">Correo USAT:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario" readonly>
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">Correo Personal:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario" readonly>
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">Telefono 1:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario" readonly>
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">Telefono 2:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario" readonly>
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5>Datos de usuario:</h5>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">Usuario:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario">
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">Rol:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario">
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                
+                <div class="d-none" id="elementosForm">
+                    {# Enviar el id en un campo oculto #}
+                    <input value="{{id}}" type="hidden" name="id">
+
+                    <div class="mb-4 row">
+                        <label for="usuario" class="col-lg-2 col-form-label">Usuario:</label>
+                        <div class="col-lg-6">
+                            <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                placeholder="usuario" name="usuario" id="usuario">
+                        </div>
+                        
+
+
+                    </div>
+                    <div class="mb-4 row">
+                        <label for="usuario" class="col-lg-2 col-form-label">Rol:</label>
+                        <div class="col-lg-6">
+                            <input value="{{session['rol']}}" required type="text" class="form-control input"
+                                placeholder="usuario" name="usuario" id="usuario" disabled>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <span id="btn-editar" class="btn btn-primary"><i class="fas fa-edit"></i>&nbsp;&nbsp;Editar Datos</span>
+                <button id="btn-guardar" type="submit" class="d-none btn btn-success"><i
+                        class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
+                <span id="btn-cancelar" class="d-none btn btn-danger"><i
+                        class="fa fa-times"></i>&nbsp;&nbsp;Cancelar</span>
+                <a id="btn-regresar" href="{{url_for('inicio.inicio')}}" class="btn btn-secondary"><i
+                        class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
+
+            </form>
+        </div>
+    </div>
+</section>
+{% elif session["rol"] == "Jefe Inmediato" %}
+<section class="section">
+    <div class="row">
+        <div class="col">
+            <form action="{{url}}" method="post">
+                <div id="elementosDiv">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5>Datos de Responsable de Práctica:</h5>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">Centro de Prácticas Pre Profesionales:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario" readonly>
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">Cargo:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario" readonly>
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">Nombre:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario" readonly>
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">Correo:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario" readonly>
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                       
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">Telefono:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario" readonly>
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5>Datos de usuario:</h5>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">Usuario:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario">
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">Rol:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario">
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="d-none" id="elementosForm">
+                    {# Enviar el id en un campo oculto #}
+                    <input value="{{id}}" type="hidden" name="id">
+
+                    <div class="mb-4 row">
+                        <label for="usuario" class="col-lg-2 col-form-label">Usuario:</label>
+                        <div class="col-lg-6">
+                            <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                placeholder="usuario" name="usuario" id="usuario">
+                        </div>
+
+
+                    </div>
+                    <div class="mb-4 row">
+                        <label for="usuario" class="col-lg-2 col-form-label">Rol:</label>
+                        <div class="col-lg-6">
+                            <input value="{{session['rol']}}" required type="text" class="form-control input"
+                                placeholder="usuario" name="usuario" id="usuario" disabled>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <span id="btn-editar" class="btn btn-primary"><i class="fas fa-edit"></i>&nbsp;&nbsp;Editar Datos</span>
+                <button id="btn-guardar" type="submit" class="d-none btn btn-success"><i
+                        class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
+                <span id="btn-cancelar" class="d-none btn btn-danger"><i
+                        class="fa fa-times"></i>&nbsp;&nbsp;Cancelar</span>
+                <a id="btn-regresar" href="{{url_for('inicio.inicio')}}" class="btn btn-secondary"><i
+                        class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
+
+            </form>
+        </div>
+    </div>
+</section>
+{% elif session["rol"] == "Admin" %}
+<section class="section">
+    <div class="row">
+        <div class="col">
+            <form action="{{url}}" method="post">
+                <div id="elementosDiv">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5>Datos de Admin:</h5>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">Usuario:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario">
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                            <div class="mb-4 row">
+                                <label for="usuario" class="col-lg-2 col-form-label">Rol:</label>
+                                <div class="col-lg-6">
+                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                        placeholder="usuario" name="usuario" id="usuario">
+                                </div>
+                                <div class="col d-none d-xl-block"> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="d-none" id="elementosForm">
+                    {# Enviar el id en un campo oculto #}
+                    <input value="{{id}}" type="hidden" name="id">
+
+                    <div class="mb-4 row">
+                        <label for="usuario" class="col-lg-2 col-form-label">Usuario:</label>
+                        <div class="col-lg-6">
+                            <input value="{{session['nombre']}}" required type="text" class="form-control input"
+                                placeholder="usuario" name="usuario" id="usuario">
+                        </div>
+
+
+                    </div>
+                    <div class="mb-4 row">
+                        <label for="usuario" class="col-lg-2 col-form-label">Rol:</label>
+                        <div class="col-lg-6">
+                            <input value="{{session['rol']}}" required type="text" class="form-control input"
+                                placeholder="usuario" name="usuario" id="usuario" disabled>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <span id="btn-editar" class="btn btn-primary"><i class="fas fa-edit"></i>&nbsp;&nbsp;Editar Datos</span>
+                <button id="btn-guardar" type="submit" class="d-none btn btn-success"><i
+                        class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
+                <span id="btn-cancelar" class="d-none btn btn-danger"><i
+                        class="fa fa-times"></i>&nbsp;&nbsp;Cancelar</span>
+                <a id="btn-regresar" href="{{url_for('inicio.inicio')}}" class="btn btn-secondary"><i
+                        class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
+
+            </form>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
 {% endblock %}
 
 {% block scripts %}

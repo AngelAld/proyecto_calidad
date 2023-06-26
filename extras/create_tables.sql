@@ -177,8 +177,7 @@ CREATE TABLE PLAN_TRABAJO (
   id_informe_inicial_es));
 CREATE TABLE PRACTICA (
   id_practica   SERIAL NOT NULL, 
-  descripcion   varchar(255) NOT NULL, 
-  estado        char(1), 
+  estado        char(1)  NOT NULL, 
   id_estudiante int4 NOT NULL, 
   PRIMARY KEY (id_practica));
 CREATE TABLE RECOMENDACIONES (
@@ -211,9 +210,11 @@ CREATE TABLE SEMESTRE_ACADEMICO (
 CREATE TABLE TITULO_PROFESIONAL (
   id_titulo   SERIAL NOT NULL, 
   nombre      varchar(255) NOT NULL, 
-  descripcion int4, 
+  descripcion varchar(255) NOT NULL, 
   estado      char(1) NOT NULL, 
   PRIMARY KEY (id_titulo));
+--ALTER TABLE TITULO_PROFESIONAL ALTER COLUMN descripcion TYPE varchar(255)
+
 CREATE TABLE UBICACION (
   id_ubicacion SERIAL NOT NULL, 
   num          varchar(255) NOT NULL, 

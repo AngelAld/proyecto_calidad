@@ -20,34 +20,28 @@
         <table class="table table-hover align-middle table-bordered" id="tablita">
           <thead>
             <tr class="table-danger">
-              <th class="col-1 text-center d-none d-xl-table-cell">Código</th>
-              <th class="col-2 text-center">Nombre</th>
-              <th class="col-2 text-center d-none d-lg-table-cell">Fecha de Inicio</th>
-              <th class="col-2 text-center d-none d-lg-table-cell">Fecha de Fin</th>
+              <th class="col-2 text-center">Estudiante</th>
               <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
-              <th class="col-1 text-center">Editar</th>
+              <th class="col-1 text-center">Mas detalles</th>
               <th class="col-1 text-center">Eliminar</th>
             </tr>
           </thead>
           <tbody>
             {% for practica in practicas %}
             <tr>
-              <td class="col-1 text-center d-none d-xl-table-cell">{{practica[0]}}</td>
               <td class="col-2 text-center">{{practica[1]}}</td>
-              <td class="col-2 text-center d-none d-lg-table-cell">{{practica[2]}}</td>
-              <td class="col-2 text-center d-none d-lg-table-cell">{{practica[3]}}</td>
               <td class="col-1 text-center d-none d-md-table-cell">
                 <form action="{{url_for('practica.actualizar_estado_practica')}}" method="POST" class="actualizar_estado">
                   <input type="hidden" name="id" value="{{practica[0]}}">
-                  <input type="hidden" name="estado" value="{{practica[4]}}">
-                  {% if practica[4]=='A' %}
+                  <input type="hidden" name="estado" value="{{practica[2]}}">
+                  {% if practica[2]=='A' %}
                   <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
-                    data-bs-title="Desactivar practica">
+                    data-bs-title="Desactivar practica" onclick="event.preventDefault(); checkbox(this.parentNode)">
                     <i class="bi bi-check-square-fill"></i>
                   </button>
                   {% else %}
                   <button type="button" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip"
-                    data-bs-title="Activar practica">
+                    data-bs-title="Activar practica" onclick="event.preventDefault(); checkbox(this.parentNode)">
                     
                     <i class="bi bi-x-square-fill"></i>
                   </button>
