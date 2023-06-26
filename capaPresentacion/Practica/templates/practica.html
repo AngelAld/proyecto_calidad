@@ -30,12 +30,11 @@
             {% for practica in practicas %}
             <tr>
               <td class="col-2 text-center">{{practica[1]}}</td>
-              <td class="col-2 text-center">{{practica[2]}}</td>
               <td class="col-1 text-center d-none d-md-table-cell">
                 <form action="{{url_for('practica.actualizar_estado_practica')}}" method="POST" class="actualizar_estado">
                   <input type="hidden" name="id" value="{{practica[0]}}">
-                  <input type="hidden" name="estado" value="{{practica[3]}}">
-                  {% if practica[3]=='A' %}
+                  <input type="hidden" name="estado" value="{{practica[2]}}">
+                  {% if practica[2]=='A' %}
                   <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
                     data-bs-title="Desactivar practica" onclick="event.preventDefault(); checkbox(this.parentNode)">
                     <i class="bi bi-check-square-fill"></i>
