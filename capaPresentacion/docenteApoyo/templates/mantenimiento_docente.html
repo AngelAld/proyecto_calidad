@@ -34,7 +34,7 @@
                 <div class="form-floating mb-4">
                     <select value="{{titulo}}" required type="text-left" class="form-control input" placeholder="titulo"
                     name="titulo" id="titulo">
-                    {% for titulo in titulo %}
+                    {% for titulo in titulos %}
                         <option value="{{ titulo[0] }}">{{titulo[1] }}</option>
                     {% endfor %}
                     </select>
@@ -44,7 +44,7 @@
                 <div class="form-floating mb-4">
                     <select value="{{escuela_profesional}}" required type="text-left" class="form-control input" placeholder="escuela_profesional"
                     name="escuela_profesional" id="escuela_profesional">
-                    {% for escuela_profesional in escuela_profesional %}
+                    {% for escuela_profesional in escuela_profesionals %}
                         <option value="{{ escuela_profesional[0] }}">{{escuela_profesional[1] }}</option>
                     {% endfor %}
                     </select>
@@ -54,7 +54,7 @@
                 <div class="form-floating mb-4">
                     <select value="{{usuario}}" required type="text-left" class="form-control input" placeholder="usuario"
                     name="usuario" id="usuario">
-                    {% for usuario in usuario %}
+                    {% for usuario in usuarios %}
                         <option value="{{ usuario[0] }}">{{usuario[1] }}</option>
                     {% endfor %}
                     </select>
