@@ -20,9 +20,8 @@
         <table class="table table-hover align-middle table-bordered" id="tablita">
           <thead>
             <tr class="table-danger">
-              <th class="col-1 text-center d-none d-xl-table-cell">Código</th>
               <th class="col-2 text-center">Nombre</th>
-              <th class="col-2 text-center">Descripcion</th>
+              <th class="col-3 text-center">Descripcion</th>
               <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
               <th class="col-1 text-center">Editar</th>
               <th class="col-1 text-center">Eliminar</th>
@@ -31,9 +30,8 @@
           <tbody>
             {% for tituloProfesional in titulo_profesional %}
             <tr>
-              <td class="col-1 text-center d-none d-xl-table-cell">{{tituloProfesional[0]}}</td>
-              <td class="col-2 text-center">{{tituloProfesional[1]}}</td>
-              <td class="col-2 text-center d-none d-lg-table-cell">{{tituloProfesional[2]}}</td>
+              <td class="col-2 text-start">{{tituloProfesional[1]}}</td>
+              <td class="col-3 text-start d-none d-lg-table-cell">{{tituloProfesional[2]}}</td>
               <td class="col-1 text-center d-none d-md-table-cell">
                 <form action="{{url_for('tituloProfesional.actualizar_estado_tituloProfesional')}}" method="POST"
                   class="actualizar_estado">

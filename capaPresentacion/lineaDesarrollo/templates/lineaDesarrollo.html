@@ -48,7 +48,7 @@
             <tr class="table-danger">
 
               <th class="col-2 text-center border-start">Nombre</th>
-              <th class="col-2 text-center">Descripcion</th>
+              <th class="col-3 text-center">Descripcion</th>
               <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
               <th class="col-1 text-center">Editar</th>
               <th class="col-1 text-center">Eliminar</th>
@@ -58,7 +58,7 @@
             {% for lineaDesarrollo in linea_desarrollo %}
             <tr>             
               <td class="col-2 text-start">{{lineaDesarrollo[1]}}</td>
-              <td class="col-2 text-star">{{lineaDesarrollo[2]}}</td>
+              <td class="col-3 text-star">{{lineaDesarrollo[2]}}</td>
               <td class="col-1 text-center d-none d-md-table-cell">
                 <form action="{{url_for('lineaDesarrollo.actualizar_estado_lineaDesarrollo')}}" method="POST"
                   class="actualizar_estado">
