@@ -10,3 +10,10 @@ def informe_final_em():
     else:
         informe_final_em = c_informe_final_em.getAll()
         return render_template("informe_final_em.html", informe_final_em=informe_final_em)
+
+@informe_final_em_bp.route("/agregar_informe_final_em")
+def agregar_informe_final_em():
+    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+        return redirect(url_for("inicio.inicio"))
+    else:
+        return render_template("mantenimiento_informe_final_em.html")
