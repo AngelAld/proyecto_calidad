@@ -20,19 +20,21 @@
                     <label for="descripcion">Descripción</label>
                 </div>
 
+                <label for="facultades">Selecciona una Facultad</label>
                 <div class="form-floating mb-4">
-                    <input value="{{id_facultad}}" required type="text" class="form-control input" placeholder="id_facultad"
-                        name="id_facultad" id="id_facultad">
-                    <label for="facultad">Facultad</label>
+                    <select value="{{facultad}}" required type="text-left" class="form-control input" placeholder="Facultad"
+                        name="facultades" id="facultades">
+                        {% for facultad in facultades %}
+                            <option value="{{ facultad[0] }}">{{facultad[1] }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
-
-
 
                 <div class="form-floating mb-4">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="estado" id="estado" {% if
                             estado=="A" %} checked {% endif %}>
-                        <label class="form-check-label" for="flexRadioDefault1">
+                        <label cla="form-check-label" for="flexRadioDefault1">
                             Activo
                         </label>
                     </div>

@@ -143,13 +143,11 @@ BEGIN
     ELSE
       RETURN 'No se pudo eliminar el registro.';
     END IF;
-
+   
  EXCEPTION
     WHEN OTHERS THEN
-      RETURN  SQLERRM;
-      
+      RETURN  SQLERRM;     
   END;
-
   RETURN mensaje;
 END;
 $function$;
