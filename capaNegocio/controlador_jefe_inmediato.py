@@ -10,13 +10,13 @@ def listar_jefe_inmediato():
     return jefe_inmediato
 
 
-def agregar_jefe_inmediato(nombre, correo, telefono, cargo, estado, id_centro_practicas, razon_social, alias):
+def agregar_jefe_inmediato(nombre, correo, telefono, cargo, estado, id_centro_practicas, alias):
     conexion = obtener_conexion()
     msg = []
     with conexion.cursor() as cursor:
         cursor.execute(
-            "SELECT fn_agregar_jefe_inmediato(%s, %s, %s, %s, %s, %s, %s, %s)",
-            (nombre, correo, telefono, cargo, estado, id_centro_practicas, razon_social, alias),
+            "SELECT fn_agregar_jefe_inmediato(%s, %s, %s, %s, %s, %s, %s)",
+            (nombre, correo, telefono, cargo, estado, id_centro_practicas, alias),
         )
         msg = cursor.fetchone()
     conexion.commit()
@@ -78,7 +78,7 @@ def dar_baja_jefe_inmediato(id, estado):
 def obtener_centro_practicas():
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT id_centro_practicas, razon_social FROM CENTRO_PRACTICAS")
+        cursor.execute("SELECT id_centro_practicas, razon_social, alias FROM CENTRO_PRACTICAS")
         centro_PPP = cursor.fetchall() #verificar si está así
     conexion.close()
     return centro_PPP #verificar si está así

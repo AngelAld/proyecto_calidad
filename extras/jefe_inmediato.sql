@@ -15,12 +15,12 @@ BEGIN
     SELECT 
         ji.id_jefe_inmediato,
         ji.nombre,
-        ji.correo,
+        -- ji.correo,
         ji.telefono,
-        ji.cargo,
+        -- ji.cargo,
         ji.estado,
         ji.id_centro_practicas,
-        cp.razon_social,
+        -- cp.razon_social,
         cp.alias
     FROM 
         JEFE_INMEDIATO ji
@@ -31,7 +31,7 @@ END;
 $$ LANGUAGE plpgsql;
 -------------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION fn_consultar_jefe_inmediato_ID(p_id integer)
-RETURNS TABLE(id_jefe_inmediato integer, nombre varchar, correo varchar, telefono varchar, cargo varchar, estado char, id_centro_practicas integer, razon_social varchar, alias varchar)
+RETURNS TABLE(id_jefe_inmediato integer, nombre varchar, correo varchar, telefono varchar, cargo varchar, estado char, id_centro_practicas integer, alias varchar)
 LANGUAGE plpgsql
 AS $function$
 BEGIN
@@ -43,9 +43,12 @@ BEGIN
         ji.cargo,
         ji.estado,
         ji.id_centro_practicas,
-        cp.razon_social,
+        -- cp.razon_social,
         cp.alias
-    FROM JEFE_INMEDIATO ji
+    FROM 
+        JEFE_INMEDIATO ji
+        INNER JOIN CENTRO_PRACTICAS cp ON ji.id_centro_practicas = cp.id_centro_practicas
+    
     WHERE ji.id_jefe_inmediato = p_id;
 END;
 $function$;
@@ -56,7 +59,7 @@ CREATE OR REPLACE FUNCTION fn_agregar_jefe_inmediato(
     p_correo varchar(255),
     p_telefono varchar(12),
     p_cargo varchar(255),
-    p_estado char(1),
+    -- p_estado char(1),
     p_id_centro_practicas integer
 )
 RETURNS varchar(255)
@@ -145,7 +148,7 @@ $function$;
 ---------------------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION fn_eliminar_jefe_inmediato(p_id integer)
-  RETURNS varchar(255)
+  RETURNS text
   LANGUAGE plpgsql
 AS $function$
 DECLARE
@@ -163,15 +166,15 @@ BEGIN
       RETURN 'No se pudo eliminar el registro.';
     END IF;
 
-    EXCEPTION
-      WHEN OTHERS THEN
-        error_msg := CONCAT('Error: ', SQLERRM);
-        RETURN '%', error_msg;
+     EXCEPTION
+        WHEN OTHERS THEN
+            RETURN SQLERRM;
   END;
 
   RETURN mensaje;
 END;
 $function$;
+
 
 ----------------------------------------------------------------------------------------------------------------------------
 

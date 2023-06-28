@@ -1,6 +1,6 @@
 {% extends "maestra/maestra.html" %}
 {% block titulo %} Jefe Inmediato {% endblock %}
-{% set titulo2 = "Jefe Inmediato" %}
+{% set titulo2 = "Responsable de centro de PPP" %}
 {% block contenido %}
 <section class="section contenido">
   <div class="columns">
@@ -34,15 +34,19 @@
         <table class="table table-hover align-middle table-bordered" id="tablita">
           <thead>
             <tr class="table-danger">
-              <th class="col-1 text-center d-none d-xl-table-cell">Código</th>
-              <th class="col-2 text-center">Nombre</th>
-              <th class="col-2 text-center d-none d-lg-table-cell">Correo</th>
-              <th class="col-2 text-center d-none d-lg-table-cell">Telefono</th>
-              <th class="col-2 text-center d-none d-lg-table-cell">Cargo</th>
-              <th class="col-1 text-center d-none d-md-table-cell">Alias</th>
-              <th class="col-2 text-center d-none d-lg-table-cell">Centro Practica</th>
-              <th class="col-2 text-center d-none d-lg-table-cell">Razon Social</th>
-              <th class="col-2 text-center d-none d-lg-table-cell">Estado</th>
+              <!-- <th class="col-1 text-center d-none d-xl-table-cell">Código</th> --><!-- 0 -->
+              <th class="col-2 text-center">Nombre</th><!-- 1 -->
+              <!-- <th class="col-2 text-center d-none d-lg-table-cell">Correo</th> --> <!-- 2 -->
+              <th class="col-2 text-center d-none d-lg-table-cell">Telefono</th> <!-- 3 -->
+              <!-- <th class="col-2 text-center d-none d-lg-table-cell">Cargo</th> --> <!-- 4 -->
+              <th class="col-2 text-center d-none d-lg-table-cell">Centro practica</th> <!-- 6 -->
+              <th class="col-1 text-center d-none d-md-table-cell">Alias</th> <!-- 8 -->
+              <!-- <th class="col-2 text-center d-none d-lg-table-cell">Razon Social</th> --> <!-- 7 -->
+
+              <th class="col-1 text-center">Más detalles</th>
+
+              <th class="col-2 text-center d-none d-lg-table-cell">Estado</th> <!-- 5 -->
+
 
               <th class="col-1 text-center">Editar</th>
               <th class="col-1 text-center">Eliminar</th>
@@ -51,14 +55,22 @@
           <tbody>
             {% for jefe_inmediato in jefe_inmediato %}
             <tr>
-              <td class="col-1 text-center d-none d-xl-table-cell">{{jefe_inmediato[0]}}</td>
+              <!-- <td class="col-1 text-center d-none d-xl-table-cell">{{jefe_inmediato[0]}}</td> -->
               <td class="col-2 text-center">{{jefe_inmediato[1]}}</td>
-              <td class="col-2 text-center d-none d-lg-table-cell">{{jefe_inmediato[2]}}</td>
+              <!-- <td class="col-2 text-center d-none d-lg-table-cell">{{jefe_inmediato[2]}}</td> -->
               <td class="col-2 text-center d-none d-lg-table-cell">{{jefe_inmediato[3]}}</td>
-              <td class="col-2 text-center d-none d-lg-table-cell">{{jefe_inmediato[4]}}</td>
-              <td class="col-2 text-center d-none d-lg-table-cell">{{jefe_inmediato[8]}}</td>
-              <td class="col-2 text-center d-none d-lg-table-cell">{{jefe_inmediato[6]}}</td>
+              <!-- <td class="col-2 text-center d-none d-lg-table-cell">{{jefe_inmediato[4]}}</td> -->
               <td class="col-2 text-center d-none d-lg-table-cell">{{jefe_inmediato[7]}}</td>
+              <td class="col-2 text-center d-none d-lg-table-cell">{{jefe_inmediato[8]}}</td>
+              <!-- <td class="col-2 text-center d-none d-lg-table-cell">{{jefe_inmediato[6]}}</td> -->
+
+
+              <td class="col-1 text-center">
+                {# Pasar el id lo que hay en jefe_inmediato[0] #}
+                <a href="{{url_for('jefe_inmediato.detalle_jefe_inmediato', id=jefe_inmediato[0])}}"
+                  class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
+                  data-bs-title="Ver más detalles"><i class="fa-solid fa-eye"></i></a>
+              </td>
 
               <td class="col-1 text-center d-none d-md-table-cell">
                 <form action="{{url_for('jefe_inmediato.actualizar_estado_jefe_inmediato')}}" method="POST"
@@ -67,7 +79,8 @@
                   <input type="hidden" name="estado" value="{{jefe_inmediato[5]}}">
                   {% if jefe_inmediato[5]=='A' %}
                   <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
-                    data-bs-title="Desactivar Jefe Inmediato" onclick="event.preventDefault(); checkbox(this.parentNode)">
+                    data-bs-title="Desactivar Jefe Inmediato"
+                    onclick="event.preventDefault(); checkbox(this.parentNode)">
                     <i class="bi bi-check-square-fill"></i>
                   </button>
                   {% else %}
@@ -79,10 +92,12 @@
                 </form>
               </td>
 
+
               <td class="col-1 text-center">
                 {# Pasar el id lo que hay en jefe_inmediato[0] #}
-                <a href="{{url_for('jefe_inmediato.editar_jefe_inmediato', id=jefe_inmediato[0])}}" class="text-center btn btn-primary ls-button"
-                  data-bs-toggle="tooltip" data-bs-title="Editar jefe_inmediato"><i class="fas fa-edit"></i></a>
+                <a href="{{url_for('jefe_inmediato.editar_jefe_inmediato', id=jefe_inmediato[0])}}"
+                  class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
+                  data-bs-title="Editar jefe_inmediato"><i class="fas fa-edit"></i></a>
               </td>
               <td class="col-1 text-center">
                 <form action="{{url_for('jefe_inmediato.eliminar_jefe_inmediato')}}" method="POST" id="eliminar_form">

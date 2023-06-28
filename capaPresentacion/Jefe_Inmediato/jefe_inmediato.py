@@ -38,10 +38,10 @@ def guardar_jefe_inmediato():
             estado = "I"
 
         id_centro_practica = request.form["centro_PPP"]
-        razon_social = request.form["razon_social"]
-        alias = request.form["alias"]
+        # razon_social = request.form["razon_social"]
+        # alias = request.form["alias"]
 
-        mensaje = c_jefe_inmediato.agregar_jefe_inmediato(nombre,correo, telefono, cargo, estado, id_centro_practica, razon_social, alias)
+        mensaje = c_jefe_inmediato.agregar_jefe_inmediato(nombre,correo, telefono, cargo, id_centro_practica)
 
         if mensaje == "Operación realizada con éxito":
             flash(f"Jefe inmediato Registrado con Exito", "success")
@@ -127,8 +127,8 @@ def actualizar_estado_jefe_inmediato():
         return redirect("/jefe_inmediato")
 
 #********************************************* Lo uso para listar en combo a jefe inmediato (NO BORRAR ESTA FUNCION) *
-@jefe_inmediato_bp.route("/cmb_centroPPP")
-def cmb_centroPPP():
+@jefe_inmediato_bp.route("/cmb_centro_PPP")
+def cmb_centro_PPP():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
@@ -136,3 +136,23 @@ def cmb_centroPPP():
         return render_template("jefe_inmediato.html", centro_PPP=centro_PPP)
     #verificar si está bien lo de centro de practicas
 #***************************************************************
+
+
+
+# @jefe_inmediato_bp.route("/detalle_jefe_inmediato")
+# def detalle_jefe_inmediato():
+#     if "rol" not in session or session["rol"] != "Docente de Apoyo":
+#         return redirect(url_for("inicio.inicio"))
+#     else:
+#         jefe_inmediato = c_jefe_inmediato.listar_jefe_inmediato()
+#         return render_template("frm_detalle_jefe_inmediato.html", jefe_inmediato=jefe_inmediato)
+
+
+@jefe_inmediato_bp.route("/formulario_detalle_jefe_inmediato/<int:id>")
+def detalle_jefe_inmediato(id):
+    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+        return redirect(url_for("inicio.inicio"))
+    else:
+        jefe_inmediato = c_jefe_inmediato.buscar_jefe_inmediatoID(id)
+        centro_PPP = c_jefe_inmediato.obtener_centro_practicas()
+        return render_template("frm_detalle_jefe_inmediato.html", jefe_inmediato=jefe_inmediato, centro_PPP=centro_PPP)
