@@ -10,3 +10,11 @@ def informe_inicial_em():
     else:
         informe_inicial_em = c_informe_inicial_em.getAll()
         return render_template("informe_inicial_em.html", informe_inicial_em=informe_inicial_em)
+
+
+@informe_inicial_em_bp.route("/agregar_informe_inicial_em")
+def agregar_informe_inicial_em():
+    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+        return redirect(url_for("inicio.inicio"))
+    else:
+        return render_template("mantenimiento_informe_inicial_em.html")
