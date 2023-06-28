@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION fn_listar_planEstudio()
- RETURNS TABLE(id_plan_estudio integer, nombre character varying, estado character, id_escuela_profesional integer)
+ RETURNS TABLE(pe.id_plan_estudio integer, pe.nombre character varying, pe.estado character, ep.nombre character varying)
  LANGUAGE plpgsql
 AS $function$
 BEGIN
@@ -7,12 +7,14 @@ RETURN QUERY SELECT
 pe.id_plan_estudio, 
 pe.nombre,
 pe.estado,
-pe.id_escuela_profesional
+ep.nombre
 FROM PLAN_ESTUDIO pe
-ORDER BY estado, nombre ASC;
+INNER JOIN ESCUELA_PROFESIONAL ep
+ON pe.id_escuela_profesional=ep.id_escuela_profesional
+ORDER BY pe.estado, pe.nombre, ep.nombre ASC;
 END;
 $function$
-;
+; 
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -93,11 +95,12 @@ BEGIN
       RETURN 'Plan Estudio ya existe';
     END IF;
 
-    UPDATE PLAN_ESTUDIO
-    SET nombre = p_nombre,
-        estado = p_estado,
-        id_plan_estudio = p_id_plan_estudio
-    WHERE id_plan_estudio = p_id_plan_estudio;
+    UPDATE PLAN_ESTUDIO p
+    INNER JOIN ESCUELA_PROFESIONAL e
+    SET nombre = p.nombre,
+        estado = p.estado,
+        nombre = e.nombre;
+    WHERE e.id_plan_estudio = p.id_plan_estudio;
 
     EXCEPTION WHEN OTHERS THEN
       GET STACKED DIAGNOSTICS error_message = MESSAGE_TEXT,
@@ -114,35 +117,33 @@ $function$;
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION fn_eliminar_plan_estudio(p_id integer)
-  RETURNS character varying
-  LANGUAGE plpgsql
-AS $function$
-DECLARE
-  mensaje    VARCHAR(100);
-  error_msg  VARCHAR(100);
-BEGIN
+RETURNS text
+LANGUAGE plpgsql
+AS $function$ 
+DECLARE 
+  mensaje VARCHAR(100);
+  error_msg VARCHAR(100);
+BEGIN 
   BEGIN
     DELETE FROM PLAN_ESTUDIO
     WHERE id_plan_estudio = p_id;
 
     -- Verificar si se eliminó el registro correctamente
-    IF FOUND THEN
-      mensaje := 'Operación realizada con éxito';
-    ELSE
-      RETURN 'No se pudo eliminar el registro.';
+    IF FOUND THEN 
+        mensaje := 'Operación realizada con éxito';
+    ELSE 
+        RETURN 'No se pudo eliminar el registro.';
     END IF;
 
-    EXCEPTION
-      WHEN OTHERS THEN
-        error_msg := CONCAT('Error: ', SQLERRM);
-        RETURN '%', error_msg;
+  EXCEPTION
+    WHEN OTHERS THEN 
+      RETURN  SQLERRM;
+      
   END;
+RETURN mensaje;
 
-  RETURN mensaje;
 END;
 $function$;
-
-
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
