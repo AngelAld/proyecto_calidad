@@ -1,0 +1,16 @@
+{% extends "mantenimiento_practica.html" %}
+
+{% block titulo %} Editar Práctica {% endblock %}
+{% set titulo2 = "Editar Práctica" %}
+{% set id = practica[0] %}
+{% set estudiante = practica[1] %}
+{% set fecha_inicio = practica[4] %}
+{% set fecha_fin = practica[5] %}
+{% set centro_practica = practica[4] %}
+{% set jefe_inmediato = practica[8] %}
+{% set semestre_academico = practica[6] %}
+{% set linea_desarrollo = practica[3] %}
+{% set horas = practica[7] %}
+{% set informacion_adicional = practica[9] %}
+{% set estado = practica[2] %}
+{% set url = url_for('practica.actualizar_practica') %}
