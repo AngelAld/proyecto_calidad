@@ -28,9 +28,9 @@ def guardar_practica():
         id_estudiante = int(request.form["estudiante"])
         frm_estado = request.form.get("estado")
         if frm_estado == "on":
-            estado = "A"
+            estado = "p"
         else:
-            estado = "I"
+            estado = "F"
 
         id_linea_desarrollo = request.form["lineaDesarrollo"]
         fecha_inicio = request.form["fechaInicio"]
