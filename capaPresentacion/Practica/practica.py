@@ -66,26 +66,31 @@ def practicas():
 
 
 @practica_bp.route("/eliminar_practica", methods=["POST"])
-def eliminar_practica():
+def eliminar_practica_route():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
         mensaje = c_practica.eliminar_practica(request.form["id"])
         if mensaje == "Operación realizada con éxito":
-            flash(f"practica Eliminado con Exito", "success")
+            flash(f"Práctica eliminada con éxito", "success")
         else:
             flash(str(mensaje), "error")
 
         return redirect("/practicas")
-
 
 @practica_bp.route("/formulario_editar_practica/<int:id>")
 def editar_practica(id):
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        practica = c_practica.buscar_practicaID(id)
-        return render_template("frm_editar_practica.html", practica=practica)
+        practica = c_practica.buscar_practica_por_ID(id)
+        estudiantes = c_practica.obtener_estudiantes()
+        centro_practicas = c_practica.obtener_centro_practicas()
+        jefeInmediatos = c_practica.obtener_jefe_inmediato()
+        semestre_academicos = c_practica.obtener_semestre()
+        lineaDesarrollos = c_practica.obtener_lineaDesarrollo()
+        return render_template("frm_editar_practica.html", practica=practica, estudiantes=estudiantes, centro_practicas=centro_practicas, jefeInmediatos=jefeInmediatos, semestre_academicos=semestre_academicos, lineaDesarrollos=lineaDesarrollos, estudiante_seleccionado=estudiantes)
+
 
 
 @practica_bp.route("/actualizar_practica", methods=["POST"])
@@ -93,24 +98,36 @@ def actualizar_practica():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        id = request.form["id_practica"]
-        nombre = request.form["nombre"]
+        id_practica = request.form["id_practica"]
+        id_estudiante = request.form["id_estudiante"]
+        estado = request.form.get("estado")
+        id_linea_desarrollo = request.form["id_linea_desarrollo"]
         fecha_inicio = request.form["fecha_inicio"]
         fecha_fin = request.form["fecha_fin"]
-        frm_estado = request.form.get("estado")
-        if frm_estado == "on":
-            estado = "A"
-        else:
-            estado = "I"
+        id_semestre_academico = request.form["id_semestre_academico"]
+        horas = request.form["horas"]
+        id_jefe_inmediato = request.form["id_jefe_inmediato"]
+        informacion_adicional = request.form["informacion_adicional"]
 
-        mensaje = c_practica.actualizar_practica(id, nombre, fecha_inicio, fecha_fin, estado)
+        mensaje = c_practica.actualizar_practica(
+            id_practica,
+            id_estudiante,
+            estado,
+            id_linea_desarrollo,
+            fecha_inicio,
+            fecha_fin,
+            id_semestre_academico,
+            horas,
+            id_jefe_inmediato,
+            informacion_adicional
+        )
 
         if mensaje == "Operación realizada con éxito":
-            flash(f"practica Actualizado con Exito", "success")
+            flash("Práctica actualizada con éxito", "success")
             url = "/practicas"
         else:
             flash(str(mensaje), "error")
-            url = "/formulario_editar_practica/" + id
+            url = "/formulario_editar_practica/" + id_practica
         return redirect(url)
 
 

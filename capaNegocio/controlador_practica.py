@@ -26,51 +26,52 @@ def agregar_practica(id_estudiante, estado, id_linea_desarrollo, fecha_inicio, f
 
 def eliminar_practica(id):
     conexion = obtener_conexion()
-    msg = []
-    # with conexion.cursor() as cursor:
-    #     cursor.execute("SELECT fn_eliminar_semestre(%s)", (id,))
-    #     msg = cursor.fetchone()
-    # conexion.commit()
+    msg = None  # Cambiar [] por None
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT fn_eliminar_practica(%s)", (id,))
+        msg = cursor.fetchone() # Obtener el primer elemento del resultado
+    conexion.commit()
     conexion.close()
     return msg[0] if msg is not None else None
 
-def buscar_practicaID(id):
+def buscar_practica_por_ID(id_practica):
     conexion = obtener_conexion()
     practica = None
-    # with conexion.cursor() as cursor:
-    #     cursor.execute(
-    #         "select * from fn_consultar_semestre_academico_ID(%s)",
-    #         (id,),
-    #     )
-    #     semestre = cursor.fetchone()
+    with conexion.cursor() as cursor:
+        cursor.execute(
+            "SELECT * FROM fn_consultar_practica_por_ID(%s)",
+            (id_practica,),
+        )
+        practica = cursor.fetchone()
     conexion.close()
     return practica
 
-def actualizar_practica(id, nombre, fecha_inicio, fecha_fin, estado):
+def actualizar_practica(id_practica, id_estudiante, estado, id_linea_desarrollo, fecha_inicio, fecha_fin, id_semestre_academico, horas, id_jefe_inmediato, informacion_adicional):
     conexion = obtener_conexion()
-    msg = []
-    # with conexion.cursor() as cursor:
-    #     cursor.execute(
-    #         "SELECT fn_editar_semestre(%s, %s, %s, %s, %s)",
-    #         (id, nombre, fecha_inicio, fecha_fin, estado),
-    #     )
-    #     msg = cursor.fetchone()
-    # conexion.commit()
+    msg = None
+    with conexion.cursor() as cursor:
+        cursor.execute(
+            "SELECT fn_editar_practica(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+            (id_practica, id_estudiante, estado, id_linea_desarrollo, fecha_inicio, fecha_fin, id_semestre_academico, horas, id_jefe_inmediato, informacion_adicional),
+        )
+        msg = cursor.fetchone()
+    conexion.commit()
     conexion.close()
     return msg[0] if msg is not None else None
 
-def dar_baja_practica(id, estado):
+
+def dar_baja_practica(id_practica, estado):
     conexion = obtener_conexion()
     msg = []
-    # new_estado = ""
-    # if estado == "A":
-    #     new_estado = "I"
-    # else:
-    #     new_estado = "A"
-    # with conexion.cursor() as cursor:
-    #     cursor.execute("SELECT fn_actualizar_estado_semestre(%s, %s)", (id, new_estado))
-    #     msg = cursor.fetchone()
-    # conexion.commit()
+    new_estado = ""
+    if estado == "A":
+        new_estado = "I"
+    else:
+        new_estado = "A"
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT fn_actualizar_estado_practica(%s, %s)", (id_practica, new_estado))
+        msg = cursor.fetchone()
+    conexion.commit()
     conexion.close()
     return msg[0] if msg is not None else None
 
