@@ -1,5 +1,5 @@
 from capaDatos.bd import obtener_conexion
-
+import capaNegocio.controlador_usuarios as controlador_usuarios
 
 def getAll():
     conexion = obtener_conexion()
@@ -11,18 +11,37 @@ def getAll():
     return estudiante
 
 
-def insert(cod_universitario,dni,nombre,correo_usat,correo_personal,telefono, telefono2,  estado,id_usuario,id_semestre_academico_ingreso,id_plan_estudio):
+def insert(cod_universitario, dni, nombre, correo_usat, correo_personal, telefono, telefono2, estado, id_semestre_academico_ingreso, id_plan_estudio):
     conexion = obtener_conexion()
-    msg = []
+    msg = ""
     with conexion.cursor() as cursor:
-        cursor.execute(
-            "SELECT fn_agregar_estudiante(%s, %s, %s, %s , %s,%s, %s, %s, %s, %s , %s)",
-            (cod_universitario,dni,nombre,correo_usat,correo_personal,telefono, telefono2,  estado,id_usuario,id_semestre_academico_ingreso,id_plan_estudio),
-        )
-        msg = cursor.fetchone()
-    conexion.commit()
+        # Comprobar si el estudiante ya existe
+        cursor.execute("SELECT id_estudiante FROM ESTUDIANTE WHERE cod_universitario = %s OR dni = %s", (cod_universitario, dni))
+        resultado = cursor.fetchone()
+        if resultado is not None:
+            msg = "Estudiante ya existe en la base de datos"
+        else:
+            try:
+                # Obtener el id del rol "Estudiante"
+                cursor.execute("SELECT id_rol FROM ROL WHERE nombre = 'Estudiante'")
+                id_rol = cursor.fetchone()[0]
+                # Insertar un nuevo usuario
+                clave = ''.join([nombre[:3], cod_universitario[:3]])
+                cursor.execute("INSERT INTO USUARIO (usuario, nombre, clave, estado, id_rol) VALUES (%s, %s, %s, %s, %s) RETURNING id_usuario", (cod_universitario, nombre, controlador_usuarios.generate_password(clave), estado, id_rol))
+                id_usuario = cursor.fetchone()[0]
+                # Insertar un nuevo estudiante
+                cursor.execute("INSERT INTO ESTUDIANTE (cod_universitario, dni, nombre, correo_usat, correo_personal, telefono, telefono2, estado, id_usuario, id_semestre_academico_ingreso, id_plan_estudio) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (cod_universitario, dni, nombre, correo_usat, correo_personal, telefono, telefono2, estado, id_usuario, id_semestre_academico_ingreso, id_plan_estudio))
+                
+                controlador_usuarios.enviar_correo(nombre, correo_usat, clave, correo_usat)
+                
+                msg = "Operación realizada con éxito"
+                conexion.commit()
+            except Exception as e:
+                msg = str(e)
+                conexion.rollback()
+
     conexion.close()
-    return msg[0] if msg is not None else None
+    return msg
 
 
 def delete(id):
