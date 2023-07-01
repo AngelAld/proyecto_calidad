@@ -7,27 +7,29 @@
       <div class="col-12">
         <h4>Datos del Estudiante</h4>
         <form>
+
           <div class="form-group row">
-            <label for="nombre" class="col-sm-2 col-form-label">Nombre:</label>
+            <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="nombre">
+              <input type="text" class="form-control" id="nombres" readonly>
+              {% for estudiante in estudiante %}
+              <option value="{{ estudiante[0] }}">{{ estudiante[1] }}</option>
+              {% endfor %}
             </div>
-            <label for="apellidos" class="col-sm-2 col-form-label">Apellidos:</label>
-            <div class="col-sm-4">
-              <input type="text" class="form-control" id="apellidos">
-            </div>
-          </div>
+          </div>        
+
           <div class="form-group row">
             <label for="codigo" class="col-sm-2 col-form-label">Codigo:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="codigo">
+              <input type="text" class="form-control" id="codigo" readonly>
               </select>
             </div>
           </div>
+
           <div class="form-group row">
             <label for="area" class="col-sm-2 col-form-label">Semestre:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="semestre">
+              <input type="text" class="form-control" id="semestre" readonly>
               </select>
             </div>
           </div>
@@ -42,19 +44,19 @@
           <div class="form-group row">
             <label for="nombre_empresa" class="col-sm-2 col-form-label">Razon social:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="razon_social">
+              <input type="text" class="form-control" id="razon_social" readonly>
             </div>
           </div>
           <div class="form-group row">
             <label for="nombre_empresa" class="col-sm-2 col-form-label">Responsable de la practica:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="responsable_practica">
+              <input type="text" class="form-control" id="responsable_practica" readonly>
             </div>
           </div>
           <div class="form-group row">
             <label for="nombre_empresa" class="col-sm-2 col-form-label">Cargo:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="cargo">
+              <input type="text" class="form-control" id="cargo" readonly>
             </div>
           </div>
         </form>
@@ -85,111 +87,142 @@
       </div>
   </div>
   
-
   <div class="row mt-3">
     <div class="col-12">
         <div class="d-flex justify-content-between align-items-center">
-            <h5>Objetivos</h5>
+            <h5 class="col-2">Objetivos</h5>
             <div>
-                <a href="#" class="btn btn-success"><i class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
+                <a href="#" class="btn btn-success"><i class="fas fa-plus-circle" id="btnAgregarObjetivo"></i>&nbsp;Agregar</a>
             </div>
         </div>
           <form>
-              <table class="table">
+              <table class="table" id="tablaObjetivos">
                   <thead class="bg-light">
                       <tr>
-                          <th scope="col">Numero</th>
-                          <th scope="col">Descripcion</th>
-                          <th scope="col">Editar</th>
-                          <th scope="col">Eliminar</th>
+                          <th class="col-1">Numero</th>
+                          <th class="col-11">Descripcion</th>
+                          <th class="col-1 text-center">Editar</th>
+                          <th class="col-1 text-center">Eliminar</th>
                       </tr>
                   </thead>
                   <tbody>
-                      <tr>
-                          <th scope="row">1</th>
-                          <td>Realizar mantenimiento de todas las computadoras del área de ventas, verificar que estén en buen estado</td>
-                          <td><button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button></td>
-                          <td><button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button></td>
-                      </tr>
-                      <tr>
-                          <th scope="row">2</th>
-                          <td>Realizar mantenimiento de todas las computadoras del área de ventas, verificar que estén en buen estado</td>
-                          <td><button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button></td>
-                          <td><button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button></td>
-                      </tr>
-                      <tr>
-                          <th scope="row">3</th>
-                          <td>Realizar mantenimiento de todas las computadoras del área de ventas, verificar que estén en buen estado</td>
-                          <td><button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button></td>
-                          <td><button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button></td>
-                      </tr>
+
                   </tbody>
               </table>
           </form>
       </div>
   </div>
-  
-    
-        </div>
+
+  <!--PARA EL BOTON AGREGAR OBJETIVO -->
+  <script>
+    document.getElementById("btnAgregarObjetivo").addEventListener("click", function (event) {
+      event.preventDefault()
+      
+      const tablaObjetivos = document.getElementById("tablaObjetivos")
+      const numero = tablaObjetivos.rows.length
+      
+      const nuevaFila = tablaObjetivos.insertRow()
+      const celdaNumero = nuevaFila.insertCell(0)
+      const celdaDescripcion = nuevaFila.insertCell(1)
+      const celdaEditar = nuevaFila.insertCell(2)
+      const celdaEliminar = nuevaFila.insertCell(3)
+      
+      celdaNumero.textContent = numero;
+      celdaDescripcion.innerHTML = '<input type="text" class="form-control" />'
+      celdaEditar.innerHTML = '<button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button>'
+      celdaEliminar.innerHTML = '<button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>'
+    })
+  </script>
+
+
+  </div>
         <div class="row mt-3">
           <div class="col-12">
               <div class="d-flex justify-content-between align-items-center">
-                  <h5>Plan de trabajo</h5>
+                  <h5 class="col-2">Plan de trabajo</h5>
                   <div>
-                      <a href="#" class="btn btn-success"><i class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
+                      <a href="#" class="btn btn-success"><i class="fas fa-plus-circle" id="btnAgregarPlan"></i>&nbsp;Agregar</a>
                   </div>
               </div>
         <form>
-          <table class="table">
+          <table class="table" id="tablaPlanTrabajo">
             <thead class="bg-light">
               <tr>
-                <th scope="col">Num de semanas</th>
-                <th scope="col">Fechas</th>
-                <th scope="col">Actividad a relizar</th>
-                <th scope="col">Numero de horas</th>
-                <th scope="col">Editar</th>
-                <th scope="col">Eliminar</th>
+                <th class="col-1">Numero</th>
+                <th class="col-1">N° de semanas</th>
+                <th class="col-2">Fechas</th>
+                <th class="col-7">Actividad a relizar</th>
+                <th class="col-1">N° de horas</th>
+                <th class="col-1 text-center">Editar</th>
+                <th class="col-1 text-center">Eliminar</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>10/01/2023 al 10/03/2023</td>
-                <td>Mantenimiento y revision de las computadoras del area de ventas</td>
-                <td>10</td>
-                <td><button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button></td>
-                <td><button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button></td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>10/01/2023 al 10/03/2023</td>
-                <td>Mantenimiento y revision de las computadoras del area de ventas</td>
-                <td>10</td>
-                <td><button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button></td>
-                <td><button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button></td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>10/01/2023 al 10/03/2023</td>
-                <td>Mantenimiento y revision de las computadoras del area de ventas</td>
-                <td>10</td>
-                <td><button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button></td>
-                <td><button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button></td>
-              </tr>
-              <tr>
-                <td>Total de horas</td>
-                <td></td>
-                <td></td>
-                <td>30</td>
-                <td></td>
-                <td></td>
-              </tr>
+              
             </tbody>
           </table>
         </form>
+        <table class="table">
+          <tfoot>
+            <tr id="filaTotalHoras">
+              <td class="col-1">Total de horas</td>
+              <td class="col-1" id="totalHoras"></td>
+            </tr>
+          </tfoot>
+        </table>
       </div>
-    </div>
+  </div>
 
+      <!--PARA EL BOTON AGREGAR PLAN TRABAJO -->
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          const tablaPlanTrabajo = document.getElementById("tablaPlanTrabajo");
+          /*const filaTotalHoras  = document.getElementById("filaTotalHoras ");
+          let totalHoras = 0;*/
+          let numero = 1;
+          
+      
+          document.getElementById("btnAgregarPlan").addEventListener("click", function (event) {
+            event.preventDefault();
+      
+            const nuevaFila = tablaPlanTrabajo.insertRow(-1);
+            const celdaNumero = nuevaFila.insertCell(0);
+            const celdaNumSemanas = nuevaFila.insertCell(1);
+            const celdaFechas = nuevaFila.insertCell(2);
+            const celdaActividades = nuevaFila.insertCell(3);
+            const celdaNumHoras = nuevaFila.insertCell(4)
+            const celdaEditar = nuevaFila.insertCell(5);
+            const celdaEliminar = nuevaFila.insertCell(6);
+      
+            celdaNumero.textContent = numero;
+            celdaNumSemanas.innerHTML = `<input type="text" class="form-control" />`;
+            celdaFechas.innerHTML = `<input type="text" class="form-control" />`;
+            celdaActividades.innerHTML = `<input type="text" class="form-control" />`;
+            celdaNumHoras.innerHTML = `<input type="text" class="form-control" />`;
+            celdaEditar.innerHTML = `<button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button>`;
+            celdaEliminar.innerHTML = `<button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>`;
+      
+            numero++;
+            /*actualizarTotalHoras()*/
+          });
+          /*function actualizarTotalHoras() {
+            totalHoras = 0;
+            const filas = tablaPlanTrabajo.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+
+            for (let i = 0; i < filas.length; i++) {
+              const fila = filas[i];
+              const celdaNumHoras = fila.getElementsByTagName("td")[4];
+              const inputNumHoras = celdaNumHoras.getElementsByTagName("input")[0];
+              const numHoras = parseFloat(inputNumHoras.value);
+
+              if (!isNaN(numHoras)) {
+                totalHoras += numHoras;
+              }
+            }
+            filaTotalHoras.querySelector("#totalHoras").textContent = totalHoras.toFixed(2);
+          }*/
+        });
+      </script>
 
     <div class="row mt-3">
       <div class="col-md-3">
@@ -204,10 +237,9 @@
       </div>
   </div>
 
-
     <div class="row mt-3">
       <div class="col-12 text-center">
-        <button class="btn btn-success mx-2">Guardar</button>
+        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
         <a href="{{url_for('informe_inicial_es.informe_inicial_es')}}" class="btn btn-danger mx-2"><i></i></i>&nbsp;&nbsp;Cancelar</a>
       </div>
     </div>
