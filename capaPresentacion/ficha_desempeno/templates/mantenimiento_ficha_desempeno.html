@@ -3,40 +3,38 @@
 {% set titulo2 = "Agregar Ficha de Evaluacion de Desempeño" %}
 {% block contenido %}
   <div class="container-fluid">
+
+    <p class="form-control-static">
+      La Universidad Católica Santo Toribio de Mogrovejo (USAT) agradece la valiosa colaboración de su Institución en la formación profesional de los estudiantes de nuestra casa de estudios. 
+      El objetivo de esta evaluación es recoger información sobre el desempeño de nuestros estudiantes durante el periodo de prácticas pre profesionales. En tal sentido, le agradeceremos responderla de manera objetiva, ya que su opinión nos ayudará a mejorar el nivel de las Prácticas Pre profesionales que son requisito para la titulación de nuestros estudiantes.
+    </p>
+
     <div class="row mt-3">
       <div class="col-12">
         <h4>Datos del Estudiante</h4>
         <form>
           <div class="form-group row">
-            <label for="nombre" class="col-sm-2 col-form-label">Nombre:</label>
+            <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="nombre">
-            </div>
-            <label for="apellidos" class="col-sm-2 col-form-label">Apellidos:</label>
+              <input type="text" class="form-control" id="nombres" readonly>
+            </div>           
+          </div>
+          <div class="form-group row">
+            <label for="escuelaProfesional" class="col-sm-2 col-form-label">Escuela Profesional:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="apellidos">
+              <input type="text" class="form-control" id="escuelaProfesional" readonly>
             </div>
           </div>
           <div class="form-group row">
-            <label for="escuela" class="col-sm-2 col-form-label">Escuela Profesional:</label>
-            <div class="col-sm-4">
-              <select class="form-control" id="escuela">
-                <!-- Opciones de la base de datos -->
-              </select>
-            </div>
             <label for="periodo" class="col-sm-2 col-form-label">Periodo de Prácticas:</label>
             <div class="col-sm-4">
-              <select class="form-control" id="periodo">
-                <!-- Opciones de la base de datos -->
-              </select>
+              <input type="text" class="form-control" id="periodo" readonly>
             </div>
           </div>
           <div class="form-group row">
-            <label for="area" class="col-sm-2 col-form-label">Área de Desempeño:</label>
+            <label for="areaDesempeno" class="col-sm-2 col-form-label">Área de Desempeño:</label>
             <div class="col-sm-4">
-              <select class="form-control" id="area">
-                <!-- Opciones de la base de datos -->
-              </select>
+              <input type="text" class="form-control" id="areaDesempeno" readonly>
             </div>
           </div>
         </form>
@@ -49,23 +47,25 @@
           <div class="form-group row">
             <label for="nombre_empresa" class="col-sm-2 col-form-label">Nombre de la Empresa:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="nombre_empresa">
+              <input type="text" class="form-control" id="nombre_empresa" readonly>
             </div>
           </div>
           <div class="form-group row">
             <label for="direccion" class="col-sm-2 col-form-label">Dirección:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="direccion">
+              <input type="text" class="form-control" id="direccion" readonly>
             </div>
+          </div>
+          <div class="form-group row">
             <label for="responsable" class="col-sm-2 col-form-label">Nombre del Responsable:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="responsable">
+              <input type="text" class="form-control" id="responsable" readonly>
             </div>
           </div>
           <div class="form-group row">
             <label for="correo" class="col-sm-2 col-form-label">Correo del Responsable:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="correo">
+              <input type="text" class="form-control" id="correo" readonly>
             </div>
           </div>
         </form>
@@ -78,152 +78,191 @@
           <table class="table">
             <thead class="bg-light">
               <tr>
-                <th scope="col">Número</th>
-                <th scope="col">Característica a Evaluar</th>
-                <th scope="col">Deficiente</th>
-                <th scope="col">Regular</th>
-                <th scope="col">Bueno</th>
-                <th scope="col">Muy Bueno</th>
+                <th class="col-1">Número</th>
+                <th class="col">Característica a Evaluar</th>
+                <th class="text-center" >Deficiente</th>
+                <th class="text-center">Regular</th>
+                <th class="text-center" >Bueno</th>
+                <th class="text-center" >Muy Bueno</th>
               </tr>
             </thead>
             <tbody>  
                 <th  scope="row">1</th>
                 <td>Responsabilidad</td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
+                <td class="text-center"><input type="checkbox" name="responsabilidad" value="deficiente"></td>
+                <td class="text-center"><input type="checkbox" name="responsabilidad" value="regular"></td>
+                <td class="text-center"><input type="checkbox" name="responsabilidad" value="bueno"></td>
+                <td class="text-center"><input type="checkbox" name="responsabilidad" value="muybueno"></td>
               </tr>
               <tr>
                 <th scope="row">2</th>
                 <td>Proactividad</td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
+                <td class="text-center"><input type="checkbox" name="proactividad" value="deficiente"></td>
+                <td class="text-center"><input type="checkbox" name="proactividad" value="regular"></td>
+                <td class="text-center"><input type="checkbox" name="proactividad" value="bueno"></td>
+                <td class="text-center"><input type="checkbox" name="proactividad" value="muybueno"></td>
               </tr>
               <tr>
                 <th scope="row">3</th>
                 <td>Comunicación asertiva</td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
+                <td class="text-center"><input type="checkbox" name="comunicacion" value="deficiente"></td>
+                <td class="text-center"><input type="checkbox" name="comunicacion" value="regular"></td>
+                <td class="text-center"><input type="checkbox" name="comunicacion" value="bueno"></td>
+                <td class="text-center"><input type="checkbox" name="comunicacion" value="muybueno"></td>
               </tr>
               <tr>
                 <th scope="row">4</th>
                 <td>Trabajo en equipo</td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
+                <td class="text-center"><input type="checkbox" name="trabajoequipo" value="deficiente"></td>
+                <td class="text-center"><input type="checkbox" name="trabajoequipo" value="regular"></td>
+                <td class="text-center"><input type="checkbox" name="trabajoequipo" value="bueno"></td>
+                <td class="text-center"><input type="checkbox" name="trabajoequipo" value="muybueno"></td>
               </tr>
               <tr>
                 <th scope="row">5</th>
                 <td>Compromiso con la calidad</td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
+                <td class="text-center"><input type="checkbox" name="compromiso" value="deficiente"></td>
+                <td class="text-center"><input type="checkbox" name="compromiso" value="regular"></td>
+                <td class="text-center"><input type="checkbox" name="compromiso" value="bueno"></td>
+                <td class="text-center"><input type="checkbox" name="compromiso" value="muybueno"></td>
               </tr>
               <tr>
                 <th scope="row">6</th>
                 <td>Organización en el trabajo</td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
+                <td class="text-center"><input type="checkbox" name="organizacion" value="deficiente"></td>
+                <td class="text-center"><input type="checkbox" name="organizacion" value="regular"></td>
+                <td class="text-center"><input type="checkbox" name="organizacion" value="bueno"></td>
+                <td class="text-center"><input type="checkbox" name="organizacion" value="muybueno"></td>
               </tr>
               <tr>
                 <th scope="row">7</th>
                 <td>Puntualidad y asistencia</td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
+                <td class="text-center"><input type="checkbox" name="puntualidad" value="deficiente"></td>
+                <td class="text-center"><input type="checkbox" name="puntualidad" value="regular"></td>
+                <td class="text-center"><input type="checkbox" name="puntualidad" value="bueno"></td>
+                <td class="text-center"><input type="checkbox" name="puntualidad" value="muybueno"></td>
               </tr>
             </tbody>
           </table>
         </form>
       </div>
     </div>
+
+    <!-- Para validar los chebox: en caso de marcar tenemos que presionar en mismo para desmarcar -->
+    <!-- <script>
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     
-        
+      checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', () => {
+          const selectedCheckboxes = document.querySelectorAll(`input[name="${checkbox.name}"]:checked`);
+          if (selectedCheckboxes.length > 1) {
+            checkbox.checked = false;
+          }
+        });
+      });
+    </script> -->
+
+    <script>
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]')
+    
+      checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', () => {
+          const selectedCheckboxes = document.querySelectorAll(`input[name="${checkbox.name}"]`)
+    
+          selectedCheckboxes.forEach((cb) => {
+            if (cb !== checkbox) {
+              cb.checked = false
+            }
+          })
+        })
+      })
+    </script>
+
     <div class="row mt-3">
       <div class="col-12">
             <div class="d-flex justify-content-between align-items-center">
-                  <h5>Objetivos</h5>
+                  <h5>Resultados de aprendizaje</h5>
                   <div>
-                      <a href="#" class="btn btn-success"><i class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
+                      <a href="#" class="btn btn-success"><i class="fas fa-plus-circle" id="btnAgregarResultado"></i>&nbsp;Agregar</a>
                   </div>
             </div>
         <form>
-          <table class="table">
+          <table class="table" id="tablaResultados">
             <thead class="bg-light">
               <tr>
-                <th scope="col">Enumeración</th>
-                <th scope="col">Resultados del Aprendizaje</th>
-                <th scope="col">Deficiente</th>
-                <th scope="col">Regular</th>
-                <th scope="col">Bueno</th>
-                <th scope="col">Muy Bueno</th>
-                <th scope="col">Editar</th>
-                <th scope="col">Eliminar</th>
+                <th class="col-1">Enumeración</th>
+                <th class="col">Resultados del Aprendizaje</th>
+                <th class="col-1 text-center">Deficiente</th>
+                <th class="col-1 text-center">Regular</th>
+                <th class="col-1 text-center">Bueno</th>
+                <th class="col-1 text-center">Muy Bueno</th>
+                <th class="col-1 text-center">Editar</th>
+                <th class="col-1 text-center">Eliminar</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Logro del desarrollo esperado</td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
-                <td><button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button></td>
-                <td><button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button></td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Logro del desarrollo esperado</td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
-                <td><button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button></td>
-                <td><button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button></td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Logro del desarrollo esperado</td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
-                <td><input type="checkbox"></td>
-                <td><button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button></td>
-                <td><button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button></td>
-              </tr>
             </tbody>
           </table>
         </form>
       </div>
     </div>
+    <!-- Para agregar nuevos objetivos -->
+    <script>
+      const btnAgregarObjetivo = document.getElementById('btnAgregarResultado')
+      const tablaPlanObj = document.getElementById('tablaResultados')
+    
+      let contadorFilas = 0
+    
+      btnAgregarObjetivo.addEventListener('click', (event) => {
+        event.preventDefault()
+    
+        contadorFilas++
+    
+        const nuevaFila = `
+          <tr>
+            <th scope="row">${contadorFilas}</th>
+            <td><input type="text" class="form-control" placeholder="Resultado de Aprendizaje ${contadorFilas}"></td>
+            <td class="text-center"><input type="checkbox" name="logro${contadorFilas}" value="deficiente" onclick="limitarSeleccion(this)"></td>
+            <td class="text-center"><input type="checkbox" name="logro${contadorFilas}" value="regular" onclick="limitarSeleccion(this)"></td>
+            <td class="text-center"><input type="checkbox" name="logro${contadorFilas}" value="bueno" onclick="limitarSeleccion(this)"></td>
+            <td class="text-center"><input type="checkbox" name="logro${contadorFilas}" value="muybueno" onclick="limitarSeleccion(this)"></td>
+            <td class="text-center"><button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button></td>
+            <td class="text-center"><button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button></td>
+          </tr>
+        `
+    
+        tablaPlanObj.querySelector('tbody').insertAdjacentHTML('beforeend', nuevaFila)
+      })
+    
+      function limitarSeleccion(checkbox) {
+        const checkboxes = checkbox.parentNode.parentNode.getElementsByTagName('input')
+    
+        for (let i = 0; i < checkboxes.length; i++) {
+          if (checkboxes[i] !== checkbox) {
+            checkboxes[i].checked = false
+          }
+        }
+      }
+    </script>
+
+
     <div class="row mt-3">
       <div class="col-12">
         <h5>Conclusiones</h5>
-        <textarea class="form-control" rows="4"></textarea>
+        <textarea class="form-control" rows="4" id="txtConclusiones" placeholder="Ingrese la conclusion"></textarea>
       </div>
     </div>
 
   <div class="row mt-3">
       <div class="col-md-3">
         <h5 class="">Subir firma del representante de la institución</h5>
-        <input class="form-control" type="file" id="formFile">
+        <input class="form-control" type="file" id="fileRepresentante">
       </div>
   </div>
 
     <div class="row mt-3">
       <div class="col-12 text-center">
-        <button class="btn btn-success mx-2">Guardar</button>
+        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
         <a href="{{url_for('ficha_desempeno.ficha_desempeno')}}" class="btn btn-danger mx-2"><i></i></i>&nbsp;&nbsp;Cancelar</a>
       </div>
     </div>
