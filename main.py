@@ -18,7 +18,7 @@ from capaPresentacion.informe_final_es.informe_final_es import informe_final_es_
 from capaPresentacion.Jefe_Inmediato.jefe_inmediato import jefe_inmediato_bp
 from capaPresentacion.tituloProfesional.titulo_profesional import titulo_profesional_bp
 
-app = Flask(__name__, static_url_path=None)
+app = Flask(__name__)
 app.secret_key = "nose"
 app.register_blueprint(inicio_bp)
 app.register_blueprint(semestres_bp)
@@ -42,9 +42,6 @@ app.register_blueprint(titulo_profesional_bp)
 # Iniciar el servidor
 if __name__ == "__main__":
     app.config.from_object("config")
-    app.static_url_path = app.config.get("STATIC_FOLDER")
-    app.static_folder = app.root_path + str(app.static_url_path)
-
     app.run(
         host=app.config.get("HOST"),
         port=app.config.get("PORT"),
