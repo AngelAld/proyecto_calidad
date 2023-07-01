@@ -1,9 +1,5 @@
 from capaDatos.bd import obtener_conexion
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-from email.mime.application import MIMEApplication
-from werkzeug.security import check_password_hash, generate_password_hash
+import capaNegocio.controlador_usuarios as controlador_usuarios
 
 def listar_docentes():
     conexion = obtener_conexion()
@@ -30,12 +26,12 @@ def agregar_docente(nombre, correo, estado, id_titulo, id_escuela_profesional):
                 id_rol = cursor.fetchone()[0]
                 # Insertar un nuevo usuario
                 clave = ''.join([nombre[:3], correo[:3]])
-                cursor.execute("INSERT INTO USUARIO (usuario, nombre, clave, estado, id_rol) VALUES (%s, %s, %s, %s, %s) RETURNING id_usuario", (correo, nombre, generate_password_hash(clave), estado, id_rol))
+                cursor.execute("INSERT INTO USUARIO (usuario, nombre, clave, estado, id_rol) VALUES (%s, %s, %s, %s, %s) RETURNING id_usuario", (correo, nombre, controlador_usuarios.generate_password(clave), estado, id_rol))
                 id_usuario = cursor.fetchone()[0]
                 # Insertar un nuevo docente de apoyo
                 cursor.execute("INSERT INTO DOCENTE_APOYO (nombre, correo, estado, id_titulo, id_escuela_profesional, id_usuario) VALUES (%s, %s, %s, %s, %s, %s)", (nombre, correo, estado, id_titulo, id_escuela_profesional, id_usuario))
                 
-                enviar_correo(nombre, correo, clave, correo)
+                controlador_usuarios.enviar_correo(nombre, correo, clave, correo)
                 
                 msg = "Operación realizada con éxito"
                 conexion.commit()
@@ -112,36 +108,3 @@ def obtener_escuela_profesional():
     conexion.close()
     return escuelaprofesional
 
-def enviar_correo(nombres, usuario, contrasena, correo):
-    # Configurar la información del correo electrónico
-    remitente = 'aaaldana50@gmail.com' # Cambiar al correo que se utilizará para enviar el mensaje
-    destinatario = correo
-    asunto = 'Credenciales del sistema de practicas'
-
-    # Configurar el texto del mensaje
-    mensaje = MIMEMultipart()
-    mensaje['From'] = remitente
-    mensaje['To'] = destinatario
-    mensaje['Subject'] = asunto
-    texto = f'''Estimado {nombres},
-
-Se ha generado su cuenta para Practicas Pre Profesionales
-
-usuario    : {usuario}
-contraseña : {contrasena}
-
-Ingrese a usatpracticas.xyz para acceder. 
-
-El staff de EduTech.'''
-    mensaje.attach(MIMEText(texto))
-
-    # Enviar el mensaje
-    try:
-        servidor = smtplib.SMTP('smtp.gmail.com', 587)
-        servidor.starttls()
-        servidor.login('aaaldana50@gmail.com', 'gkvyprjtacdqxbkb') # Cambiar al correo y contraseña de aplicación que se utilizará para enviar el mensaje
-        servidor.sendmail(remitente, destinatario, mensaje.as_string())
-        servidor.quit()
-        print('Correo electrónico enviado con éxito')
-    except Exception as e:
-        print(f'Error al enviar el correo electrónico: {e}')
