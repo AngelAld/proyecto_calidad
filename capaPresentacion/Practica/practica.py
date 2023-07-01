@@ -89,7 +89,8 @@ def editar_practica(id):
         jefeInmediatos = c_practica.obtener_jefe_inmediato()
         semestre_academicos = c_practica.obtener_semestre()
         lineaDesarrollos = c_practica.obtener_lineaDesarrollo()
-        return render_template("frm_editar_practica.html", practica=practica, estudiantes=estudiantes, centro_practicas=centro_practicas, jefeInmediatos=jefeInmediatos, semestre_academicos=semestre_academicos, lineaDesarrollos=lineaDesarrollos, estudiante_seleccionado=estudiantes)
+        print((practica))
+        return render_template("frm_editar_practica.html", detallesPracticas=practica, estudiantes=estudiantes, centro_practicas=centro_practicas, jefeInmediatos=jefeInmediatos, semestre_academicos=semestre_academicos, lineaDesarrollos=lineaDesarrollos)
 
 
 

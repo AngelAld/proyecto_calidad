@@ -67,7 +67,7 @@ def buscar_practica_por_ID(id_practica):
             "SELECT * FROM fn_consultar_practica_por_ID(%s)",
             (id_practica,),
         )
-        practica = cursor.fetchone()
+        practica = cursor.fetchall()
     conexion.close()
     return practica
 

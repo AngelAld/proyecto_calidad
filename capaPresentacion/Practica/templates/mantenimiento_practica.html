@@ -1,11 +1,10 @@
 {% extends "maestra/maestra.html" %}
-
 {% block contenido %}
+
 <form action="{{url}}" method="post">
   <section class="section">
     <div class="row">
       <div class="col">
-        <h2 class="text-center text-danger mb-3">Detalle de Práctica</h2>
         <div class="text-right mb-3 d-none">
           <label for="detallePractica">Detalle de Práctica</label>
           <select class="form-select" id="detallePractica" name="detallePractica">
@@ -130,7 +129,10 @@
     </div>
   </section>
 </form>
+
 {% endblock %}
+
+
 
 
 
