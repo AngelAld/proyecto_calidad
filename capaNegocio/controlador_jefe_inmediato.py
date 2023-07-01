@@ -46,17 +46,21 @@ def buscar_jefe_inmediatoID(id):
     conexion.close()
     return Jefe_Inmediato
 
-def actualizar_jefe_inmediato(id, nombre, correo, telefono, cargo, estado, id_centro_practicas, razon_social, alias):
+def actualizar_jefe_inmediato(id, nombre, correo, telefono, cargo, estado, id_centro_practicas):
     conexion = obtener_conexion()
     msg = []
-    with conexion.cursor() as cursor:
-        cursor.execute(
-            "SELECT fn_editar_jefe_inmediato(%s, %s, %s, %s, %s, %s, %s, %s, %s)",
-            (id, nombre, correo, telefono, cargo, estado, id_centro_practicas, razon_social, alias),
-        )
-        msg = cursor.fetchone()
-    conexion.commit()
-    conexion.close()
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute(
+                "SELECT * from fn_editar_jefe_inmediato(%s, %s, %s, %s, %s, %s, %s)",
+                (id, nombre, correo, telefono, cargo, estado, id_centro_practicas),
+            )
+            msg = cursor.fetchone()
+        conexion.commit()
+    except Exception as e:
+        print(f"Error al ejecutar la consulta SQL: {str(e)}")
+    finally:
+        conexion.close()
     return msg[0] if msg is not None else None
 
 def dar_baja_jefe_inmediato(id, estado):

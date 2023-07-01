@@ -95,11 +95,9 @@ def actualizar_jefe_inmediato():
         else:
             estado = "I"
 
-        id_centro_practica = request.form["centro_PPP"]
-        razon_social = request.form["razon_social"]
-        alias = request.form["alias"]
+        id_centro_practica = request.form["centroPPP"]
 
-        mensaje = c_jefe_inmediato.actualizar_jefe_inmediato(id, nombre,correo, telefono, cargo, estado, id_centro_practica, razon_social, alias)
+        mensaje = c_jefe_inmediato.actualizar_jefe_inmediato(id, nombre,correo, telefono, cargo, estado, id_centro_practica)
 
         if mensaje == "Operación realizada con éxito":
             flash(f"Jefe inmediato actualizado con Exito", "success")
