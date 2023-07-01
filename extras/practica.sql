@@ -244,12 +244,14 @@ $function$;
 ----------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION fn_consultar_practica_por_ID(p_id_practica INTEGER)
 RETURNS TABLE (
+    id_detalle_practica INTEGER,
     id_practica INTEGER,
     id_estudiante INTEGER,  -- Asegúrate que el tipo de datos sea VARCHAR
     estado CHARACTER,
     id_linea_desarrollo INTEGER,
     fecha_inicio DATE,
     fecha_fin DATE,
+    id_centro_practicas INTEGER,
     id_semestre_academico INTEGER,
     horas INTEGER,
     id_jefe_inmediato INTEGER,
@@ -259,20 +261,27 @@ LANGUAGE plpgsql
 AS $function$
 BEGIN
     RETURN QUERY SELECT
+        dp.id_detalle_practica,
         p.id_practica,
         p.id_estudiante,
-        p.estado,
+        dp.estado,
         dp.id_linea_desarrollo,
         dp.fecha_inicio,
         dp.fecha_fin,
+        cppp.id_centro_practicas,
         dp.id_semestre_academico,
         dp.horas,
         dp.id_jefe_inmediato,
         dp.informacion_adicional
+
     FROM
         practica p
-    JOIN
-        detalle_practica dp ON p.id_practica = dp.id_practica
+    INNER JOIN
+        detalle_practica dp ON p.id_practica = dp.id_practica 
+    INNER JOIN
+        jefe_inmediato ji ON ji.id_jefe_inmediato = dp.id_jefe_inmediato
+    INNER JOIN
+        centro_practicas cppp ON ji.id_jefe_inmediato = cppp.id_centro_practicas
     WHERE
         p.id_practica = p_id_practica;
 END;

@@ -1,16 +1,148 @@
-{% extends "mantenimiento_practica.html" %}
-
+{% extends "maestra/maestra.html" %}
 {% block titulo %} Editar Práctica {% endblock %}
 {% set titulo2 = "Editar Práctica" %}
-{% set id = practica[0] %}
-{% set estudiante = practica[1] %}
-{% set fecha_inicio = practica[4] %}
-{% set fecha_fin = practica[5] %}
-{% set centro_practica = practica[4] %}
-{% set jefe_inmediato = practica[8] %}
-{% set semestre_academico = practica[6] %}
-{% set linea_desarrollo = practica[3] %}
-{% set horas = practica[7] %}
-{% set informacion_adicional = practica[9] %}
-{% set estado = practica[2] %}
+{% block contenido %}
+{% for detallePractica in detallesPracticas %}
+{% set id = detallePractica[0] %}
+{% set estudiante_seleccionado = detallePractica[2] %}
+{% set fecha_inicio = detallePractica[5] %}
+{% set fecha_fin = detallePractica[6] %}
+{% set centro_practica = detallePractica[7] %}
+{% set jefe_inmediato = detallePractica[10] %}
+{% set semestre_academico = detallePractica[8] %}
+{% set linea_desarrollo = detallePractica[4] %}
+{% set horas = detallePractica[9] %}
+{% set informacion_adicional = detallePractica[11] %}
+{% set estado = detallePractica[3] %}
 {% set url = url_for('practica.actualizar_practica') %}
+{% print(estudiante) %}
+<form action="{{url}}" method="post">
+  <section class="section">
+    <div class="row">
+      <div class="col">
+        <div class="text-right mb-3 ">
+          <label for="detallePractica">Detalle de Práctica</label>
+          <select class="form-select" id="detallePractica" name="detallePractica">
+            <option value="1">Práctica 1</option>
+            <option value="2">Práctica 2</option>
+            <option value="3">Práctica 3</option>
+          </select>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="form-group mb-4 row">
+              <label for="estudiante" class="col-lg-2 col-form-label">Estudiante:</label>
+              <div class="col-lg-6">
+                <select class="form-select input" id="estudiante" name="estudiante">
+                  {% for estudiante in estudiantes %}
+                    <option value="{{ estudiante[0] }}" {% if estudiante[0] == estudiante_seleccionado %}selected{% endif %}>{{ estudiante[1] }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col d-none d-xl-block"> 
+              </div>
+            </div>
+            <div class="form-group mb-4 row">
+              <label for="fechaInicio" class="col-lg-2 col-form-label">Fecha de Inicio:</label>
+              <div class="col-lg-6">
+                <input type="date" class="form-control input" id="fechaInicio" name="fechaInicio" value="{{fecha_inicio}}">
+              </div>
+              <div class="col d-none d-xl-block"> 
+              </div>
+            </div>
+            <div class="form-group mb-4 row">
+              <label for="fechaFin" class="col-lg-2 col-form-label">Fecha de Fin:</label>
+              <div class="col-lg-6">
+                <input type="date" class="form-control input" id="fechaFin" name="fechaFin" value="{{fecha_fin}}">
+              </div>
+              <div class="col d-none d-xl-block"> 
+              </div>
+            </div>
+            <div class="form-group mb-4 row">
+              <label for="centro_practica" class="col-lg-2 col-form-label">Centro de Práctica:</label>
+              <div class="col-lg-6">
+                <select class="form-select input" id="centro_practica" name="centro_practica" value="{{centro_practica}}">
+                  {% for centro_practica in centro_practicas %}
+                  <option value="{{ centro_practica[0] }}">{{ centro_practica[1] }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col d-none d-xl-block"> 
+              </div>
+            </div>
+            <div class="form-group mb-4 row">
+              <label for="jefeInmediato" class="col-lg-2 col-form-label">Jefe Inmediato:</label>
+              <div class="col-lg-6">
+                <select class="form-select input" id="jefeInmediato" name="jefeInmediato" value="{{jefe_inmediato}}">
+                  {% for jefeInmediato in jefeInmediatos %}
+                  <option value="{{jefeInmediato[0]}}">{{jefeInmediato[1]}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col d-none d-xl-block"> 
+              </div>
+            </div>
+            <div class="form-group mb-4 row">
+              <label for="semestreAcademico" class="col-lg-2 col-form-label">Semestre Académico:</label>
+              <div class="col-lg-6">
+                <select class="form-select input" id="semestreAcademico" name="semestreAcademico" value="{{semestre_academico}}">
+                  {% for semestre_academico in semestre_academicos %}
+                  <option value="{{semestre_academico[0]}}">{{semestre_academico[1]}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col d-none d-xl-block"> 
+              </div>
+            </div>
+            <div class="form-group mb-4 row">
+              <label for="lineaDesarrollo" class="col-lg-2 col-form-label">Línea de Desarrollo:</label>
+              <div class="col-lg-6">
+                <select class="form-select input" id="lineaDesarrollo" name="lineaDesarrollo" value="{{semestre_academico}}">
+                  {% for lineaDesarrollo in lineaDesarrollos %}
+                  <option value="{{lineaDesarrollo[0]}}">{{lineaDesarrollo[1]}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col d-none d-xl-block"> 
+              </div>
+            </div>
+            <div class="form-group mb-4 row">
+              <label for="horas" class="col-lg-2 col-form-label">HORAS:</label>
+              <div class="col-lg-6">
+                <input type="text" class="form-control input" id="horas" name="horas" value="{{horas}}">
+              </div>
+              <div class="col d-none d-xl-block"> 
+              </div>
+            </div>
+            <div class="form-group mb-4 row">
+              <label for="informacion_adicional" class="col-lg-2 col-form-label">Información Adicional:</label>
+              <div class="col-lg-6">
+                <textarea class="form-control input" id="informacion_adicional" name="informacion_adicional" value="{{informacion_adicional}}"></textarea>
+              </div>
+              <div class="col d-none d-xl-block"> 
+              </div>
+            </div>
+            <div class="form-group mb-4 row">
+              <label for="estado" class="col-lg-2 col-form-label">Estado:</label>
+              <div class="col-lg-6">
+                <select class="form-select input" id="estado" name="estado" value="{{estado}}" >
+                  <option value="A">En Proceso</option>
+                  <option value="I">Finalizado</option>
+                  <option value="O">Otro estado</option>
+                </select>
+              </div>
+              <div class="col d-none d-xl-block"> 
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-center">
+            <button class="btn btn-success">Guardar</button>
+            <a href="{{ url_for('practica.practicas') }}" class="btn btn-primary">Regresar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</form>
+{% endfor %}
+{% endblock %}
