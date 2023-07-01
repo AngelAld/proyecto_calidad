@@ -59,6 +59,16 @@ def eliminar_practica(id):
     conexion.close()
     return msg[0] if msg is not None else None
 
+def eliminar_detalle_practica(id):
+    conexion = obtener_conexion()
+    msg = None
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT fn_eliminar_detalle_practica(%s)", (id,))
+        msg = cursor.fetchone()
+    conexion.commit()
+    conexion.close()
+    return msg[0] if msg is not None else None
+
 def buscar_practica_por_ID(id_practica):
     conexion = obtener_conexion()
     practica = None

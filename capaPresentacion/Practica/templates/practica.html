@@ -54,12 +54,12 @@
                   data-bs-toggle="tooltip" data-bs-title="Mas Detalles"><i class="fa fa-eye"></i></a>
               </td>
               <td class="col-1 text-center">
-                <form action="{{url_for('practica.eliminar_practica_route')}}" method="POST" id="eliminar_form">
+                <form action="{{url_for('practica.eliminar_practica_route')}}" method="POST" class="eliminar_practica">
                   <input type="hidden" name="id" value="{{practica[0]}}">
-                  <button class="btn btn-danger ls-button" id="eliminar_btn"
-                    onclick="event.preventDefault(); eliminar(this.parentNode)" data-bs-toggle="tooltip"
-                    data-bs-title="Eliminar practica"><i class="fas fa-trash"></i></button>
-                </form>
+                  <button type="button" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip" data-bs-title="Eliminar Practica" onclick="event.preventDefault(); eliminar(this.parentNode)">
+                    <i class="bi bi-trash-fill"></i>
+                  </button>
+                </form>                
               </td>
             </tr>
             {% endfor %}

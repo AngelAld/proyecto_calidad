@@ -246,7 +246,7 @@ CREATE OR REPLACE FUNCTION fn_consultar_practica_por_ID(p_id_practica INTEGER)
 RETURNS TABLE (
     id_detalle_practica INTEGER,
     id_practica INTEGER,
-    id_estudiante INTEGER,  -- Asegúrate que el tipo de datos sea VARCHAR
+    id_estudiante INTEGER,
     estado CHARACTER,
     id_linea_desarrollo INTEGER,
     fecha_inicio DATE,
@@ -260,7 +260,8 @@ RETURNS TABLE (
 LANGUAGE plpgsql
 AS $function$
 BEGIN
-    RETURN QUERY SELECT
+    RETURN QUERY
+    SELECT
         dp.id_detalle_practica,
         p.id_practica,
         p.id_estudiante,
@@ -273,16 +274,42 @@ BEGIN
         dp.horas,
         dp.id_jefe_inmediato,
         dp.informacion_adicional
-
     FROM
         practica p
     INNER JOIN
         detalle_practica dp ON p.id_practica = dp.id_practica 
-    INNER JOIN
+    LEFT JOIN -- Cambio a LEFT JOIN para incluir detalles sin centro_practicas
         jefe_inmediato ji ON ji.id_jefe_inmediato = dp.id_jefe_inmediato
-    INNER JOIN
-        centro_practicas cppp ON ji.id_jefe_inmediato = cppp.id_centro_practicas
+    LEFT JOIN -- Cambio a LEFT JOIN para incluir detalles sin centro_practicas
+        centro_practicas cppp ON ji.id_centro_practicas = cppp.id_centro_practicas
     WHERE
         p.id_practica = p_id_practica;
 END;
 $function$;
+
+----------------------------------------------------------
+CREATE FUNCTION eliminar_detalle_practica(detalle_id INT) RETURNS BOOLEAN AS $$
+DECLARE
+  deleted BOOLEAN := FALSE;
+BEGIN
+  -- Iniciar una transacción
+  BEGIN
+    -- Eliminar los registros dependientes utilizando CASCADE DELETE
+    DELETE FROM CONCLUSIONES WHERE id_detalle_practica = detalle_id;
+    DELETE FROM ANEXOS WHERE id_detalle_practica = detalle_id;
+    DELETE FROM BIBLIOGRAFIA WHERE id_detalle_practica = detalle_id;
+
+    -- Eliminar el detalle de práctica
+    DELETE FROM DETALLE_PRACTICA WHERE id_detalle_practica = detalle_id;
+    
+    deleted := TRUE; -- Marcar como eliminado si no se producen errores
+    
+    -- Confirmar la transacción si no hubo errores
+    EXCEPTION WHEN others THEN
+      deleted := FALSE; -- Marcar como no eliminado en caso de error
+      ROLLBACK; -- Deshacer la transacción
+  END;
+
+  RETURN deleted;
+END;
+$$ LANGUAGE plpgsql;

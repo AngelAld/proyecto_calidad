@@ -77,6 +77,21 @@ def eliminar_practica_route():
             flash(str(mensaje), "error")
 
         return redirect("/practicas")
+    
+@practica_bp.route("/eliminar_detalle_practica", methods=["POST"])
+def eliminar_detalle_practica():
+    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+        return redirect(url_for("inicio.inicio"))
+    else:
+        detalle_id = request.form["id"]
+        deleted = c_practica.eliminar_detalle_practica(detalle_id)
+        print('Si esta entrando')
+        if deleted:
+            flash(f"Práctica eliminada con éxito", "success")
+        else:
+            flash("Error al eliminar la práctica", "error")
+
+        return redirect("/practicas")
 
 @practica_bp.route("/formulario_editar_practica/<int:id>")
 def editar_practica(id):
