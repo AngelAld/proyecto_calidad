@@ -50,17 +50,6 @@
                     </select>
                     <label for="escuela_profesional">escuela_profesional</label>
                 </div>
-
-                <div class="form-floating mb-4">
-                    <select value="{{usuario}}" required type="text-left" class="form-control input" placeholder="usuario"
-                    name="usuario" id="usuario">
-                    {% for usuario in usuarios %}
-                        <option value="{{ usuario[0] }}">{{usuario[1] }}</option>
-                    {% endfor %}
-                    </select>
-                    <label for="usuario">usuario</label>
-                </div>
-
                 <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
                 <a href="{{url_for('docente.docentes')}}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
 

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, flash, session, url_for
 from capaNegocio import controlador_docentes as c_docentes
-
+from werkzeug.security import check_password_hash, generate_password_hash
 docentes_bp = Blueprint("docente", __name__, template_folder="templates")
 
 @docentes_bp.route("/agregar_docente")
@@ -8,10 +8,9 @@ def formulario_agregar_docente():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        titulo = c_docentes.obtener_titulo()
-        escuela_profesional = c_docentes.obtener_escuela_profesional()
-        usuario = c_docentes.obtener_usuario()
-        return render_template("frm_agregar_docente.html", titulo=titulo, escuela_profesional=escuela_profesional, usuario=usuario)
+        titulos = c_docentes.obtener_titulo()
+        escuela_profesionals = c_docentes.obtener_escuela_profesional()
+        return render_template("frm_agregar_docente.html", titulos=titulos,escuela_profesionals=escuela_profesionals)
 
 
 @docentes_bp.route("/guardar_docente", methods=["POST"])
@@ -27,10 +26,8 @@ def guardar_docente():
         else:
             estado = "I"
         id_titulo = request.form["titulo"]
-        id_escuela_profesional = request.form["escuela_profesional"]
-        id_usuario = request.form["usuario"]
-        
-        mensaje = c_docentes.agregar_docente(nombre, correo, estado, id_titulo, id_escuela_profesional, id_usuario)
+        id_escuela_profesional = request.form["escuela_profesional"]        
+        mensaje = c_docentes.agregar_docente(nombre, correo, estado, id_titulo, id_escuela_profesional)
 
         if mensaje == "Operación realizada con éxito":
             flash(f"Docente Registrado con Exito", "success")
@@ -73,8 +70,7 @@ def editar_docente(id):
         docente = c_docentes.buscar_docenteID(id)
         titulos = c_docentes.obtener_titulo()
         escuela_profesionals = c_docentes.obtener_escuela_profesional()
-        usuarios = c_docentes.obtener_usuario()
-        return render_template("frm_editar_docente.html",docente=docente,titulos=titulos,escuela_profesionals=escuela_profesionals,usuarios=usuarios)
+        return render_template("frm_editar_docente.html",docente=docente,titulos=titulos,escuela_profesionals=escuela_profesionals)
     
 
 @docentes_bp.route("/actualizar_docente", methods=["POST"])
@@ -92,10 +88,7 @@ def actualizar_docente():
             estado = "I"
         id_titulo = request.form["titulo"]
         id_escuela_profesional = request.form["escuela_profesional"]
-        id_usuario = request.form["usuario"]
-        
-
-        mensaje = c_docentes.actualizar_docente(id, nombre, correo, estado, id_titulo, id_escuela_profesional, id_usuario)
+        mensaje = c_docentes.actualizar_docente(id, nombre, correo, estado, id_titulo, id_escuela_profesional)
 
         if mensaje == "Operación realizada con éxito":
             flash(f"Docente Actualizado con Exito", "success")

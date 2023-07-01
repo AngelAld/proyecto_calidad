@@ -108,7 +108,7 @@ $function$;
 ------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-CREATE OR REPLACE FUNCTION fn_editar_docente_apoyo(p_id_docente_apoyo integer, p_nombre character varying, p_correo character varying, p_estado character, p_id_titulo integer, p_id_escuela_profesional integer, p_id_usuario integer)
+CREATE OR REPLACE FUNCTION fn_editar_docente_apoyo(p_id_docente_apoyo integer, p_nombre character varying, p_correo character varying, p_estado character, p_id_titulo integer, p_id_escuela_profesional integer)
   RETURNS character varying
   LANGUAGE plpgsql
 AS $function$
@@ -132,8 +132,7 @@ BEGIN
         correo = p_correo,
         estado = p_estado,
         id_titulo = p_id_titulo,
-        id_escuela_profesional = p_id_escuela_profesional,
-        id_usuario = p_id_usuario
+        id_escuela_profesional = p_id_escuela_profesional
     WHERE id_docente_apoyo = p_id_docente_apoyo;
 
     EXCEPTION WHEN OTHERS THEN
@@ -158,21 +157,26 @@ AS $function$
 DECLARE
   mensaje    VARCHAR(100);
   error_msg  VARCHAR(100);
+  id_usu integer;
 BEGIN
   BEGIN
-    DELETE FROM DOCENTE_APOYO
-    WHERE id_docente_apoyo = p_id;
+    -- Obtener el id_usuario del docente de apoyo
+    SELECT id_usuario INTO id_usu FROM DOCENTE_APOYO WHERE id_docente_apoyo = p_id;
+    -- Eliminar el registro de la tabla DOCENTE_APOYO
+    DELETE FROM DOCENTE_APOYO WHERE id_docente_apoyo = p_id;
+    -- Eliminar el registro de la tabla USUARIO
+    DELETE FROM USUARIO WHERE id_usuario = id_usu;
 
-    -- Verificar si se eliminó el registro correctamente
+    -- Verificar si se eliminaron los registros correctamente
     IF FOUND THEN
       mensaje := 'Operación realizada con éxito';
     ELSE
       RETURN 'No se pudo eliminar el registro.';
     END IF;
 
- EXCEPTION
+  EXCEPTION
     WHEN OTHERS THEN
-      RETURN  SQLERRM;
+      RETURN SQLERRM;
       
   END;
 
