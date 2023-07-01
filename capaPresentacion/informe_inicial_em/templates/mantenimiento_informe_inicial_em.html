@@ -8,13 +8,9 @@
         <h4>Datos del Estudiante</h4>
         <form>
           <div class="form-group row">
-            <label for="nombre" class="col-sm-2 col-form-label">Nombre:</label>
+            <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="nombre">
-            </div>
-            <label for="apellidos" class="col-sm-2 col-form-label">Apellidos:</label>
-            <div class="col-sm-4">
-              <input type="text" class="form-control" id="apellidos">
+              <input type="text" class="form-control" id="nombres" readonly>
             </div>
           </div>
         </form>
@@ -26,80 +22,74 @@
         <h4>Datos del Centro de Practica Pre Profesional</h4>
         <form>
           <div class="form-group row">
-            <label for="nombre_empresa" class="col-sm-2 col-form-label">Razon social:</label>
+            <label for="razon_social" class="col-sm-2 col-form-label">Razon social:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="razon_social">
+              <input type="text" class="form-control" id="razon_social" readonly>
             </div>
           </div>
           <div class="form-group row">
-            <label for="nombre_empresa" class="col-sm-2 col-form-label">Responsable de la practica:</label>
+            <label for="responsable_practica" class="col-sm-2 col-form-label">Responsable de la practica:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="responsable_practica">
+              <input type="text" class="form-control" id="responsable_practica" readonly>
             </div>
           </div>
           <div class="form-group row">
-            <label for="nombre_empresa" class="col-sm-2 col-form-label">Cargo:</label>
+            <label for="cargo" class="col-sm-2 col-form-label">Cargo:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="cargo">
+              <input type="text" class="form-control" id="cargo" readonly>
             </div>
           </div>
+          <div class="form-group row">
+            <label for="fecha_inicio" class="col-sm-2 col-form-label">Fecha de inicio de la práctica:</label>
+            <div class="col-md-4 mb-0">
+              <div class="form-floating">
+                <input value="{{fecha_inicio}}" required type="date" class="form-control input" name="fecha_inicio" id="fecha_inicio">
+                <label for="fecha_inicio">Fecha de inicio de la prática</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="fecha_fin" class="col-sm-2 col-form-label">Fecha de fin de la práctica:</label>
+            <div class="col-md-4 mb-0">
+              <div class="form-floating">
+                <input value="{{fecha_fin}}" required type="date" class="form-control input" name="fecha_fin" id="fecha_fin">
+                <label for="fecha_fin">Fecha de fin de la prática</label>
+              </div>
+            </div>
+          </div> 
         </form>
       </div>
     </div>
 
-    <div class="row mt-3">
-      <div class="col-12">
-          <form>
-              <div class="form-group row">
-                  <div class="col-md-3 mb-4">
-                      <div class="form-floating">
-                          <input value="{{fecha_inicio}}" required type="date" class="form-control input"
-                              name="fecha_inicio" id="fecha_inicio">
-                          <label for="fecha_inicio">Fecha de inicio de la practica</label>
-                      </div>
-                  </div>
-  
-                  <div class="col-md-3 mb-4">
-                      <div class="form-floating">
-                          <input value="{{fecha_fin}}" required type="date" class="form-control input" name="fecha_fin"
-                              id="fecha_fin">
-                          <label for="fecha_fin">Fecha de fin de la practica</label>
-                      </div>
-                  </div>
-              </div>
-          </form>
-      </div>
-  </div>
-
   <div class="row mt-3">
     <div class="col-12">
       <h5>Aceptación por parte de la Empresa/Institución para la realización de la práctica y compromiso para atender al estudiante durante toda la ejecución</h5>
-      <textarea class="form-control" rows="4"></textarea>
+      <textarea class="form-control" rows="4" id="txtAceptacion" placeholder="Ingrese el texto"></textarea>
     </div>
   </div>
   <div class="row mt-3">
     <div class="col-12">
       <h5>Labores del practicante </h5>
-      <textarea class="form-control" rows="4"></textarea>
+      <textarea class="form-control" rows="4" id="txtLabores" placeholder="Ingrese el texto"></textarea>
     </div>
   </div>
 
     <div class="row mt-3">
       <div class="col-md-3">
         <h5 class="">Subir Firma del estudiante</h5>
-        <input class="form-control" type="file" id="formFile">
+        <input class="form-control" type="file" id="fileEstudiante">
       </div>
   </div>
   <div class="row mt-3">
       <div class="col-md-3">
         <h5 class="">Subir sello de la empresa</h5>
-        <input class="form-control" type="file" id="formFile">
+        <input class="form-control" type="file" id="fileEmpresa">
       </div>
   </div>
 
     <div class="row mt-3">
       <div class="col-12 text-center">
-        <button class="btn btn-success mx-2">Guardar</button>
+        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
         <a href="{{url_for('informe_inicial_em.informe_inicial_em')}}" class="btn btn-danger mx-2"><i></i></i>&nbsp;&nbsp;Cancelar</a>
         
       </div>

@@ -4,39 +4,33 @@
 {% block contenido %}
   
 <div class="container-fluid">
+
     <div class="row mt-3">
       <div class="col-12">
         <h5>Introducción</h5>
-        <textarea class="form-control" rows="4"></textarea>
+        <textarea class="form-control" rows="4" placeholder="Ingrese el texto"></textarea>
       </div>
     </div>
-
 
     <div class="row mt-3">
       <div class="col-12">
         <h4>Datos del Estudiante</h4>
         <form>
           <div class="form-group row">
-            <label for="nombre" class="col-sm-2 col-form-label">Nombre:</label>
+            <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="nombre">
-            </div>
-            <label for="apellidos" class="col-sm-2 col-form-label">Apellidos:</label>
-            <div class="col-sm-4">
-              <input type="text" class="form-control" id="apellidos">
+              <input type="text" class="form-control" id="nombres" readonly>
             </div>
           </div>
           <div class="form-group row">
             <label for="escuela" class="col-sm-2 col-form-label">Escuela Profesional:</label>
             <div class="col-sm-4">
-              <select class="form-control" id="escuela">
-                <!-- Opciones de la base de datos -->
-              </select>
+              <input type="text" class="form-control" id="escuela" readonly>
             </div>
           </div>
           <div class="form-group row">
             <label for="fecha_entrega" class="col-sm-2 col-form-label">Fecha de entrega:</label>
-            <div class="col-md-2 mb-4">
+            <div class="col-md-4 mb-1">
               <div class="form-floating">
                 <input value="{{fecha_entrega}}" required type="date" class="form-control input" name="fecha_entrega" id="fecha_entrega">
                 <label for="fecha_entrega">Fecha de entrega</label>
@@ -52,33 +46,33 @@
         <h4>Descripcion de la institución</h4>
         <form>
           <div class="form-group row">
-            <label for="nombre_empresa" class="col-sm-2 col-form-label">Razon social:</label>
+            <label for="razon_social" class="col-sm-2 col-form-label">Razon social:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="nombre_empresa">
+              <input type="text" class="form-control" id="razon_social" readonly>
             </div>
           </div>
           <div class="form-group row">
             <label for="direccion" class="col-sm-2 col-form-label">Dirección:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="direccion">
+              <input type="text" class="form-control" id="direccion" readonly>
             </div>
           </div>
           <div class="form-group row">
-            <label for="correo" class="col-sm-2 col-form-label">Giro de la institución:</label>
+            <label for="giro" class="col-sm-2 col-form-label">Giro de la institución:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="correo">
+              <input type="text" class="form-control" id="giro" readonly>
             </div>
           </div>
           <div class="form-group row">
-            <label for="correo" class="col-sm-2 col-form-label">Representante legal:</label>
+            <label for="representante" class="col-sm-2 col-form-label">Representante legal:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="correo">
+              <input type="text" class="form-control" id="representante" readonly>
             </div>
           </div>
           <div class="form-group row">
-            <label for="correo" class="col-sm-2 col-form-label">Cantidad de trabajadores:</label>
+            <label for="cantidad" class="col-sm-2 col-form-label">Cantidad de trabajadores:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="correo">
+              <input type="text" class="form-control" id="cantidad" readonly>
             </div>
           </div>
         </form>
@@ -87,13 +81,13 @@
           <div class="col-6">
             <h5>Misión</h5>
             <div class="form-group">
-              <textarea class="form-control" rows="4"></textarea>
+              <textarea class="form-control" rows="4" placeholder="Ingrese la mision de la institución" id="mision"></textarea>
             </div>
           </div>
           <div class="col-6">
             <h5>Visión</h5>
             <div class="form-group">
-              <textarea class="form-control" rows="4"></textarea>
+              <textarea class="form-control" rows="4" placeholder="Ingrese la vision de la institución" id="vision"></textarea>
             </div>
           </div>
         </div>
@@ -101,103 +95,105 @@
           <div class="col-6">
             <h5>Infraestructura fisica</h5>
             <div class="form-group">
-              <textarea class="form-control" rows="4"></textarea>
+              <textarea class="form-control" rows="4" placeholder="Describa la nfraestructura fisica de la institución" id="infraFisica"></textarea>
             </div>
           </div>
           <div class="col-6">
             <h5>Infraestructura tecnológica</h5>
             <div class="form-group">
-              <textarea class="form-control" rows="4"></textarea>
+              <textarea class="form-control" rows="4" placeholder="Describa la infraestructura tecnologica de la institución" id="infraTecnologica"></textarea>
             </div>
           </div>
-        </div>
-        
+        </div>  
       </div>
     </div>
 
     <div class="row mt-3">
       <div class="col-md-3">
         <h5 class="">Subir Organigrama</h5>
-        <input class="form-control" type="file" id="formFile">
+        <input class="form-control" type="file" id="fileOrganigrama">
       </div>
     </div>
 
     <div class="row mt-3">
       <div class="col-12">
         <h5>Labores del estudiante</h5>
-        <textarea class="form-control" rows="4">Descripcion y detalle del area de trabajo y relaciones laborales</textarea>
-        <textarea class="form-control" rows="4">Descripcion y detalle  de las labores realizadas</textarea>
+        <textarea class="form-control" rows="4" placeholder="Descripcion y detalle del area de trabajo y relaciones laborales" id="areaTrabajo"></textarea>
+        <textarea class="form-control" rows="4" placeholder="Descripcion y detalle  de las labores realizadas" id="laboresRealizadas"></textarea>
       </div>
     </div>
 
-        
     <div class="row mt-3">
       <div class="col-12">
             <div class="d-flex justify-content-between align-items-center">
                   <h5>Conclusiones</h5>
                   <div>
-                      <a href="#" class="btn btn-success"><i class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
+                      <a href="#" class="btn btn-success"><i class="fas fa-plus-circle" id="btnAgregarConclusion"></i>&nbsp;Agregar</a>
                   </div>
             </div>
         <form>
-          <table class="table">
+          <table class="table" id="tablaConclusiones">
             <thead class="bg-light">
               <tr>
-                <th scope="col">Número</th>
-                <th scope="col">Conclusiones</th>
-                <th scope="col">Editar</th>
-                <th scope="col">Eliminar</th>
+                <th class="col-1">Número</th>
+                <th class="col-11">Conclusiones</th>
+                <th class="col-1 text-center">Editar</th>
+                <th class="col-1 text-center">Eliminar</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Conclusion 1. Aqui se debe escribir el objetivo correspondiente a este informe final</td>
-                <td><button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button></td>
-                <td><button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button></td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Conclusion 2. Aqui se debe escribir el objetivo correspondiente a este informe final</td>
-                <td><button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button></td>
-                <td><button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button></td>
-              </tr>
+              
             </tbody>
           </table>
         </form>
       </div>
     </div>
+
+    <script>
+      const btnAgregarConclusion = document.getElementById('btnAgregarConclusion')
+      const tablaConclusiones = document.getElementById('tablaConclusiones')
+    
+      let contadorFilas = 0
+    
+      btnAgregarConclusion.addEventListener('click', (event) => {
+        event.preventDefault()
+    
+        contadorFilas++
+    
+        const nuevaFila = `
+          <tr>
+            <th class="col-1" scope="row">${contadorFilas}</th>
+            <td class="col-11">
+              <input type="text" class="form-control" placeholder="Ingrese la conclusión ${contadorFilas}">
+            </td>
+            <td class="col-1 text-center"><button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button></td>
+            <td class="col-1 text-center"><button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button></td>
+          </tr>
+        `
+    
+        tablaConclusiones.querySelector('tbody').insertAdjacentHTML('beforeend', nuevaFila)
+      })
+    </script>
+    
     <div class="row mt-3">
       <div class="col-12">
             <div class="d-flex justify-content-between align-items-center">
                   <h5>Recomendaciones</h5>
                   <div>
-                      <a href="#" class="btn btn-success"><i class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
+                      <a href="#" class="btn btn-success"><i class="fas fa-plus-circle" id="btnAgregarRecomendacion"></i>&nbsp;Agregar</a>
                   </div>
             </div>
         <form>
-          <table class="table">
+          <table class="table" id="tablaRecomendaciones">
             <thead class="bg-light">
               <tr>
-                <th scope="col">Número</th>
-                <th scope="col">Recomendaciones</th>
-                <th scope="col">Editar</th>
-                <th scope="col">Eliminar</th>
+                <th class="col-1">Número</th>
+                <th class="col-11">Recomendaciones</th>
+                <th class="col-1 text-center">Editar</th>
+                <th class="col-1 text-center">Eliminar</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Recomendacion 1. Aqui se debe escribir la recomendacion correspondiente a este informe</td>
-                <td><button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button></td>
-                <td><button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button></td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Recomendacion 2. Aqui se debe escribir la recomendacion correspondiente a este informe</td>
-                <td><button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button></td>
-                <td><button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button></td>
-              </tr>
             </tbody>
           </table>
         </form>
@@ -205,10 +201,40 @@
       </div>
     </div>
 
+    <script>
+      const btnAgregarRecomendacion = document.getElementById('btnAgregarRecomendacion')
+      const tablaRecomendaciones = document.getElementById('tablaRecomendaciones')
+    
+      let contadorFilas1 = 0
+    
+      btnAgregarRecomendacion.addEventListener('click', (event) => {
+        event.preventDefault()
+    
+        contadorFilas1++
+    
+        const nuevaFila = `
+          <tr>
+            <th scope="row">${contadorFilas1}</th>
+            <td>
+              <input type="text" class="form-control" placeholder="Ingrese la recomendación ${contadorFilas1}">
+            </td>
+            <td>
+              <button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button>
+            </td>
+            <td>
+              <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
+            </td>
+          </tr>
+        `
+    
+        tablaRecomendaciones.querySelector('tbody').insertAdjacentHTML('beforeend', nuevaFila)
+      })
+    </script>
+
     <div class="row mt-3">
       <div class="col-12">
         <h5>Bibliografía</h5>
-        <textarea class="form-control" rows="4"></textarea>
+        <textarea class="form-control" rows="4" placeholder="Ingrese el texto" id="txtBibliografia"></textarea>
       </div>
     </div>
 
@@ -217,40 +243,63 @@
         <div class="d-flex justify-content-between align-items-center">
           <h5>Anexos</h5>
           <div>
-            <a href="#" class="btn btn-success"><i class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
+            <a href="#" class="btn btn-success"><i class="fas fa-plus-circle" id="btnAgregarAnexo"></i>&nbsp;Agregar</a>
           </div>
         </div>
         <form>
-          <table class="table table-responsive-md">
+          <table class="table table-responsive-md" id="tablaAnexos">
             <thead class="bg-light">
               <tr>
-                <th scope="col">Número</th>
-                <th scope="col">Anexos</th>
-                <th scope="col">Subir</th>
-                <th scope="col">Ver</th>
-                <th scope="col">Editar</th>
-                <th scope="col">Eliminar</th>
+                <th class="col-1">Número</th>
+                <th class="col-1 ">Anexos</th>
+                <th class="col-1 text-center">Subir</th>
+                <th class="col-1 text-center">Ver</th>
+                <th class="col-1 text-center">Editar</th>
+                <th class="col-1 text-center">Eliminar</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Anexo 1</td>
-                <td>
-                  <button type="button" class="btn btn-primary btn-sm upload-button" onclick="openFileExplorer(this)"><i class="bi bi-upload"></i></button>
-                  <input type="file" class="file-input" style="display: none">
-                </td>
-                <td><button class="btn btn-secondary btn-sm"><i class="bi bi-eye"></i></button></td>
-                <td><button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button></td>
-                <td><button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button></td>
-              </tr>
-              <!-- Agregar más filas si es necesario -->
             </tbody>
           </table>
         </form>
       </div>
     </div>
+    <script>
+      const btnAgregarAnexo = document.querySelector('#btnAgregarAnexo');
+      const tablaAnexos = document.querySelector('#tablaAnexos');
     
+      let contadorAnexos = 0;
+    
+      btnAgregarAnexo.addEventListener('click', (event) => {
+        event.preventDefault();
+    
+        contadorAnexos++;
+    
+        const nuevaFila = `
+          <tr>
+            <th scope="row">${contadorAnexos}</th>
+            <td>Anexo ${contadorAnexos}</td>
+            <td class="text-center">
+              <input type="file" id="anexo${contadorAnexos}" class="form-control-file" style="display: none;">
+              <button onclick="document.querySelector('#anexo${contadorAnexos}').click();" class="btn btn-primary btn-sm"><i class="bi bi-upload"></i></button>
+            </td>
+            <td class="text-center">
+              <a href="#" class="btn btn-primary btn-sm" disabled><i class="bi bi-eye"></i></a>
+            </td>
+            <td class="text-center">
+              <button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button>
+            </td>
+            <td class="text-center">
+              <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
+            </td>
+          </tr>
+        `;
+    
+        tablaAnexos.querySelector('tbody').insertAdjacentHTML('beforeend', nuevaFila);
+      });
+    </script>
+    
+
     <script>
       function openFileExplorer(button) {
         var fileInput = button.parentNode.querySelector('.file-input');
@@ -261,7 +310,7 @@
 
     <div class="row mt-3">
       <div class="col-12 text-center">
-        <button class="btn btn-success mx-2">Guardar</button>
+        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
         <a href="{{url_for('informe_final_es.informe_final_es')}}" class="btn btn-danger mx-2"><i></i></i>&nbsp;&nbsp;Cancelar</a>
       </div>
     </div>

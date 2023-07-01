@@ -16,8 +16,8 @@
               <option value="{{ estudiante[0] }}">{{ estudiante[1] }}</option>
               {% endfor %}
             </div>
-          </div>        
-
+          </div>     
+ 
           <div class="form-group row">
             <label for="codigo" class="col-sm-2 col-form-label">Codigo:</label>
             <div class="col-sm-4">
@@ -27,7 +27,7 @@
           </div>
 
           <div class="form-group row">
-            <label for="area" class="col-sm-2 col-form-label">Semestre:</label>
+            <label for="semestre" class="col-sm-2 col-form-label">Semestre:</label>
             <div class="col-sm-4">
               <input type="text" class="form-control" id="semestre" readonly>
               </select>
@@ -42,50 +42,44 @@
         <h4>Datos del Centro de Practica Pre Profesional</h4>
         <form>
           <div class="form-group row">
-            <label for="nombre_empresa" class="col-sm-2 col-form-label">Razon social:</label>
+            <label for="razon_social" class="col-sm-2 col-form-label">Razon social:</label>
             <div class="col-sm-4">
               <input type="text" class="form-control" id="razon_social" readonly>
             </div>
           </div>
           <div class="form-group row">
-            <label for="nombre_empresa" class="col-sm-2 col-form-label">Responsable de la practica:</label>
+            <label for="responsable_practica" class="col-sm-2 col-form-label">Responsable de la practica:</label>
             <div class="col-sm-4">
               <input type="text" class="form-control" id="responsable_practica" readonly>
             </div>
           </div>
           <div class="form-group row">
-            <label for="nombre_empresa" class="col-sm-2 col-form-label">Cargo:</label>
+            <label for="cargo" class="col-sm-2 col-form-label">Cargo:</label>
             <div class="col-sm-4">
               <input type="text" class="form-control" id="cargo" readonly>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="fecha_inicio" class="col-sm-2 col-form-label">Fecha de inicio:</label>
+            <div class="col-md-4 mb-0">
+              <div class="form-floating">
+                <input value="{{fecha_inicio}}" required type="date" class="form-control input" name="fecha_inicio" id="fecha_inicio">
+                <label for="fecha_inicio">Fecha de inicio</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="fecha_fin" class="col-sm-2 col-form-label">Fecha de fin:</label>
+            <div class="col-md-4 mb-0">
+              <div class="form-floating">
+                <input value="{{fecha_fin}}" required type="date" class="form-control input" name="fecha_fin" id="fecha_fin">
+                <label for="fecha_fin">Fecha de fin</label>
+              </div>
             </div>
           </div>
         </form>
       </div>
     </div>
-
-    <div class="row mt-3">
-      <div class="col-12">
-          <form>
-              <div class="form-group row">
-                  <div class="col-md-3 mb-4">
-                      <div class="form-floating">
-                          <input value="{{fecha_inicio}}" required type="date" class="form-control input"
-                              name="fecha_inicio" id="fecha_inicio">
-                          <label for="fecha_inicio">Fecha de inicio</label>
-                      </div>
-                  </div>
-  
-                  <div class="col-md-3 mb-4">
-                      <div class="form-floating">
-                          <input value="{{fecha_fin}}" required type="date" class="form-control input" name="fecha_fin"
-                              id="fecha_fin">
-                          <label for="fecha_fin">Fecha de fin</label>
-                      </div>
-                  </div>
-              </div>
-          </form>
-      </div>
-  </div>
   
   <div class="row mt-3">
     <div class="col-12">
@@ -120,20 +114,19 @@
       
       const tablaObjetivos = document.getElementById("tablaObjetivos")
       const numero = tablaObjetivos.rows.length
-      
+  
       const nuevaFila = tablaObjetivos.insertRow()
       const celdaNumero = nuevaFila.insertCell(0)
       const celdaDescripcion = nuevaFila.insertCell(1)
       const celdaEditar = nuevaFila.insertCell(2)
       const celdaEliminar = nuevaFila.insertCell(3)
-      
+  
       celdaNumero.textContent = numero;
-      celdaDescripcion.innerHTML = '<input type="text" class="form-control" />'
+      celdaDescripcion.innerHTML = `<input type="text" class="form-control" placeholder="Objetivo ${numero + 1}">`
       celdaEditar.innerHTML = '<button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button>'
       celdaEliminar.innerHTML = '<button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>'
     })
   </script>
-
 
   </div>
         <div class="row mt-3">
@@ -176,52 +169,51 @@
       <!--PARA EL BOTON AGREGAR PLAN TRABAJO -->
       <script>
         document.addEventListener("DOMContentLoaded", function() {
-          const tablaPlanTrabajo = document.getElementById("tablaPlanTrabajo");
-          /*const filaTotalHoras  = document.getElementById("filaTotalHoras ");
+          const tablaPlanTrabajo = document.getElementById("tablaPlanTrabajo")
+          /*const filaTotalHoras  = document.getElementById("filaTotalHoras ")
           let totalHoras = 0;*/
-          let numero = 1;
+          let numero = 1
           
-      
           document.getElementById("btnAgregarPlan").addEventListener("click", function (event) {
             event.preventDefault();
-      
-            const nuevaFila = tablaPlanTrabajo.insertRow(-1);
-            const celdaNumero = nuevaFila.insertCell(0);
-            const celdaNumSemanas = nuevaFila.insertCell(1);
-            const celdaFechas = nuevaFila.insertCell(2);
-            const celdaActividades = nuevaFila.insertCell(3);
+        
+            const nuevaFila = tablaPlanTrabajo.insertRow(-1)
+            const celdaNumero = nuevaFila.insertCell(0)
+            const celdaNumSemanas = nuevaFila.insertCell(1)
+            const celdaFechas = nuevaFila.insertCell(2)
+            const celdaActividades = nuevaFila.insertCell(3)
             const celdaNumHoras = nuevaFila.insertCell(4)
-            const celdaEditar = nuevaFila.insertCell(5);
-            const celdaEliminar = nuevaFila.insertCell(6);
-      
-            celdaNumero.textContent = numero;
-            celdaNumSemanas.innerHTML = `<input type="text" class="form-control" />`;
+            const celdaEditar = nuevaFila.insertCell(5)
+            const celdaEliminar = nuevaFila.insertCell(6)
+        
+            celdaNumero.textContent = numero
+            celdaNumSemanas.innerHTML = `<input type="text" class="form-control" placeholder="N° ${numero}">`
             celdaFechas.innerHTML = `<input type="text" class="form-control" />`;
-            celdaActividades.innerHTML = `<input type="text" class="form-control" />`;
+            celdaActividades.innerHTML = `<input type="text" class="form-control" placeholder="Actividad ${numero}">`
             celdaNumHoras.innerHTML = `<input type="text" class="form-control" />`;
-            celdaEditar.innerHTML = `<button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button>`;
-            celdaEliminar.innerHTML = `<button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>`;
-      
-            numero++;
+            celdaEditar.innerHTML = `<button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button>`
+            celdaEliminar.innerHTML = `<button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>`
+        
+            numero++
             /*actualizarTotalHoras()*/
           });
           /*function actualizarTotalHoras() {
             totalHoras = 0;
             const filas = tablaPlanTrabajo.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
-
+      
             for (let i = 0; i < filas.length; i++) {
               const fila = filas[i];
               const celdaNumHoras = fila.getElementsByTagName("td")[4];
               const inputNumHoras = celdaNumHoras.getElementsByTagName("input")[0];
               const numHoras = parseFloat(inputNumHoras.value);
-
+      
               if (!isNaN(numHoras)) {
                 totalHoras += numHoras;
               }
             }
             filaTotalHoras.querySelector("#totalHoras").textContent = totalHoras.toFixed(2);
           }*/
-        });
+        })
       </script>
 
     <div class="row mt-3">
