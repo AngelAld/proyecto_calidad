@@ -137,3 +137,12 @@ def cmb_facultades():
         facultades = c_lineaDesarrollo.obtener_facultades()
         return render_template("lineaDesarrollo.html", facultades=facultades)
 #***************************************************************
+
+@linea_desarrollo_bp.route("/reporte_lineaDesarrollo")
+def formulario_reporte_lineaDesarrollo():
+    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+        return redirect(url_for("inicio.inicio"))
+    else:
+        datos,nombres_lineas = c_lineaDesarrollo.grafico_lineaDesarrollo()   
+        return render_template("reporte_lineaDesarrollo.html", datos=datos, nombres_lineas=nombres_lineas)
+    

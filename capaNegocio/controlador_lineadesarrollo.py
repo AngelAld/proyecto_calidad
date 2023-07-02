@@ -9,6 +9,31 @@ def listar_lineaDesarrollo():
     conexion.close()
     return linea_desarrollo
 
+#********************************************* Grafico de Barras *
+    
+def grafico_lineaDesarrollo():
+    conexion = obtener_conexion()
+    datos = []
+    nombres_lineas = []
+    
+    with conexion.cursor() as cursor:
+        # Obtener todas las líneas de desarrollo existentes
+        cursor.execute("SELECT nombre FROM linea_desarrollo")
+        lista_desarrollo = cursor.fetchall()
+        
+        for linea in lista_desarrollo:
+            nombres_lineas.append(linea[0])  # Agregar el nombre de la línea a la lista de nombres
+            
+            # Obtener el conteo de estudiantes por línea de desarrollo
+            cursor.execute("SELECT COUNT(DISTINCT es.nombre) FROM linea_desarrollo ld INNER JOIN detalle_practica dp ON dp.id_linea_desarrollo = ld.id_linea_desarrollo INNER JOIN practica pr ON pr.id_practica = dp.id_practica INNER JOIN estudiante es ON es.id_estudiante = pr.id_estudiante WHERE ld.nombre = %s", (linea[0],))
+            conteo = cursor.fetchone()
+            datos.append(conteo[0])
+    # Imprimir los valores para verificar
+
+    conexion.close()
+    return datos, nombres_lineas
+#***************************************************************
+
 
 def agregar_lineaDesarrollo(nombre, descripcion, estado, id_escuelas):
     conexion = obtener_conexion()
@@ -99,3 +124,4 @@ def obtener_facultades():
     return facultades
 
 #***************************************************************
+

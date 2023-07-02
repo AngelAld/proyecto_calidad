@@ -1,0 +1,50 @@
+{% extends "maestra/maestra.html" %}
+{% block titulo %} Reporte de Linea de Desarrollo {% endblock %}
+{% block contenido %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-10 mb-10">
+      <div class="chart-container" style="height: 500px;">
+        <canvas id="barChart"></canvas>
+      </div>
+    </div>
+    <div class="row">
+      <div class="text-end">
+        <input type="button" class="btn btn-success" class="fas fa-save" value="Exportar" onClick="window.print()">
+        <a href="{{url_for('lineaDesarrollo.linea_desarrollo')}}" class="btn btn-secondary"><i
+            class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>  
+      </div>
+    </div>
+  </div>
+
+{% endblock%}
+{% set titulo2 = "Reporte de Linea de Desarrollo " %}
+{% block scripts %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  // Gráfico de barras
+  var datos = "{{ datos }}"
+  var nombresLineas = {{ nombres_lineas }}
+  console.log('entras')
+  console.log(datos)
+  console.log(nombresLineas)
+  var ctxBar = document.getElementById('barChart').getContext('2d');
+  var barChart = new Chart(ctxBar, {
+    type: 'bar',
+    data: {
+      labels: nombresLineas,
+      datasets: [{
+        label: 'Gráfico de Barras de Línea de Desarrollo',
+        data: datos,
+        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {}
+  });
+</script>
+ 
+{% endblock %}
