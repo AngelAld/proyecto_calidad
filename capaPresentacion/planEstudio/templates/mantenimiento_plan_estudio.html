@@ -3,47 +3,52 @@
 <section class="section">
     <div class="row">
         <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <form action="{{url}}" method="post">
+                        {# Enviar el id en un campo oculto #}
+                        <input value="{{id}}" type="hidden" name="id">
 
-            <form action="{{url}}" method="post">
-                {# Enviar el id en un campo oculto #}
-                <input value="{{id}}" type="hidden" name="id">
+                        <div class="form-floating mb-4">
+                            <input value="{{nombre}}" required type="text" class="form-control input"
+                                placeholder="Nombre" name="nombre" id="nombre">
+                            <label for="nombre">Nombre</label>
+                        </div>
 
-                <div class="form-floating mb-4">
-                    <input value="{{nombre}}" required type="text" class="form-control input" placeholder="Nombre"
-                        name="nombre" id="nombre">
-                    <label for="nombre">Nombre</label>
-                </div>
-
-               <!--  <div class="form-floating mb-4">
+                        <!--  <div class="form-floating mb-4">
                     <input value="{{id_escuela_profesional}}" required type="text" class="form-control input" placeholder="id_escuela_profesional"
                         name="id_escuela_profesional" id="id_escuela_profesional">
                     <label for="id_escuela_profesional">Escuela Profesional</label>
                 </div> -->
 
-                <label for="escuelas">Selecciona una Escuela Profesional</label>
-                <div class="form-floating mb-4">
-                    <select value="{{escuela}}" required type="text-left" class="form-control input" placeholder="Escuela"
-                        name="escuelas" id="escuelas">
-                        {% for escuela in escuelas %}
-                            <option value="{{ escuela[0] }}">{{escuela[1] }}</option>
-                        {% endfor %}
-                    </select>
+                        <label for="escuelas">Selecciona una Escuela Profesional</label>
+                        <div class="form-floating mb-4">
+                            <select value="{{escuela}}" required type="text-left" class="form-control input"
+                                placeholder="Escuela" name="escuelas" id="escuelas">
+                                {% for escuela in escuelas %}
+                                <option value="{{ escuela[0] }}">{{escuela[1] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="estado" id="estado" {% if
+                                    estado=="A" %} checked {% endif %}>
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Activo
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success"><i
+                                class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
+                        <a href="{{url_for('planEstudio.plan_estudio')}}" class="btn btn-secondary"><i
+                                class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
+
+                    </form>
                 </div>
-
-                <div class="form-floating mb-4">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="estado" id="estado" {% if
-                            estado=="A" %} checked {% endif %}>
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            Activo
-                        </label>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
-                <a href="{{url_for('planEstudio.plan_estudio')}}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
-
-            </form>
+            </div>
         </div>
         <div class="col d-none d-md-block">
         </div>

@@ -109,6 +109,31 @@ def agregar_ubicacion(id_centro_practicas, num, via, lon, lat, pais, ciudad, est
     conexion.close()
     return msg
 
+#********************************************* Grafico de Barras *
+    
+def grafico_centroPPP():
+    conexion = obtener_conexion()
+    datos = []
+    razon_social = []
+    
+    with conexion.cursor() as cursor:
+        # Obtener todas las líneas de desarrollo existentes
+        cursor.execute("SELECT razon_social FROM centro_practicas")
+        centro_practicas = cursor.fetchall()
+        
+        for cppp in centro_practicas:
+            razon_social.append(cppp[0])  # Agregar el nombre del centro de practica
+            
+            # Obtener el conteo de estudiantes por centro de practicas
+            cursor.execute("SELECT COUNT(DISTINCT es.razon_social) FROM centro_practicas cp INNER JOIN detalle_practica dp ON dp.id_centro_practicas = cp.id_centro_practicas INNER JOIN practica pr ON pr.id_practica = dp.id_practica INNER JOIN estudiante es ON es.id_estudiante = pr.id_estudiante WHERE cp.razon_social = %s", (cppp[0],))
+            conteo = cursor.fetchone()
+            datos.append(conteo[0])
+    # Imprimir los valores para verificar
+
+    conexion.close()
+    return datos, razon_social
+#***************************************************************
+
 def actualizar_ubicacion(id_ubicacion, num, via, lon, lat, pais, ciudad, estado):
     try:
         conexion = obtener_conexion()
