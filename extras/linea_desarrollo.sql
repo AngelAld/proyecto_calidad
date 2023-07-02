@@ -136,15 +136,13 @@ BEGIN
 
     EXCEPTION
     WHEN OTHERS THEN
-      RETURN  SQLERRM;     
+      RETURN  error_msg;     
   END;
   RETURN mensaje;
 END;
 $function$;
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
 CREATE OR REPLACE FUNCTION fn_actualizar_estado_linea_desarrollo(p_id_linea_desarrollo integer, p_estado character)
  RETURNS character varying
  LANGUAGE plpgsql
