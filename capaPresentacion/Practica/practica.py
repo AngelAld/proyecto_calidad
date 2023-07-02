@@ -157,7 +157,7 @@ def actualizar_estado_practica():
         mensaje = c_practica.dar_baja_practica(id, estado)
 
         if mensaje == "Operación realizada con éxito":
-            flash(f"practica Actualizado con Exito", "success")
+            flash(f"Práctica Actualizada con Exito", "success")
         else:
             flash(str(mensaje), "error")
 
