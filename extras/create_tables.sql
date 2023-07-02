@@ -210,8 +210,7 @@ CREATE TABLE TITULO_PROFESIONAL (
   PRIMARY KEY (id_titulo));
 CREATE TABLE UBICACION (
   id_ubicacion SERIAL NOT NULL, 
-  num          varchar(255) NOT NULL, 
-  tipo_via     varchar(255) NOT NULL, 
+  num          varchar(255) NOT NULL,
   via          varchar(255) NOT NULL, 
   lon          varchar(255) NOT NULL, 
   lat          varchar(255) NOT NULL, 
