@@ -6,48 +6,10 @@
 <section class="section">
     <div class="row">
         <div class="col">
-            <form action="{{url}}" method="post">
+            <form action="{{url_for('usuario.actualizar_contrasena')}}" method="post">
                 <div id="elementosDiv">
                     <div class="card mb-4">
-                        <div class="card-body">
-                            <h5>Datos de Docente de Apoyo:</h5>
-                            <div class="mb-4 row">
-                                <label for="usuario" class="col-lg-2 col-form-label">Titulo profesional:</label>
-                                <div class="col-lg-6">
-                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
-                                        placeholder="usuario" name="usuario" id="usuario" readonly>
-                                </div>
-                                <div class="col d-none d-xl-block"> 
-                                </div>
-                            </div>
-                            <div class="mb-4 row">
-                                <label for="usuario" class="col-lg-2 col-form-label">Escuela profesional:</label>
-                                <div class="col-lg-6">
-                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
-                                        placeholder="usuario" name="usuario" id="usuario" readonly>
-                                </div>
-                                <div class="col d-none d-xl-block"> 
-                                </div>
-                            </div>
-                            <div class="mb-4 row">
-                                <label for="usuario" class="col-lg-2 col-form-label">Nombre:</label>
-                                <div class="col-lg-6">
-                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
-                                        placeholder="usuario" name="usuario" id="usuario" readonly>
-                                </div>
-                                <div class="col d-none d-xl-block"> 
-                                </div>
-                            </div>
-                            <div class="mb-4 row">
-                                <label for="usuario" class="col-lg-2 col-form-label">Correo electrónico:</label>
-                                <div class="col-lg-6">
-                                    <input value="{{session['nombre']}}" required type="text" class="form-control input"
-                                        placeholder="usuario" name="usuario" id="usuario" readonly>
-                                </div>
-                                <div class="col d-none d-xl-block"> 
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                     <div class="card mb-4">
                         <div class="card-body">
@@ -75,7 +37,6 @@
 
                 </div>
 
-
                 <div class="d-none" id="elementosForm">
                     {# Enviar el id en un campo oculto #}
                     <input value="{{id}}" type="hidden" name="id">
@@ -95,23 +56,39 @@
                             <input value="{{session['rol']}}" required type="text" class="form-control input"
                                 placeholder="usuario" name="usuario" id="usuario" disabled>
                         </div>
+                    </div>  
 
+                    <div class="mb-4 row">
+                        <label for="contrasena" class="col-lg-2 col-form-label">Contraseña actual:</label>
+                        <div class="col-lg-6">
+                            <input required type="password" class="form-control input" placeholder="Contraseña actual" name="contrasena_actual" id="contrasena_actual">
+                        </div>
                     </div>
-                </div>
 
+                    <div class="mb-4 row">
+                        <label for="contrasena" class="col-lg-2 col-form-label">Nueva contraseña:</label>
+                        <div class="col-lg-6">
+                            <input required type="password" class="form-control input" placeholder="Nueva contraseña" name="nueva_contrasena" id="nueva_contrasena">
+                        </div>
+                    </div>
 
-                <span id="btn-editar" class="btn btn-primary"><i class="fas fa-edit"></i>&nbsp;&nbsp;Editar Datos</span>
-                <button id="btn-guardar" type="submit" class="d-none btn btn-success"><i
-                        class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
-                <span id="btn-cancelar" class="d-none btn btn-danger"><i
-                        class="fa fa-times"></i>&nbsp;&nbsp;Cancelar</span>
+                </div>              
+
+                <span id="btn-editar" class="btn btn-primary"><i class="fas fa-edit"></i>&nbsp;&nbsp;Editar Datos</span>              
+                <button id="btn-guardar" type="submit" class="d-none btn btn-success"><i          
+                         class="fas fa-save" ></i>&nbsp;&nbsp;Guardar</button>
+                         
+
+                <span id="btn-cancelar" class="d-none btn btn-danger"><i class="fa fa-times"></i>&nbsp;&nbsp;Cancelar</span>
                 <a id="btn-regresar" href="{{url_for('inicio.inicio')}}" class="btn btn-secondary"><i
                         class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
 
             </form>
         </div>
     </div>
+
 </section>
+
 {% elif session["rol"] == "Director de Escuela" %}
 <section class="section">
     <div class="row">
@@ -197,7 +174,7 @@
                                 placeholder="usuario" name="usuario" id="usuario" disabled>
                         </div>
 
-                    </div>
+                    </div>                    
                 </div>
 
 
@@ -207,7 +184,7 @@
                 <span id="btn-cancelar" class="d-none btn btn-danger"><i
                         class="fa fa-times"></i>&nbsp;&nbsp;Cancelar</span>
                 <a id="btn-regresar" href="{{url_for('inicio.inicio')}}" class="btn btn-secondary"><i
-                        class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
+                        class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>               
 
             </form>
         </div>
