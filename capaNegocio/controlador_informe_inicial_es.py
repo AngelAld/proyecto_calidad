@@ -20,9 +20,9 @@ def obtener_nombre_estudiante():
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
         cursor.execute("SELECT es.id_estudiante, es.nombre FROM INFORME_INICIAL_ES ini_es INNER JOIN DETALLE_PRACTICA dp ON dp.id_detalle_practica = ini_es.id_detalle_practica INNER JOIN PRACTICA pr ON pr.id_practica = dp.id_practica INNER JOIN ESTUDIANTE es ON es.id_estudiante = pr.id_estudiante")
-        nombre_estudiante = cursor.fetchall()
+        estudiante = cursor.fetchall()
     conexion.close()
-    return nombre_estudiante
+    return estudiante
 
 def obtener_codigo_estudiante():
     conexion = obtener_conexion()

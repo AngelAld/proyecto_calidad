@@ -102,35 +102,36 @@ $function$;
 
 ---------------------------------------------------------------------------------------
 
-CREATE OR REPLACE FUNCTION fn_eliminar_docente_apoyo(p_id integer)
-  RETURNS text
-  LANGUAGE plpgsql
-AS $function$
+CREATE OR REPLACE FUNCTION fn_eliminar_jefe_inmediato(p_id integer)
+RETURNS varchar(255)
+LANGUAGE plpgsql
+AS $$
 DECLARE
   mensaje    VARCHAR(100);
   error_msg  VARCHAR(100);
   id_usu integer;
 BEGIN
   BEGIN
-    -- Obtener el id_usuario del docente de apoyo
-    SELECT id_usuario INTO id_usu FROM DOCENTE_APOYO WHERE id_docente_apoyo = p_id;
-    -- Eliminar el registro de la tabla DOCENTE_APOYO
-    DELETE FROM DOCENTE_APOYO WHERE id_docente_apoyo = p_id;
-    -- Eliminar el registro de la tabla USUARIO
+    -- Eliminar el registro correspondiente al jefe inmediato
+    SELECT id_usuario INTO id_usu FROM JEFE_INMEDIATO WHERE id_jefe_inmediato = p_id;
+    DELETE FROM JEFE_INMEDIATO WHERE id_jefe_inmediato = p_id;
     DELETE FROM USUARIO WHERE id_usuario = id_usu;
-
-    -- Verificar si se eliminaron los registros correctamente
-    GET DIAGNOSTICS mensaje = ROW_COUNT || ' registro(s) eliminado(s).';
+    -- Verificar si se eliminó el registro correctamente
+    IF FOUND THEN
+      mensaje := 'Operación realizada con éxito';
+    ELSE
+      RETURN 'No se pudo eliminar el registro.';
+    END IF;
 
   EXCEPTION
     WHEN OTHERS THEN
-      RETURN SQLERRM;
-      
+      error_msg := CONCAT('Error: ', SQLERRM);
+      RETURN error_msg;
   END;
 
   RETURN mensaje;
 END;
-$function$;
+$$;
 
 ----------------------------------------------------------------------------------------------------------------------------
 
