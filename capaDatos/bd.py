@@ -9,8 +9,6 @@ import psycopg2
 #                             password='PROYECTOCALIDAD',
 #                             database='db_calidad')
 
-# si no tienen postgres instalado pueden usar esta bd online
-
 def obtener_conexion():
       return psycopg2.connect(host='jelani.db.elephantsql.com',
                               port=5432,
