@@ -12,41 +12,46 @@
                 return false;
             }
         }
-        </script>
-    
+    </script>
+
     <div class="row">
         <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <form action="{{url}}" method="post">
+                        {# Enviar el id en un campo oculto #}
+                        <input value="{{id}}" type="hidden" name="id">
 
-            <form action="{{url}}" method="post">
-                {# Enviar el id en un campo oculto #}
-                <input value="{{id}}" type="hidden" name="id">
+                        <div class="form-floating mb-4">
+                            <input value="{{nombre}}" required type="text" class="form-control input"
+                                placeholder="Nombre" name="nombre" id="nombre" onkeypress="return soloLetras(event)">
+                            <label for="nombre">Nombre</label>
+                        </div>
 
-                <div class="form-floating mb-4">
-                    <input value="{{nombre}}" required type="text" class="form-control input" placeholder="Nombre"
-                        name="nombre" id="nombre" onkeypress="return soloLetras(event)">
-                    <label for="nombre">Nombre</label>
+                        <div class="form-floating mb-4">
+                            <input value="{{descripcion}}" required type="text" class="form-control input"
+                                placeholder="Descripcion" name="descripcion" id="descripcion">
+                            <label for="descripcion">Descripción</label>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="estado" id="estado" {% if
+                                    estado=="A" %} checked {% endif %}>
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Activo
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success"><i
+                                class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
+                        <a href="{{url_for('facultad.facultades')}}" class="btn btn-secondary"><i
+                                class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
+
+                    </form>
                 </div>
-
-                <div class="form-floating mb-4">
-                    <input value="{{descripcion}}" required type="text" class="form-control input" placeholder="Descripcion"
-                        name="descripcion" id="descripcion">
-                    <label for="descripcion">Descripción</label>
-                </div>
-
-                <div class="form-floating mb-4">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="estado" id="estado" {% if
-                            estado=="A" %} checked {% endif %}>
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            Activo
-                        </label>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
-                <a href="{{url_for('facultad.facultades')}}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
-
-            </form>
+            </div>
         </div>
         <div class="col d-none d-md-block">
         </div>
