@@ -1,20 +1,16 @@
 CREATE TABLE ANEXOS (
-  id_anexo               int4 NOT NULL, 
-  id_informe_final_es    int4 NOT NULL, 
-  descripcion            varchar(255) NOT NULL, 
-  anexo                  varchar(255) NOT NULL, 
-  INFORME_FINAL_ESestado char(1) NOT NULL, 
+  id_anexo            int4 NOT NULL, 
+  id_informe_final_es int4 NOT NULL, 
+  descripcion         varchar(255) NOT NULL, 
+  anexo               varchar(255) NOT NULL, 
   PRIMARY KEY (id_anexo, 
-  id_informe_final_es, 
-  INFORME_FINAL_ESestado));
+  id_informe_final_es));
 CREATE TABLE BIBLIOGRAFIA (
-  id_bibliografia        int4 NOT NULL, 
-  id_informe_final_es    int4 NOT NULL, 
-  descripcion            text NOT NULL, 
-  INFORME_FINAL_ESestado char(1) NOT NULL, 
+  id_bibliografia     int4 NOT NULL, 
+  id_informe_final_es int4 NOT NULL, 
+  descripcion         text NOT NULL, 
   PRIMARY KEY (id_bibliografia, 
-  id_informe_final_es, 
-  INFORME_FINAL_ESestado));
+  id_informe_final_es));
 CREATE TABLE CENTRO_PRACTICAS (
   id_centro_practicas SERIAL NOT NULL, 
   ruc                 varchar(255) NOT NULL, 
@@ -26,13 +22,11 @@ CREATE TABLE CENTRO_PRACTICAS (
   id_ubicacion        int4, 
   PRIMARY KEY (id_centro_practicas));
 CREATE TABLE CONCLUSIONES (
-  id_conclusiones        int4 NOT NULL, 
-  id_informe_final_es    int4 NOT NULL, 
-  descripcion            text NOT NULL, 
-  INFORME_FINAL_ESestado char(1) NOT NULL, 
+  id_conclusiones     int4 NOT NULL, 
+  id_informe_final_es int4 NOT NULL, 
+  descripcion         text NOT NULL, 
   PRIMARY KEY (id_conclusiones, 
-  id_informe_final_es, 
-  INFORME_FINAL_ESestado));
+  id_informe_final_es));
 CREATE TABLE DETALLE_PRACTICA (
   id_detalle_practica   SERIAL NOT NULL, 
   fecha_inicio          date, 
@@ -76,12 +70,12 @@ CREATE TABLE ESTUDIANTE (
   nombre                        varchar(255) NOT NULL, 
   correo_usat                   varchar(255) NOT NULL, 
   correo_personal               varchar(255), 
-  telefono                      varchar(15) NOT NULL, 
-  telefono2                     varchar(15), 
+  telefono                      varchar(20) NOT NULL, 
+  telefono2                     varchar(20), 
   estado                        char(1) NOT NULL, 
-  id_usuario                    int4, 
+  id_usuario                    int4 NOT NULL, 
   id_semestre_academico_ingreso int4, 
-  id_plan_estudio               int4 NOT NULL, 
+  id_plan_estudio               int4, 
   PRIMARY KEY (id_estudiante));
 CREATE TABLE FACULTAD (
   id_facultad SERIAL NOT NULL, 
@@ -91,13 +85,13 @@ CREATE TABLE FACULTAD (
   PRIMARY KEY (id_facultad));
 CREATE TABLE FICHA_DESEMPEÑO (
   id_ficha_desempeño  SERIAL NOT NULL, 
-  responsabilidad     int4 NOT NULL, 
-  proactividad        int4 NOT NULL, 
-  comunicacion        int4 NOT NULL, 
-  trabajo_equipo      int4 NOT NULL, 
-  compromiso_calidad  int4 NOT NULL, 
-  organizacion        int4 NOT NULL, 
-  puntualidad         int4 NOT NULL, 
+  responsabilidad     int4, 
+  proactividad        int4, 
+  comunicacion        int4, 
+  trabajo_equipo      int4, 
+  compromiso_calidad  int4, 
+  organizacion        int4, 
+  puntualidad         int4, 
   estado              char(1) NOT NULL, 
   id_detalle_practica int4 NOT NULL, 
   PRIMARY KEY (id_ficha_desempeño));
@@ -113,22 +107,22 @@ CREATE TABLE INFORME_FINAL_EM (
   PRIMARY KEY (id_informe_final_em));
 CREATE TABLE INFORME_FINAL_ES (
   id_informe_final_es SERIAL NOT NULL, 
-  cant_trabajadores   int4 NOT NULL, 
-  vision              text NOT NULL, 
-  mision              text NOT NULL, 
-  infra_fisica        text NOT NULL, 
-  infra_tecnologica   text NOT NULL, 
-  organigrama         bytea NOT NULL, 
-  desc_area_trabajo   text NOT NULL, 
-  desc_labores_r      text NOT NULL, 
+  cant_trabajadores   int4, 
+  vision              text, 
+  mision              text, 
+  infra_fisica        text, 
+  infra_tecnologica   text, 
+  organigrama         text, 
+  desc_area_trabajo   text, 
+  desc_labores_r      text, 
   estado              char(1) NOT NULL, 
   id_detalle_practica int4 NOT NULL, 
   PRIMARY KEY (id_informe_final_es));
 CREATE TABLE INFORME_INICIAL_EM (
   id_informe_inicial_em               SERIAL NOT NULL, 
-  compromiso                          text NOT NULL, 
-  labores                             text NOT NULL, 
-  firma                               varchar(255) NOT NULL, 
+  compromiso                          text, 
+  labores                             text, 
+  firma                               varchar(255), 
   estado                              char(1) NOT NULL, 
   DETALLE_PRACTICAid_detalle_practica int4 NOT NULL, 
   PRIMARY KEY (id_informe_inicial_em));
@@ -145,6 +139,7 @@ CREATE TABLE JEFE_INMEDIATO (
   cargo               varchar(255) NOT NULL, 
   estado              char(1) NOT NULL, 
   id_centro_practicas int4 NOT NULL, 
+  id_usuario          int4 NOT NULL, 
   PRIMARY KEY (id_jefe_inmediato));
 CREATE TABLE LINEA_DESARROLLO (
   id_linea_desarrollo    SERIAL NOT NULL, 
@@ -177,7 +172,7 @@ CREATE TABLE PLAN_TRABAJO (
   id_informe_inicial_es));
 CREATE TABLE PRACTICA (
   id_practica   SERIAL NOT NULL, 
-  estado        char(1)  NOT NULL, 
+  estado        char(1) NOT NULL, 
   id_estudiante int4 NOT NULL, 
   PRIMARY KEY (id_practica));
 CREATE TABLE RECOMENDACIONES (
@@ -210,11 +205,9 @@ CREATE TABLE SEMESTRE_ACADEMICO (
 CREATE TABLE TITULO_PROFESIONAL (
   id_titulo   SERIAL NOT NULL, 
   nombre      varchar(255) NOT NULL, 
-  descripcion varchar(255) NOT NULL, 
+  descripcion varchar(255), 
   estado      char(1) NOT NULL, 
   PRIMARY KEY (id_titulo));
---ALTER TABLE TITULO_PROFESIONAL ALTER COLUMN descripcion TYPE varchar(255)
-
 CREATE TABLE UBICACION (
   id_ubicacion SERIAL NOT NULL, 
   num          varchar(255) NOT NULL, 
@@ -239,7 +232,6 @@ ALTER TABLE DOCENTE_APOYO ADD CONSTRAINT FKDOCENTE_AP446613 FOREIGN KEY (id_titu
 ALTER TABLE DOCENTE_APOYO ADD CONSTRAINT FKDOCENTE_AP718622 FOREIGN KEY (id_escuela_profesional) REFERENCES ESCUELA_PROFESIONAL (id_escuela_profesional);
 ALTER TABLE DIRECTOR_ESCUELA ADD CONSTRAINT FKDIRECTOR_E206053 FOREIGN KEY (id_escuela_profesional) REFERENCES ESCUELA_PROFESIONAL (id_escuela_profesional);
 ALTER TABLE PLAN_ESTUDIO ADD CONSTRAINT FKPLAN_ESTUD59740 FOREIGN KEY (id_escuela_profesional) REFERENCES ESCUELA_PROFESIONAL (id_escuela_profesional);
-ALTER TABLE CENTRO_PRACTICAS ADD CONSTRAINT FKCENTRO_PRA585086 FOREIGN KEY (id_ubicacion) REFERENCES UBICACION (id_ubicacion);
 ALTER TABLE JEFE_INMEDIATO ADD CONSTRAINT FKJEFE_INMED524949 FOREIGN KEY (id_centro_practicas) REFERENCES CENTRO_PRACTICAS (id_centro_practicas);
 ALTER TABLE DETALLE_PRACTICA ADD CONSTRAINT FKDETALLE_PR215336 FOREIGN KEY (id_practica) REFERENCES PRACTICA (id_practica);
 ALTER TABLE DETALLE_PRACTICA ADD CONSTRAINT FKDETALLE_PR602371 FOREIGN KEY (id_jefe_inmediato) REFERENCES JEFE_INMEDIATO (id_jefe_inmediato);
@@ -265,3 +257,5 @@ ALTER TABLE RESULTADO_APRENDIZAJE ADD CONSTRAINT FKRESULTADO_316780 FOREIGN KEY 
 ALTER TABLE LINEA_DESARROLLO ADD CONSTRAINT FKLINEA_DESA831180 FOREIGN KEY (id_escuela_profesional) REFERENCES ESCUELA_PROFESIONAL (id_escuela_profesional);
 ALTER TABLE ESTUDIANTE ADD CONSTRAINT FKESTUDIANTE401223 FOREIGN KEY (id_plan_estudio) REFERENCES PLAN_ESTUDIO (id_plan_estudio);
 ALTER TABLE DETALLE_PRACTICA ADD CONSTRAINT FKDETALLE_PR399145 FOREIGN KEY (id_linea_desarrollo) REFERENCES LINEA_DESARROLLO (id_linea_desarrollo);
+ALTER TABLE JEFE_INMEDIATO ADD CONSTRAINT FKJEFE_INMED727574 FOREIGN KEY (id_usuario) REFERENCES USUARIO (id_usuario);
+ALTER TABLE CENTRO_PRACTICAS ADD CONSTRAINT FKCENTRO_PRA585086 FOREIGN KEY (id_ubicacion) REFERENCES UBICACION (id_ubicacion);

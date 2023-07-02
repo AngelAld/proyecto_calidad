@@ -51,48 +51,6 @@ END;
 $function$;
 
 --------------------------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION fn_agregar_jefe_inmediato(
-    p_nombre varchar(255),
-    p_correo varchar(255),
-    p_telefono varchar(12),
-    p_cargo varchar(255),
-    p_estado char(1),
-    p_id_centro_practicas integer
-)
-RETURNS varchar(255)
-LANGUAGE plpgsql
-AS $function$
-DECLARE
-    jefe_existe INTEGER;
-    error_message VARCHAR(255);
-    error_code VARCHAR(5) DEFAULT '99999';
-BEGIN
-    BEGIN
-        SELECT COUNT(*) INTO jefe_existe
-        FROM JEFE_INMEDIATO
-        WHERE correo = p_correo;
-
-        IF jefe_existe > 0 THEN
-            RETURN 'Jefe inmediato ya existe';
-        END IF;
-
-        INSERT INTO JEFE_INMEDIATO (nombre, correo, telefono, cargo, estado, id_centro_practicas)
-        VALUES (p_nombre, p_correo, p_telefono, p_cargo, p_estado, p_id_centro_practicas);
-
-    EXCEPTION
-        WHEN OTHERS THEN
-            GET STACKED DIAGNOSTICS error_message = MESSAGE_TEXT,
-                                   error_code = RETURNED_SQLSTATE;
-            error_message := CONCAT('Error: ', error_message);
-
-            RETURN error_code || ' - ' || error_message;
-    END;
-
-    RETURN 'Operación realizada con éxito';
-END;
-$function$;
-
---------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION fn_editar_jefe_inmediato(
   p_id_jefe_inmediato integer,
@@ -145,17 +103,19 @@ $function$;
 ---------------------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION fn_eliminar_jefe_inmediato(p_id integer)
-  RETURNS varchar(255)
-  LANGUAGE plpgsql
-AS $function$
+RETURNS varchar(255)
+LANGUAGE plpgsql
+AS $$
 DECLARE
   mensaje    VARCHAR(100);
   error_msg  VARCHAR(100);
+  id_usu integer;
 BEGIN
   BEGIN
-    DELETE FROM JEFE_INMEDIATO
-    WHERE id_jefe_inmediato = p_id;
-
+    -- Eliminar el registro correspondiente al jefe inmediato
+    SELECT id_usuario INTO id_usu FROM JEFE_INMEDIATO WHERE id_jefe_inmediato = p_id;
+    DELETE FROM JEFE_INMEDIATO WHERE id_jefe_inmediato = p_id;
+    DELETE FROM USUARIO WHERE id_usuario = id_usu;
     -- Verificar si se eliminó el registro correctamente
     IF FOUND THEN
       mensaje := 'Operación realizada con éxito';
@@ -163,15 +123,15 @@ BEGIN
       RETURN 'No se pudo eliminar el registro.';
     END IF;
 
-    EXCEPTION
-      WHEN OTHERS THEN
-        error_msg := CONCAT('Error: ', SQLERRM);
-        RETURN '%', error_msg;
+  EXCEPTION
+    WHEN OTHERS THEN
+      error_msg := CONCAT('Error: ', SQLERRM);
+      RETURN error_msg;
   END;
 
   RETURN mensaje;
 END;
-$function$;
+$$;
 
 ----------------------------------------------------------------------------------------------------------------------------
 

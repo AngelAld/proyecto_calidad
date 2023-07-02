@@ -182,10 +182,14 @@ AS $function$
 DECLARE
   mensaje    VARCHAR(100);
   error_msg  VARCHAR(100);
+  id_usu integer;
 BEGIN
   BEGIN
+
+    SELECT id_usuario INTO id_usu FROM ESTUDIANTE WHERE id_estudiante = p_id;
     DELETE FROM ESTUDIANTE
     WHERE id_estudiante = p_id;
+    DELETE FROM USUARIO WHERE id_usuario = id_usu;
 
     -- Verificar si se eliminó el registro correctamente
     IF FOUND THEN

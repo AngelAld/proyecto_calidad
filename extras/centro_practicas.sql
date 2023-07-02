@@ -41,8 +41,7 @@ CREATE OR REPLACE FUNCTION fn_agregar_centro_practicas(
     p_alias varchar(50),
     p_rubro varchar(255),
     p_telefono varchar(12),
-    p_correo varchar(255),
-    p_id_ubicacion integer
+    p_correo varchar(255)
 )
 RETURNS character varying
 LANGUAGE plpgsql
@@ -61,8 +60,8 @@ BEGIN
             RETURN 'Centro de prácticas ya existe';
         END IF;
 
-        INSERT INTO CENTRO_PRACTICAS (ruc, razon_social, alias, rubro, telefono, correo, id_ubicacion)
-        VALUES (p_ruc, p_razon_social, p_alias, p_rubro, p_telefono, p_correo, p_id_ubicacion);
+        INSERT INTO CENTRO_PRACTICAS (ruc, razon_social, alias, rubro, telefono, correo)
+        VALUES (p_ruc, p_razon_social, p_alias, p_rubro, p_telefono, p_correo);
 
     EXCEPTION
         WHEN OTHERS THEN
@@ -85,8 +84,7 @@ CREATE OR REPLACE FUNCTION fn_editar_centro_practicas(
     p_alias varchar(50),
     p_rubro varchar(255),
     p_telefono varchar(12),
-    p_correo varchar(255),
-    p_id_ubicacion int
+    p_correo varchar(255)
 )
 RETURNS varchar(255)
 AS $$
@@ -111,8 +109,7 @@ BEGIN
             alias = p_alias,
             rubro = p_rubro,
             telefono = p_telefono,
-            correo = p_correo,
-            id_ubicacion = p_id_ubicacion
+            correo = p_correo
         WHERE id_centro_practicas = p_id_centro_practicas;
 
     EXCEPTION
