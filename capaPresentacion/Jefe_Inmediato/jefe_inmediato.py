@@ -37,11 +37,8 @@ def guardar_jefe_inmediato():
         else:
             estado = "I"
 
-        id_centro_practica = request.form["centro_PPP"]
-        razon_social = request.form["razon_social"]
-        alias = request.form["alias"]
-
-        mensaje = c_jefe_inmediato.agregar_jefe_inmediato(nombre,correo, telefono, cargo, estado, id_centro_practica, razon_social, alias)
+        id_centro_practica = request.form["centroPPP"]
+        mensaje = c_jefe_inmediato.agregar_jefe_inmediato(nombre,correo, telefono, cargo, estado, id_centro_practica)
 
         if mensaje == "Operación realizada con éxito":
             flash(f"Jefe inmediato Registrado con Exito", "success")

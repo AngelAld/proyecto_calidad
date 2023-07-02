@@ -1,6 +1,7 @@
 INSERT INTO ROL(nombre, estado) VALUES ('Director de escuela', 'A');
 INSERT INTO ROL(nombre, estado) VALUES ('Docente de Apoyo', 'A');
 INSERT INTO ROL(nombre, estado) VALUES ('Estudiante', 'A');
+insert into rol(nombre, estado) values ('Jefe Inmediato', 'A');
 
 INSERT INTO USUARIO(id_rol, nombre, usuario, clave, estado) VALUES(
     1,
@@ -33,9 +34,9 @@ select * from fn_agregar_facultad('Medicina', 'AAA', 'A');
 
 
 --FUNCIONES DE LINEA DESARROLLO PROBADAS ----------------------------------------------------------------------------------
-insert into escuela_profesional(nombre, descripcion, estado, id_facultad) values('Escuela prueba', 'aaaaa', 'A', 1);
+insert into escuela_profesional(nombre, descripcion, estado, id_facultad) values('Escuela de Ingeniería de Sistemas y Computación', 'Escuela de Ingeniería de Sistemas y Computación', 'A', 1);
 
-select * from fn_agregar_linea_desarrollo('Linea prueba', 'aaaa', 'A', 1);
+select * from fn_agregar_linea_desarrollo('Investigación', 'Investigación', 'A', 1);
 
 --select * from fn_editar_linea_desarrollo(1, 'Linea Prueba editada', 'aaa', 'A', 2);
 

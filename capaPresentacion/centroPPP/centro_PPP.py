@@ -29,8 +29,7 @@ def guardar_centroPPP():
         rubro = request.form["rubro"]
         telefono = request.form["telefono"]
         correo = request.form["correo"]
-        id_ubicacion = request.form["id_ubicacion"]
-        mensaje = c_cppp.agregar_centroPPP(ruc, razon_social, alias, rubro, telefono, correo, id_ubicacion)
+        mensaje = c_cppp.agregar_centroPPP(ruc, razon_social, alias, rubro, telefono, correo)
         if mensaje == "Operación realizada con éxito":
             flash(f"Centro de Practicas Pre Profesionales Registrado con Exito", "success")
             url = "/centro_PPP"
@@ -79,8 +78,7 @@ def modificar_centroPPP():
         # else:
         #     estado = "I"
         #null = request.form["null"]
-        id_ubicacion = request.form["id_ubicacion"]
-        mensaje = c_cppp.actualizar_centroPPP(ruc, razon_social,alias, rubro, telefono, correo, id_ubicacion)
+        mensaje = c_cppp.actualizar_centroPPP(ruc, razon_social,alias, rubro, telefono, correo)
 
         if mensaje == "Operación realizada con éxito":
             flash(f"Centro de Practicas Actualizado con Exito", "success")
