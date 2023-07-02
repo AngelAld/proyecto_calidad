@@ -1,3 +1,4 @@
+
 from flask import Blueprint, render_template, request, redirect, flash, session, url_for
 from capaNegocio import controlador_lineadesarrollo as c_lineaDesarrollo
 
