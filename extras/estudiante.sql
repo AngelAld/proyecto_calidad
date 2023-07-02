@@ -129,7 +129,7 @@ BEGIN
 END;
 $function$;
 
-CREATE OR REPLACE FUNCTION fn_editar_estudiante(p_id_estudiante integer, p_cod_universitario char(10), p_dni char(8), p_nombre varchar(255), p_correo_usat varchar(255), p_correo_personal varchar(255), p_telefono varchar(15), p_telefono2 varchar(15), p_estado char(1), p_id_usuario int4, p_id_semestre_academico_ingreso int4, p_id_plan_estudio int4)
+CREATE OR REPLACE FUNCTION fn_editar_estudiante(p_id_estudiante integer, p_cod_universitario char(10), p_dni char(8), p_nombre varchar(255), p_correo_usat varchar(255), p_correo_personal varchar(255), p_telefono varchar(15), p_telefono2 varchar(15), p_estado char(1), p_id_semestre_academico_ingreso int4, p_id_plan_estudio int4)
   RETURNS character varying
   LANGUAGE plpgsql
 AS $function$
@@ -157,7 +157,6 @@ BEGIN
         telefono = p_telefono,
         telefono2 = p_telefono2,
         estado = p_estado,
-        id_usuario = p_id_usuario,
         id_semestre_academico_ingreso = p_id_semestre_academico_ingreso,
         id_plan_estudio = p_id_plan_estudio
     WHERE id_estudiante = p_id_estudiante;
