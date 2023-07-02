@@ -36,4 +36,30 @@ def perfil():
         return redirect(url_for("inicio.inicio"))
     else:
         return render_template('perfil.html')
+    
+    
+@usuarios_bp.route("/actualizar_contrasena", methods=["POST"])
+def actualizar_contrasena():
+    if "rol" not in session:
+        return redirect(url_for("inicio.inicio"))
 
+    if request.method == "POST":
+        contrasena_actual = request.form.get('contrasena_actual')
+        nueva_contrasena = request.form.get('nueva_contrasena')
+        
+        contrasena_actual_hash = c_usuarios.generate_password(contrasena_actual)
+        nueva_contrasena_hash = c_usuarios.generate_password(nueva_contrasena)
+
+        if contrasena_actual == nueva_contrasena:
+            flash("La contraseña actual y la nueva contraseña son iguales.", "error")
+        else:
+            resultado = c_usuarios.actualizar_contrasena(session["id"], contrasena_actual_hash, nueva_contrasena_hash)
+            
+            if resultado is not None:
+                flash("Contraseña actualizada exitosamente.", "success")
+            else:
+                flash("No se pudo actualizar la contraseña.", "error")
+
+        return render_template("perfil.html")
+
+    return redirect(url_for("inicio.inicio"))
