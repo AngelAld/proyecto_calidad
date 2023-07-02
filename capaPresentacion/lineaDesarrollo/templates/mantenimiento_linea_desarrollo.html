@@ -1,6 +1,18 @@
 {% extends "maestra/maestra.html" %}
 {% block contenido %}
 <section class="section">
+    <script>
+        function soloLetras(event) {
+            var charCode = event.keyCode || event.which;
+            var charStr = String.fromCharCode(charCode);
+            var pattern = /^[a-zA-Z\ssáéíóúÁÉÍÓÚñÑ]+$/;
+            if (!pattern.test(charStr)) {
+                event.preventDefault();
+                return false;
+            }
+        }
+        </script>
+    
     <div class="row">
         <div class="col">
 
@@ -9,8 +21,8 @@
                 <input value="{{id}}" type="hidden" name="id">
 
                 <div class="form-floating mb-4">
-                    <input value="{{nombre}}" required type="text" class="form-control input" placeholder="Nombre"
-                        name="nombre" id="nombre">
+                    <input value="{{nombre}}" required type="text" class="form-control input" class="form-control input" placeholder="Nombre"
+                        name="nombre" id="nombre" onkeypress="return soloLetras(event)">
                     <label for="nombre">Nombre</label>
                 </div>
 

@@ -3,7 +3,17 @@
 {% set titulo2 = "Agregar Ficha de Evaluacion de Desempeño" %}
 {% block contenido %}
   <div class="container-fluid">
-
+    <script>
+      function soloLetras(event) {
+          var charCode = event.keyCode || event.which;
+          var charStr = String.fromCharCode(charCode);
+          var pattern = /^[a-zA-Z\ssáéíóúÁÉÍÓÚñÑ]+$/;
+          if (!pattern.test(charStr)) {
+              event.preventDefault();
+              return false;
+          }
+      }
+      </script>
     <p class="form-control-static">
       La Universidad Católica Santo Toribio de Mogrovejo (USAT) agradece la valiosa colaboración de su Institución en la formación profesional de los estudiantes de nuestra casa de estudios. 
       El objetivo de esta evaluación es recoger información sobre el desempeño de nuestros estudiantes durante el periodo de prácticas pre profesionales. En tal sentido, le agradeceremos responderla de manera objetiva, ya que su opinión nos ayudará a mejorar el nivel de las Prácticas Pre profesionales que son requisito para la titulación de nuestros estudiantes.
@@ -16,7 +26,7 @@
           <div class="form-group row">
             <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="nombres" readonly>
+              <input type="text" class="form-control" id="nombres" readonly onkeypress="return soloLetras(event)">
             </div>           
           </div>
           <div class="form-group row">
