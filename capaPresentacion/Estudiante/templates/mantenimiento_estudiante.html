@@ -9,91 +9,132 @@
                 <input value="{{id}}" type="hidden" name="id">
 
                 <div class="form-floating mb-4">
-                    <input value="{{cod_universitario}}" required type="text" pattern="\d{10}" class="form-control input" placeholder="cod_universitario"
-                        name="cod_universitario" id="cod_universitario">
+                    <input value="{{cod_universitario}}" required type="text"
+                        onkeypress="return soloAlfanumericos(event)" class="form-control input"
+                        placeholder="cod_universitario" name="cod_universitario" id="cod_universitario">
                     <label for="cod_universitario">cod_universitario</label>
                 </div>
                 <div class="form-floating mb-4">
-                    <input value="{{dni}}" required type="text" pattern="\d{8}" class="form-control input" placeholder="dni"
-                        name="dni" id="dni">
+                    <input value="{{dni}}" required type="text" onkeypress="return solo8numeros(event)" pattern="\d{8}"
+                        class="form-control input" placeholder="dni" name="dni" id="dni">
                     <label for="dni">DNI</label>
                 </div>
 
                 <div class="form-floating mb-4">
-                    <input value="{{nombre}}" required type="text" class="form-control input" placeholder="Nombre"
-                        name="nombre" id="nombre">
+                    <input value="{{nombre}}" required type="text" onkeypress="return soloLetras(event)"
+                        class="form-control input" placeholder="Nombre" name="nombre" id="nombre">
                     <label for="nombre">Nombre</label>
                 </div>
                 <div class="form-floating mb-4">
-                    <input value="{{correo_usat}}" required type="email" class="form-control input" placeholder="correo_usat"
-                        name="correo_usat" id="correo_usat">
+                    <input value="{{correo_usat}}" required type="email" class="form-control input"
+                        placeholder="correo_usat" name="correo_usat" id="correo_usat">
                     <label for="correo_usat">correo usat</label>
                 </div>
                 <div class="form-floating mb-4">
-                    <input value="{{correo_personal}}" required type="email" class="form-control input" placeholder="correo_personal"
-                        name="correo_personal" id="correo_personal">
+                    <input value="{{correo_personal}}" required type="email" class="form-control input"
+                        placeholder="correo_personal" name="correo_personal" id="correo_personal">
                     <label for="correo_personal">correo personal</label>
                 </div>
                 <div class="form-floating mb-4">
-                    <input value="{{telefono}}" required type="text" pattern="\d{6,20}" class="form-control input" placeholder="telefono"
-                        name="telefono" id="telefono">
+                    <input value="{{telefono}}" required type="text" onkeypress="return solo20numeros(event)"
+                        pattern="[0-9\s+-]{6,20}" class="form-control input" placeholder="telefono" name="telefono"
+                        id="telefono">
                     <label for="telefono">telefono</label>
                 </div>
                 <div class="form-floating mb-4">
-                    <input value="{{telefono2}}" required type="text"pattern="\d{6,20}"  class="form-control input" placeholder="telefono2"
-                        name="telefono2" id="telefono2">
+                    <input value="{{telefono2}}" required type="text" onkeypress="return solo20numeros(event)"
+                        pattern="[0-9\s+-]{6,20}" class="form-control input" placeholder="telefono2" name="telefono2"
+                        id="telefono2">
                     <label for="telefono2">telefono2</label>
                 </div>
                 <div class="form-floating mb-4">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="estado" id="estado" {% if
-                            estado=="A" %} checked {% endif %}>
+                        <input class="form-check-input" type="checkbox" name="estado" id="estado" {% if estado=="A" %}
+                            checked {% endif %}>
                         <label class="form-check-label" for="flexRadioDefault1">
                             Activo
                         </label>
                     </div>
                 </div>
-                <!-- <div class="form-floating mb-4">
-                    <input value="{{id_usuario}}" required type="text" class="form-control input" placeholder="id_usuario"
-                        name="id_usuario" id="id_usuario">
-                    <label for="id_usuario">id_usuario</label>
-                </div> -->
-                <!-- <div class="form-floating mb-4">
-                    <select value="{{usuario}}" required type="text-left" class="form-control input" placeholder="usuario"
-                    name="usuario" id="usuario">
-                    {% for usuario in usuario %}
-                        <option value="{{ usuario[0] }}">{{usuario[1] }}</option>
-                    {% endfor %}
-                    </select>
-                    <label for="usuario">usuario</label>
-                </div> -->
                 <div class="form-floating mb-4">
-                    <select value="{{semesteacademico}}" required type="text-left" class="form-control input" placeholder="semesteacademico"
-                    name="semesteacademico" id="semesteacademico">
-                    {% for semesteacademico in semesteacademico %}
+                    <select value="{{semesteacademico}}" required type="text-left" class="form-control input"
+                        placeholder="semesteacademico" name="semesteacademico" id="semesteacademico">
+                        {% for semesteacademico in semesteacademico %}
                         <option value="{{ semesteacademico[0] }}">{{semesteacademico[1] }}</option>
-                    {% endfor %}
+                        {% endfor %}
                     </select>
                     <label for="semesteacademico">semesteacademico</label>
                 </div>
                 <div class="form-floating mb-4">
-                    <select value="{{planestudio}}" required type="text-left" class="form-control input" placeholder="planestudio"
-                    name="planestudio" id="planestudio">
-                    {% for planestudio in planestudio %}
+                    <select value="{{planestudio}}" required type="text-left" class="form-control input"
+                        placeholder="planestudio" name="planestudio" id="planestudio">
+                        {% for planestudio in planestudio %}
                         <option value="{{ planestudio[0] }}">{{planestudio[1] }}</option>
-                    {% endfor %}
+                        {% endfor %}
                     </select>
                     <label for="id_plan_estudio">id_plan_estudio</label>
                 </div>
-
-
                 <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
-                <a href="{{url_for('estudiante.estudiante')}}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
-
+                <a href="{{url_for('estudiante.estudiante')}}" class="btn btn-secondary"><i
+                        class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
             </form>
         </div>
         <div class="col d-none d-md-block">
         </div>
+        <script>
+            function soloLetras(event) {
+                var charCode = event.keyCode || event.which;
+                var charStr = String.fromCharCode(charCode);
+                var pattern = /^[0-9a-zA-Z\ssáéíóúÁÉÍÓÚñÑ]+$/;
+                if (!pattern.test(charStr)) {
+                    event.preventDefault();
+                    return false;
+                }
+            }
+        </script>
+
+        <script>
+            function soloNumeros(event) {
+                var charCode = event.keyCode || event.which;
+                var charStr = String.fromCharCode(charCode);
+                var pattern = /^[0-9\s\-()]+$/;
+
+                if (!pattern.test(charStr)) {
+                    event.preventDefault();
+                    return false;
+                }
+            }
+            function solo8numeros(event) {
+                var charCode = event.keyCode || event.which;
+                var charStr = String.fromCharCode(charCode);
+                var pattern = /^\d+$/;
+
+                if (event.target.value.length >= 8 || !pattern.test(charStr)) {
+                    event.preventDefault();
+                    return false;
+                }
+            }
+            function solo20numeros(event) {
+                var charCode = event.keyCode || event.which;
+                var charStr = String.fromCharCode(charCode);
+                var pattern = /^[\d+\-\s]+$/;
+
+                if (event.target.value.length >= 20 || !pattern.test(charStr)) {
+                    event.preventDefault();
+                    return false;
+                }
+            }
+            function soloAlfanumericos(event) {
+                var charCode = event.keyCode || event.which;
+                var charStr = String.fromCharCode(charCode);
+                var pattern = /^[0-9a-zA-Z]+$/;
+
+                if (event.target.value.length >= 10 || !pattern.test(charStr)) {
+                    event.preventDefault();
+                    return false;
+                }
+            }
+        </script>
     </div>
 </section>
 {% endblock %}
