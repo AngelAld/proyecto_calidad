@@ -21,7 +21,6 @@
                                 placeholder="correo" name="correo" id="correo">
                             <label for="correo">Correo</label>
                         </div>
-
                         <div class="form-floating mb-4">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="estado" id="estado" {% if
@@ -32,6 +31,7 @@
                             </div>
                         </div>
 
+
                         <div class="form-floating mb-4">
                             <select value="{{titulo}}" required type="text-left" class="form-control input"
                                 placeholder="titulo" name="titulo" id="titulo">
@@ -41,7 +41,6 @@
                             </select>
                             <label for="titulo">titulo</label>
                         </div>
-
                         <div class="form-floating mb-4">
                             <select value="{{escuela_profesional}}" required type="text-left" class="form-control input"
                                 placeholder="escuela_profesional" name="escuela_profesional" id="escuela_profesional">
@@ -55,7 +54,6 @@
                                 class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
                         <a href="{{url_for('docente.docentes')}}" class="btn btn-secondary"><i
                                 class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
-
                     </form>
                 </div>
             </div>

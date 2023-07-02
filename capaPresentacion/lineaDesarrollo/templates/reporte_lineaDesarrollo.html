@@ -2,20 +2,23 @@
 {% block titulo %} Reporte de Linea de Desarrollo {% endblock %}
 {% block contenido %}
 <div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-10 mb-10">
-      <div class="chart-container" style="height: 500px;">
-        <canvas id="barChart"></canvas>
+  <div class="card">
+    <div class="row justify-content-center">
+      <div class="col-md-10 mb-10">
+        <div class="chart-container" style="height: 500px;">
+          <canvas id="barChart"></canvas>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="text-end">
-        <input type="button" class="btn btn-success" class="fas fa-save" value="Exportar" onClick="window.print()">
-        <a href="{{url_for('lineaDesarrollo.linea_desarrollo')}}" class="btn btn-secondary"><i
-            class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>  
-      </div>
+  </div><br>
+  <div class="row">
+    <div class="text-end">
+      <input type="button" class="btn btn-success" class="fas fa-save" value="Exportar" onClick="window.print()">
+      <a href="{{url_for('lineaDesarrollo.linea_desarrollo')}}" class="btn btn-secondary"><i
+          class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
     </div>
   </div>
+</div>
 
 {% endblock%}
 {% set titulo2 = "Reporte de Linea de Desarrollo " %}
@@ -26,23 +29,66 @@
 <script>
 // Gráfico de barras
 var datos = {{ datos }};
-var nombresLineas = {{ nombres_lineas | safe }};
-console.log(nombresLineas)
-
+var nombresLineas = ({{ nombres_lineas| safe }});
 var ctxBar = document.getElementById('barChart').getContext('2d');
 var barChart = new Chart(ctxBar, {
   type: 'bar',
   data: {
     labels: nombresLineas,
     datasets: [{
-      label: 'Gráfico de Barras de Línea de Desarrollo',
-      data: datos,
-      backgroundColor: 'rgba(54, 162, 235, 0.6)',
-      borderColor: 'rgba(54, 162, 235, 1)',
+      label: 'GRÁFICO DE BARRAS: "CANTIDAD DE ESTUDIANTES POR LÍNEA DE DESARROLLO"',
+      data: datos ,
+      backgroundColor: 'rgba(217, 93, 2, 0.9)',
+      borderColor: 'rgba(177, 75, 0, 1)',
       borderWidth: 1
     }]
   },
-  options: {}
+  options: {
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Línea de Desarrollo', // Título del eje X
+          font: {
+            weight: 'bold', // Letra en negrita
+            size: 16 // Tamaño de la letra en píxeles
+          }
+        },
+        ticks: {
+          font: {
+            weight: 'bold',
+            size: 14 
+          }
+        }
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Cantidad de Estudiantes', 
+          font: {
+            weight: 'bold',
+            size: 16 
+          }
+        },
+        ticks: {
+          font: {
+            weight: 'bold',
+            size: 14
+          }
+        }
+      }
+    },
+    plugins: {
+      legend: {
+        labels: {
+          font: {
+            weight: 'bold',
+            size: 16
+          }
+        }
+      }
+    }
+  }
 });
 </script>
  
