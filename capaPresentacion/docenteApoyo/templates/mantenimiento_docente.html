@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="form-floating mb-4">
-                    <input value="{{correo}}" required type="text" class="form-control input" placeholder="correo"
+                    <input value="{{correo}}" required type="email" class="form-control input" placeholder="correo"
                         name="correo" id="correo">
                     <label for="correo">Correo</label>
                 </div>
@@ -38,7 +38,7 @@
                         <option value="{{ titulo[0] }}">{{titulo[1] }}</option>
                     {% endfor %}
                     </select>
-                    <label for="titulo">titulo</label>
+                    <label for="titulo">Título</label>
                 </div>
 
                 <div class="form-floating mb-4">
@@ -48,7 +48,7 @@
                         <option value="{{ escuela_profesional[0] }}">{{escuela_profesional[1] }}</option>
                     {% endfor %}
                     </select>
-                    <label for="escuela_profesional">escuela_profesional</label>
+                    <label for="escuela_profesional">Escuela Profesional</label>
                 </div>
                 <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
                 <a href="{{url_for('docente.docentes')}}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
