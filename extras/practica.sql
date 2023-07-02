@@ -46,18 +46,21 @@ CREATE OR REPLACE FUNCTION fn_editar_practica(
 RETURNS TEXT
 LANGUAGE plpgsql
 AS $function$
+DECLARE
+    practica_existe INTEGER;
+    error_message VARCHAR(255);
+    error_code INTEGER DEFAULT 99999;
 BEGIN
-    -- Verificar si la práctica existe
-    IF NOT EXISTS (
-        SELECT 1
-        FROM practica
-        WHERE id_practica = p_id_practica
-    ) THEN
-        RETURN 'La práctica especificada no existe';
-    END IF;
-    
-    -- Actualizar la práctica y su detalle
     BEGIN
+        SELECT COUNT(*) INTO practica_existe
+        FROM practica
+        WHERE id_estudiante = p_id_estudiante
+          AND id_practica != p_id_practica;
+
+        IF practica_existe > 0 THEN
+            RETURN 'Ya existe una práctica asociada a ese estudiante';
+        END IF;
+
         UPDATE practica
         SET
             id_estudiante = p_id_estudiante,
@@ -75,18 +78,17 @@ BEGIN
             informacion_adicional = p_informacion_adicional,
             estado = p_estado
         WHERE id_practica = p_id_practica;
-        
-        -- Verificar si se realizó alguna actualización
-        IF FOUND THEN
-            RETURN 'Operación realizada con éxito';
-        ELSE
-            RETURN 'No se realizó ninguna actualización';
-        END IF;
+
     EXCEPTION
         WHEN OTHERS THEN
-            -- Capturar y manejar la excepción
-            RETURN 'Error al editar la práctica: ' || SQLERRM;
+            GET STACKED DIAGNOSTICS error_message = MESSAGE_TEXT,
+                                       error_code = RETURNED_SQLSTATE;
+
+            error_message := CONCAT('Error: ', error_message);
+            RETURN error_message;
     END;
+
+    RETURN 'Operación realizada con éxito';
 END;
 $function$;
 
@@ -313,3 +315,4 @@ BEGIN
   RETURN deleted;
 END;
 $$ LANGUAGE plpgsql;
+

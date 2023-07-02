@@ -114,36 +114,25 @@ def actualizar_practica():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        id_practica = request.form["id_practica"]
-        id_estudiante = request.form["id_estudiante"]
+        id_practica = request.form.get("id")
+        id_estudiante = request.form.get("estudiante")  # Corregido aquí
         estado = request.form.get("estado")
-        id_linea_desarrollo = request.form["id_linea_desarrollo"]
-        fecha_inicio = request.form["fecha_inicio"]
-        fecha_fin = request.form["fecha_fin"]
-        id_semestre_academico = request.form["id_semestre_academico"]
-        horas = request.form["horas"]
-        id_jefe_inmediato = request.form["id_jefe_inmediato"]
-        informacion_adicional = request.form["informacion_adicional"]
+        id_linea_desarrollo = request.form.get("lineaDesarrollo")
+        fecha_inicio = request.form.get("fechaInicio")
+        fecha_fin = request.form.get("fechaFin")
+        id_semestre_academico = request.form.get("semestreAcademico")
+        horas = request.form.get("horas")
+        id_jefe_inmediato = request.form.get("jefeInmediato")
+        informacion_adicional = request.form.get("informacionAdicional")
 
-        mensaje = c_practica.actualizar_practica(
-            id_practica,
-            id_estudiante,
-            estado,
-            id_linea_desarrollo,
-            fecha_inicio,
-            fecha_fin,
-            id_semestre_academico,
-            horas,
-            id_jefe_inmediato,
-            informacion_adicional
-        )
+        mensaje = c_practica.actualizar_practica(id_estudiante, estado, id_linea_desarrollo, fecha_inicio, fecha_fin, id_semestre_academico, horas, id_jefe_inmediato, informacion_adicional)
 
         if mensaje == "Operación realizada con éxito":
             flash("Práctica actualizada con éxito", "success")
             url = "/practicas"
         else:
             flash(str(mensaje), "error")
-            url = "/formulario_editar_practica/" + id_practica
+            url = "/formulario_editar_practica/" + str(id_practica)
         return redirect(url)
 
 
