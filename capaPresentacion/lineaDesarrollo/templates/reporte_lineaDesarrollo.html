@@ -30,8 +30,6 @@
 // Gráfico de barras
 var datos = {{ datos }};
 var nombresLineas = ({{ nombres_lineas| safe }});
-
-
 var ctxBar = document.getElementById('barChart').getContext('2d');
 var barChart = new Chart(ctxBar, {
   type: 'bar',
