@@ -28,7 +28,6 @@ BEGIN
         pe.id_plan_estudio, 
         pe.nombre,
         pe.estado,
-        pe.estado,
         pe.id_escuela_profesional
     FROM PLAN_ESTUDIO pe
     WHERE pe.id_plan_estudio = p_id;
@@ -95,12 +94,11 @@ BEGIN
       RETURN 'Plan Estudio ya existe';
     END IF;
 
-    UPDATE PLAN_ESTUDIO p
-    INNER JOIN ESCUELA_PROFESIONAL e
-    SET nombre = p.nombre,
-        estado = p.estado,
-        nombre = e.nombre;
-    WHERE e.id_plan_estudio = p.id_plan_estudio;
+    UPDATE PLAN_ESTUDIO
+    SET nombre = p_nombre,
+        estado = p_estado,
+        id_escuela_profesional = p_id_escuela_profesional
+    WHERE id_plan_estudio = p_id_plan_estudio;
 
     EXCEPTION WHEN OTHERS THEN
       GET STACKED DIAGNOSTICS error_message = MESSAGE_TEXT,
