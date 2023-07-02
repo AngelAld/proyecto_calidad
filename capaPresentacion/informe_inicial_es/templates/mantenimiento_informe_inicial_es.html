@@ -11,8 +11,8 @@
           <div class="form-group row">
             <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="nombres" readonly>
-              {% for estudiante in estudiante %}
+              <input type="text" class="form-control" id="estudiante" readonly>
+              {% for estudiante in estudiantes %}
               <option value="{{ estudiante[0] }}">{{ estudiante[1] }}</option>
               {% endfor %}
             </div>
