@@ -1,5 +1,5 @@
 {% extends "maestra/maestra.html" %}
-{% block titulo %} Responsable {% endblock %}
+{% block titulo %} Responsable de Prácticas PPP {% endblock %}
 {% set titulo2 = "Jefe Inmediato" %}
 {% block contenido %}
 <section class="section contenido">
@@ -40,8 +40,7 @@
               <th class="col-2 text-center d-none d-lg-table-cell">Telefono</th>
               <th class="col-2 text-center d-none d-lg-table-cell">Cargo</th>
               <th class="col-2 text-center d-none d-lg-table-cell">Centro Practica</th>
-              <th class="col-2 text-center d-none d-lg-table-cell">Estado</th>
-
+              <th class="col-1 text-center d-none d-lg-table-cell">Estado</th>
               <th class="col-1 text-center">Editar</th>
               <th class="col-1 text-center">Eliminar</th>
             </tr>
@@ -55,7 +54,6 @@
               <td class="col-2 text-center d-none d-lg-table-cell">{{jefe_inmediato[3]}}</td>
               <td class="col-2 text-center d-none d-lg-table-cell">{{jefe_inmediato[4]}}</td>
               <td class="col-2 text-center d-none d-lg-table-cell">{{jefe_inmediato[8]}}</td>
-
               <td class="col-1 text-center d-none d-md-table-cell">
                 <form action="{{url_for('jefe_inmediato.actualizar_estado_jefe_inmediato')}}" method="POST"
                   class="actualizar_estado">
