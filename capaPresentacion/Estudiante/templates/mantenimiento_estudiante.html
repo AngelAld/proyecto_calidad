@@ -35,8 +35,8 @@
                 <input value="{{id}}" type="hidden" name="id">
 
                 <div class="form-floating mb-4">
-                    <input value="{{cod_universitario}}" required type="text" class="form-control input" placeholder="cod_universitario"
-                        name="cod_universitario" id="cod_universitario" maxlength="10">
+                    <input value="{{cod_universitario}}" required type="text" pattern="\d{10}" class="form-control input" placeholder="cod_universitario"
+                        name="cod_universitario" id="cod_universitario">
                     <label for="cod_universitario">cod_universitario</label>
                 </div>
                 <div class="form-floating mb-4">
@@ -84,7 +84,7 @@
                         name="id_usuario" id="id_usuario">
                     <label for="id_usuario">id_usuario</label>
                 </div> -->
-                <div class="form-floating mb-4">
+                <!-- <div class="form-floating mb-4">
                     <select value="{{usuario}}" required type="text-left" class="form-control input" placeholder="usuario"
                     name="usuario" id="usuario">
                     {% for usuario in usuario %}
@@ -92,7 +92,7 @@
                     {% endfor %}
                     </select>
                     <label for="usuario">usuario</label>
-                </div>
+                </div> -->
                 <div class="form-floating mb-4">
                     <select value="{{semesteacademico}}" required type="text-left" class="form-control input" placeholder="semesteacademico"
                     name="semesteacademico" id="semesteacademico">
