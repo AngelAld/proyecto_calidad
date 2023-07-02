@@ -92,6 +92,7 @@ CREATE TABLE FICHA_DESEMPEÑO (
   compromiso_calidad  int4, 
   organizacion        int4, 
   puntualidad         int4, 
+  fecha               date, 
   estado              char(1) NOT NULL, 
   id_detalle_practica int4 NOT NULL, 
   PRIMARY KEY (id_ficha_desempeño));
@@ -102,12 +103,14 @@ CREATE TABLE INFORME_FINAL_EM (
   responsabilidad     text, 
   extra               text, 
   firma               bytea, 
+  fecha               date, 
   estado              char(1) NOT NULL, 
   id_detalle_practica int4 NOT NULL, 
   PRIMARY KEY (id_informe_final_em));
 CREATE TABLE INFORME_FINAL_ES (
   id_informe_final_es SERIAL NOT NULL, 
   cant_trabajadores   int4, 
+  representante_legal text, 
   vision              text, 
   mision              text, 
   infra_fisica        text, 
@@ -117,19 +120,24 @@ CREATE TABLE INFORME_FINAL_ES (
   desc_labores_r      text, 
   estado              char(1) NOT NULL, 
   id_detalle_practica int4 NOT NULL, 
+  fecha               date, 
   PRIMARY KEY (id_informe_final_es));
 CREATE TABLE INFORME_INICIAL_EM (
   id_informe_inicial_em               SERIAL NOT NULL, 
   compromiso                          text, 
   labores                             text, 
-  firma                               varchar(255), 
+  firma                               text, 
   estado                              char(1) NOT NULL, 
   DETALLE_PRACTICAid_detalle_practica int4 NOT NULL, 
+  fecha                               date, 
   PRIMARY KEY (id_informe_inicial_em));
 CREATE TABLE INFORME_INICIAL_ES (
   id_informe_inicial_es SERIAL NOT NULL, 
-  estado                char(1) NOT NULL, 
   id_detalle_practica   int4 NOT NULL, 
+  fecha                 date, 
+  firma_es              text, 
+  firma_jefe            text, 
+  estado                char(1) NOT NULL, 
   PRIMARY KEY (id_informe_inicial_es));
 CREATE TABLE JEFE_INMEDIATO (
   id_jefe_inmediato   SERIAL NOT NULL, 
@@ -211,7 +219,6 @@ CREATE TABLE TITULO_PROFESIONAL (
 CREATE TABLE UBICACION (
   id_ubicacion SERIAL NOT NULL, 
   num          varchar(255) NOT NULL, 
-  tipo_via     varchar(255) NOT NULL, 
   via          varchar(255) NOT NULL, 
   lon          varchar(255) NOT NULL, 
   lat          varchar(255) NOT NULL, 

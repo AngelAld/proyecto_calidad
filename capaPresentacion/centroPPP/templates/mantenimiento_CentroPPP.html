@@ -1,68 +1,324 @@
 {% extends "maestra/maestra.html" %}
+
+{% block header_scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ol@v7.3.0/dist/ol.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.3.0/ol.css" />
+</head>{% endblock %}
 {% block contenido %}
 <section class="section">
-    <div class="row">
+    <div class="row cppp">
         <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <form action="{{url}}" method="post">
+                        {# Enviar el id en un campo oculto #}
+                        <input value="{{id}}" type="hidden" name="id">
 
-            <form action="{{url}}" method="post">
-                {# Enviar el id en un campo oculto #}
-                <input value="{{id}}" type="hidden" name="id">
+                        <div class="form-floating mb-4">
+                            <input value="{{ruc}}" required type="text" class="form-control input" placeholder="ruc"
+                                name="ruc" id="ruc">
+                            <label for="ruc">RUC</label>
+                        </div>
 
-                <div class="form-floating mb-4">
-                    <input value="{{ruc}}" required type="text" class="form-control input" placeholder="ruc"
-                        name="ruc" id="ruc">
-                    <label for="ruc">RUC</label>
+                        <div class="form-floating mb-4">
+                            <input value="{{razon_social}}" required type="text" class="form-control input"
+                                name="razon_social" id="razon_social">
+                            <label for="razon_social">Razón Social</label>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <input value="{{alias}}" required type="text" class="form-control input" name="alias"
+                                id="alias">
+                            <label for="alias">Alias</label>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <input value="{{rubro}}" required type="text" class="form-control input" name="rubro"
+                                id="rubro">
+                            <label for="alias">Rubro</label>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <input value="{{telefono}}" required type="text" class="form-control input" name="telefono"
+                                id="telefono">
+                            <label for="alias">Teléfono</label>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <input value="{{correo}}" required type="text" class="form-control input" name="correo"
+                                id="correo">
+                            <label for="correo">Correo Electrónico</label>
+                        </div>
+                        {% if centroPPP is defined and centroPPP %}
+                        <div style="height: 210px; width: 100%;"></div>
+                        {% endif %}
+                        <button type="submit" class="btn btn-success" id="botoncppp"><i
+                                class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
+                        <a href="{{url_for('centroPPP.centro_PPP')}}" class="btn btn-secondary"><i
+                                class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
+
+                    </form>
                 </div>
+            </div>
 
-                <div class="form-floating mb-4">
-                    <input value="{{razon_social}}" required type="text" class="form-control input" name="razon_social"
-                        id="razon_social">
-                    <label for="razon_social">Razón Social</label>
-                </div>
-
-                <div class="form-floating mb-4">
-                    <input value="{{alias}}" required type="text" class="form-control input" name="alias"
-                        id="alias">
-                    <label for="alias">Alias</label>
-                </div>
-
-                <div class="form-floating mb-4">
-                    <input value="{{rubro}}" required type="text" class="form-control input" name="rubro"
-                        id="rubro">
-                    <label for="alias">Rubro</label>
-                </div>
-
-                <div class="form-floating mb-4">
-                    <input value="{{telefono}}" required type="text" class="form-control input" name="telefono"
-                        id="telefono">
-                    <label for="alias">Teléfono</label>
-                </div>
-
-                <div class="form-floating mb-4">
-                    <input value="{{correo}}" required type="text" class="form-control input" name="correo"
-                        id="correo">
-                    <label for="correo">Correo Electrónico</label>
-                </div>
-                
-                <div class="form-floating mb-4">
-                    <!-- <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="estado" id="estado" {% if
-                            estado=="A" %} checked {% endif %}>
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            Activo
-                        </label>
-                    </div> -->
-
-                    
-                </div>
-
-                <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
-                <a href="{{url_for('centroPPP.centro_PPP')}}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
-
-            </form>
         </div>
-        <div class="col d-none d-md-block">
+        {% if centroPPP is defined and centroPPP %}
+        <div class="col d-sm-block">
+            <div class="card">
+                <div class="card-body">
+                    <form action="{{url_for('centroPPP.ubicacion')}}" method="post">
+                        <div class="form-floating mb-4">
+                            <input value="{{pais}}" required type="text" class="form-control input" placeholder="Pais"
+                                name="pais" id="pais">
+                            <label for="pais">Pais</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input value="{{ciudad}}" required type="text" class="form-control input"
+                                placeholder="Departamento" name="ciudad" id="ciudad">
+                            <label for="ciudad">Departamento</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-floating mb-4">
+                                    <input value="{{num}}" required type="text" class="form-control input"
+                                        placeholder="Numero" name="num" id="num">
+                                    <label for="num">Numero</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-floating mb-4">
+                                    <input value="{{via}}" required type="text" class="form-control input"
+                                        placeholder="Calle" name="via" id="via">
+                                    <label for="via">Calle</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="estado" id="estado" {% if
+                                    estado=="A" %} checked {% endif %}>
+                                <label class="form-check-label" for="estado">
+                                    Ubicacion aprobada
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col">
+                                <input type="text" class="form-control input" placeholder="Buscar Ubicación"
+                                    name="search" id="search">
+                            </div>
+                            <div class="col-3">
+                                <span id="boton" class="btn btn-primary">Buscar</span>
+                            </div>
+                        </div>
+                        <div id="map" style="width: 100%; height: 300px"></div>
+                        <input value="{{id_ubicacion}}" type="hidden" name="id_ubicacion" id="id_ubicacion">
+                        <input value="{{id}}" type="hidden" name="id" id="id">
+                        <input value="{{lon}}" type="hidden" name="lon" id="lon">
+                        <input value="{{lat}}" type="hidden" name="lat" id="lat">
+                        <button type="submit" class="btn btn-success mt-5" id="btn-ubicacion"><i
+                                class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
+                    </form>
+                </div>
+
+            </div>
         </div>
+        {% else%}
+        <div class="col d-none d-md-block"></div>
+        {% endif %}
+        <div class="col-2 d-none d-xxl-block"></div>
     </div>
 </section>
+
+<script>
+    // Crear un mapa y una capa base de OpenStreetMap
+    const map = new ol.Map({
+        target: "map",
+        layers: [
+            new ol.layer.Tile({
+                source: new ol.source.OSM(),
+            }),
+        ],
+        view: new ol.View({
+            center: ol.proj.fromLonLat([-75.71954241763689, -9.378873608364628]),
+            zoom: 5,
+        }),
+    });
+
+    // Creamos el marcador
+
+    var marker = new ol.Feature({
+    });
+    var markerLayer = new ol.layer.Vector({
+        source: new ol.source.Vector({
+            features: [marker],
+        }),
+        style: new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "{{ url_for('static', filename='images/pointer.png') }}",
+            }),
+        }),
+    });
+
+    map.addLayer(markerLayer);
+
+    const txtPais = document.getElementById('pais')
+    const txtCiudad = document.getElementById('ciudad')
+    const txtDireccion = document.getElementById('via')
+    const txtlon = document.getElementById('lon')
+    const txtlat = document.getElementById('lat')
+    // la función de reverse geocoding
+
+    function reverseGeocoding(lonlat) {
+        const reverseGeocodingUrl = `https://nominatim.openstreetmap.org/reverse?lat=${lonlat[1]}&lon=${lonlat[0]}&format=json`;
+        fetch(reverseGeocodingUrl)
+            .then(response => response.json())
+            .then(data => {
+                // Obtener la dirección resultante
+                var address = "";
+                const country = data.address['country']
+                const city = data.address['state']
+                const lon = data.lon
+                const lat = data.lat
+                let calle = "";
+
+                if (data.address.hasOwnProperty("road")) {
+                    address = data.address.road;
+                } else if (data.address.hasOwnProperty("highway")) {
+                    address = data.address.highway;
+                } else if (data.address.hasOwnProperty("pedestrian")) {
+                    address = data.address.pedestrian;
+                } else {
+                    address = data[address]
+                }
+                txtPais.value = country
+                txtCiudad.value = city
+                txtDireccion.value = address
+                txtlat.value = lat
+                txtlon.value = lon
+
+                console.log(data)
+            })
+            .catch(error => console.error(error));
+    }
+
+
+
+    // Manejar la búsqueda de la ubicación
+    var boton = document.getElementById("boton")
+    boton.addEventListener('click', function (event) {
+        const searchValue = document.querySelector("#search").value;
+        if (searchValue.trim() === "") {
+            return;
+        }
+        const url = `https://nominatim.openstreetmap.org/search?q=${searchValue}&format=json`;
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.length > 0) {
+                    const result = data[0];
+                    const lon = parseFloat(result.lon);
+                    const lat = parseFloat(result.lat);
+                    const coords = ol.proj.fromLonLat([lon, lat]);
+                    map.getView().setCenter(coords);
+                    map.getView().setZoom(18);
+                    marker.setGeometry(new ol.geom.Point(coords));
+
+                    var markerCoordinates = marker.getGeometry().getCoordinates();
+                    var markerLonLat = ol.proj.toLonLat(markerCoordinates);
+                    reverseGeocoding(markerLonLat)
+
+
+                } else {
+                    alert("No se encontraron resultados para la búsqueda.");
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+                alert("Se produjo un error al realizar la búsqueda.");
+            });
+    })
+
+
+    map.on('click', function (event) {
+        var estado = "{{ estado }}";
+        if (estado === "A") {
+            return;
+        }
+
+        var coordinate = event.coordinate;
+
+        marker.setGeometry(new ol.geom.Point(coordinate));
+
+        var markerCoordinates = marker.getGeometry().getCoordinates();
+        var markerLonLat = ol.proj.toLonLat(markerCoordinates);
+
+        reverseGeocoding(markerLonLat)
+    });
+
+
+</script>
+
+<script>
+    window.addEventListener('load', function () {
+        var rol = "{{ session['rol'] }}";
+
+        if (rol === "Estudiante") {
+            var estado = document.getElementById("estado");
+            var ruc = document.getElementById("ruc");
+            var razon_social = document.getElementById("razon_social");
+            var alias = document.getElementById("alias");
+            var rubro = document.getElementById("rubro");
+            var telefono = document.getElementById("telefono");
+            var correo = document.getElementById("correo");
+            var botoncppp = document.getElementById("botoncppp");
+
+            estado.readOnly = true;
+            estado.disabled = true;
+
+            ruc.readOnly = true;
+            ruc.disabled = true
+
+            razon_social.readOnly = true;
+            razon_social.disabled = true
+
+            alias.readOnly = true;
+            alias.disabled = true
+
+            rubro.readOnly = true;
+            rubro.disabled = true
+
+            telefono.readOnly = true;
+            telefono.disabled = true
+
+            correo.readOnly = true;
+            correo.disabled = true
+
+            botoncppp.disabled = true
+            var estado = "{{ estado }}";
+            if (estado === "A") {
+                var pais = document.getElementById("pais");
+                var ciudad = document.getElementById("ciudad");
+                var num = document.getElementById("num");
+                var via = document.getElementById("via");
+                var boton = document.getElementById("boton");
+                var boton2 = document.getElementById("btn-ubicacion");
+                var search = document.getElementById("search");
+                pais.disabled = true;
+                ciudad.disabled = true;
+                num.disabled = true;
+                via.disabled = true;
+                boton.classList.add('disabled');
+                boton2.disabled = true;
+                search.disabled = true;
+            }
+        }
+
+
+
+    });
+</script>
+
 {% endblock %}

@@ -11,13 +11,11 @@ def listar_cppp():
     return cpps
 
 def actualizar_centroPPP(id, ruc, razon_social, alias, rubro, telefono, correo):
-    if id_ubicacion == "":
-        id_ubicacion = "-"
     conexion = obtener_conexion()
     msg = []
     with conexion.cursor() as cursor:
         cursor.execute(
-            "SELECT fn_editar_centro_practicas(%s, %s, %s, %s, %s, %s, %s)",
+            "SELECT * from fn_editar_centro_practicas(%s, %s, %s, %s, %s, %s, %s)",
             (id, ruc, razon_social, alias, rubro, telefono, correo),
         )
         msg = cursor.fetchone()
@@ -83,3 +81,74 @@ def dar_baja_CPPP(id, estado):
     conexion.commit()
     conexion.close()
     return msg[0] if msg is not None else None
+
+
+def agregar_ubicacion(id_centro_practicas, num, via, lon, lat, pais, ciudad, estado):
+    try:
+        conexion = obtener_conexion()
+    except Exception as e:
+        return "Error al conectar con la base de datos: " + str(e)
+
+    msg = ""
+    with conexion.cursor() as cursor:
+        try:
+            # Registrar una nueva ubicación
+            cursor.execute("INSERT INTO UBICACION (num, via, lon, lat, pais, ciudad, estado) VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING id_ubicacion", (num, via, lon, lat, pais, ciudad, estado))
+            id_ubicacion = cursor.fetchone()[0]
+            # Agregar id_ubicacion a un centro de prácticas
+            cursor.execute("UPDATE CENTRO_PRACTICAS SET id_ubicacion = %s WHERE id_centro_practicas = %s", (id_ubicacion, id_centro_practicas))
+            # Realizar commit y devolver mensaje de éxito
+            msg = "Operación realizada con éxito"
+            conexion.commit()
+        except Exception as e:
+            # Realizar rollback en caso de falla y devolver mensaje de error
+            msg = str(e)
+            conexion.rollback()
+    
+    # Cerrar la conexión y devolver el mensaje
+    conexion.close()
+    return msg
+
+def actualizar_ubicacion(id_ubicacion, num, via, lon, lat, pais, ciudad, estado):
+    try:
+        conexion = obtener_conexion()
+    except Exception as e:
+        return "Error al conectar con la base de datos: " + str(e)
+
+    msg = ""
+    with conexion.cursor() as cursor:
+        try:
+            # Actualizar una ubicación existente
+            cursor.execute("UPDATE UBICACION SET num = %s, via = %s, lon = %s, lat = %s, pais = %s, ciudad = %s, estado = %s WHERE id_ubicacion = %s", (num, via, lon, lat, pais, ciudad, estado, id_ubicacion))
+            # Realizar commit y devolver mensaje de éxito
+            msg = "Operación realizada con éxito"
+            conexion.commit()
+        except Exception as e:
+            # Realizar rollback en caso de falla y devolver mensaje de error
+            msg = str(e)
+            conexion.rollback()
+
+    # Cerrar la conexión y devolver el mensaje
+    conexion.close()
+    return msg
+
+def obtener_ubicacion_por_id(id_ubicacion):
+    try:
+        conexion = obtener_conexion()
+    except Exception as e:
+        return "Error al conectar con la base de datos: " + str(e)
+
+    with conexion.cursor() as cursor:
+        try:
+            # Obtener una ubicación por ID
+            cursor.execute("SELECT * FROM UBICACION WHERE id_ubicacion = %s", (id_ubicacion,))
+            ubicacion = cursor.fetchone()
+            # Devolver la ubicación
+            return ubicacion
+        except Exception as e:
+            # Realizar rollback en caso de falla y devolver mensaje de error
+            conexion.rollback()
+            return "Error al obtener la ubicación: " + str(e)
+    
+    # Cerrar la conexión
+    conexion.close()

@@ -2,7 +2,7 @@
 
 {% block titulo %} Editar Centro de Practicas Pre Profesionales {% endblock %}
 {% set titulo2 = "Editar Centro de Practicas Pre Profesionales" %}
-{% set codigo = centroPPP[0] %}
+{% set id = centroPPP[0] %}
 {% set ruc = centroPPP[1] %}
 {% set razon_social = centroPPP[2] %}
 {% set alias = centroPPP[3] %}
@@ -10,4 +10,17 @@
 {% set telefono = centroPPP[5] %}
 {% set correo = centroPPP[6] %}
 {% set id_ubicacion = centroPPP[7] %}
+
+{% if centroPPP[7] is defined and centroPPP[7]  %}
+
+{% set num = ubicacion[1] %}
+{% set via = ubicacion[2] %}
+{% set lon = ubicacion[3] %}
+{% set lat = ubicacion[4] %}
+{% set pais = ubicacion[5] %}
+{% set ciudad = ubicacion[6] %}
+{% set estado = ubicacion[7] %}
+
+{% endif %}
+
 {% set url = url_for('centroPPP.modificar_centroPPP') %}

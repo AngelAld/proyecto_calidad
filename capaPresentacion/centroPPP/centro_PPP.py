@@ -5,22 +5,27 @@ cPPP_bp = Blueprint("centroPPP", __name__, template_folder="templates")
 
 @cPPP_bp.route("/centro_PPP")
 def centro_PPP():
-    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+    rol = session.get("rol")
+    if not rol or (rol != "Docente de Apoyo" and rol != "Estudiante"):
         return redirect(url_for("inicio.inicio"))
     else:
         centro_PPP = c_cppp.listar_cppp()
         return render_template("centroPPP.html", centro_PPP = centro_PPP)
-    
+
+
+
 @cPPP_bp.route("/agregar_centroPPP")
 def formulario_agregar_CentroPPP():
-    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+    rol = session.get("rol")
+    if not rol or (rol != "Docente de Apoyo" and rol != "Estudiante"):
         return redirect(url_for("inicio.inicio"))
     else:
         return render_template("frm_agregar_CentroPPP.html")
     
 @cPPP_bp.route("/guardar_centroPPP", methods=["POST"])
 def guardar_centroPPP():
-    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+    rol = session.get("rol")
+    if not rol or (rol != "Docente de Apoyo" and rol != "Estudiante"):
         return redirect(url_for("inicio.inicio"))
     else:
         ruc = request.form["ruc"]
@@ -41,7 +46,8 @@ def guardar_centroPPP():
     
 @cPPP_bp.route("/eliminar_CentroPPP", methods=["POST"])
 def eliminar_CentroPPP():
-    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+    rol = session.get("rol")
+    if not rol or (rol != "Docente de Apoyo" and rol != "Estudiante"):
         return redirect(url_for("inicio.inicio"))
     else:
         centro_PPP = c_cppp.eliminar_centroPPP(request.form["id"])
@@ -54,31 +60,29 @@ def eliminar_CentroPPP():
     
 @cPPP_bp.route("/formulario_editar_centroPPP/<int:id>")
 def editar_centroPPP(id):
-    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+    rol = session.get("rol")
+    if not rol or (rol != "Docente de Apoyo" and rol != "Estudiante"):
         return redirect(url_for("inicio.inicio"))
     else:
         centro_PPP = c_cppp.buscar_CentroPPPID(id)
-        return render_template('frm_editar_centroPPP.html', centroPPP= centro_PPP)
+        ubicacion = c_cppp.obtener_ubicacion_por_id(centro_PPP[7])
+        return render_template('frm_editar_centroPPP.html', centroPPP= centro_PPP, ubicacion=ubicacion)
         
 @cPPP_bp.route("/modificar_centroPPP", methods=["POST"])
 def modificar_centroPPP():
-    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+    rol = session.get("rol")
+    if not rol or (rol != "Docente de Apoyo" and rol != "Estudiante"):
         return redirect(url_for("inicio.inicio"))
     else:
-        #id = request.form["id"]
+        id = request.form["id"]
         ruc = request.form["ruc"]
         razon_social = request.form["razon_social"]
         alias = request.form["alias"]
         rubro = request.form["rubro"]
         telefono = request.form["telefono"]
         correo = request.form["correo"]
-        # frm_estado = request.form.get("estado")
-        # if frm_estado == "on":
-        #     estado = "A"
-        # else:
-        #     estado = "I"
-        #null = request.form["null"]
-        mensaje = c_cppp.actualizar_centroPPP(ruc, razon_social,alias, rubro, telefono, correo)
+        
+        mensaje = c_cppp.actualizar_centroPPP(id, ruc, razon_social,alias, rubro, telefono, correo)
 
         if mensaje == "Operación realizada con éxito":
             flash(f"Centro de Practicas Actualizado con Exito", "success")
@@ -90,7 +94,8 @@ def modificar_centroPPP():
             
 @cPPP_bp.route("/actualizar_estado_CPPP", methods=["POST"])
 def actualizar_estado_CPPP():
-    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+    rol = session.get("rol")
+    if not rol or (rol != "Docente de Apoyo" and rol != "Estudiante"):
         return redirect(url_for("inicio.inicio"))
     else:
         id = request.form["id"]
@@ -105,3 +110,30 @@ def actualizar_estado_CPPP():
         return redirect("/centro_PPP")
     
 
+@cPPP_bp.route("/ubicacion", methods=["POST"])
+def ubicacion():
+    id_centro_practicas = request.form["id"]
+    id_ubicacion = request.form["id_ubicacion"]
+    pais = request.form["pais"]
+    ciudad = request.form["ciudad"]
+    num = request.form["num"]
+    via = request.form["via"]
+    lon = request.form["lon"]
+    lat = request.form["lat"]
+    frm_estado = request.form.get("estado")
+    if frm_estado == "on":
+        estado = "A"
+    else:
+        estado = "P"
+    
+    if id_ubicacion == "None":
+        mensaje = c_cppp.agregar_ubicacion(id_centro_practicas, num, via, lon, lat, pais, ciudad, estado)
+    else:
+        mensaje = c_cppp.actualizar_ubicacion(id_ubicacion, num, via, lon, lat, pais, ciudad, estado)
+        
+    if mensaje == "Operación realizada con éxito":
+        flash(mensaje, "success")
+    else:
+        flash(mensaje, "error")
+
+    return redirect("/formulario_editar_centroPPP/" + id_centro_practicas)
