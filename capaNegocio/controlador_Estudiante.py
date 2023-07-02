@@ -68,13 +68,13 @@ def getById(id):
     return semestre
 
 
-def update(id, cod_universitario,dni,nombre,correo_usat,correo_personal,telefono, telefono2,  estado,id_usuario,id_semestre_academico_ingreso,id_plan_estudio):
+def update(id, cod_universitario,dni,nombre,correo_usat,correo_personal,telefono, telefono2,  estado,id_semestre_academico_ingreso,id_plan_estudio):
     conexion = obtener_conexion()
     msg = []
     with conexion.cursor() as cursor:
         cursor.execute(
-            "SELECT fn_editar_estudiante(%s, %s, %s, %s, %s , %s,%s, %s, %s, %s, %s , %s)",
-            (id, cod_universitario,dni,nombre,correo_usat,correo_personal,telefono, telefono2,  estado,id_usuario,id_semestre_academico_ingreso,id_plan_estudio),
+            "SELECT fn_editar_estudiante(%s, %s, %s, %s, %s , %s,%s, %s, %s, %s, %s )",
+            (id, cod_universitario,dni,nombre,correo_usat,correo_personal,telefono, telefono2,  estado,id_semestre_academico_ingreso,id_plan_estudio),
         )
         msg = cursor.fetchone()
     conexion.commit()
