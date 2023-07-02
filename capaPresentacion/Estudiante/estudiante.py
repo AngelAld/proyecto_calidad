@@ -101,11 +101,11 @@ def actualizar_estudiante():
             estado = "A"
         else:
             estado = "I"
-        id_usuario = request.form["usuario"]
+        # id_usuario = request.form["usuario"]
         id_semestre_academico_ingreso = request.form["semesteacademico"]
         id_plan_estudio = request.form['planestudio']
         
-        mensaje = c_estudiante.update(id, cod_universitario,dni,nombre,correo_usat,correo_personal,telefono, telefono2,  estado,id_usuario,id_semestre_academico_ingreso,id_plan_estudio)
+        mensaje = c_estudiante.update(id, cod_universitario,dni,nombre,correo_usat,correo_personal,telefono, telefono2,  estado,id_semestre_academico_ingreso,id_plan_estudio)
 
         if mensaje == "Operación realizada con éxito":
             flash(f"estudiante Actualizado con Exito", "success")
