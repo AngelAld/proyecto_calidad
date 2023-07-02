@@ -3,11 +3,11 @@ import psycopg2
 
 
 # def obtener_conexion():
-#     return psycopg2.connect(host='127.0.0.1',
-#                             port=5432,
-#                             user='postgres',
-#                             password='123456789',
-#                             database='bd_calidad')
+#     return psycopg2.connect(host='angelar-3301.postgres.pythonanywhere-services.com',
+#                             port=13301,
+#                             user='super',
+#                             password='PROYECTOCALIDAD',
+#                             database='db_calidad')
 
 # si no tienen postgres instalado pueden usar esta bd online
 
