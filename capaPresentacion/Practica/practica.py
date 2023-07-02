@@ -39,21 +39,21 @@ def guardar_practica():
         horas = request.form["horas"]
         id_jefe_inmediato = request.form["jefeInmediato"]
         informacion_adicional = request.form["informacionAdicional"]
-
+    try:
         mensaje = c_practica.agregar_practica(
             id_estudiante, estado, id_linea_desarrollo, fecha_inicio,
             fecha_fin, id_semestre_academico, horas, id_jefe_inmediato,
             informacion_adicional
         )
 
-        if mensaje == "Operación realizada con éxito":
-            flash("Práctica registrada con éxito", "success")
-            url = "/practicas"
-        else:
-            flash(str(mensaje), "error")
-            url = "/agregar_practica"
+        flash("Práctica registrada con éxito", "success")
+        url = "/practicas"
+    except ValueError as e:
+        mensaje = str(e)
+        flash("Error al registrar la práctica: " + mensaje, "error")
+        url = "/agregar_practica"
 
-        return redirect(url)
+    return redirect(url)
     
 
 @practica_bp.route("/practicas")
