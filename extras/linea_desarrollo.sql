@@ -116,7 +116,7 @@ $function$;
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION fn_eliminar_linea_desarrollo(p_id integer)
-  RETURNS character varying
+  RETURNS text
   LANGUAGE plpgsql
 AS $function$
 DECLARE
@@ -135,19 +135,14 @@ BEGIN
     END IF;
 
     EXCEPTION
-      WHEN OTHERS THEN
-        error_msg := CONCAT('Error: ', SQLERRM);
-        RETURN '%', error_msg;
+    WHEN OTHERS THEN
+      RETURN  error_msg;     
   END;
-
   RETURN mensaje;
 END;
 $function$;
 
-
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
 CREATE OR REPLACE FUNCTION fn_actualizar_estado_linea_desarrollo(p_id_linea_desarrollo integer, p_estado character)
  RETURNS character varying
  LANGUAGE plpgsql

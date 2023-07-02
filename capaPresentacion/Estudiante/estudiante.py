@@ -80,7 +80,6 @@ def editar_estudiante(id):
         semesteacademico= c_estudiante.obtener_semesteacademico()
         return render_template("frm_editar_estudiante.html", estudiante=estudiante,planestudio=planestudio,semesteacademico=semesteacademico)
 
-
 @estudiante_bp.route("/actualizar_estudiante", methods=["POST"])
 def actualizar_estudiante():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":

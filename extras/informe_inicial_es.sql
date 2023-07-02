@@ -23,7 +23,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-
+------------------------------------------------------------------------------------------------------------------------------------------------
 CREATE or REPLACE FUNCTION fn_buscar_estudianteID_informe_inicial_es()
 RETURNS TABLE(
 	nombres varchar(255),
@@ -45,6 +45,7 @@ BEGIN
 		INNER JOIN SEMESTRE_ACADEMICO sa ON es.id_semestre_academico_ingreso = sa.id_semestre;
 END;
 $$ LANGUAGE plpgsql;
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --select * from fn_buscar_estudianteID_informe_inicial_es()
 
 CREATE or REPLACE FUNCTION fn_buscar_centroPracticaID_informe_inicial_es()
@@ -70,115 +71,53 @@ $$ LANGUAGE plpgsql;
 -- select * from fn_buscar_centroPracticaID_informe_inicial_es()
 
 
-CREATE OR REPLACE FUNCTION fn_agregar_informe_inicial_es(p_id_informe_inicial_es integer, p_estado char(1), p_id_detalle_practica integer)
-RETURNS character varying
-LANGUAGE plpgsql
-AS $function$
-DECLARE
-    informe_inicial_es_existe INTEGER;
-    error_message VARCHAR(255);
-    error_code VARCHAR(5) DEFAULT '99999';
+CREATE FUNCTION fn_agregar_informe_inicial_es(
+  estudiante_id INT,
+  codigo VARCHAR(50),
+  semestre VARCHAR(50),
+  razon_social VARCHAR(100),
+  responsable_practica VARCHAR(100),
+  cargo VARCHAR(50),
+  fecha_inicio DATE,
+  fecha_fin DATE
+) RETURNS INT
 BEGIN
-    BEGIN
-        SELECT COUNT(*) INTO informe_inicial_es_existe
-        FROM INFORME_INICIAL_ES
-        where id_informe_inicial_es = p_id_informe_inicial_es;
-
-        IF informe_inicial_es_existe > 0 THEN
-            RETURN 'Informe inicial estudiante ya existe';
-        END IF;
-        INSERT INTO INFORME_INICIAL_ES(id_informe_inicial_es, estado, id_detalle_practica) VALUES(p_id_informe_inicial_es, p_estado, p_id_detalle_practica);
-    EXCEPTION
-        WHEN OTHERS THEN
-            GET STACKED DIAGNOSTICS error_message = MESSAGE_TEXT,
-                                    error_code = RETURNED_SQLSTATE;
-            error_message := CONCAT('Error: ', error_message);
-            RETURN error_code || ' - ' || error_message;
-    END;
-
-    RETURN 'Operacion realizada con éxito';
+  DECLARE informe_id INT;
+  
+  INSERT INTO InformeInicialEstudiante (estudiante_id, codigo, semestre, razon_social, responsable_practica, cargo, fecha_inicio, fecha_fin)
+  VALUES (estudiante_id, codigo, semestre, razon_social, responsable_practica, cargo, fecha_inicio, fecha_fin);
+  
+  SET informe_id = LAST_INSERT_ID();
+  
+  RETURN informe_id;
 END;
-$function$;
 
-
-CREATE OR REPLACE FUNCTION fn_agregar_informe_inicial_es2( 
-    p_id_estudiante integer,
-    p_id_semestre_academico integer,
-    p_id_centro_practicas integer,
-    p_id_jefe_inmediato integer,
-    p_id_detalle_practica integer,
-    p_id_objetivo integer,
-    p_id_plan_trabajo integer
-) 
-RETURNS character varying 
-AS $$
-DECLARE
-    informe_inicial_es_existe INTEGER;
-    error_message VARCHAR(255);
-    error_code VARCHAR(5) DEFAULT '99999';
+-- Función para actualizar un registro de informe inicial de estudiante
+CREATE FUNCTION fn_actualizar_informe_inicial_es(
+  informe_id INT,
+  estudiante_id INT,
+  codigo VARCHAR(50),
+  semestre VARCHAR(50),
+  razon_social VARCHAR(100),
+  responsable_practica VARCHAR(100),
+  cargo VARCHAR(50),
+  fecha_inicio DATE,
+  fecha_fin DATE
+)
 BEGIN
-	BEGIN
-		SELECT COUNT(*) INTO informe_inicial_es_existe
-        FROM INFORME_INICIAL_ES
-        where id_estudiante = p_id_estudiante;
-    	IF EXISTS (
-        	SELECT 1 FROM INFORME_INICIAL_ES
-       	 	WHERE id_estudiante = p_id_estudiante
-           		AND id_semestre = p_id_semestre
-            	AND id_centro_practicas = p_id_centro_practicas
-            	AND id_jefe_inmediato = p_id_jefe_inmediato
-            	AND id_detalle_practica = p_id_detalle_practica
-            	AND id_objetivo = p_id_objetivo
-            	AND id_plan_trabajo = p_id_plan_trabajo
-    		) THEN
-        		RETURN 'Ya existe un informe con los mismos datos';
-    	END IF;
-        INSERT INTO INFORME_INICIAL_ES (estado, id_estudiante, id_semestre, id_centro_practicas, id_jefe_inmediato, id_detalle_practica, id_objetivo, id_plan_trabajo)
-        VALUES ('P', p_id_estudiante, p_id_semestre, p_id_centro_practicas, p_id_jefe_inmediato, p_id_detalle_practica, p_id_objetivo, p_id_plan_trabajo);
-	EXCEPTION
-        WHEN OTHERS THEN
-            GET STACKED DIAGNOSTICS error_message = MESSAGE_TEXT,
-                                    error_code = RETURNED_SQLSTATE;
-            error_message := CONCAT('Error: ', error_message);
-            RETURN error_code || ' - ' || error_message;
-    END;
-	RETURN 'Operacion realizada con éxito';
+  UPDATE InformeInicialEstudiante
+  SET estudiante_id = estudiante_id,
+      codigo = codigo,
+      semestre = semestre,
+      razon_social = razon_social,
+      responsable_practica = responsable_practica,
+      cargo = cargo,
+      fecha_inicio = fecha_inicio,
+      fecha_fin = fecha_fin
+  WHERE informe_id = informe_id;
+  
+  RETURN informe_id;
 END;
-$function$;
-
-
-CREATE OR REPLACE FUNCTION fn_editar_informe_inicial_es(p_id_informe_inicial_es integer, p_estado char(1), p_id_detalle_practica integer)
-RETURNS character varying
-LANGUAGE plpgsql
-AS $function$
-DECLARE
-    informe_inicial_es_existe INTEGER;
-    error_message VARCHAR(255);
-    error_code VARCHAR(5) DEFAULT '99999';
-BEGIN
-    BEGIN
-        SELECT COUNT(*) INTO informe_inicial_es_existe
-        FROM INFORME_INICIAL_ES
-        where id_informe_inicial_es != p_id_informe_inicial_es;
-
-        IF informe_inicial_es_existe > 0 THEN
-            RETURN 'Informe inicial estudiante ya existe';
-        END IF;
-        UPDATE INFORME_INICIAL_ES
-        SET estado = p_estado,
-            id_detalle_practica = p_id_detalle_practica
-        WHERE id_informe_inicial_es = p_id_informe_inicial_es;
-    EXCEPTION
-        WHEN OTHERS THEN
-            GET STACKED DIAGNOSTICS error_message = MESSAGE_TEXT,
-                                    error_code = RETURNED_SQLSTATE;
-            error_message := CONCAT('Error: ', error_message);
-            RETURN error_code || ' - ' || error_message;
-    END;
-
-    RETURN 'Operacion realizada con éxito';
-END;
-$function$;
 
 
 CREATE OR REPLACE FUNCTION fn_eliminar_informe_inicial_es(p_id integer)
