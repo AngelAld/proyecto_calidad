@@ -128,8 +128,11 @@ CREATE TABLE INFORME_INICIAL_EM (
   PRIMARY KEY (id_informe_inicial_em));
 CREATE TABLE INFORME_INICIAL_ES (
   id_informe_inicial_es SERIAL NOT NULL, 
-  estado                char(1) NOT NULL, 
   id_detalle_practica   int4 NOT NULL, 
+  fecha                 date, 
+  firma_es              text, 
+  firma_jefe            text, 
+  estado                char(1) NOT NULL, 
   PRIMARY KEY (id_informe_inicial_es));
 CREATE TABLE JEFE_INMEDIATO (
   id_jefe_inmediato   SERIAL NOT NULL, 
@@ -210,7 +213,7 @@ CREATE TABLE TITULO_PROFESIONAL (
   PRIMARY KEY (id_titulo));
 CREATE TABLE UBICACION (
   id_ubicacion SERIAL NOT NULL, 
-  num          varchar(255) NOT NULL,
+  num          varchar(255) NOT NULL, 
   via          varchar(255) NOT NULL, 
   lon          varchar(255) NOT NULL, 
   lat          varchar(255) NOT NULL, 
