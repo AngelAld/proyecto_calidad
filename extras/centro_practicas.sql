@@ -43,8 +43,9 @@ CREATE OR REPLACE FUNCTION fn_agregar_centro_practicas(
     p_telefono varchar(12),
     p_correo varchar(255)
 )
-RETURNS varchar(255)
-AS $$
+RETURNS character varying
+LANGUAGE plpgsql
+AS $function$
 DECLARE
     centro_practicas_existe integer;
     error_message varchar(255);
@@ -73,7 +74,7 @@ BEGIN
 
     RETURN 'Operación realizada con éxito';
 END;
-$$ LANGUAGE plpgsql;
+$function$;
 
 
 CREATE OR REPLACE FUNCTION fn_editar_centro_practicas(
