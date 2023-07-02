@@ -152,6 +152,7 @@ BEGIN
 END;
 $function$;
 
+
 CREATE OR REPLACE FUNCTION fn_actualizar_estado_escuela(p_id_escuela integer, p_estado character)
  RETURNS character varying
  LANGUAGE plpgsql

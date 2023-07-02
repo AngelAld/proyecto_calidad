@@ -88,13 +88,13 @@ def buscar_practica_por_ID(id_practica):
 
 
 
-def actualizar_practica(id_practica, id_estudiante, estado, id_linea_desarrollo, fecha_inicio, fecha_fin, id_semestre_academico, horas, id_jefe_inmediato, informacion_adicional):
+def actualizar_practica(id_estudiante, estado, id_linea_desarrollo, fecha_inicio, fecha_fin, id_semestre_academico, horas, id_jefe_inmediato, informacion_adicional):
     conexion = obtener_conexion()
     msg = None
     with conexion.cursor() as cursor:
         cursor.execute(
-            "SELECT fn_editar_practica(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-            (id_practica, id_estudiante, estado, id_linea_desarrollo, fecha_inicio, fecha_fin, id_semestre_academico, horas, id_jefe_inmediato, informacion_adicional),
+            "SELECT fn_editar_practica(%s, %s, %s, %s, %s, %s, %s, %s, %s)",
+            (id_estudiante, estado, id_linea_desarrollo, fecha_inicio, fecha_fin, id_semestre_academico, horas, id_jefe_inmediato, informacion_adicional),
         )
         msg = cursor.fetchone()
     conexion.commit()

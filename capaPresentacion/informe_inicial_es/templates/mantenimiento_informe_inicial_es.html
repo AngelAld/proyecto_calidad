@@ -11,13 +11,11 @@
           <div class="form-group row">
             <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="nombres" readonly >
-              {% for estudiante in estudiante %}
-              <option value="{{ estudiante[0] }}">{{ estudiante[1] }}</option>
+              {% for estudiante in estudiantes %}
+              <input type="text" class="form-control mb-4" id="estudiante" value="{{ estudiante[1] }}" readonly>
               {% endfor %}
             </div>
           </div>     
- 
           <div class="form-group row">
             <label for="codigo" class="col-sm-2 col-form-label">Codigo:</label>
             <div class="col-sm-4">

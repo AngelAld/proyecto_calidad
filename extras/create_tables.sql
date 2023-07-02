@@ -6,11 +6,10 @@ CREATE TABLE ANEXOS (
   PRIMARY KEY (id_anexo, 
   id_informe_final_es));
 CREATE TABLE BIBLIOGRAFIA (
-  id_bibliografia     int4 NOT NULL, 
+  id_bibliografia     SERIAL NOT NULL, 
   id_informe_final_es int4 NOT NULL, 
   descripcion         text NOT NULL, 
-  PRIMARY KEY (id_bibliografia, 
-  id_informe_final_es));
+  PRIMARY KEY (id_bibliografia));
 CREATE TABLE CENTRO_PRACTICAS (
   id_centro_practicas SERIAL NOT NULL, 
   ruc                 varchar(255) NOT NULL, 
@@ -22,11 +21,10 @@ CREATE TABLE CENTRO_PRACTICAS (
   id_ubicacion        int4, 
   PRIMARY KEY (id_centro_practicas));
 CREATE TABLE CONCLUSIONES (
-  id_conclusiones     int4 NOT NULL, 
+  id_conclusiones     SERIAL NOT NULL, 
   id_informe_final_es int4 NOT NULL, 
   descripcion         text NOT NULL, 
-  PRIMARY KEY (id_conclusiones, 
-  id_informe_final_es));
+  PRIMARY KEY (id_conclusiones));
 CREATE TABLE DETALLE_PRACTICA (
   id_detalle_practica   SERIAL NOT NULL, 
   fecha_inicio          date, 
@@ -92,9 +90,9 @@ CREATE TABLE FICHA_DESEMPEÑO (
   compromiso_calidad  int4, 
   organizacion        int4, 
   puntualidad         int4, 
-  fecha               date, 
   estado              char(1) NOT NULL, 
   id_detalle_practica int4 NOT NULL, 
+  fecha               date, 
   PRIMARY KEY (id_ficha_desempeño));
 CREATE TABLE INFORME_FINAL_EM (
   id_informe_final_em SERIAL NOT NULL, 
@@ -157,11 +155,10 @@ CREATE TABLE LINEA_DESARROLLO (
   id_escuela_profesional int4 NOT NULL, 
   PRIMARY KEY (id_linea_desarrollo));
 CREATE TABLE OBJETIVO (
-  id_objetivo           int4 NOT NULL, 
+  id_objetivo           SERIAL NOT NULL, 
   id_informe_inicial_es int4 NOT NULL, 
   descripcion           varchar(255) NOT NULL, 
-  PRIMARY KEY (id_objetivo, 
-  id_informe_inicial_es));
+  PRIMARY KEY (id_objetivo));
 CREATE TABLE PLAN_ESTUDIO (
   id_plan_estudio        SERIAL NOT NULL, 
   nombre                 varchar(50) NOT NULL, 
@@ -169,35 +166,30 @@ CREATE TABLE PLAN_ESTUDIO (
   id_escuela_profesional int4 NOT NULL, 
   PRIMARY KEY (id_plan_estudio));
 CREATE TABLE PLAN_TRABAJO (
-  id_plan_trabajo       int4 NOT NULL, 
+  id_plan_trabajo       SERIAL NOT NULL, 
   id_informe_inicial_es int4 NOT NULL, 
   n_semana              int4 NOT NULL, 
   fecha_inicio          date NOT NULL, 
   fecha_fin             date NOT NULL, 
   actividad             varchar(255) NOT NULL, 
   num_horas             int4 NOT NULL, 
-  PRIMARY KEY (id_plan_trabajo, 
-  id_informe_inicial_es));
+  PRIMARY KEY (id_plan_trabajo));
 CREATE TABLE PRACTICA (
   id_practica   SERIAL NOT NULL, 
   estado        char(1) NOT NULL, 
   id_estudiante int4 NOT NULL, 
   PRIMARY KEY (id_practica));
 CREATE TABLE RECOMENDACIONES (
-  id_recomendaciones     int4 NOT NULL, 
-  id_informe_final_es    int4 NOT NULL, 
-  descripcion            text NOT NULL, 
-  INFORME_FINAL_ESestado char(1) NOT NULL, 
-  PRIMARY KEY (id_recomendaciones, 
-  id_informe_final_es, 
-  INFORME_FINAL_ESestado));
+  id_recomendaciones  SERIAL NOT NULL, 
+  id_informe_final_es int4 NOT NULL, 
+  descripcion         text NOT NULL, 
+  PRIMARY KEY (id_recomendaciones));
 CREATE TABLE RESULTADO_APRENDIZAJE (
-  id_resultado_aprendizaje int4 NOT NULL, 
+  id_resultado_aprendizaje SERIAL NOT NULL, 
   id_ficha_desempeño       int4 NOT NULL, 
   descripcion              varchar(255) NOT NULL, 
   escala                   int4 NOT NULL, 
-  PRIMARY KEY (id_resultado_aprendizaje, 
-  id_ficha_desempeño));
+  PRIMARY KEY (id_resultado_aprendizaje));
 CREATE TABLE ROL (
   id_rol SERIAL NOT NULL, 
   nombre varchar(255) NOT NULL, 

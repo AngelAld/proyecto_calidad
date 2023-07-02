@@ -12,8 +12,7 @@ def formulario_agregar_estudiante():
     else:
         planestudio = c_estudiante.obtener_planestudio()
         semesteacademico = c_estudiante.obtener_semesteacademico()
-        usuario = c_estudiante.obtener_usuario()
-        return render_template("frm_agregar_estudiante.html",planestudio=planestudio,semesteacademico=semesteacademico,usuario=usuario)
+        return render_template("frm_agregar_estudiante.html",planestudio=planestudio,semesteacademico=semesteacademico)
 
 
 @estudiante_bp.route("/guardar_estudiante", methods=["POST"])
@@ -39,7 +38,7 @@ def guardar_estudiante():
         mensaje = c_estudiante.insert(cod_universitario,dni,nombre,correo_usat,correo_personal,telefono, telefono2,  estado,id_semestre_academico_ingreso,id_plan_estudio)
 
         if mensaje == "Operación realizada con éxito":
-            flash(f"estudiante Registrado con Exito", "success")
+            flash(f"Estudiante Registrado con Exito", "success")
             url = "/estudiante"
         else:
             flash(str(mensaje), "error")
@@ -64,7 +63,7 @@ def eliminar_estudiante():
     else:
         mensaje = c_estudiante.delete(request.form["id"])
         if mensaje == "Operación realizada con éxito":
-            flash(f"estudiante Eliminado con Exito", "success")
+            flash(f"Estudiante Eliminado con Exito", "success")
         else:
             flash(str(mensaje), "error")
 
@@ -79,9 +78,7 @@ def editar_estudiante(id):
         estudiante = c_estudiante.getById(id)
         planestudio= c_estudiante.obtener_planestudio()
         semesteacademico= c_estudiante.obtener_semesteacademico()
-        usuario = c_estudiante.obtener_usuario()
-        return render_template("frm_editar_estudiante.html", estudiante=estudiante,planestudio=planestudio,semesteacademico=semesteacademico,usuario=usuario)
-
+        return render_template("frm_editar_estudiante.html", estudiante=estudiante,planestudio=planestudio,semesteacademico=semesteacademico)
 
 @estudiante_bp.route("/actualizar_estudiante", methods=["POST"])
 def actualizar_estudiante():
@@ -101,14 +98,13 @@ def actualizar_estudiante():
             estado = "A"
         else:
             estado = "I"
-        # id_usuario = request.form["usuario"]
         id_semestre_academico_ingreso = request.form["semesteacademico"]
         id_plan_estudio = request.form['planestudio']
         
         mensaje = c_estudiante.update(id, cod_universitario,dni,nombre,correo_usat,correo_personal,telefono, telefono2,  estado,id_semestre_academico_ingreso,id_plan_estudio)
 
         if mensaje == "Operación realizada con éxito":
-            flash(f"estudiante Actualizado con Exito", "success")
+            flash(f"Estudiante Actualizado con Exito", "success")
             url = "/estudiante"
         else:
             flash(str(mensaje), "error")
@@ -126,7 +122,7 @@ def actualizar_estado():
         mensaje = c_estudiante.update_estado(id, estado)
 
         if mensaje == "Operación realizada con éxito":
-            flash(f"estudiante Actualizado con Exito", "success")
+            flash(f"Estado Actualizado con Exito", "success")
         else:
             flash(str(mensaje), "error")
 
@@ -148,11 +144,3 @@ def cmb_semesteacademico():
     else:
         semesteacademico = c_estudiante.obtener_semesteacademico()
         return render_template("estudiante.html", semesteacademico=semesteacademico)
-    
-@estudiante_bp.route("/cmb_usuario")
-def cmb_usuario():
-    if "rol" not in session or session["rol"] != "Docente de Apoyo":
-        return redirect(url_for("inicio.inicio"))
-    else:
-        usuario = c_estudiante.obtener_usuario()
-        return render_template("estudiante.html", usuario=usuario)
