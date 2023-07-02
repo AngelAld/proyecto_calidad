@@ -5,12 +5,12 @@
   <div class="card">
     <div class="row justify-content-center">
       <div class="col-md-10 mb-10">
-        <div class="chart-container" style="height: 500px;">
+        <div class="chart-container" style="height: 550px;">
           <canvas id="barChart"></canvas>
         </div>
       </div>
     </div>
-  </div><br>
+  </div>
   <div class="row">
     <div class="text-end">
       <input type="button" class="btn btn-success" class="fas fa-save" value="Exportar" onClick="window.print()">
@@ -76,7 +76,8 @@ var barChart = new Chart(ctxBar, {
           font: {
             weight: 'bold',
             size: 14
-          }
+          },
+//           precision: 0 // Mostrar valores enteros
         }
       }
     },

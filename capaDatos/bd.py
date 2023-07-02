@@ -10,7 +10,6 @@ import psycopg2
 #                             database='db_calidad')
 
 
-
 def obtener_conexion():
       return psycopg2.connect(host='jelani.db.elephantsql.com',
                               port=5432,
