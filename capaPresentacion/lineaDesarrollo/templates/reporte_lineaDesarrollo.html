@@ -25,9 +25,8 @@
 
 <script>
 // Gráfico de barras
-var datos = "{{ datos }}";
-var nombresLineas = decodeURIComponent("{{ nombres_lineas }}");
-nombresLineas = JSON.parse(nombresLineas);
+var datos = {{ datos }};
+var nombresLineas = {{ nombres_lineas | safe }};
 console.log(nombresLineas)
 
 var ctxBar = document.getElementById('barChart').getContext('2d');
