@@ -20,7 +20,7 @@
         <table class="table table-hover align-middle table-bordered" id="tablita">
           <thead>
             <tr class="table-danger">
-              <th class="col-2 text-center">Estudiante</th>
+              <th class="col-4 text-center">Estudiante</th>
               <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
               <th class="col-1 text-center">Mas detalles</th>
               <th class="col-1 text-center">Eliminar</th>
@@ -29,7 +29,7 @@
           <tbody>
             {% for practica in practicas %}
             <tr>
-              <td class="col-2 text-center">{{practica[1]}}</td>
+              <td class="col-4">{{practica[1]}}</td>
               <td class="col-1 text-center d-none d-md-table-cell">
                 <form action="{{url_for('practica.actualizar_estado_practica')}}" method="POST" class="actualizar_estado">
                   <input type="hidden" name="id" value="{{practica[0]}}">
