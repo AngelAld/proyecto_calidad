@@ -248,7 +248,7 @@ CREATE OR REPLACE FUNCTION fn_consultar_practica_por_ID(p_id_practica INTEGER)
 RETURNS TABLE (
     id_detalle_practica INTEGER,
     id_practica INTEGER,
-    id_estudiante INTEGER,
+    iestudiante VARCHAR,
     estado CHARACTER,
     id_linea_desarrollo INTEGER,
     fecha_inicio DATE,
@@ -266,7 +266,7 @@ BEGIN
     SELECT
         dp.id_detalle_practica,
         p.id_practica,
-        p.id_estudiante,
+        e.nombre,
         dp.estado,
         dp.id_linea_desarrollo,
         dp.fecha_inicio,
@@ -284,6 +284,8 @@ BEGIN
         jefe_inmediato ji ON ji.id_jefe_inmediato = dp.id_jefe_inmediato
     LEFT JOIN -- Cambio a LEFT JOIN para incluir detalles sin centro_practicas
         centro_practicas cppp ON ji.id_centro_practicas = cppp.id_centro_practicas
+    INNER JOIN -- Se une la tabla estudiante
+        estudiante e ON e.id_estudiante = p.id_estudiante
     WHERE
         p.id_practica = p_id_practica;
 END;

@@ -19,8 +19,9 @@
 {% set fecha_fin = detallePractica[6] %}
 {% set centro_practica = detallePractica[7] %}
 {% set jefe_inmediato = detallePractica[10] %}
-{% set semestre_academico = detallePractica[8] %}
+{% set semestre = detallePractica[8] %}
 {% set linea_desarrollo = detallePractica[4] %}
+
 {% set horas = detallePractica[9] %}
 {% set informacion_adicional = detallePractica[11] %}
 {% set estado = detallePractica[3] %}
@@ -47,7 +48,7 @@
                 <label for="fechaInicio" class="col-lg-2 col-form-label">Fecha de Inicio:</label>
                 <div class="col-lg-6">
                   <input type="date" class="form-control input" id="fechaInicio" name="fechaInicio"
-                    value="{{fecha_inicio}}">
+                    value="{{fecha_inicio}}" readonly disabled>
                 </div>
                 <div class="col d-none d-xl-block">
                 </div>
@@ -55,7 +56,8 @@
               <div class="form-group mb-4 row">
                 <label for="fechaFin" class="col-lg-2 col-form-label">Fecha de Fin:</label>
                 <div class="col-lg-6">
-                  <input type="date" class="form-control input" id="fechaFin" name="fechaFin" value="{{fecha_fin}}">
+                  <input type="date" class="form-control input" id="fechaFin" name="fechaFin" value="{{fecha_fin}}"
+                    readonly disabled>
                 </div>
                 <div class="col d-none d-xl-block">
                 </div>
@@ -66,7 +68,7 @@
                   <select class="form-select input" id="centro_practica" name="centro_practica"
                     value="{{centro_practica}}">
                     {% for centro_practica in centro_practicas %}
-                    <option value="{{ centro_practica[0] }}">{{ centro_practica[1] }}</option>
+                    <option value="{{ centro_practica[0] }}" {% if centro_practica[0]==centro_practica %} selected {% endif %}>{{ centro_practica[1] }}</option>
                     {% endfor %}
                   </select>
                 </div>
@@ -78,7 +80,10 @@
                 <div class="col-lg-6">
                   <select class="form-select input" id="jefeInmediato" name="jefeInmediato" value="{{jefe_inmediato}}">
                     {% for jefeInmediato in jefeInmediatos %}
-                    <option value="{{jefeInmediato[0]}}">{{jefeInmediato[1]}}</option>
+
+                    <option value="{{jefeInmediato[0]}}" {% if jefeInmediato[0]==jefe_inmediato %} selected {% endif %}>
+                      {{jefeInmediato[1]}}</option>
+
                     {% endfor %}
                   </select>
                 </div>
@@ -91,7 +96,8 @@
                   <select class="form-select input" id="semestreAcademico" name="semestreAcademico"
                     value="{{semestre_academico}}">
                     {% for semestre_academico in semestre_academicos %}
-                    <option value="{{semestre_academico[0]}}">{{semestre_academico[1]}}</option>
+                    <option value="{{semestre_academico[0]}}" {% if semestre_academico[0]==semestre %} selected {% endif
+                      %}>{{semestre_academico[1]}}</option>
                     {% endfor %}
                   </select>
                 </div>
@@ -104,7 +110,8 @@
                   <select class="form-select input" id="lineaDesarrollo" name="lineaDesarrollo"
                     value="{{semestre_academico}}">
                     {% for lineaDesarrollo in lineaDesarrollos %}
-                    <option value="{{lineaDesarrollo[0]}}">{{lineaDesarrollo[1]}}</option>
+                    <option value="{{lineaDesarrollo[0]}}" {% if lineaDesarrollo[0]==linea_desarrollo %} selected {%
+                      endif %}>{{lineaDesarrollo[1]}}</option>
                     {% endfor %}
                   </select>
                 </div>
@@ -114,7 +121,8 @@
               <div class="form-group mb-4 row">
                 <label for="horas" class="col-lg-2 col-form-label">HORAS:</label>
                 <div class="col-lg-6">
-                  <input type="text" class="form-control input" id="horas" name="horas" value="{{horas}}">
+                  <input type="text" class="form-control input" id="horas" name="horas" value="{{horas}}" readonly
+                    disabled>
                 </div>
                 <div class="col d-none d-xl-block">
                 </div>
@@ -141,16 +149,17 @@
                 </div>
               </div>
               <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
-              <form action="{{url_for('practica.eliminar_detalle_practica')}}" method="POST"
-                class="eliminar_detalle_practica">
-                <input type="hidden" name="id" value="{{detallePractica[0]}}">
-                <button type="submit" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip"
-                  data-bs-title="Eliminar Detalle Practica" onclick="event.preventDefault(); eliminar(this.parentNode)">
-                  <i class="bi bi-trash-fill"> Eliminar</i>
+              <span class="eliminar_detalle_practica" data-id="{{detallePractica[0]}}" onclick="eliminar2(this)">
+                <button type="button" class="btn btn-danger" data-bs-toggle="tooltip"
+                  data-bs-title="Eliminar Detalle Practica">
+                  <i class="bi bi-trash-fill"></i>&nbsp;&nbsp;Eliminar
                 </button>
-              </form>
+              </span>
+              <input type="hidden" name="id" value="{{detallePractica[0]}}">
+
+
               <a href="{{ url_for('practica.practicas') }}" class="btn btn-secondary"><i
-                class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
+                  class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
             </div>
           </div>
         </div>
@@ -158,6 +167,41 @@
   </form>
 </div>
 {% endfor %}
+
+
+
+<script>
+  async function eliminar2(span) {
+
+    const result = await Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esta acción no se puede deshacer',
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'NO',
+      confirmButtonText: 'SI',
+      reverseButtons: false
+    });
+
+    if (result.isConfirmed) {
+      // Envía el formulario
+      let id = span.getAttribute("data-id");
+      let url = "{{url_for('practica.eliminar_detalle_practica')}}";
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id })
+      }).then(() => {
+        location.reload();
+      });
+    }
+
+
+  }
+</script>
+
 
 
 <script>
@@ -173,7 +217,6 @@
 
       if (formulario.id === valorSeleccionado) {
         formulario.classList.remove("d-none");
-        console.log(formulario.id)
       } else {
         formulario.classList.add("d-none");
       }
@@ -188,6 +231,8 @@
     }
   });
 </script>
+
+
 
 
 {% endblock %}

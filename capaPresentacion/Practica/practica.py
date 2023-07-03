@@ -72,7 +72,8 @@ def eliminar_detalle_practica():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        detalle_id = request.form["id"]
+        data = request.get_json()
+        detalle_id = data['id']
         deleted = c_practica.eliminar_detalle_practica(detalle_id)
         print('Si esta entrando')
         if deleted:
@@ -88,10 +89,26 @@ def editar_practica(id):
         return redirect(url_for("inicio.inicio"))
     else:
         practica = c_practica.buscar_practica_por_ID(id)
+        if practica == []:
+            c_practica.eliminar_practica(id)
+            flash("Se eliminaron todos los detalles de esta practica pre profesional", "warning")
+            return redirect("/practicas")
         centro_practicas = c_practica.obtener_centro_practicas()
+        if centro_practicas == []:
+            flash("No se encontraron centros de practica", "error")
+            return redirect("/practicas")
         jefeInmediatos = c_practica.obtener_jefe_inmediato()
+        if jefeInmediatos == []:
+            flash("No se encontraron Jefes inmediatos", "error")
+            return redirect("/practicas")
         semestre_academicos = c_practica.obtener_semestre()
+        if semestre_academicos == []:
+            flash("No se encontraron Semestres Académicos", "error")
+            return redirect("/practicas")
         lineaDesarrollos = c_practica.obtener_lineaDesarrollo()
+        if lineaDesarrollos == []:
+            flash("No se encontraron lineas de desarrollo", "error")
+            return redirect("/practicas")
         print((practica))
         return render_template("frm_editar_practica.html", detallesPracticas=practica, centro_practicas=centro_practicas, jefeInmediatos=jefeInmediatos, semestre_academicos=semestre_academicos, lineaDesarrollos=lineaDesarrollos)
 
@@ -102,18 +119,14 @@ def actualizar_practica():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        id_practica = request.form.get("id")
-        id_estudiante = request.form.get("estudiante")  # Corregido aquí
+        id_d_practica = request.form.get("id")
         estado = request.form.get("estado")
         id_linea_desarrollo = request.form.get("lineaDesarrollo")
-        fecha_inicio = request.form.get("fechaInicio")
-        fecha_fin = request.form.get("fechaFin")
         id_semestre_academico = request.form.get("semestreAcademico")
-        horas = request.form.get("horas")
         id_jefe_inmediato = request.form.get("jefeInmediato")
         informacion_adicional = request.form.get("informacionAdicional")
 
-        mensaje = c_practica.actualizar_practica(id_estudiante, estado, id_linea_desarrollo, fecha_inicio, fecha_fin, id_semestre_academico, horas, id_jefe_inmediato, informacion_adicional)
+        mensaje = c_practica.actualizar_practica(id_d_practica, id_linea_desarrollo, id_jefe_inmediato, informacion_adicional, estado, id_semestre_academico)
 
         if mensaje == "Operación realizada con éxito":
             flash("Práctica actualizada con éxito", "success")
