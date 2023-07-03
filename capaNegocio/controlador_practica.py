@@ -156,3 +156,41 @@ def obtener_lineaDesarrollo():
         lineaDesarrollo = cursor.fetchall()
     conexion.close()
     return lineaDesarrollo
+
+#--------------------------------------------------------------------#
+def grafico_estudiantes():
+    try:
+        conexion = obtener_conexion()
+    except Exception as e:
+        return "Error al conectar con la base de datos: " + str(e)
+
+    datos = []
+
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute("SELECT nombre FROM linea_desarrollo")
+            lista_desarrollo = cursor.fetchall()
+
+            for linea in lista_desarrollo:
+                cursor.execute("""
+                    SELECT COUNT(DISTINCT es.nombre)
+                    FROM linea_desarrollo ld
+                    INNER JOIN detalle_practica dp ON dp.id_linea_desarrollo = ld.id_linea_desarrollo
+                    INNER JOIN practica pr ON pr.id_practica = dp.id_practica
+                    INNER JOIN estudiante es ON es.id_estudiante = pr.id_estudiante
+                    WHERE ld.nombre = %s
+                    AND EXTRACT(YEAR FROM pr.fecha_inicio) <= 2023
+                    AND EXTRACT(YEAR FROM pr.fecha_fin) >= 2023
+                """, (linea[0],))
+
+                conteo = cursor.fetchone()
+                datos.append((conteo[0], linea[0]))
+
+    except Exception as e:
+        conexion.rollback()
+        return "Error al obtener los datos: " + str(e)
+
+    finally:
+        conexion.close()
+
+    return datos
