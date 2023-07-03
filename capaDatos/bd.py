@@ -2,13 +2,12 @@
 import psycopg2
 
 
-# def obtener_conexion():
-#     return psycopg2.connect(host='angelar-3301.postgres.pythonanywhere-services.com',
-#                             port=13301,
-#                             user='super',
-#                             password='PROYECTOCALIDAD',
-#                             database='db_calidad')
-
+#def obtener_conexion():
+#    return psycopg2.connect(host='angelar-3301.postgres.pythonanywhere-services.com',
+#                            port=13301,
+#                            user='super',
+#                            password='PROYECTOCALIDAD',
+#                            database='db_calidad')
 
 def obtener_conexion():
       return psycopg2.connect(host='jelani.db.elephantsql.com',

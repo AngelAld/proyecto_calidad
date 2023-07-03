@@ -10,7 +10,7 @@ def listar_practicas():
     conexion.close()
     return practica
 
-def agregar_practica(id_estudiante, estado, id_linea_desarrollo, fecha_inicio, fecha_fin, id_semestre_academico, horas, id_jefe_inmediato, informacion_adicional):
+def agregar_practica(id_estudiante, estado, id_linea_desarrollo, id_semestre_academico, id_jefe_inmediato, informacion_adicional):
     conexion = obtener_conexion()
     msg = ""
     try:
@@ -28,15 +28,9 @@ def agregar_practica(id_estudiante, estado, id_linea_desarrollo, fecha_inicio, f
                 # Registra una nueva práctica y obtiene el ID generado
                 cursor.execute("INSERT INTO PRACTICA (id_estudiante, estado) VALUES (%s,'P') RETURNING id_practica", (id_estudiante,))
                 id_practica = cursor.fetchone()[0]
-            if not fecha_inicio or not fecha_fin:
-                raise ValueError("Debe proporcionar las fechas de inicio y fin.")
-            if not horas:
-                raise ValueError("Debe proporcionar las horas de práctica.")
-            if not informacion_adicional:
-                raise ValueError("Debe proporcionar información adicional.")
             # Registra un nuevo detalle de práctica
-            cursor.execute("INSERT INTO DETALLE_PRACTICA (fecha_inicio, fecha_fin, informacion_adicional, estado, horas, id_practica, id_jefe_inmediato, id_semestre_academico, id_linea_desarrollo) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                           (fecha_inicio, fecha_fin, informacion_adicional, estado, horas, id_practica, id_jefe_inmediato, id_semestre_academico, id_linea_desarrollo))
+            cursor.execute("INSERT INTO DETALLE_PRACTICA (informacion_adicional, estado, id_practica, id_jefe_inmediato, id_semestre_academico, id_linea_desarrollo) VALUES (%s, %s, %s, %s, %s, %s)",
+                           (informacion_adicional, estado, id_practica, id_jefe_inmediato, id_semestre_academico, id_linea_desarrollo))
 
             # Confirma la transacción
             conexion.commit()
@@ -65,14 +59,20 @@ def eliminar_practica(id):
     return msg[0] if msg is not None else None
 
 def eliminar_detalle_practica(id):
-    conexion = obtener_conexion()
-    msg = None
-    with conexion.cursor() as cursor:
-        cursor.execute("SELECT fn_eliminar_detalle_practica(%s)", (id,))
-        msg = cursor.fetchone()
-    conexion.commit()
-    conexion.close()
-    return msg[0] if msg is not None else None
+    try:
+        conexion = obtener_conexion()
+        conexion.autocommit = False
+        with conexion.cursor() as cursor:
+            # Elimina los datos directamente en lugar de usar una función SQL
+            cursor.execute("DELETE FROM detalle_practica WHERE id_detalle_practica = %s", (id,))
+        conexion.commit()
+        msg = "Operación realizada con éxito"
+    except Exception as e:
+        conexion.rollback()
+        msg = str(e)       
+    finally:
+        conexion.close()
+    return msg
 
 def buscar_practica_por_ID(id_practica):
     conexion = obtener_conexion()
@@ -88,18 +88,34 @@ def buscar_practica_por_ID(id_practica):
 
 
 
-def actualizar_practica(id_practica, id_estudiante, estado, id_linea_desarrollo, fecha_inicio, fecha_fin, id_semestre_academico, horas, id_jefe_inmediato, informacion_adicional):
-    conexion = obtener_conexion()
-    msg = None
-    with conexion.cursor() as cursor:
-        cursor.execute(
-            "SELECT fn_editar_practica(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-            (id_practica, id_estudiante, estado, id_linea_desarrollo, fecha_inicio, fecha_fin, id_semestre_academico, horas, id_jefe_inmediato, informacion_adicional),
-        )
-        msg = cursor.fetchone()
-    conexion.commit()
-    conexion.close()
-    return msg[0] if msg is not None else None
+def actualizar_practica(id_detalle_practica, id_linea_desarrollo, id_jefe_inmediato, informacion_adicional, estado, id_semestre_academico):
+    try:   
+        conexion = obtener_conexion()
+        conexion.autocommit = False 
+        with conexion.cursor() as cursor:  
+            # Actualiza los campos relevantes directamente          
+            cursor.execute("""
+                UPDATE detalle_practica
+                SET id_linea_desarrollo = %s,
+                    id_jefe_inmediato = %s,
+                    informacion_adicional = %s,
+                    estado = %s,
+                    id_semestre_academico = %s   
+                WHERE id_detalle_practica = %s""",
+                (id_linea_desarrollo,
+                 id_jefe_inmediato, 
+                 informacion_adicional, 
+                 estado,
+                 id_semestre_academico,
+                 id_detalle_practica))           
+        conexion.commit()       
+        msg = "Operación realizada con éxito"         
+    except Exception as e:
+        conexion.rollback()
+        msg = str(e)
+    finally:      
+        conexion.close()
+    return msg
 
 
 def dar_baja_practica(id_practica, estado):
@@ -136,7 +152,7 @@ def obtener_centro_practicas():
 def obtener_jefe_inmediato():
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT id_jefe_inmediato, nombre FROM JEFE_INMEDIATO")
+        cursor.execute("SELECT id_jefe_inmediato, nombre, id_centro_practicas FROM JEFE_INMEDIATO")
         jefeInmediato = cursor.fetchall()
     conexion.close()
     return jefeInmediato
@@ -156,3 +172,41 @@ def obtener_lineaDesarrollo():
         lineaDesarrollo = cursor.fetchall()
     conexion.close()
     return lineaDesarrollo
+
+#--------------------------------------------------------------------#
+def grafico_estudiantes():
+    try:
+        conexion = obtener_conexion()
+    except Exception as e:
+        return "Error al conectar con la base de datos: " + str(e)
+
+    datos = []
+
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute("SELECT nombre FROM linea_desarrollo")
+            lista_desarrollo = cursor.fetchall()
+
+            for linea in lista_desarrollo:
+                cursor.execute("""
+                    SELECT COUNT(DISTINCT es.nombre)
+                    FROM linea_desarrollo ld
+                    INNER JOIN detalle_practica dp ON dp.id_linea_desarrollo = ld.id_linea_desarrollo
+                    INNER JOIN practica pr ON pr.id_practica = dp.id_practica
+                    INNER JOIN estudiante es ON es.id_estudiante = pr.id_estudiante
+                    WHERE ld.nombre = %s
+                    AND EXTRACT(YEAR FROM pr.fecha_inicio) <= 2023
+                    AND EXTRACT(YEAR FROM pr.fecha_fin) >= 2023
+                """, (linea[0],))
+
+                conteo = cursor.fetchone()
+                datos.append((conteo[0], linea[0]))
+
+    except Exception as e:
+        conexion.rollback()
+        return "Error al obtener los datos: " + str(e)
+
+    finally:
+        conexion.close()
+
+    return datos

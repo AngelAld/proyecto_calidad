@@ -1,6 +1,7 @@
 from capaDatos.bd import obtener_conexion
 from werkzeug.security import check_password_hash, generate_password_hash
 import smtplib
+import psycopg2
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
@@ -70,3 +71,37 @@ El staff de EduTech.'''
     except Exception as e:
         print(f'Error al enviar el correo electrónico: {e}')
 
+
+def actualizar_contrasena(id_usuario, contrasena_actual, nueva_contrasena):
+    conexion = obtener_conexion()
+
+    try:
+        with conexion.cursor() as cursor:
+            # Verificar la contraseña actual del usuario
+            cursor.execute("SELECT clave FROM usuario WHERE id_usuario = %s", (id_usuario,))
+            resultado = cursor.fetchone()
+            if resultado is None:
+                print("Usuario no encontrado.")
+                return None
+            clave_actual = resultado[0]
+
+            # Comparar la contraseña actual ingresada con la registrada en la base de datos
+            if not check_password(clave_actual, contrasena_actual):
+                print("La contraseña actual ingresada no coincide.")
+                return None
+
+            # Actualizar la contraseña del usuario
+            gener_nueva_contrasena = generate_password(nueva_contrasena)
+            cursor.execute("UPDATE usuario SET clave = %s WHERE id_usuario = %s", (gener_nueva_contrasena, id_usuario))
+
+        # Confirmar los cambios en la base de datos
+        conexion.commit()
+        print("Contraseña actualizada con éxito.")
+    except (Exception, psycopg2.Error) as error:
+        print("Error al actualizar la contraseña:", error)
+        return None
+    finally:
+        if conexion:
+            conexion.close()
+
+    return True

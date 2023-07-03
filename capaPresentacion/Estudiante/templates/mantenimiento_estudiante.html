@@ -1,32 +1,6 @@
 {% extends "maestra/maestra.html" %}
 {% block contenido %}
 <section class="section">
-
-    <script>
-        function soloLetras(event) {
-            var charCode = event.keyCode || event.which;
-            var charStr = String.fromCharCode(charCode);
-            var pattern = /^[a-zA-Z\ssáéíóúÁÉÍÓÚñÑ]+$/;
-            if (!pattern.test(charStr)) {
-                event.preventDefault();
-                return false;
-            }
-        }
-    </script>
-
-    <script>
-        function soloNumeros(event) {
-            var charCode = event.keyCode || event.which;
-            var charStr = String.fromCharCode(charCode);
-            var pattern = /^[0-9\s\-()]+$/;
-
-            if (!pattern.test(charStr)) {
-                event.preventDefault();
-                return false;
-            }
-        }
-    </script>
-
     <div class="row">
         <div class="col">
             <div class="card">

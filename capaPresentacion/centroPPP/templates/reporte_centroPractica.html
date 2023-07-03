@@ -1,0 +1,96 @@
+{% extends "maestra/maestra.html" %}
+{% block titulo %} Reporte de Centro de Practicas {% endblock %}
+{% block contenido %}
+<div class="container">
+  <div class="card">
+    <div class="row justify-content-center">
+      <div class="col-md-10 mb-10">
+        <div class="chart-container" style="height: 550px;">
+          <canvas id="barChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="text-end">
+      <input type="button" class="btn btn-success" class="fas fa-save" value="Exportar" onClick="window.print()">
+      <a href="{{url_for('centroPPP.centro_PPP')}}" class="btn btn-secondary"><i
+          class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
+    </div>
+  </div>
+</div>
+
+{% endblock%}
+{% set titulo2 = "Reporte de Centro Practicas " %}
+{% block scripts %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+// Gráfico de barras
+var datos = {{ datos }};
+var nombresLineas = ({{ alias | safe }});
+var ctxBar = document.getElementById('barChart').getContext('2d');
+var barChart = new Chart(ctxBar, {
+  type: 'bar',
+  data: {
+    labels: nombresLineas,
+    datasets: [{
+      label: 'GRÁFICO DE BARRAS: "CANTIDAD DE ESTUDIANTES POR CENTRO DE PRACTICAS"',
+      data: datos ,
+      backgroundColor: 'rgba(231, 197, 43, 0.8)',
+      borderColor: 'rgba(0, 0, 0, 1)',
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Centro de Practicas', // Título del eje X
+          font: {
+            weight: 'bold', // Letra en negrita
+            size: 16 // Tamaño de la letra en píxeles
+          }
+        },
+        ticks: {
+          font: {
+            weight: 'bold',
+            size: 14 
+          }
+        }
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Cantidad de Estudiantes', 
+          font: {
+            weight: 'bold',
+            size: 16 
+          }
+        },
+        ticks: {
+          font: {
+            weight: 'bold',
+            size: 14
+          },
+           precision: 0 // Mostrar valores enteros
+        }
+      }
+    },
+    plugins: {
+      legend: {
+        labels: {
+          font: {
+            weight: 'bold',
+            size: 16
+          }
+        }
+      }
+    }
+  }
+});
+</script>
+ 
+{% endblock %}

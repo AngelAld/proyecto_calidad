@@ -19,3 +19,6 @@ def inicio():
         return render_template(inicio, datos=datos)
     else:
         return redirect(url_for('usuario.login'))
+    
+
+    

@@ -20,7 +20,7 @@
         <table class="table table-hover align-middle table-bordered" id="tablita">
           <thead>
             <tr class="table-danger">
-              <th class="col-2 text-center">Estudiante</th>
+              <th class="col-4 text-center">Estudiante</th>
               <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
               <th class="col-1 text-center">Mas detalles</th>
               <th class="col-1 text-center">Eliminar</th>
@@ -29,13 +29,13 @@
           <tbody>
             {% for practica in practicas %}
             <tr>
-              <td class="col-2 text-center">{{practica[1]}}</td>
+              <td class="col-4">{{practica[1]}}</td>
               <td class="col-1 text-center d-none d-md-table-cell">
                 <form action="{{url_for('practica.actualizar_estado_practica')}}" method="POST" class="actualizar_estado">
                   <input type="hidden" name="id" value="{{practica[0]}}">
                   <input type="hidden" name="estado" value="{{practica[2]}}">
                   {% if practica[2]=='P' %}
-                  <button type="button" class="estado btn ls-button btn-warning" data-bs-toggle="tooltip"
+                  <button type="button" class="estado btn ls-button btn-warning text-white" data-bs-toggle="tooltip"
                     data-bs-title="Finalizar Practica" onclick="event.preventDefault(); checkbox(this.parentNode)">
                     <i class="fa fa-hourglass-end"></i>
                   </button>
@@ -65,6 +65,10 @@
             {% endfor %}
           </tbody>
         </table>
+        <div class="col-auto text-end above-table">
+          <a href="{{url_for('practica.formulario_reporte_practica')}}" class="btn btn-success"><i
+              class="fas fa-plus-circle"></i>&nbsp;REPORTE</a>
+        </div>
       </div>
 
     </div>

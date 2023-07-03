@@ -8,6 +8,28 @@
 </head>{% endblock %}
 {% block contenido %}
 <section class="section">
+    <script>
+        function soloLetras(event) {
+            var charCode = event.keyCode || event.which;
+            var charStr = String.fromCharCode(charCode);
+            var pattern = /^[a-zA-Z\.\-\ssáéíóúÁÉÍÓÚñÑ]+$/;
+            if (!pattern.test(charStr)) {
+                event.preventDefault();
+                return false;
+            }
+        }
+
+        function soloNumeros(event) {
+            var charCode = event.keyCode || event.which;
+            var charStr = String.fromCharCode(charCode);
+            var pattern = /^[0-9\s\-()]+$/;
+
+            if (!pattern.test(charStr)) {
+                event.preventDefault();
+                return false;
+            }
+        }
+    </script>
     <div class="row cppp">
         <div class="col">
             <div class="card">
@@ -18,13 +40,15 @@
 
                         <div class="form-floating mb-4">
                             <input value="{{ruc}}" required type="text" class="form-control input" placeholder="ruc"
-                                name="ruc" id="ruc">
+                                name="ruc" id="ruc"
+                                onkeypress="return soloNumeros(event)">
                             <label for="ruc">RUC</label>
                         </div>
 
                         <div class="form-floating mb-4">
                             <input value="{{razon_social}}" required type="text" class="form-control input"
-                                name="razon_social" id="razon_social">
+                                name="razon_social" id="razon_social"
+                                onkeypress="return soloLetras(event)">
                             <label for="razon_social">Razón Social</label>
                         </div>
 
@@ -42,7 +66,8 @@
 
                         <div class="form-floating mb-4">
                             <input value="{{telefono}}" required type="text" class="form-control input" name="telefono"
-                                id="telefono">
+                                id="telefono"
+                                onkeypress="return soloNumeros(event)">
                             <label for="alias">Teléfono</label>
                         </div>
 
