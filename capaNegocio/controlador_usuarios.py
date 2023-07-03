@@ -74,7 +74,6 @@ El staff de EduTech.'''
 
 def actualizar_contrasena(id_usuario, contrasena_actual, nueva_contrasena):
     conexion = obtener_conexion()
-    msg = []
 
     try:
         with conexion.cursor() as cursor:
@@ -83,26 +82,26 @@ def actualizar_contrasena(id_usuario, contrasena_actual, nueva_contrasena):
             resultado = cursor.fetchone()
             if resultado is None:
                 print("Usuario no encontrado.")
-                return
+                return None
             clave_actual = resultado[0]
 
             # Comparar la contraseña actual ingresada con la registrada en la base de datos
             if not check_password(clave_actual, contrasena_actual):
                 print("La contraseña actual ingresada no coincide.")
-                return
+                return None
 
             # Actualizar la contraseña del usuario
             gener_nueva_contrasena = generate_password(nueva_contrasena)
             cursor.execute("UPDATE usuario SET clave = %s WHERE id_usuario = %s", (gener_nueva_contrasena, id_usuario))
-            msg = cursor.fetchone()
 
         # Confirmar los cambios en la base de datos
         conexion.commit()
         print("Contraseña actualizada con éxito.")
     except (Exception, psycopg2.Error) as error:
         print("Error al actualizar la contraseña:", error)
+        return None
     finally:
         if conexion:
             conexion.close()
 
-    return msg[0] if msg is not None else None
+    return True
