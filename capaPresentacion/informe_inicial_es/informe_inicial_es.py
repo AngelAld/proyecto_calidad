@@ -5,7 +5,8 @@ informe_inicial_es_bp = Blueprint("informe_inicial_es", __name__, template_folde
 
 @informe_inicial_es_bp.route("/informe_inicia_es")
 def informe_inicial_es():
-    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+    rol = session.get("rol")
+    if not rol or (rol !="Docente de Apoyo" and rol != "Estudiante"):
         return redirect(url_for("inicio.inicio"))
     else:
         informe_inicial_es = c_informe_inicial_es.listar_informe_inicial_es()
@@ -13,18 +14,18 @@ def informe_inicial_es():
     
 @informe_inicial_es_bp.route("/agregar_informe_inicial_es")
 def agregar_informe_inicial_es():
-    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+    rol = session.get("rol")
+    if not rol or (rol !="Docente de Apoyo" and rol != "Estudiante"):
         return redirect(url_for("inicio.inicio"))
     else:  
-        estudiantes = c_informe_inicial_es.obtener_nombre_estudiante()
-        codigoEstudiante = c_informe_inicial_es.obtener_codigo_estudiante()
-        semestreEstudiante = c_informe_inicial_es.obtener_semestre_estudiante()
-        razonSocialCpp = c_informe_inicial_es.obtener_razon_social_cpp()
-        NomResponsableCpp = c_informe_inicial_es.obtener_nombre_responsable_practica()
-        CarResponsableCpp = c_informe_inicial_es.obtener_cargo_responsable_practica()
+        datos_estudiantes = c_informe_inicial_es.listar_datos_estudiante()
+        #id_estudiante = session.get("id_estudiante") 
+        #datos_estudiantes = c_informe_inicial_es.listar_datos_estudiante(id_estudiante)
+        datos_centro_especial = c_informe_inicial_es.listar_datos_centro_practica()
+        return render_template("mantenimiento_informe_inicial_es.html",datos_estudiantes=datos_estudiantes, datos_centro_especial=datos_centro_especial) 
 
-        return render_template("mantenimiento_informe_inicial_es.html",estudiantes=estudiantes,codigoEstudiante=codigoEstudiante,semestreEstudiante=semestreEstudiante,razonSocialCpp=razonSocialCpp,NomResponsableCpp=NomResponsableCpp,CarResponsableCpp=CarResponsableCpp) 
-    
+
+
 @informe_inicial_es_bp.route("/actualizar_estado_informe_inicial", methods=["POST"])
 def actualizar_estado():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
@@ -46,7 +47,8 @@ def actualizar_estado():
 
 @informe_inicial_es_bp.route("/actualizar_informe_inicial_es", methods=["POST"])
 def editar_informe_inicial_es():
-    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+    rol = session.get("rol")
+    if not rol or (rol !="Docente de Apoyo" and rol != "Estudiante"):
         return redirect(url_for("inicio.inicio"))
     else:
         id_informe_inicial_es = request.form["id"]

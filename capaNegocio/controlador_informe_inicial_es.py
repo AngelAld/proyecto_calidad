@@ -79,64 +79,30 @@ def eliminar_informe_inicial_es(id_informe_inicial_es):
     return msg[0] if msg is not None else None
 
 #********************************************* Lo uso para listar los datos de estudiante*
-def obtener_nombre_estudiante():
+def listar_datos_estudiante():
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT es.id_estudiante, es.nombre FROM INFORME_INICIAL_ES ini_es INNER JOIN DETALLE_PRACTICA dp ON dp.id_detalle_practica = ini_es.id_detalle_practica INNER JOIN PRACTICA pr ON pr.id_practica = dp.id_practica INNER JOIN ESTUDIANTE es ON es.id_estudiante = pr.id_estudiante")
-        estudiante = cursor.fetchall()
+        cursor.execute("select * from fn_listar_datosEstudiante_informe_inicial_es()")
+        datos_estudiante = cursor.fetchall()
     conexion.close()
-    return estudiante
+    return datos_estudiante 
 
-def obtener_codigo_estudiante():
+""" def listar_datos_estudiante(id_estudiante):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT es.id_estudiante, es.cod_universitario FROM INFORME_INICIAL_ES ini_es INNER JOIN DETALLE_PRACTICA dp ON dp.id_detalle_practica = ini_es.id_detalle_practica INNER JOIN PRACTICA pr ON pr.id_practica = dp.id_practica INNER JOIN ESTUDIANTE es ON es.id_estudiante = pr.id_estudiante")
-        codigo_estudiante = cursor.fetchall()
-    conexion.close()
-    return codigo_estudiante
-
-def obtener_semestre_estudiante():
-    conexion = obtener_conexion()
-    with conexion.cursor() as cursor:
-        cursor.execute("SELECT sa.id_semestre, sa.nombre FROM INFORME_INICIAL_ES ini_es INNER JOIN DETALLE_PRACTICA dp ON dp.id_detalle_practica = ini_es.id_detalle_practica INNER JOIN PRACTICA pr ON pr.id_practica = dp.id_practica INNER JOIN ESTUDIANTE es ON es.id_estudiante = pr.id_estudiante INNER JOIN SEMESTRE_ACADEMICO sa ON es.id_semestre_academico_ingreso = sa.id_semestre")
-        semestre_estudiante = cursor.fetchall()
-    conexion.close()
-    return semestre_estudiante
-
-
-""" def listar_estudianteID_informe_inicial_es():
-    conexion = obtener_conexion()
-    with conexion.cursor() as cursor:
-        cursor.execute("SELECT es.nombre,es.cod_universitario,sa.nombre FROM INFORME_INICIAL_ES ini_es INNER JOIN DETALLE_PRACTICA dp ON dp.id_detalle_practica = ini_es.id_detalle_practica INNER JOIN PRACTICA pr ON pr.id_practica = dp.id_practica INNER JOIN ESTUDIANTE es ON es.id_estudiante = pr.id_estudiante INNER JOIN SEMESTRE_ACADEMICO sa ON es.id_semestre_academico_ingreso = sa.id_semestre")
+        cursor.execute("SELECT * from fn_listar_datosEstudiante_informe_inicial_es()", (id_estudiante,))
         datos_estudiante = cursor.fetchall()
     conexion.close()
     return datos_estudiante """
 
-
 #********************************************* Lo uso para listar los datos de centro de practicas pre profesional*
-def obtener_razon_social_cpp():
+def listar_datos_centro_practica():
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
-        cursor.execute(" SELECT cp.razon_social FROM INFORME_INICIAL_ES ini_es INNER JOIN DETALLE_PRACTICA dp ON dp.id_detalle_practica = ini_es.id_detalle_practica INNER JOIN JEFE_INMEDIATO ji ON dp.id_jefe_inmediato = ji.id_jefe_inmediato INNER JOIN CENTRO_PRACTICAS cp ON ji.id_centro_practicas = cp.id_centro_practicas")
-        razon_social_cpp = cursor.fetchall()
+        cursor.execute("select * from fn_listar_datosCentroP_informe_inicial_es()")
+        datos_centro_practica = cursor.fetchall()
     conexion.close()
-    return razon_social_cpp
-
-def obtener_nombre_responsable_practica():
-    conexion = obtener_conexion()
-    with conexion.cursor() as cursor:
-        cursor.execute("SELECT ji.nombre FROM INFORME_INICIAL_ES ini_es INNER JOIN DETALLE_PRACTICA dp ON dp.id_detalle_practica = ini_es.id_detalle_practica INNER JOIN JEFE_INMEDIATO ji ON dp.id_jefe_inmediato = ji.id_jefe_inmediato INNER JOIN CENTRO_PRACTICAS cp ON ji.id_centro_practicas = cp.id_centro_practicas")
-        nombre_responsable_practica = cursor.fetchall()
-    conexion.close()
-    return nombre_responsable_practica
-
-def obtener_cargo_responsable_practica():
-    conexion = obtener_conexion()
-    with conexion.cursor() as cursor:
-        cursor.execute("SELECT ji.cargo FROM INFORME_INICIAL_ES ini_es INNER JOIN DETALLE_PRACTICA dp ON dp.id_detalle_practica = ini_es.id_detalle_practica INNER JOIN JEFE_INMEDIATO ji ON dp.id_jefe_inmediato = ji.id_jefe_inmediato INNER JOIN CENTRO_PRACTICAS cp ON ji.id_centro_practicas = cp.id_centro_practicas")
-        cargo_responsable_practica = cursor.fetchall()
-    conexion.close()
-    return cargo_responsable_practica
+    return datos_centro_practica
 
 def buscar_informe_inicial_id(id):
     conexion = obtener_conexion()
@@ -150,13 +116,6 @@ def buscar_informe_inicial_id(id):
     conexion.close()
     return informe_inicial
 
-""" def listar_centroPracticasID_informe_inicial_es():
-    conexion = obtener_conexion()
-    with conexion.cursor() as cursor:
-        cursor.execute("SELECT cp.razon_social,ji.nombre,ji.cargo FROM INFORME_INICIAL_ES ini_es INNER JOIN DETALLE_PRACTICA dp ON dp.id_detalle_practica = ini_es.id_detalle_practica INNER JOIN JEFE_INMEDIATO ji ON dp.id_jefe_inmediato = ji.id_jefe_inmediato INNER JOIN CENTRO_PRACTICAS cp ON ji.id_centro_practicas = cp.id_centro_practicas")
-        datos_centroPracticas = cursor.fetchall()
-    conexion.close()
-    return datos_centroPracticas """
 
 def calcular_puntaje_total_informe_inicial(id_estudiante):
     conexion = obtener_conexion()

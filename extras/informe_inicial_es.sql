@@ -174,3 +174,55 @@ BEGIN
     RETURN 'Operación realizada con éxito';
 END;
 $function$;
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------
+CREATE or REPLACE FUNCTION fn_listar_datosEstudiante_informe_inicial_es()
+RETURNS TABLE(
+	nombre varchar(255),
+	codigo  char(10),
+  semestre varchar(255)
+)
+AS $$ 
+BEGIN 
+    RETURN QUERY 
+    SELECT 
+        es.nombre,es.cod_universitario,sa.nombre as semestre
+    FROM PRACTICA p 
+		INNER JOIN ESTUDIANTE es ON es.id_estudiante = p.id_estudiante
+		INNER JOIN SEMESTRE_ACADEMICO SA ON sa.id_semestre = es.id_semestre_academico_ingreso
+		INNER JOIN DETALLE_PRACTICA dp ON dp.id_practica = p.id_practica;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE or REPLACE FUNCTION fn_listar_datosCentroP_informe_inicial_es()
+RETURNS TABLE(
+	nombres varchar(255),
+	nombre  varchar(255),
+  cargo varchar(255),
+	fecha_inicio date,
+	fecha_fin date
+)
+AS $$ 
+BEGIN 
+    RETURN QUERY 
+ SELECT 
+        cp.razon_social,ji.nombre,ji.cargo,dp.fecha_inicio,dp.fecha_fin
+    FROM PRACTICA p 
+		INNER JOIN ESTUDIANTE es ON es.id_estudiante = p.id_estudiante
+		INNER JOIN DETALLE_PRACTICA dp ON dp.id_practica = p.id_practica
+		INNER JOIN JEFE_INMEDIATO ji ON dp.id_jefe_inmediato = ji.id_jefe_inmediato 
+		INNER JOIN CENTRO_PRACTICAS cp ON ji.id_centro_practicas = cp.id_centro_practicas;
+END;
+$$ LANGUAGE plpgsql;

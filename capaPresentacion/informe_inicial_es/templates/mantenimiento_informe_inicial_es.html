@@ -11,15 +11,15 @@
           <div class="form-group row">
             <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
             <div class="col-sm-4">
-              {% for estudiante in estudiantes %}
-              <input type="text" class="form-control mb-4" id="estudiante" value="{{ estudiante[1] }}" readonly>
-              {% endfor %}
+              <input type="text" class="form-control" id="estudiante" value="{{ datos_estudiantes[0]}}" readonly>
             </div>
-          </div>     
+          </div> 
+          
+        
           <div class="form-group row">
             <label for="codigo" class="col-sm-2 col-form-label">Codigo:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="codigo" readonly>
+              <input type="text" class="form-control" id="codigo" value="{{ datos_estudiantes[0]}}" readonly>
               </select>
             </div>
           </div>
@@ -37,12 +37,12 @@
 
     <div class="row mt-3">
       <div class="col-12">
-        <h4>Datos del Centro de Practica Pre Profesional</h4>
+        <h4>Datos del Centro de Practica Pre Profesional</h4> 
         <form>
           <div class="form-group row">
             <label for="razon_social" class="col-sm-2 col-form-label">Razon social:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="razon_social" readonly>
+              <input type="text" class="form-control" id="razon_social" value="{{ datos_centro_especial[0]}}" readonly>
             </div>
           </div>
           <div class="form-group row">
