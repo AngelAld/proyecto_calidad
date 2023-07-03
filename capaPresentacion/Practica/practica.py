@@ -139,3 +139,12 @@ def actualizar_estado_practica():
             flash(str(mensaje), "error")
 
         return redirect("/practicas")
+    
+
+@practica_bp.route("/reporte_practica")
+def formulario_reporte_practica():
+    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+        return redirect(url_for("inicio.inicio"))
+    else:
+        datos = c_practica.grafico_estudiantes()
+        return render_template("reporte_practica.html", datos=datos)
