@@ -40,24 +40,6 @@
                 <div class="d-none" id="elementosForm">
                     {# Enviar el id en un campo oculto #}
                     <input value="{{id}}" type="hidden" name="id">
-
-                    <div class="mb-4 row">
-                        <label for="usuario" class="col-lg-2 col-form-label">Usuario:</label>
-                        <div class="col-lg-6">
-                            <input value="{{session['nombre']}}" required type="text" class="form-control input"
-                                placeholder="usuario" name="usuario" id="usuario">
-                        </div>
-
-
-                    </div>
-                    <div class="mb-4 row">
-                        <label for="usuario" class="col-lg-2 col-form-label">Rol:</label>
-                        <div class="col-lg-6">
-                            <input value="{{session['rol']}}" required type="text" class="form-control input"
-                                placeholder="usuario" name="usuario" id="usuario" disabled>
-                        </div>
-                    </div>  
-
                     <div class="mb-4 row">
                         <label for="contrasena" class="col-lg-2 col-form-label">Contraseña actual:</label>
                         <div class="col-lg-6">

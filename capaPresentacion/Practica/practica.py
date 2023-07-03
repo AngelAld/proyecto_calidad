@@ -88,13 +88,12 @@ def editar_practica(id):
         return redirect(url_for("inicio.inicio"))
     else:
         practica = c_practica.buscar_practica_por_ID(id)
-        estudiantes = c_practica.obtener_estudiantes()
         centro_practicas = c_practica.obtener_centro_practicas()
         jefeInmediatos = c_practica.obtener_jefe_inmediato()
         semestre_academicos = c_practica.obtener_semestre()
         lineaDesarrollos = c_practica.obtener_lineaDesarrollo()
         print((practica))
-        return render_template("frm_editar_practica.html", detallesPracticas=practica, estudiantes=estudiantes, centro_practicas=centro_practicas, jefeInmediatos=jefeInmediatos, semestre_academicos=semestre_academicos, lineaDesarrollos=lineaDesarrollos)
+        return render_template("frm_editar_practica.html", detallesPracticas=practica, centro_practicas=centro_practicas, jefeInmediatos=jefeInmediatos, semestre_academicos=semestre_academicos, lineaDesarrollos=lineaDesarrollos)
 
 
 
