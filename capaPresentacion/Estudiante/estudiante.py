@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, flash, session, url_for
 from capaNegocio import controlador_Estudiante as c_estudiante
-
+import pandas as pd
 
 estudiante_bp = Blueprint("estudiante", __name__, template_folder="templates")
 
@@ -13,6 +13,34 @@ def formulario_agregar_estudiante():
         planestudio = c_estudiante.obtener_planestudio()
         semesteacademico = c_estudiante.obtener_semesteacademico()
         return render_template("frm_agregar_estudiante.html",planestudio=planestudio,semesteacademico=semesteacademico)
+
+@estudiante_bp.route("/importar_estudiantes")
+def importar_estudiantes():
+    return render_template('subir_excel.html')
+
+@estudiante_bp.route("/subir_estudiantes", methods=['post'])
+def subir_estudiantes():
+    print('##############')
+    print('##############')
+    print('##############')
+    archivo = request.files['file']
+    df = pd.read_excel(archivo)
+    try:
+        registros = []
+        for index, row in df.iterrows():    
+            registro = [row['Codigo Universitario'], 
+                        row['Nombres'],
+                        row['Escuela Profesional'], 
+                        row['DNI'], 
+                        row['Correo1'], 
+                        row['Correo2']]
+            registros.append(registro)
+        return render_template("tabla.html", registros=registros)
+    except:
+        flash('El archivo no tiene las columnas correctas', 'error')
+        return redirect('/importar_estudiantes')
+
+
 
 
 @estudiante_bp.route("/guardar_estudiante", methods=["POST"])

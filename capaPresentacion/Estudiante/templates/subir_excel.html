@@ -1,0 +1,73 @@
+{% extends "maestra/maestra.html" %}
+{% block titulo %} Importar Estudiantes {% endblock %}
+{% set titulo2 = "Importar Estudiantes" %}
+{% block contenido %}
+<section>
+    <div class="card">
+        <div class="card-body">
+            <form id="uploadForm">
+                <div class="input-group">
+                    <form action="{{url_for('estudiante.subir_estudiantes')}}" method="post" id="enviar_estudiantes">
+                        <div class="row mt-2">
+                            <div class="col-7">
+                                <input class="form-control form-control-lg" id="archivo" type="file" required>
+                            </div>
+                            <div class="col-auto">
+                                <button type="submit" onclick="event.preventDefault(); enviar()"
+                                    class="btn btn-success btn-lg" id="cargar">Cargar</button>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" readonly
+                                    class="form control form-control-lg form-control-plaintext text-danger" id="mensaje"
+                                    value="">
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                {% if registros %}
+                <div class="card">
+                    <div class="card-body">
+                        {% for registro in registros %}
+                        <tr>
+                            <td>{{ registro[0] }}</td>
+                            <td>{{ registro[1] }}</td>
+                            <td>{{ registro[2] }}</td>
+                            <td>{{ registro[3] }}</td>
+                            <td>{{ registro[4] }}</td>
+                            <td>{{ registro[5] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+        function enviar() {
+            const formulario = document.querySelector('#enviar_estudiantes')
+            const archivo = document.querySelector("input[type=file]").files[0];
+            if (!archivo) {
+                document.getElementById("mensaje").value = "Debes seleccionar un archivo";
+                return;
+            }
+            const extension = archivo.name.split('.').pop();
+
+            if (extension != "xls" && extension != "xlsx" && extension != "xlsm" && extension != "xlsb" && extension != "odt" && extension != "ods" && extension != "odf") {
+                document.getElementById("mensaje").value = "Formato de archivo incorrecto";
+            } else {
+                document.getElementById("mensaje").value = "";
+                if (formulario) {
+                    formulario.submit()
+                } else {
+                    console.log('No se pudo encontrar el formulario')
+                }
+            }
+        }; 
+    </script>
+
+
+    {% endblock %}
