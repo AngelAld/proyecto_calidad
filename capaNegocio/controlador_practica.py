@@ -10,7 +10,7 @@ def listar_practicas():
     conexion.close()
     return practica
 
-def agregar_practica(id_estudiante, estado, id_linea_desarrollo, fecha_inicio, fecha_fin, id_semestre_academico, horas, id_jefe_inmediato, informacion_adicional):
+def agregar_practica(id_estudiante, estado, id_linea_desarrollo, id_semestre_academico, id_jefe_inmediato, informacion_adicional):
     conexion = obtener_conexion()
     msg = ""
     try:
@@ -28,15 +28,9 @@ def agregar_practica(id_estudiante, estado, id_linea_desarrollo, fecha_inicio, f
                 # Registra una nueva práctica y obtiene el ID generado
                 cursor.execute("INSERT INTO PRACTICA (id_estudiante, estado) VALUES (%s,'P') RETURNING id_practica", (id_estudiante,))
                 id_practica = cursor.fetchone()[0]
-            if not fecha_inicio or not fecha_fin:
-                raise ValueError("Debe proporcionar las fechas de inicio y fin.")
-            if not horas:
-                raise ValueError("Debe proporcionar las horas de práctica.")
-            if not informacion_adicional:
-                raise ValueError("Debe proporcionar información adicional.")
             # Registra un nuevo detalle de práctica
-            cursor.execute("INSERT INTO DETALLE_PRACTICA (fecha_inicio, fecha_fin, informacion_adicional, estado, horas, id_practica, id_jefe_inmediato, id_semestre_academico, id_linea_desarrollo) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                           (fecha_inicio, fecha_fin, informacion_adicional, estado, horas, id_practica, id_jefe_inmediato, id_semestre_academico, id_linea_desarrollo))
+            cursor.execute("INSERT INTO DETALLE_PRACTICA (informacion_adicional, estado, id_practica, id_jefe_inmediato, id_semestre_academico, id_linea_desarrollo) VALUES (%s, %s, %s, %s, %s, %s)",
+                           (informacion_adicional, estado, id_practica, id_jefe_inmediato, id_semestre_academico, id_linea_desarrollo))
 
             # Confirma la transacción
             conexion.commit()

@@ -15,8 +15,6 @@ def formulario_agregar_practica():
         jefeInmediatos=c_practica.obtener_jefe_inmediato()
         semestre_academicos=c_practica.obtener_semestre()
         lineaDesarrollos=c_practica.obtener_lineaDesarrollo()
-
-
         return render_template("frm_agregar_practica.html",estudiantes=estudiantes,centro_practicas=centro_practicas,jefeInmediatos=jefeInmediatos,semestre_academicos=semestre_academicos,lineaDesarrollos=lineaDesarrollos)
 
 
@@ -26,23 +24,14 @@ def guardar_practica():
         return redirect(url_for("inicio.inicio"))
     else:
         id_estudiante = int(request.form["estudiante"])
-        frm_estado = request.form.get("estado")
-        if frm_estado == "on":
-            estado = "p"
-        else:
-            estado = "F"
-
+        estado = request.form["estado"]
         id_linea_desarrollo = request.form["lineaDesarrollo"]
-        fecha_inicio = request.form["fechaInicio"]
-        fecha_fin = request.form["fechaFin"]
         id_semestre_academico = request.form["semestreAcademico"]
-        horas = request.form["horas"]
         id_jefe_inmediato = request.form["jefeInmediato"]
         informacion_adicional = request.form["informacionAdicional"]
     try:
         mensaje = c_practica.agregar_practica(
-            id_estudiante, estado, id_linea_desarrollo, fecha_inicio,
-            fecha_fin, id_semestre_academico, horas, id_jefe_inmediato,
+            id_estudiante, estado, id_linea_desarrollo, id_semestre_academico, id_jefe_inmediato,
             informacion_adicional
         )
 

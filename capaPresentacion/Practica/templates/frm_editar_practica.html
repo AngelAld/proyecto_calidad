@@ -3,6 +3,15 @@
 {% set titulo2 = "Editar Práctica" %}
 {% block contenido %}
 
+<div class="text-right mb-3 col-2">
+  <select class="form-select" id="selectFormulario" name="selectFormulario">
+    {% for detallePractica in detallesPracticas%}
+    <option value="{{ detallePractica[0] }}"> Practica {{ loop.index }} </option>
+    {% endfor %}
+  </select>
+</div>
+
+
 {% for detallePractica in detallesPracticas %}
 {% set id = detallePractica[0] %}
 {% set estudiante_seleccionado = detallePractica[2] %}
@@ -16,18 +25,13 @@
 {% set informacion_adicional = detallePractica[11] %}
 {% set estado = detallePractica[3] %}
 {% set url = url_for('practica.actualizar_practica') %}
+
+
+<div class="formulario" id="{{ detallePractica[0] }}">
 <form action="{{url}}" method="post">
   <section class="section">
     <div class="row">
       <div class="col">
-        <div class="text-right mb-3 ">
-          <label for="detallePractica">Detalle de Práctica</label>
-          <select class="form-select" id="detallePractica" name="detallePractica">
-            <option value="1">Práctica 1</option>
-            <option value="2">Práctica 2</option>
-            <option value="3">Práctica 3</option>
-          </select>
-        </div>
         <div class="card">
           <div class="card-body">
             <div class="form-group mb-4 row">
@@ -168,5 +172,38 @@
     </div>
   </section>
 </form>
+</div>
 {% endfor %}
+
+
+<script>
+  const selectFormulario = document.getElementById("selectFormulario");
+  const formularios = document.querySelectorAll(".formulario");
+  var valorSeleccionado = selectFormulario.value;
+  
+  selectFormulario.addEventListener("change", (event) => {
+    
+    valorSeleccionado = selectFormulario.value;
+
+    formularios.forEach((formulario) => {
+
+      if (formulario.id === valorSeleccionado) {
+        formulario.classList.remove("d-none");
+        console.log(formulario.id)
+      } else {
+        formulario.classList.add("d-none");
+      }
+    });
+  });
+
+  formularios.forEach((formulario) => {
+    
+    if (formulario.id === valorSeleccionado) {
+      } else {
+        formulario.classList.add("d-none");
+      }
+  });
+</script>
+
+
 {% endblock %}

@@ -5,14 +5,6 @@
   <section class="section">
     <div class="row">
       <div class="col">
-        <div class="text-right mb-3 d-none">
-          <label for="detallePractica">Detalle de Práctica</label>
-          <select class="form-select" id="detallePractica" name="detallePractica">
-            <option value="1">Práctica 1</option>
-            <option value="2">Práctica 2</option>
-            <option value="3">Práctica 3</option>
-          </select>
-        </div>
         <div class="card">
           <div class="card-body">
             <div class="form-group mb-4 row">
@@ -20,27 +12,10 @@
               <div class="col-lg-6">
                 <select class="form-select input" id="estudiante" name="estudiante">
                   {% for estudiante in estudiantes %}
-                    <option value="{{ estudiante[0] }}" {% if estudiante[0] == estudiante_seleccionado %}selected{% endif %}>{{ estudiante[1] }}</option>
+                  <option value="{{ estudiante[0] }}" {% if estudiante[0]==estudiante_seleccionado %}selected{% endif
+                    %}>{{ estudiante[1] }}</option>
                   {% endfor %}
                 </select>
-              </div>
-              <div class="col d-none d-xl-block"> 
-              </div>
-            </div>
-            <div class="form-group mb-4 row">
-              <label for="fechaInicio" class="col-lg-2 col-form-label">Fecha de Inicio:</label>
-              <div class="col-lg-6">
-                <input type="date" class="form-control input" id="fechaInicio" name="fechaInicio" value="{{fecha_inicio}}">
-              </div>
-              <div class="col d-none d-xl-block"> 
-              </div>
-            </div>
-            <div class="form-group mb-4 row">
-              <label for="fechaFin" class="col-lg-2 col-form-label">Fecha de Fin:</label>
-              <div class="col-lg-6">
-                <input type="date" class="form-control input" id="fechaFin" name="fechaFin">
-              </div>
-              <div class="col d-none d-xl-block"> 
               </div>
             </div>
             <div class="form-group mb-4 row">
@@ -52,8 +27,6 @@
                   {% endfor %}
                 </select>
               </div>
-              <div class="col d-none d-xl-block"> 
-              </div>
             </div>
             <div class="form-group mb-4 row">
               <label for="jefeInmediato" class="col-lg-2 col-form-label">Jefe Inmediato:</label>
@@ -63,8 +36,6 @@
                   <option value="{{jefeInmediato[0]}}">{{jefeInmediato[1]}}</option>
                   {% endfor %}
                 </select>
-              </div>
-              <div class="col d-none d-xl-block"> 
               </div>
             </div>
             <div class="form-group mb-4 row">
@@ -76,8 +47,6 @@
                   {% endfor %}
                 </select>
               </div>
-              <div class="col d-none d-xl-block"> 
-              </div>
             </div>
             <div class="form-group mb-4 row">
               <label for="lineaDesarrollo" class="col-lg-2 col-form-label">Línea de Desarrollo:</label>
@@ -88,25 +57,16 @@
                   {% endfor %}
                 </select>
               </div>
-              <div class="col d-none d-xl-block"> 
-              </div>
             </div>
-            <div class="form-group mb-4 row">
-              <label for="horas" class="col-lg-2 col-form-label">HORAS:</label>
-              <div class="col-lg-6">
-                <input type="text" class="form-control input" id="horas" name="horas" value="{{horas}}">
-              </div>
-              <div class="col d-none d-xl-block"> 
-              </div>
-            </div>
+
             <div class="form-group mb-4 row">
               <label for="informacionAdicional" class="col-lg-2 col-form-label">Información Adicional:</label>
               <div class="col-lg-6">
-                <textarea class="form-control input" id="informacionAdicional" name="informacionAdicional" value="{{informacion_adicional}}"></textarea>
-              </div>
-              <div class="col d-none d-xl-block"> 
+                <textarea class="form-control input" id="informacionAdicional" name="informacionAdicional"
+                  value="{{informacion_adicional}}"></textarea>
               </div>
             </div>
+
             <div class="form-group mb-4 row">
               <label for="estado" class="col-lg-2 col-form-label">Estado:</label>
               <div class="col-lg-6">
@@ -116,28 +76,18 @@
                   <option value="O">Otro estado</option>
                 </select>
               </div>
-              <div class="col d-none d-xl-block"> 
-              </div>
             </div>
-          </div>
-        </div>
-          <div class="card-footer text-center">
             <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
             <a href="{{ url_for('practica.practicas') }}" class="btn btn-primary">Regresar</a>
+
+
           </div>
         </div>
+      </div>
+      <div class="col d-none d-xl-block">
       </div>
     </div>
   </section>
 </form>
 
 {% endblock %}
-
-
-
-
-
-
-
-
-
