@@ -1,0 +1,102 @@
+{% extends "maestra/maestra.html" %}
+{% block titulo %} Reporte de Practica {% endblock %}
+{% block contenido %}
+<div class="container">
+  <div class="card">
+    <div class="row justify-content-center">
+      <div class="col-md-10 mb-10">
+        <div class="chart-container" style="height: 550px;">
+          <canvas id="barChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="text-end">
+      <input type="button" class="btn btn-success" value="Exportar" onClick="window.print()">
+      <a href="{{ url_for('practica.practicas') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>&nbsp;&nbsp;Regresar</a>
+    </div>
+  </div>
+</div>
+
+{% endblock%}
+{% set titulo2 = "Reporte de Practica Pre Profesional" %}
+{% block scripts %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+// Gráfico de barras
+var datos = {{ datos|safe }};
+var nombresLineas = [];
+
+// Obtener los nombres de las líneas de desarrollo
+for (var i = 0; i < datos.length; i++) {
+  nombresLineas.push(datos[i][1]);
+}
+
+var ctxBar = document.getElementById('barChart').getContext('2d');
+var barChart = new Chart(ctxBar, {
+  type: 'bar',
+  data: {
+    labels: nombresLineas,
+    datasets: [{
+      label: 'GRÁFICO DE BARRAS: "CANTIDAD DE ESTUDIANTES QUE REALIZARON SU PRACTICA EN 2023"',
+      data: datos.map(function(item) { return item[0]; }),
+      backgroundColor: 'rgba(217, 93, 2, 0.9)',
+      borderColor: 'rgba(177, 75, 0, 1)',
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Año', // Título del eje X
+          font: {
+            weight: 'bold', // Letra en negrita
+            size: 16 // Tamaño de la letra en píxeles
+          }
+        },
+        ticks: {
+          font: {
+            weight: 'bold',
+            size: 14 
+          }
+        }
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Cantidad de Estudiantes', 
+          font: {
+            weight: 'bold',
+            size: 16 
+          }
+        },
+        ticks: {
+          font: {
+            weight: 'bold',
+            size: 14
+          },
+          precision: 0 // Mostrar valores enteros
+        }
+      }
+    },
+    plugins: {
+      legend: {
+        labels: {
+          font: {
+            weight: 'bold',
+            size: 16
+          }
+        }
+      }
+    }
+  }
+});
+</script>
+ 
+{% endblock %}
+
