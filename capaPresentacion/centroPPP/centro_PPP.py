@@ -108,14 +108,14 @@ def actualizar_estado_CPPP():
             flash(str(mensaje), "error")
 
         return redirect("/centro_PPP")
-
+#***********************REPORTES****************************************
 @cPPP_bp.route("/reporte_centroPractica")
-def formulario_reporte_lineaDesarrollo():
+def formulario_reporte_centroPractica():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        datos,nombres_lineas = c_cppp.grafico_centroPPP()   
-        return render_template("reporte_lineaDesarrollo.html", datos=datos, nombres_lineas=nombres_lineas)    
+        datos,alias = c_cppp.grafico_centroPPP()   
+        return render_template("reporte_centroPractica.html", datos=datos, alias=alias)    
 
 @cPPP_bp.route("/ubicacion", methods=["POST"])
 def ubicacion():

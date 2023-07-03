@@ -125,7 +125,7 @@ def grafico_centroPPP():
             alias.append(cppp[0])  # Agregar el nombre del centro de practica
             
             # Obtener el conteo de estudiantes por centro de practicas
-            cursor.execute("SELECT cp.alias, COUNT(DISTINCT es.nombre) FROM centro_practicas cp INNER JOIN jefe_inmediato ji ON ji.id_centro_practicas = cp.id_centro_practicas INNER JOIN detalle_practica dp ON dp.id_jefe_inmediato = ji.id_jefe_inmediato INNER JOIN practica pr ON pr.id_practica = dp.id_practica INNER JOIN estudiante es ON es.id_estudiante = pr.id_estudiante WHERE cp.razon_social = %s", (cppp[0],))
+            cursor.execute("SELECT COUNT(DISTINCT es.nombre) FROM centro_practicas cp INNER JOIN jefe_inmediato ji ON ji.id_centro_practicas = cp.id_centro_practicas INNER JOIN detalle_practica dp ON dp.id_jefe_inmediato = ji.id_jefe_inmediato INNER JOIN practica pr ON pr.id_practica = dp.id_practica INNER JOIN estudiante es ON es.id_estudiante = pr.id_estudiante WHERE cp.alias = %s", (cppp[0],))
             conteo = cursor.fetchone()
             datos.append(conteo[0])
     # Imprimir los valores para verificar
