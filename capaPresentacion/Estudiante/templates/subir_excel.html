@@ -3,50 +3,99 @@
 {% set titulo2 = "Importar Estudiantes" %}
 {% block contenido %}
 <section>
-    <div class="card">
+    <div class="card mb-4">
         <div class="card-body">
-            <form id="uploadForm">
-                <div class="input-group">
-                    <form action="{{url_for('estudiante.subir_estudiantes')}}" method="post" id="enviar_estudiantes">
-                        <div class="row mt-2">
-                            <div class="col-7">
-                                <input class="form-control form-control-lg" id="archivo" type="file" required>
-                            </div>
-                            <div class="col-auto">
-                                <button type="submit" onclick="event.preventDefault(); enviar()"
-                                    class="btn btn-success btn-lg" id="cargar">Cargar</button>
-                            </div>
-                            <div class="col-6">
-                                <input type="text" readonly
-                                    class="form control form-control-lg form-control-plaintext text-danger" id="mensaje"
-                                    value="">
-                            </div>
+            <div class="input-group">
+                <form action="{{url_for('estudiante.subir_excel')}}" method="post" id="enviar_estudiantes"
+                    enctype="multipart/form-data">
+                    <div class="row mt-2">
+                        <div class="col-7">
+                            <input class="form-control form-control-lg" id="archivo" type="file" required name="file">
                         </div>
-                    </form>
-
-                </div>
-                {% if registros %}
-                <div class="card">
-                    <div class="card-body">
-                        {% for registro in registros %}
-                        <tr>
-                            <td>{{ registro[0] }}</td>
-                            <td>{{ registro[1] }}</td>
-                            <td>{{ registro[2] }}</td>
-                            <td>{{ registro[3] }}</td>
-                            <td>{{ registro[4] }}</td>
-                            <td>{{ registro[5] }}</td>
-                        </tr>
-                        {% endfor %}
+                        <div class="col-auto">
+                            <button type="submit" onclick="event.preventDefault(); enviar()"
+                                class="btn btn-success btn-lg" id="cargar">Cargar</button>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" readonly
+                                class="form control form-control-lg form-control-plaintext text-danger" id="mensaje"
+                                value="">
+                        </div>
                     </div>
-                </div>
-                {% endif %}
-            </form>
+                </form>
+
+            </div>
+
+
+
 
         </div>
     </div>
 
+    {% if registros %}
+    <div class="row">
+        <div class="col">
+
+        </div>
+        <div class="col-2 text-end above-table">
+            <input id="searchbar" class="form-control" type="text" placeholder="Buscar">
+        </div>
+    </div>
+
+    <div class="col-auto">
+        <table class="table table-hover align-middle table-bordered" id="tablita">
+            <thead>
+                <tr class="table-danger">
+                    <th>Código Universitario</th>
+                    <th>Nombres</th>
+                    <th>Escuela Profesional</th>
+                    <th>DNI</th>
+                    <th>Correo USAT</th>
+                    <th>Correo personal</th>
+                    <th>Telefono 1</th>
+                    <th>Telefono 2</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                {% for registro in registros %}
+                <tr>
+                    <td>{{ registro[0] }}</td>
+                    <td>{{ registro[1] }}</td>
+                    <td>{{ registro[2] }}</td>
+                    <td>{{ registro[3] }}</td>
+                    <td>{{ registro[4] }}</td>
+                    <td>{{ registro[5] }}</td>
+                    <td>{{ registro[6] }}</td>
+                    <td>{{ registro[7] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true"
+            data-bs-delay="3000">
+            <div class="toast-header text-bg-primary">
+                <strong class="me-auto">Archivo cargado</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+            </div>
+            <div class="toast-body">
+                El archivo {{ archivo.filename }} se ha cargado correctamente.
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+
+    {% if archivo is defined %}
     <script>
+        $(document).ready(function () {
+            $('.toast').toast('show');
+        });
+    </script>
+    {% endif %}
+    <script>
+
         function enviar() {
             const formulario = document.querySelector('#enviar_estudiantes')
             const archivo = document.querySelector("input[type=file]").files[0];
@@ -66,7 +115,9 @@
                     console.log('No se pudo encontrar el formulario')
                 }
             }
-        }; 
+        };
+
+
     </script>
 
 
