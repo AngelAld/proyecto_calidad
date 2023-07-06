@@ -1,5 +1,5 @@
 {% extends "maestra/maestra.html" %}
-{% block titulo %} Reporte de Practica {% endblock %}
+{% block titulo %}Reporte de Practica Pre Profesional{% endblock %}
 {% block contenido %}
 <div class="container">
   <div class="card">
@@ -26,77 +26,71 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-// Gráfico de barras
-var datos = {{ datos|safe }};
-var nombresLineas = [];
-
-// Obtener los nombres de las líneas de desarrollo
-for (var i = 0; i < datos.length; i++) {
-  nombresLineas.push(datos[i][1]);
-}
-
-var ctxBar = document.getElementById('barChart').getContext('2d');
-var barChart = new Chart(ctxBar, {
-  type: 'bar',
-  data: {
-    labels: nombresLineas,
-    datasets: [{
-      label: 'GRÁFICO DE BARRAS: "CANTIDAD DE ESTUDIANTES QUE REALIZARON SU PRACTICA EN 2023"',
-      data: datos.map(function(item) { return item[0]; }),
-      backgroundColor: 'rgba(217, 93, 2, 0.9)',
-      borderColor: 'rgba(177, 75, 0, 1)',
-      borderWidth: 1
-    }]
-  },
-  options: {
-    scales: {
-      x: {
-        title: {
-          display: true,
-          text: 'Año', // Título del eje X
-          font: {
-            weight: 'bold', // Letra en negrita
-            size: 16 // Tamaño de la letra en píxeles
+  // Gráfico de barras
+  var datos = {{ datos }};
+  var nombresMeses = ({{ nombres_meses| safe }});
+  var ctxBar = document.getElementById('barChart').getContext('2d');
+  var barChart = new Chart(ctxBar, {
+    type: 'bar',
+    data: {
+      labels: nombresMeses,
+      datasets: [{
+        label: 'GRÁFICO DE BARRAS: "PRACTICAS DE ESTUDIANTES POR AÑO"',
+        data: datos ,
+        backgroundColor: 'rgba(217, 93, 2, 0.9)',
+        borderColor: 'rgba(177, 75, 0, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: 'AÑO', // Título del eje X
+            font: {
+              weight: 'bold', // Letra en negrita
+              size: 16 // Tamaño de la letra en píxeles
+            }
+          },
+          ticks: {
+            font: {
+              weight: 'bold',
+              size: 14 
+            }
           }
         },
-        ticks: {
-          font: {
-            weight: 'bold',
-            size: 14 
+        y: {
+          title: {
+            display: true,
+            text: 'Cantidad de Estudiantes', 
+            font: {
+              weight: 'bold',
+              size: 16 
+            }
+          },
+          ticks: {
+            font: {
+              weight: 'bold',
+              size: 14
+            },
+  //           precision: 0 // Mostrar valores enteros
           }
         }
       },
-      y: {
-        title: {
-          display: true,
-          text: 'Cantidad de Estudiantes', 
-          font: {
-            weight: 'bold',
-            size: 16 
-          }
-        },
-        ticks: {
-          font: {
-            weight: 'bold',
-            size: 14
-          },
-          precision: 0 // Mostrar valores enteros
-        }
-      }
-    },
-    plugins: {
-      legend: {
-        labels: {
-          font: {
-            weight: 'bold',
-            size: 16
+      plugins: {
+        legend: {
+          labels: {
+            font: {
+              weight: 'bold',
+              size: 16
+            }
           }
         }
       }
     }
-  }
-});
-</script>
- 
+  });
+  </script>
 {% endblock %}
+
 

@@ -174,39 +174,32 @@ def obtener_lineaDesarrollo():
     return lineaDesarrollo
 
 #--------------------------------------------------------------------#
-def grafico_estudiantes():
+def grafico_meses_practica(fecha_inicio, fecha_fin):
     try:
         conexion = obtener_conexion()
     except Exception as e:
         return "Error al conectar con la base de datos: " + str(e)
 
     datos = []
-
+    nombres_meses = []
     try:
         with conexion.cursor() as cursor:
-            cursor.execute("SELECT nombre FROM linea_desarrollo")
-            lista_desarrollo = cursor.fetchall()
-
-            for linea in lista_desarrollo:
-                cursor.execute("""
-                    SELECT COUNT(DISTINCT es.nombre)
-                    FROM linea_desarrollo ld
-                    INNER JOIN detalle_practica dp ON dp.id_linea_desarrollo = ld.id_linea_desarrollo
-                    INNER JOIN practica pr ON pr.id_practica = dp.id_practica
-                    INNER JOIN estudiante es ON es.id_estudiante = pr.id_estudiante
-                    WHERE ld.nombre = %s
-                    AND EXTRACT(YEAR FROM pr.fecha_inicio) <= 2023
-                    AND EXTRACT(YEAR FROM pr.fecha_fin) >= 2023
-                """, (linea[0],))
-
-                conteo = cursor.fetchone()
-                datos.append((conteo[0], linea[0]))
-
+            # Obtener todas las líneas de desarrollo existentes
+            cursor.execute("SELECT EXTRACT(YEAR FROM dp.fecha_inicio) AS mes, COUNT(dp.id_practica) AS cantidad FROM detalle_practica dp WHERE dp.fecha_inicio >= %s AND dp.fecha_fin <= %s GROUP BY mes ORDER BY mes", (fecha_inicio, fecha_fin))
+            resultados = cursor.fetchall()
+            for resultado in resultados:
+                datos.append(resultado[1])
+                nombres_meses.append(resultado[0])
+        conexion.close()
     except Exception as e:
-        conexion.rollback()
+        conexion.rollback()  # Realizar rollback en caso de excepción
         return "Error al obtener los datos: " + str(e)
-
     finally:
         conexion.close()
+    return datos, nombres_meses
 
-    return datos
+
+
+
+
+
