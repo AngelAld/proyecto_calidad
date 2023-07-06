@@ -10,15 +10,15 @@
                     enctype="multipart/form-data">
                     <div class="row mt-2">
                         <div class="col-7">
-                            <input class="form-control form-control-lg" id="archivo" type="file" required name="file">
+                            <input class="form-control" id="archivo" type="file" required name="file">
                         </div>
                         <div class="col-auto">
                             <button type="submit" onclick="event.preventDefault(); enviar()"
-                                class="btn btn-success btn-lg" id="cargar">Cargar</button>
+                                class="btn btn-success" id="cargar">Cargar</button>
                         </div>
                         <div class="col-6">
                             <input type="text" readonly
-                                class="form control form-control-lg form-control-plaintext text-danger" id="mensaje"
+                                class="form control form-control-plaintext text-danger" id="mensaje"
                                 value="">
                         </div>
                     </div>
@@ -37,8 +37,15 @@
         <div class="col">
 
         </div>
-        <div class="col-2 text-end above-table">
-            <input id="searchbar" class="form-control" type="text" placeholder="Buscar">
+        <div class="col-3 above-table">
+            <div class="row">
+                <div class="col text-end">
+                    <input id="searchbar" class="form-control" type="text" placeholder="Buscar">
+                </div>
+                <div class="col-auto">
+                    <a href="" class="btn btn-success"><i class="fas fa-plus-circle"></i>&nbsp;Importar</a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -54,6 +61,8 @@
                     <th>Correo personal</th>
                     <th>Telefono 1</th>
                     <th>Telefono 2</th>
+                    <th>Ciclo de Ingreso</th>
+                    <th>Plan de estudios</th>
                 </tr>
             </thead>
             <tbody class="table-group-divider">
@@ -67,6 +76,8 @@
                     <td>{{ registro[5] }}</td>
                     <td>{{ registro[6] }}</td>
                     <td>{{ registro[7] }}</td>
+                    <td>{{ registro[8] }}</td>
+                    <td>{{ registro[9] }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
