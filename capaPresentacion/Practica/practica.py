@@ -159,5 +159,10 @@ def formulario_reporte_practica():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        datos = c_practica.grafico_estudiantes()
-        return render_template("reporte_practica.html", datos=datos)
+        try:
+            datos,nombres_meses = c_practica.grafico_meses_practica('2023-01-01','2023-07-07')
+            return render_template("reporte_practica.html", datos=datos, nombres_meses=nombres_meses)   
+        except Exception:
+            msg = c_practica.grafico_meses_practica('2023-01-01','2023-07-07')
+            flash(str(msg), "error")
+            return redirect("/practicas")
