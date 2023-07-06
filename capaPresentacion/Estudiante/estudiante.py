@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, flash, session, url_for
 from capaNegocio import controlador_Estudiante as c_estudiante
 import pandas as pd
+from werkzeug.utils import secure_filename
 
 estudiante_bp = Blueprint("estudiante", __name__, template_folder="templates")
 
@@ -18,14 +19,13 @@ def formulario_agregar_estudiante():
 def importar_estudiantes():
     return render_template('subir_excel.html')
 
-@estudiante_bp.route("/subir_estudiantes", methods=['post'])
-def subir_estudiantes():
-    print('##############')
-    print('##############')
-    print('##############')
-    archivo = request.files['file']
-    df = pd.read_excel(archivo)
+
+
+@estudiante_bp.route("/registros_cargados", methods=['post'])
+def subir_excel():
     try:
+        archivo = request.files['file']
+        df = pd.read_excel(archivo)
         registros = []
         for index, row in df.iterrows():    
             registro = [row['Codigo Universitario'], 
@@ -33,11 +33,19 @@ def subir_estudiantes():
                         row['Escuela Profesional'], 
                         row['DNI'], 
                         row['Correo1'], 
-                        row['Correo2']]
+                        row['Correo2'],
+                        row['Telefono1'],
+                        row['Telefono2']]
             registros.append(registro)
-        return render_template("tabla.html", registros=registros)
-    except:
-        flash('El archivo no tiene las columnas correctas', 'error')
+        return render_template('subir_excel.html', registros=registros, archivo = archivo)
+    except KeyError:
+        flash('El archivo no se ha subido correctamente', 'error')
+        return redirect('/importar_estudiantes')
+    except ValueError:
+        flash('El archivo no tiene un formato válido', 'error')
+        return redirect('/importar_estudiantes')
+    except Exception as e:
+        flash('Ha ocurrido un error inesperado: {}'.format(str(e)), 'error')
         return redirect('/importar_estudiantes')
 
 
