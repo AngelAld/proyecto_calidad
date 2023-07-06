@@ -54,6 +54,15 @@ def subir_excel():
         return redirect('/importar_estudiantes')
 
 
+@estudiante_bp.route("/upload", methods=['post'])
+def upload():
+    data = request.form['data']
+    print(data)
+    return redirect('/importar_estudiantes')
+    
+
+
+
 
 
 @estudiante_bp.route("/guardar_estudiante", methods=["POST"])

@@ -13,13 +13,12 @@
                             <input class="form-control" id="archivo" type="file" required name="file">
                         </div>
                         <div class="col-auto">
-                            <button type="submit" onclick="event.preventDefault(); enviar()"
-                                class="btn btn-success" id="cargar">Cargar</button>
+                            <button type="submit" onclick="event.preventDefault(); enviar()" class="btn btn-success"
+                                id="cargar">Cargar</button>
                         </div>
                         <div class="col-6">
-                            <input type="text" readonly
-                                class="form control form-control-plaintext text-danger" id="mensaje"
-                                value="">
+                            <input type="text" readonly class="form control form-control-plaintext text-danger"
+                                id="mensaje" value="">
                         </div>
                     </div>
                 </form>
@@ -37,13 +36,18 @@
         <div class="col">
 
         </div>
-        <div class="col-3 above-table">
+        <div class="col-4 above-table">
             <div class="row">
                 <div class="col text-end">
                     <input id="searchbar" class="form-control" type="text" placeholder="Buscar">
                 </div>
                 <div class="col-auto">
-                    <a href="" class="btn btn-success"><i class="fas fa-plus-circle"></i>&nbsp;Importar</a>
+                    <button id="save-button" class="btn btn-success"><i class="fa fa-upload"
+                            aria-hidden="true"></i></i>&nbsp;Importar</button>
+                </div>
+                <div class="col-auto">
+                    <a href="{{url_for('estudiante.estudiante')}}" class="btn btn-secondary"><i
+                        class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
                 </div>
             </div>
         </div>
@@ -68,16 +72,16 @@
             <tbody class="table-group-divider">
                 {% for registro in registros %}
                 <tr>
-                    <td>{{ registro[0] }}</td>
-                    <td>{{ registro[1] }}</td>
-                    <td>{{ registro[2] }}</td>
-                    <td>{{ registro[3] }}</td>
-                    <td>{{ registro[4] }}</td>
-                    <td>{{ registro[5] }}</td>
-                    <td>{{ registro[6] }}</td>
-                    <td>{{ registro[7] }}</td>
-                    <td>{{ registro[8] }}</td>
-                    <td>{{ registro[9] }}</td>
+                    <td contenteditable="true">{{ registro[0] }}</td>
+                    <td contenteditable="true">{{ registro[1] }}</td>
+                    <td contenteditable="true">{{ registro[2] }}</td>
+                    <td contenteditable="true">{{ registro[3] }}</td>
+                    <td contenteditable="true">{{ registro[4] }}</td>
+                    <td contenteditable="true">{{ registro[5] }}</td>
+                    <td contenteditable="true">{{ registro[6] }}</td>
+                    <td contenteditable="true">{{ registro[7] }}</td>
+                    <td contenteditable="true">{{ registro[8] }}</td>
+                    <td contenteditable="true">{{ registro[9] }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -102,6 +106,33 @@
     <script>
         $(document).ready(function () {
             $('.toast').toast('show');
+            
+            $('#save-button').on('click', function () {
+                var data = [];
+
+                $('table tr').each(function (index) {
+                    if (index !== 0) {
+                        var row = [];
+                        $(this).find('td').each(function (index) {
+                            row.push($(this).text());
+                        });
+                        data.push(row);
+                    }
+                });
+
+                // enviar los datos actualizados al servidor utilizando AJAX
+                $.ajax({
+                    url: "{{url_for('estudiante.upload')}}",
+                    method: 'POST',
+                    data: { data: data },
+                    success: function (response) {
+                        console.log(response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            });
         });
     </script>
     {% endif %}
