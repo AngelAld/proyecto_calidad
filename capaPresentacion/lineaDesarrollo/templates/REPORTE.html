@@ -1,0 +1,110 @@
+{% extends "maestra/maestra.html" %}
+{% block titulo %} Reporte de CANTIDA DE ESTUDIANTE POR SEMESTRE Y ESCUELA {% endblock %}
+{% block contenido %}
+<div class="container">
+  <div class="card">
+    <div class="row">
+      <form method="POST" action="/reporte">
+        <div class="col-auto">
+          <div class="row">
+            <div class="col-auto">
+              <b><label for="semestre" class="col-form-label">Seleccione un Semestre Académico</label></b>
+            </div>
+            <div class="col-auto">
+              <select class="form-control input" placeholder="Semestre" name="semestre" id="semestre">
+                {% for semestre in listarSemestre %}
+                <option value="{{ semestre }}" >{{ semestre }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-auto">
+              <b><label for="escuela" class="col-form-label">Seleccione una Escuela Profesional</label></b>
+            </div>
+            <div class="col-auto">
+              <select class="form-control input" placeholder="Escuela" name="escuela" id="escuela">
+                {% for escuela in listarescuela %}
+                <option value="{{ escuela }}">{{ escuela }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-auto">
+          <input type="submit" value="Generar Gráfica">
+        </div>
+      </form>
+      <div class="col-md-7 mb-7">
+        <div class="chart-container" style="height: 550px;">
+          <canvas id="piechart"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="text-end">
+      <input type="button" class="btn btn-success fas fa-save" value="Exportar" onClick="window.print()">
+      <a href="{{ url_for('lineaDesarrollo.linea_desarrollo') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>&nbsp;&nbsp;Regresar</a>
+    </div>
+  </div>
+  
+</div>
+
+{% endblock %}
+{% set titulo2 = "Reporte de % DE ESTUDIANTE POR SEMESTRE Y ESCUELA" %}
+{% block scripts %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+    var datos = {{ datos| safe }};
+    
+    // Calcular los porcentajes
+    var total = datos.reduce((a, b) => a + b, 0);
+    var porcentajes = datos.map(valor => ((valor / total) * 100).toFixed(2));
+  
+    var ctxBar = document.getElementById('piechart').getContext('2d');
+    var piechart = new Chart(ctxBar, {
+      type: 'pie',
+      data: {
+        labels: ['Por Finalizado', 'finalizar'],
+        datasets: [{
+          label: 'Gráfico de Porcentaje de Estudiantes',
+          data: porcentajes,
+          backgroundColor: ['rgba(75, 192, 192, 0.8)', 'rgba(255, 99, 132, 0.8)'],
+          borderColor: 'rgba(177, 75, 0, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        tooltips: {
+          callbacks: {
+            label: function (tooltipItem, data) {
+              var dataset = data.datasets[tooltipItem.datasetIndex];
+              var valor = dataset.data[tooltipItem.index];
+              return valor + '%';
+            }
+          }
+        },
+        scales: {
+            ticks: {
+              font: {
+                weight: 'bold',
+                size: 12
+              },
+               precision: 0 // Mostrar valores enteros
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            labels: {
+              font: {
+                weight: 'bold',
+                size: 16
+              }
+            }
+          }
+        }
+    });
+  </script>
+
+{% endblock %}
