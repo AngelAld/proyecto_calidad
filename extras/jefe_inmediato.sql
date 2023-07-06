@@ -103,9 +103,9 @@ $function$;
 ---------------------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION fn_eliminar_jefe_inmediato(p_id integer)
-RETURNS varchar(255)
-LANGUAGE plpgsql
-AS $$
+RETURNS text
+  LANGUAGE plpgsql
+AS $function$
 DECLARE
   mensaje    VARCHAR(100);
   error_msg  VARCHAR(100);
@@ -125,13 +125,11 @@ BEGIN
 
   EXCEPTION
     WHEN OTHERS THEN
-      error_msg := CONCAT('Error: ', SQLERRM);
-      RETURN error_msg;
+      RETURN  error_msg;     
   END;
-
   RETURN mensaje;
 END;
-$$;
+$function$;
 
 ----------------------------------------------------------------------------------------------------------------------------
 

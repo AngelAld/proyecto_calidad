@@ -137,6 +137,7 @@ def cmb_facultades():
     else:
         facultades = c_lineaDesarrollo.obtener_facultades()
         return render_template("lineaDesarrollo.html", facultades=facultades)
+    
 #***************************************************************
 
 @linea_desarrollo_bp.route("/reporte_lineaDesarrollo")
@@ -147,3 +148,27 @@ def formulario_reporte_lineaDesarrollo():
         datos,nombres_lineas = c_lineaDesarrollo.grafico_lineaDesarrollo()   
         return render_template("reporte_lineaDesarrollo.html", datos=datos, nombres_lineas=nombres_lineas)
     
+
+#**************************************Listar % de estudiante - estado practica - segun Semestre y facultad****************************
+
+@linea_desarrollo_bp.route("/reporte", methods=["GET", "POST"])
+def formulario_reporte():
+    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+        return redirect(url_for("inicio.inicio"))
+    else:
+        # Listar los combos para filtros
+        listarSemestre = c_lineaDesarrollo.listar_semestres()
+        listarescuela = c_lineaDesarrollo.listar_escuelas()
+
+        if request.method == "POST":
+            semestre = request.form.get('semestre')
+            escuela = request.form.get('escuela')
+
+            datos = c_lineaDesarrollo.graficar_porc_estudiante(semestre, escuela)
+            print(datos)          
+            return render_template("REPORTE.html", datos=datos, listarSemestre=listarSemestre,
+                                   listarescuela=listarescuela, semestre=semestre, escuela=escuela)
+
+        else:
+            return render_template("REPORTE.html", listarSemestre=listarSemestre, listarescuela=listarescuela)
+
