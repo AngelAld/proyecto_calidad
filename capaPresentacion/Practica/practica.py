@@ -154,15 +154,28 @@ def actualizar_estado_practica():
         return redirect("/practicas")
     
 
-@practica_bp.route("/reporte_practica")
+@practica_bp.route("/reporte_practica1")
 def formulario_reporte_practica():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
         try:
-            datos,nombres_meses = c_practica.grafico_meses_practica('2023-01-01','2023-07-07')
+            datos,nombres_meses = c_practica.grafico_meses_practica('2023-01-01','2024-07-07')
+            print(nombres_meses)
             return render_template("reporte_practica.html", datos=datos, nombres_meses=nombres_meses)   
-        except Exception:
-            msg = c_practica.grafico_meses_practica('2023-01-01','2023-07-07')
-            flash(str(msg), "error")
+        except Exception as e:
+            flash(str(e), "error")
             return redirect("/practicas")
+        
+@practica_bp.route("/reporte_practica2")
+def formulario_reporte_practica2():
+    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+        return redirect(url_for("inicio.inicio"))
+    else:
+        try:
+            datos, nombre_estados = c_practica.grafico_estado_practica('2023-01-01', '2023-07-07')
+            return render_template("reporte_practica2.html", datos=datos, nombres_estados=nombre_estados)
+        except Exception as e:
+            flash(str(e), "error")
+            return redirect("/practicas")
+        

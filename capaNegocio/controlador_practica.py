@@ -197,7 +197,30 @@ def grafico_meses_practica(fecha_inicio, fecha_fin):
     finally:
         conexion.close()
     return datos, nombres_meses
+#-----------------------------------------------------------------#
+def grafico_estado_practica(fecha_inicio, fecha_fin):
+    try:
+        conexion = obtener_conexion()
+    except Exception as e:
+        return "Error al conectar con la base de datos: " + str(e)
 
+    datos = []
+    nombres_estados = []
+    try:
+        with conexion.cursor() as cursor:
+            # Obtener todas las líneas de desarrollo existentes
+            cursor.execute("SELECT estado, COUNT(dp.id_practica) AS cantidad FROM detalle_practica dp WHERE dp.fecha_inicio >= %s AND dp.fecha_fin <= %s GROUP BY estado ORDER BY estado", (fecha_inicio, fecha_fin))
+            resultados = cursor.fetchall()
+            for resultado in resultados:
+                datos.append(resultado[1])
+                nombres_estados.append(resultado[0])
+        conexion.close()
+    except Exception as e:
+        conexion.rollback()  # Realizar rollback en caso de excepción
+        return "Error al obtener los datos: " + str(e)
+    finally:
+        conexion.close()
+    return datos, nombres_estados
 
 
 
