@@ -28,14 +28,14 @@
 <script>
   // Gráfico de barras
   var datos = {{ datos }};
-  var nombresMeses = ({{ nombres_meses| safe }});
+  var nombresEstados = ({{ nombres_estados| safe }});
   var ctxBar = document.getElementById('barChart').getContext('2d');
   var barChart = new Chart(ctxBar, {
     type: 'bar',
     data: {
-      labels: nombresMeses,
+      labels: nombresEstados,
       datasets: [{
-        label: 'GRÁFICO DE BARRAS: "PRACTICAS DE ESTUDIANTES POR AÑO"',
+        label: 'GRÁFICO DE BARRAS: " ESTADO DE LAS PRACTICAS DE ESTUDIANTES POR AÑO"',
         data: datos ,
         backgroundColor: 'rgba(217, 93, 2, 0.9)',
         borderColor: 'rgba(177, 75, 0, 1)',
@@ -64,7 +64,7 @@
         y: {
           title: {
             display: true,
-            text: 'Cantidad de Estudiantes', 
+            text: 'Estado de la Practica', 
             font: {
               weight: 'bold',
               size: 16 
