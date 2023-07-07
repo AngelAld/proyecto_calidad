@@ -44,8 +44,16 @@ def semestres():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        semestres = c_semestres.listar_semestres()
-        return render_template("semestres.html", semestres=semestres)
+        try:
+            semestres = c_semestres.listar_semestres()
+            if isinstance(semestres,list):
+                return render_template("semestres.html", semestres=semestres)
+            else:
+                print(str(semestres))
+                return redirect(url_for("inicio.inicio"))
+        except Exception as e:
+            print(f"Error al obtener semestres: {e}")
+            return redirect(url_for("inicio.inicio"))
 
 
 @semestres_bp.route("/eliminar_semestre", methods=["POST"])

@@ -9,8 +9,16 @@ def centro_PPP():
     if not rol or (rol != "Docente de Apoyo" and rol != "Estudiante"):
         return redirect(url_for("inicio.inicio"))
     else:
-        centro_PPP = c_cppp.listar_cppp()
-        return render_template("centroPPP.html", centro_PPP = centro_PPP)
+        try:
+            centro_PPP = c_cppp.listar_cppp()
+            if isinstance(centro_PPP,list):
+                return render_template("centroPPP.html", centro_PPP = centro_PPP)
+            else:
+                print(str(centro_PPP))
+                return redirect(url_for("inicio.inicio"))
+        except Exception as e:
+            print(f"Error al obtener centro de Práctica: {e}")
+            return redirect(url_for("inicio.inicio"))
 
 
 

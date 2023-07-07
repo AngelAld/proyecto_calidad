@@ -9,8 +9,16 @@ def facultades():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        facultades = c_facultad.listar_facultades()
-        return render_template("facultades.html", facultades=facultades)
+        try:
+            facultades = c_facultad.listar_facultades()
+            if isinstance(facultades, list):
+                return render_template("facultades.html", facultades=facultades)
+            else:
+                print(str(facultades))
+                return redirect(url_for("inicio.inicio"))
+        except Exception as e:
+            print(f"Error al obtener facultades: {e}")
+            return redirect(url_for("inicio.inicio"))
 
 @facultad_bp.route("/agregar_facultad")
 def formulario_agregar_facultad():

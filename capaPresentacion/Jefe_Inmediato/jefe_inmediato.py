@@ -9,9 +9,16 @@ def jefe_inmediato():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        jefe_inmediato = c_jefe_inmediato.listar_jefe_inmediato()
-        return render_template("jefe_inmediato.html", jefe_inmediato=jefe_inmediato)
-
+        try: 
+            jefe_inmediato = c_jefe_inmediato.listar_jefe_inmediato()
+            if isinstance(jefe_inmediato, list):
+                return render_template("jefe_inmediato.html", jefe_inmediato=jefe_inmediato)
+            else:
+                print(str(jefe_inmediato))
+                return redirect(url_for("inicio.inicio"))
+        except Exception as e:
+            print(f"Error al obtener jefe inmediato: {e}")
+            return redirect(url_for("inicio.inicio"))
 
 @jefe_inmediato_bp.route("/agregar_jefe_inmediato")
 def formulario_agregar_jefe_inmediato():

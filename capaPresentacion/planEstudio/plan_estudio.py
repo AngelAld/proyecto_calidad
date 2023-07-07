@@ -9,9 +9,17 @@ def plan_estudio():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        plan_estudio = c_planEstudio.listar_plan_estudio()
-        escuelas = c_planEstudio.obtener_escuelas()
-        return render_template("planEstudio.html", plan_estudio=plan_estudio, escuelas=escuelas)
+        try:
+            plan_estudio = c_planEstudio.listar_plan_estudio()
+            escuelas = c_planEstudio.obtener_escuelas()
+            if isinstance(plan_estudio,list): 
+                return render_template("planEstudio.html", plan_estudio=plan_estudio, escuelas=escuelas)
+            else:
+                print(str(plan_estudio))
+                return redirect(url_for("inicio.inicio"))
+        except Exception as e:
+            print(f"Error al obtener plan de estudio: {e}")
+            return redirect(url_for("inicio.inicio"))
     
 
 #nuevo

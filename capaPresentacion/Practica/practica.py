@@ -51,8 +51,16 @@ def practicas():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        practicas = c_practica.listar_practicas()
-        return render_template("practica.html", practicas=practicas)
+        try:
+            practicas = c_practica.listar_practicas()
+            if isinstance(practicas,list):
+                return render_template("practica.html", practicas=practicas)
+            else:
+                print(str(practicas))
+                return redirect(url_for("inicio.inicio"))
+        except Exception as e:
+            print(f"Error al obtener practicas: {e}")
+            return redirect(url_for("inicio.inicio"))
 
 
 @practica_bp.route("/eliminar_practica", methods=["POST"])

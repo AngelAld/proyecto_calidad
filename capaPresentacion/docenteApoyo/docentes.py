@@ -44,8 +44,16 @@ def docentes():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        docentes = c_docentes.listar_docentes()
-        return render_template("docentes.html", docentes=docentes)
+        try:
+            docentes = c_docentes.listar_docentes()
+            if isinstance(docentes,list):
+                return render_template("docentes.html", docentes=docentes)
+            else:
+                print(str(docentes))
+                return redirect(url_for("inicio.inicio"))
+        except Exception as e:
+            print(f"Error al obtener docentes: {e}")
+            return redirect(url_for("inicio.inicio"))     
     
 
 @docentes_bp.route("/eliminar_docente", methods=["POST"])
