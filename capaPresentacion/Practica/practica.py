@@ -10,11 +10,12 @@ def formulario_agregar_practica():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        estudiantes = c_practica.obtener_estudiantes()
-        centro_practicas = c_practica.obtener_centro_practicas()
-        jefeInmediatos=c_practica.obtener_jefe_inmediato()
-        semestre_academicos=c_practica.obtener_semestre()
-        lineaDesarrollos=c_practica.obtener_lineaDesarrollo()
+        estudiantes, centro_practicas, jefeInmediatos, semestre_academicos, lineaDesarrollos = c_practica.obtener_datos_agregar()
+        # estudiantes = c_practica.obtener_estudiantes()
+        # centro_practicas = c_practica.obtener_centro_practicas()
+        # jefeInmediatos=c_practica.obtener_jefe_inmediato()
+        # semestre_academicos=c_practica.obtener_semestre()
+        # lineaDesarrollos=c_practica.obtener_lineaDesarrollo()
         return render_template("frm_agregar_practica.html",estudiantes=estudiantes,centro_practicas=centro_practicas,jefeInmediatos=jefeInmediatos,semestre_academicos=semestre_academicos,lineaDesarrollos=lineaDesarrollos)
 
 
@@ -93,23 +94,23 @@ def editar_practica(id):
             c_practica.eliminar_practica(id)
             flash("Se eliminaron todos los detalles de esta practica pre profesional", "warning")
             return redirect("/practicas")
-        centro_practicas = c_practica.obtener_centro_practicas()
-        if centro_practicas == []:
-            flash("No se encontraron centros de practica", "error")
-            return redirect("/practicas")
-        jefeInmediatos = c_practica.obtener_jefe_inmediato()
-        if jefeInmediatos == []:
-            flash("No se encontraron Jefes inmediatos", "error")
-            return redirect("/practicas")
-        semestre_academicos = c_practica.obtener_semestre()
-        if semestre_academicos == []:
-            flash("No se encontraron Semestres Académicos", "error")
-            return redirect("/practicas")
-        lineaDesarrollos = c_practica.obtener_lineaDesarrollo()
-        if lineaDesarrollos == []:
-            flash("No se encontraron lineas de desarrollo", "error")
-            return redirect("/practicas")
-        print((practica))
+        centro_practicas, jefeInmediatos, semestre_academicos, lineaDesarrollos = c_practica.obtener_datos_editar()
+        # centro_practicas = c_practica.obtener_centro_practicas()
+        # if centro_practicas == []:
+        #     flash("No se encontraron centros de practica", "error")
+        #     return redirect("/practicas")
+        # jefeInmediatos = c_practica.obtener_jefe_inmediato()
+        # if jefeInmediatos == []:
+        #     flash("No se encontraron Jefes inmediatos", "error")
+        #     return redirect("/practicas")
+        # semestre_academicos = c_practica.obtener_semestre()
+        # if semestre_academicos == []:
+        #     flash("No se encontraron Semestres Académicos", "error")
+        #     return redirect("/practicas")
+        # lineaDesarrollos = c_practica.obtener_lineaDesarrollo()
+        # if lineaDesarrollos == []:
+        #     flash("No se encontraron lineas de desarrollo", "error")
+        #     return redirect("/practicas")
         return render_template("frm_editar_practica.html", detallesPracticas=practica, centro_practicas=centro_practicas, jefeInmediatos=jefeInmediatos, semestre_academicos=semestre_academicos, lineaDesarrollos=lineaDesarrollos)
 
 

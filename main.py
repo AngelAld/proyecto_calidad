@@ -45,14 +45,14 @@ app.register_blueprint(jefe_inmediato_bp)
 app.register_blueprint(titulo_profesional_bp)
 
 
-@app.errorhandler(404)
-def no_encontrado(e):
-    flash('La url solicitada no existe', 'error')
-    return redirect(url_for('inicio.inicio'))
-@app.errorhandler(500)
-def error_500(e):
-    flash('Ha ocurrido un error inesperado!', 'error')
-    return redirect(url_for('inicio.inicio'))
+# @app.errorhandler(404)
+# def no_encontrado(e):
+#     flash('La url solicitada no existe', 'error')
+#     return redirect(url_for('inicio.inicio'))
+# @app.errorhandler(500)
+# def error_500(e):
+#     flash('Ha ocurrido un error inesperado!', 'error')
+#     return redirect(url_for('inicio.inicio'))
 
 
 # Iniciar el servidor

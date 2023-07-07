@@ -29,9 +29,13 @@ def agregar_practica(id_estudiante, estado, id_linea_desarrollo, id_semestre_aca
                 cursor.execute("INSERT INTO PRACTICA (id_estudiante, estado) VALUES (%s,'P') RETURNING id_practica", (id_estudiante,))
                 id_practica = cursor.fetchone()[0]
             # Registra un nuevo detalle de práctica
-            cursor.execute("INSERT INTO DETALLE_PRACTICA (informacion_adicional, estado, id_practica, id_jefe_inmediato, id_semestre_academico, id_linea_desarrollo) VALUES (%s, %s, %s, %s, %s, %s)",
-                           (informacion_adicional, estado, id_practica, id_jefe_inmediato, id_semestre_academico, id_linea_desarrollo))
-
+            cursor.execute("INSERT INTO DETALLE_PRACTICA (informacion_adicional, estado, id_practica, id_jefe_inmediato, id_semestre_academico, id_linea_desarrollo) VALUES (%s, %s, %s, %s, %s, %s) RETURNING id_detalle_practica",
+                        (informacion_adicional, estado, id_practica, id_jefe_inmediato, id_semestre_academico, id_linea_desarrollo))
+            id_detalle_practica = cursor.fetchone()[0]
+            # Confirma la transacción
+            conexion.commit()
+            
+            cursor.execute("INSERT INTO INFORME_INICIAL_ES (id_detalle_practica, estado) VALUES (%s, 'P')", (id_detalle_practica,))
             # Confirma la transacción
             conexion.commit()
             msg = "La práctica se registró correctamente."
@@ -141,6 +145,7 @@ def obtener_estudiantes():
     conexion.close()
     return estudiante
 
+
 def obtener_centro_practicas():
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
@@ -222,7 +227,47 @@ def grafico_estado_practica(fecha_inicio, fecha_fin):
         conexion.close()
     return datos, nombres_estados
 
+#-------------
+def obtener_datos_agregar():
+    try:
+        conexion = obtener_conexion()
+        with conexion.cursor() as cursor:
+            cursor.execute("SELECT id_estudiante, nombre FROM ESTUDIANTE")
+            estudiante = cursor.fetchall()
+            cursor.execute("SELECT id_centro_practicas, alias FROM CENTRO_PRACTICAS")
+            centro_practicas = cursor.fetchall()
+            cursor.execute("SELECT id_jefe_inmediato, nombre, id_centro_practicas FROM JEFE_INMEDIATO")
+            jefeInmediato = cursor.fetchall()
+            cursor.execute("SELECT id_semestre, nombre FROM SEMESTRE_ACADEMICO")
+            semestre_academico = cursor.fetchall()
+            cursor.execute("SELECT id_linea_desarrollo, nombre FROM LINEA_DESARROLLO")
+            lineaDesarrollo = cursor.fetchall()
+    except Exception as e:
+        mensaje_error = f"Error al obtener datos de la base de datos: {e}"
+        return mensaje_error
+    finally:
+        conexion.close()
+    return estudiante, centro_practicas, jefeInmediato, semestre_academico, lineaDesarrollo
 
+
+def obtener_datos_editar():
+    try:
+        conexion = obtener_conexion()
+        with conexion.cursor() as cursor:
+            cursor.execute("SELECT id_centro_practicas, alias FROM CENTRO_PRACTICAS")
+            centro_practicas = cursor.fetchall()
+            cursor.execute("SELECT id_jefe_inmediato, nombre, id_centro_practicas FROM JEFE_INMEDIATO")
+            jefeInmediato = cursor.fetchall()
+            cursor.execute("SELECT id_semestre, nombre FROM SEMESTRE_ACADEMICO")
+            semestre_academico = cursor.fetchall()
+            cursor.execute("SELECT id_linea_desarrollo, nombre FROM LINEA_DESARROLLO")
+            lineaDesarrollo = cursor.fetchall()
+    except Exception as e:
+        mensaje_error = f"Error al obtener datos de la base de datos: {e}"
+        return mensaje_error
+    finally:
+        conexion.close()
+    return centro_practicas, jefeInmediato, semestre_academico, lineaDesarrollo
 
 
 

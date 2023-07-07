@@ -3,14 +3,33 @@ from capaNegocio import controlador_informe_inicial_es as c_informe_inicial_es
 
 informe_inicial_es_bp = Blueprint("informe_inicial_es", __name__, template_folder="templates")
 
-@informe_inicial_es_bp.route("/informe_inicia_es")
+@informe_inicial_es_bp.route("/estudiante/informeinicial")
 def informe_inicial_es():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        informe_inicial_es = c_informe_inicial_es.listar_informe_inicial_es()
-        return render_template("informe_inicial_es.html", informe_inicial_es=informe_inicial_es)
-    
+        try:
+            informes = c_informe_inicial_es.listar_informes_iniciales_estudiante()
+            if isinstance(informes, list):
+                return render_template("informe_inicial_es.html", informes=informes)
+            else:
+                print(str(informes))
+                return redirect(url_for("inicio.inicio"))
+        except Exception as e:
+            print(f"Error al obtener informes: {e}")
+            return redirect(url_for("inicio.inicio"))
+
+
+
+
+
+
+
+
+
+
+
+
 @informe_inicial_es_bp.route("/agregar_informe_inicial_es")
 def agregar_informe_inicial_es():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":

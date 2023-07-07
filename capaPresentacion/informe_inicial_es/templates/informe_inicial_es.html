@@ -20,23 +20,25 @@
         <table class="table table-hover align-middle table-bordered" id="tablita">
           <thead>
             <tr class="table-danger">
-              <th class="col-1 text-center d-none d-xl-table-cell">Código</th>
-              <th class="col-2 text-center">Estudiantes</th>
+              <th class="col-1 text-center d-none d-xl-table-cell">Código Universitario</th>
+              <th class="col-2 text-center">Estudiante</th>
+              <th class="col-2 text-center">Centro de prácticas</th>
               <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
               <th class="col-1 text-center">Editar</th>
               <th class="col-1 text-center">Eliminar</th>
             </tr>
           </thead>
           <tbody>
-            {% for informe_inicial_es in informe_inicial_es %}
+            {% for informe in informes %}
             <tr>
-              <td class="col-1 text-center d-none d-xl-table-cell">{{informe_inicial_es[0]}}</td>
-              <td class="col-2 text-center">{{informe_inicial_es[1]}}</td>
+              <td class="col-1 d-xl-table-cell">{{informe[1]}}</td>
+              <td class="col-2">{{informe[2]}}</td>
+              <td class="col-2">{{informe[3]}}</td>
               <td class="col-1 text-center d-none d-md-table-cell">
                 <form action="{{url_for('informe_inicial_es.actualizar_estado')}}" method="POST" class="actualizar_estado">
-                  <input type="hidden" name="id" value="{{informe_inicial_es[0]}}">
-                  <input type="hidden" name="estado" value="{{informe_inicial_es[2]}}">
-                  {% if informe_inicial_es[3]=='A' %}
+                  <input type="hidden" name="id" value="{{informe[0]}}">
+                  <input type="hidden" name="estado" value="{{informe[4]}}">
+                  {% if informe[4]=='P' %}
                   <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
                     data-bs-title="Desactivar semestre" onclick="event.preventDefault(); checkbox(this.parentNode)">
                     <i class="bi bi-check-square-fill"></i>
@@ -52,12 +54,12 @@
               </td>
               <td class="col-1 text-center">
                 {# Pasar el id lo que hay en informe_inicial_es[0] #}
-                <a href="{{url_for('informe_inicial_es.editar_informe_inicial_es', id=informe_inicial_es[0])}}" class="text-center btn btn-primary ls-button"
+                <a href="{{url_for('informe_inicial_es.editar_informe_inicial_es', id=informe[0])}}" class="text-center btn btn-primary ls-button"
                   data-bs-toggle="tooltip" data-bs-title="Editar informe_inicial_es"><i class="fas fa-edit"></i></a>
               </td>
               <td class="col-1 text-center">
                 <form action="{{url_for('informe_inicial_es.eliminar_informe_inicial_es')}}" method="POST" id="eliminar_form">
-                  <input type="hidden" name="id" value="{{informe_inicial_es[0]}}">
+                  <input type="hidden" name="id" value="{{informe[0]}}">
                   <button class="btn btn-danger ls-button" id="eliminar_btn"
                     onclick="event.preventDefault(); eliminar(this.parentNode)" data-bs-toggle="tooltip"
                     data-bs-title="Eliminar informe_inicial_es"><i class="fas fa-trash"></i></button>
