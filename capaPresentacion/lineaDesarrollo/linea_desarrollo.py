@@ -10,8 +10,16 @@ def linea_desarrollo():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        linea_desarrollo = c_lineaDesarrollo.listar_lineaDesarrollo()
-        return render_template("lineaDesarrollo.html", linea_desarrollo=linea_desarrollo)
+        try:
+            linea_desarrollo = c_lineaDesarrollo.listar_lineaDesarrollo()
+            if isinstance(linea_desarrollo,list):
+                return render_template("lineaDesarrollo.html", linea_desarrollo=linea_desarrollo)
+            else:
+                print(str(linea_desarrollo))
+                return redirect(url_for("inicio.inicio"))
+        except Exception as e:
+            print(f"Error al obtener linea de desarrollo: {e}")
+            return redirect(url_for("inicio.inicio"))            
 
 
 @linea_desarrollo_bp.route("/agregar_lineaDesarrollo")

@@ -10,8 +10,16 @@ def escuelas():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        escuelas = c_escuela.listar_escuela()
-        return render_template("escuelas.html", escuelas=escuelas)
+        try:            
+            escuelas = c_escuela.listar_escuela()
+            if isinstance(escuelas, list):
+                return render_template("escuelas.html", escuelas=escuelas)
+            else:
+                print(str(escuelas))
+                return redirect(url_for("inicio.inicio"))
+        except Exception as e:
+            print(f"Error al obtener escuelas: {e}")
+            return redirect(url_for("inicio.inicio"))
     
 #********************************************* Lo uso para listar en combo a linea de desarrollo (NO BORRAR ESTA FUNCION) *
 @escuela_bp.route("/cmb_facultades")

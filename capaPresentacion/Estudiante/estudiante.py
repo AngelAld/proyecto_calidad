@@ -102,8 +102,16 @@ def estudiante():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        estudiante = c_estudiante.getAll()
-        return render_template("estudiante.html", estudiante=estudiante)
+        try:
+            estudiante = c_estudiante.getAll()
+            if isinstance(estudiante,list):
+                return render_template("estudiante.html", estudiante=estudiante)
+            else:
+                print(str(estudiante))
+                return redirect(url_for("inicio.inicio"))
+        except Exception as e:
+            print(f"Error al obtener estudiantes: {e}")
+            return redirect(url_for("inicio.inicio"))
 
 
 @estudiante_bp.route("/eliminar_estudiante", methods=["POST"])
