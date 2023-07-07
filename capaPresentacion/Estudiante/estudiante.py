@@ -97,7 +97,7 @@ def guardar_estudiante():
         return redirect(url)
 
 
-@estudiante_bp.route("/estudiante")
+@estudiante_bp.route("/estudiantes")
 def estudiante():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))

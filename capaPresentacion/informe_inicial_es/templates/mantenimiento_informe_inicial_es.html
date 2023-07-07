@@ -2,123 +2,123 @@
 {% block titulo %} Informe Inicial Estudiante {% endblock %}
 {% set titulo2 = "Agregar Informe Inicial Estudiante" %}
 {% block contenido %}
-  <div class="container-fluid">
-    <div class="row mt-3">
-      <div class="col-12">
-        <h4>Datos del Estudiante</h4>
-        <form>
-
-          <div class="form-group row">
-            <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
-            <div class="col-sm-4">
-              {% for estudiante in estudiantes %}
-              <input type="text" class="form-control mb-4" id="estudiante" value="{{ estudiante[1] }}" readonly>
-              {% endfor %}
-            </div>
-          </div>     
-          <div class="form-group row">
-            <label for="codigo" class="col-sm-2 col-form-label">Codigo:</label>
-            <div class="col-sm-4">
-              <input type="text" class="form-control" id="codigo" readonly>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label for="semestre" class="col-sm-2 col-form-label">Semestre:</label>
-            <div class="col-sm-4">
-              <input type="text" class="form-control" id="semestre" readonly>
-              </select>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <div class="row mt-3">
-      <div class="col-12">
-        <h4>Datos del Centro de Practica Pre Profesional</h4>
-        <form>
-          <div class="form-group row">
-            <label for="razon_social" class="col-sm-2 col-form-label">Razon social:</label>
-            <div class="col-sm-4">
-              <input type="text" class="form-control" id="razon_social" readonly>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="responsable_practica" class="col-sm-2 col-form-label">Responsable de la practica:</label>
-            <div class="col-sm-4">
-              <input type="text" class="form-control" id="responsable_practica" readonly>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="cargo" class="col-sm-2 col-form-label">Cargo:</label>
-            <div class="col-sm-4">
-              <input type="text" class="form-control" id="cargo" readonly>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="fecha_inicio" class="col-sm-2 col-form-label">Fecha de inicio:</label>
-            <div class="col-md-4 mb-0">
-              <div class="form-floating">
-                <input value="{{fecha_inicio}}" required type="date" class="form-control input" name="fecha_inicio" id="fecha_inicio">
-                <label for="fecha_inicio">Fecha de inicio</label>
-              </div>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="fecha_fin" class="col-sm-2 col-form-label">Fecha de fin:</label>
-            <div class="col-md-4 mb-0">
-              <div class="form-floating">
-                <input value="{{fecha_fin}}" required type="date" class="form-control input" name="fecha_fin" id="fecha_fin">
-                <label for="fecha_fin">Fecha de fin</label>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  
+<div class="container-fluid">
   <div class="row mt-3">
     <div class="col-12">
-        <div class="d-flex justify-content-between align-items-center">
-            <h5 class="col-2">Objetivos</h5>
-            <div>
-                <a href="#" class="btn btn-success"><i class="fas fa-plus-circle" id="btnAgregarObjetivo"></i>&nbsp;Agregar</a>
-            </div>
-        </div>
-          <form>
-              <table class="table" id="tablaObjetivos">
-                  <thead class="bg-light">
-                      <tr>
-                          <th class="col-1">Numero</th>
-                          <th class="col-11">Descripcion</th>
-                          <th class="col-1 text-center">Editar</th>
-                          <th class="col-1 text-center">Eliminar</th>
-                      </tr>
-                  </thead>
-                  <tbody>
+      <h4>Datos del Estudiante</h4>
+      <form>
 
-                  </tbody>
-              </table>
-          </form>
+        <div class="form-group row mb-3">
+          <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="estudiante" value="{{ nombre }}" readonly disabled>
+          </div>
+        </div>
+        <div class="form-group row mb-3">
+          <label for="codigo" class="col-sm-2 col-form-label">Codigo:</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="codigo" value="{{ codigo_universidatrio }}" disabled>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <label for="semestre" class="col-sm-2 col-form-label">Semestre:</label>
+          <div class="col-sm-4">
+            <input type="text" value="{{ semestre }}" class="form-control" id="semestre" readonly disabled>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-12">
+      <h4>Datos del Centro de Practica Pre Profesional</h4>
+      <form>
+        <div class="form-group row mb-3">
+          <label for="razon_social" class="col-sm-2 col-form-label">Razon social:</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="razon_social" value="{{ razon_social }}" readonly disabled>
+          </div>
+        </div>
+        <div class="form-group row mb-3">
+          <label for="responsable_practica" class="col-sm-2 col-form-label">Responsable de la practica:</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="responsable_practica" value="{{ jefe }}" readonly disabled>
+          </div>
+        </div>
+        <div class="form-group row mb-3">
+          <label for="cargo" class="col-sm-2 col-form-label">Cargo:</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="cargo" value="{{ cargo_jefe }}" readonly disabled>
+          </div>
+        </div>
+        <div class="form-group row mb-3">
+          <label for="fecha_inicio" class="col-sm-2 col-form-label">Fecha de inicio:</label>
+          <div class="col-md-2 mb-0">
+            <div class="form-floating">
+              <input value="{{fecha_inicio}}" type="date" class="form-control input" name="fecha_inicio"
+                id="fecha_inicio">
+              <label for="fecha_inicio">Fecha de inicio</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row mb-3">
+          <label for="fecha_fin" class="col-sm-2 col-form-label">Fecha de fin:</label>
+          <div class="col-md-2 mb-0">
+            <div class="form-floating">
+              <input value="{{fecha_fin}}" type="date" class="form-control input" name="fecha_fin" id="fecha_fin">
+              <label for="fecha_fin">Fecha de fin</label>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="col-2">Objetivos</h5>
+        <div>
+          <a href="#" class="btn btn-success"><i class="fas fa-plus-circle"
+              id="btnAgregarObjetivo"></i>&nbsp;Agregar</a>
+        </div>
       </div>
+      <form>
+        <table class="table" id="tablaObjetivos">
+          <thead class="bg-light">
+            <tr>
+              <th class="col-1">Numero</th>
+              <th class="col-11">Descripcion</th>
+              <th class="col-1 text-center">Editar</th>
+              <th class="col-1 text-center">Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+        </table>
+      </form>
+    </div>
   </div>
 
   <!--PARA EL BOTON AGREGAR OBJETIVO -->
   <script>
     document.getElementById("btnAgregarObjetivo").addEventListener("click", function (event) {
       event.preventDefault()
-      
+
       const tablaObjetivos = document.getElementById("tablaObjetivos")
       const numero = tablaObjetivos.rows.length
-  
+
       const nuevaFila = tablaObjetivos.insertRow()
       const celdaNumero = nuevaFila.insertCell(0)
       const celdaDescripcion = nuevaFila.insertCell(1)
       const celdaEditar = nuevaFila.insertCell(2)
       const celdaEliminar = nuevaFila.insertCell(3)
-  
+
       celdaNumero.textContent = numero;
       celdaDescripcion.innerHTML = `<input type="text" class="form-control" placeholder="Objetivo ${numero + 1}">`
       celdaEditar.innerHTML = '<button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button>'
@@ -126,113 +126,113 @@
     })
   </script>
 
-  </div>
-        <div class="row mt-3">
-          <div class="col-12">
-              <div class="d-flex justify-content-between align-items-center">
-                  <h5 class="col-2">Plan de trabajo</h5>
-                  <div>
-                      <a href="#" class="btn btn-success"><i class="fas fa-plus-circle" id="btnAgregarPlan"></i>&nbsp;Agregar</a>
-                  </div>
-              </div>
-        <form>
-          <table class="table" id="tablaPlanTrabajo">
-            <thead class="bg-light">
-              <tr>
-                <th class="col-1">Numero</th>
-                <th class="col-1">N° de semanas</th>
-                <th class="col-2">Fechas</th>
-                <th class="col-7">Actividad a relizar</th>
-                <th class="col-1">N° de horas</th>
-                <th class="col-1 text-center">Editar</th>
-                <th class="col-1 text-center">Eliminar</th>
-              </tr>
-            </thead>
-            <tbody>
-              
-            </tbody>
-          </table>
-        </form>
-        <table class="table">
-          <tfoot>
-            <tr id="filaTotalHoras">
-              <td class="col-1">Total de horas</td>
-              <td class="col-1" id="totalHoras"></td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-  </div>
-
-      <!--PARA EL BOTON AGREGAR PLAN TRABAJO -->
-      <script>
-        document.addEventListener("DOMContentLoaded", function() {
-          const tablaPlanTrabajo = document.getElementById("tablaPlanTrabajo")
-          /*const filaTotalHoras  = document.getElementById("filaTotalHoras ")
-          let totalHoras = 0;*/
-          let numero = 1
-          
-          document.getElementById("btnAgregarPlan").addEventListener("click", function (event) {
-            event.preventDefault();
-        
-            const nuevaFila = tablaPlanTrabajo.insertRow(-1)
-            const celdaNumero = nuevaFila.insertCell(0)
-            const celdaNumSemanas = nuevaFila.insertCell(1)
-            const celdaFechas = nuevaFila.insertCell(2)
-            const celdaActividades = nuevaFila.insertCell(3)
-            const celdaNumHoras = nuevaFila.insertCell(4)
-            const celdaEditar = nuevaFila.insertCell(5)
-            const celdaEliminar = nuevaFila.insertCell(6)
-        
-            celdaNumero.textContent = numero
-            celdaNumSemanas.innerHTML = `<input type="text" class="form-control" placeholder="N° ${numero}">`
-            celdaFechas.innerHTML = `<input type="text" class="form-control" />`;
-            celdaActividades.innerHTML = `<input type="text" class="form-control" placeholder="Actividad ${numero}">`
-            celdaNumHoras.innerHTML = `<input type="text" class="form-control" />`;
-            celdaEditar.innerHTML = `<button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button>`
-            celdaEliminar.innerHTML = `<button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>`
-        
-            numero++
-            /*actualizarTotalHoras()*/
-          });
-          /*function actualizarTotalHoras() {
-            totalHoras = 0;
-            const filas = tablaPlanTrabajo.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
-      
-            for (let i = 0; i < filas.length; i++) {
-              const fila = filas[i];
-              const celdaNumHoras = fila.getElementsByTagName("td")[4];
-              const inputNumHoras = celdaNumHoras.getElementsByTagName("input")[0];
-              const numHoras = parseFloat(inputNumHoras.value);
-      
-              if (!isNaN(numHoras)) {
-                totalHoras += numHoras;
-              }
-            }
-            filaTotalHoras.querySelector("#totalHoras").textContent = totalHoras.toFixed(2);
-          }*/
-        })
-      </script>
-
-    <div class="row mt-3">
-      <div class="col-md-3">
-        <h5 class="">Subir Firma del estudiante</h5>
-        <input class="form-control" type="file" id="formFile">
-      </div>
-  </div>
-  <div class="row mt-3">
-      <div class="col-md-3">
-        <h5 class="">Subir Firma del representante</h5>
-        <input class="form-control" type="file" id="formFile">
-      </div>
-  </div>
-
-    <div class="row mt-3">
-      <div class="col-12 text-center">
-        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
-        <a href="{{url_for('informe_inicial_es.informe_inicial_es')}}" class="btn btn-danger mx-2"><i></i></i>&nbsp;&nbsp;Cancelar</a>
+</div>
+<div class="row mt-3">
+  <div class="col-12">
+    <div class="d-flex justify-content-between align-items-center">
+      <h5 class="col-2">Plan de trabajo</h5>
+      <div>
+        <a href="#" class="btn btn-success"><i class="fas fa-plus-circle" id="btnAgregarPlan"></i>&nbsp;Agregar</a>
       </div>
     </div>
-    <div class="mt-3"></div>
+    <form>
+      <table class="table" id="tablaPlanTrabajo">
+        <thead class="bg-light">
+          <tr>
+            <th class="col-1">N° de semana</th>
+            <th class="col-2">Fechas</th>
+            <th class="col-7">Actividad a relizar</th>
+            <th class="col-1">N° de horas</th>
+            <th class="col-1 text-center">Editar</th>
+            <th class="col-1 text-center">Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </form>
+    <table class="table">
+      <tfoot>
+        <tr id="filaTotalHoras">
+          <td class="col-1">Total de horas</td>
+          <td class="col-1" id="totalHoras"></td>
+        </tr>
+      </tfoot>
+    </table>
   </div>
-  {% endblock%}
+</div>
+
+<!--PARA EL BOTON AGREGAR PLAN TRABAJO -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const tablaPlanTrabajo = document.getElementById("tablaPlanTrabajo")
+    /*const filaTotalHoras  = document.getElementById("filaTotalHoras ")
+    let totalHoras = 0;*/
+    let numero = 1
+
+    document.getElementById("btnAgregarPlan").addEventListener("click", function (event) {
+      event.preventDefault();
+
+      const nuevaFila = tablaPlanTrabajo.insertRow(-1)
+      const celdaNumero = nuevaFila.insertCell(0)
+      const celdaNumSemanas = nuevaFila.insertCell(1)
+      const celdaFechas = nuevaFila.insertCell(2)
+      const celdaActividades = nuevaFila.insertCell(3)
+      const celdaNumHoras = nuevaFila.insertCell(4)
+      const celdaEditar = nuevaFila.insertCell(5)
+      const celdaEliminar = nuevaFila.insertCell(6)
+
+      celdaNumero.textContent = numero
+      celdaNumSemanas.innerHTML = `<input type="text" class="form-control" placeholder="N° ${numero}">`
+      celdaFechas.innerHTML = `<input type="text" class="form-control" />`;
+      celdaActividades.innerHTML = `<input type="text" class="form-control" placeholder="Actividad ${numero}">`
+      celdaNumHoras.innerHTML = `<input type="text" class="form-control" />`;
+      celdaEditar.innerHTML = `<button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button>`
+      celdaEliminar.innerHTML = `<button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>`
+
+      numero++
+      /*actualizarTotalHoras()*/
+    });
+    /*function actualizarTotalHoras() {
+      totalHoras = 0;
+      const filas = tablaPlanTrabajo.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+ 
+      for (let i = 0; i < filas.length; i++) {
+        const fila = filas[i];
+        const celdaNumHoras = fila.getElementsByTagName("td")[4];
+        const inputNumHoras = celdaNumHoras.getElementsByTagName("input")[0];
+        const numHoras = parseFloat(inputNumHoras.value);
+ 
+        if (!isNaN(numHoras)) {
+          totalHoras += numHoras;
+        }
+      }
+      filaTotalHoras.querySelector("#totalHoras").textContent = totalHoras.toFixed(2);
+    }*/
+  })
+</script>
+
+<div class="row mt-3">
+  <div class="col-md-3">
+    <h5 class="">Subir Firma del estudiante</h5>
+    <input class="form-control" type="file" id="formFile">
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-md-3">
+    <h5 class="">Subir Firma del representante</h5>
+    <input class="form-control" type="file" id="formFile">
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col-12 text-center">
+    <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
+    <a href="{{url_for('informe_inicial_es.informe_inicial_es')}}" class="btn btn-danger mx-2"><i
+        class="fa fa-times"></i>&nbsp;&nbsp;Cancelar</a>
+  </div>
+</div>
+<div class="mt-3"></div>
+</div>
+{% endblock%}

@@ -1,0 +1,15 @@
+{% extends "mantenimiento_informe_inicial_es.html" %}
+{% block titulo %}
+Editar Informe Inicial Estudiante
+{% endblock %}
+{% set titulo2 = "Agregar Informen Inicial Estudiante" %}
+
+{% set nombre = estudiante[0] %}
+{% set codigo_universidatrio = estudiante[1] %}
+{% set razon_social = datos_cppp[0] %}
+{% set jefe = datos_cppp[1] %}
+{% set cargo_jefe = datos_cppp[2] %}
+{% set semestre = datos_practica[0] %}
+{% set fecha_inicio = datos_practica[1] %}
+{% set fecha_fin = datos_practica[2] %}
+{% set url = "#" %}

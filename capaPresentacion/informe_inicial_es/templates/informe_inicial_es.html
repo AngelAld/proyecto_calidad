@@ -9,61 +9,56 @@
         <div class="col d-none d-sm-block above-table">
         </div>
         <div class="col-auto text-end above-table">
-          <input id="searchbar" class="form-control" type="text" placeholder="&#xF002; Buscar">
-        </div>
-        <div class="col-auto text-end above-table">
-          <a href="{{url_for('informe_inicial_es.agregar_informe_inicial_es')}}" class="btn btn-success"><i
-              class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
+          <input id="searchbar" class="form-control" type="text" placeholder="Buscar">
         </div>
       </div>
       <div class="col-auto">
         <table class="table table-hover align-middle table-bordered" id="tablita">
           <thead>
             <tr class="table-danger">
-              <th class="col-1 text-center d-none d-xl-table-cell">Código Universitario</th>
-              <th class="col-2 text-center">Estudiante</th>
-              <th class="col-2 text-center">Centro de prácticas</th>
+              <th class="col-2 text-center d-none d-xl-table-cell">Código Universitario</th>
+              <th class="col-3 text-center">Estudiante</th>
+              <th class="col-3 text-center">Centro de prácticas</th>
               <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
-              <th class="col-1 text-center">Editar</th>
-              <th class="col-1 text-center">Eliminar</th>
+              <th class="col-1 text-center">{% if session['rol']=="Docente de Apoyo" %}Ver{% else %}Editar{% endif %}</th>
             </tr>
           </thead>
           <tbody>
             {% for informe in informes %}
             <tr>
-              <td class="col-1 d-xl-table-cell">{{informe[1]}}</td>
-              <td class="col-2">{{informe[2]}}</td>
-              <td class="col-2">{{informe[3]}}</td>
+              <td class="col-2 d-xl-table-cell">{{informe[1]}}</td>
+              <td class="col-3">{{informe[2]}}</td>
+              <td class="col-3">{{informe[3]}}</td>
               <td class="col-1 text-center d-none d-md-table-cell">
-                <form action="{{url_for('informe_inicial_es.actualizar_estado')}}" method="POST" class="actualizar_estado">
+                <form action="{{url_for('informe_inicial_es.actualizar_estado')}}" method="POST"
+                  class="actualizar_estado">
                   <input type="hidden" name="id" value="{{informe[0]}}">
                   <input type="hidden" name="estado" value="{{informe[4]}}">
                   {% if informe[4]=='P' %}
-                  <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
-                    data-bs-title="Desactivar semestre" onclick="event.preventDefault(); checkbox(this.parentNode)">
-                    <i class="bi bi-check-square-fill"></i>
+                  <button type="button" class="estado btn ls-button btn-warning text-white" data-bs-toggle="tooltip"
+                    data-bs-title="Aprobar informe" onclick="event.preventDefault(); checkbox(this.parentNode)">
+                    <i class="fa fa-hourglass-end"></i>
                   </button>
                   {% else %}
-                  <button type="button" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip"
-                    data-bs-title="Activar Informe Inicial Estudiante" onclick="event.preventDefault(); checkbox(this.parentNode)">
-                    
-                    <i class="bi bi-x-square-fill"></i>
+                  <button type="button" class="estado btn ls-button btn-success" data-bs-toggle="tooltip"
+                    data-bs-title="Revocar aprobación" onclick="event.preventDefault(); checkbox(this.parentNode)">
+
+                    <i class="bi bi-check-square-fill"></i>
                   </button>
                   {% endif %}
                 </form>
               </td>
               <td class="col-1 text-center">
-                {# Pasar el id lo que hay en informe_inicial_es[0] #}
-                <a href="{{url_for('informe_inicial_es.editar_informe_inicial_es', id=informe[0])}}" class="text-center btn btn-primary ls-button"
-                  data-bs-toggle="tooltip" data-bs-title="Editar informe_inicial_es"><i class="fas fa-edit"></i></a>
-              </td>
-              <td class="col-1 text-center">
-                <form action="{{url_for('informe_inicial_es.eliminar_informe_inicial_es')}}" method="POST" id="eliminar_form">
-                  <input type="hidden" name="id" value="{{informe[0]}}">
-                  <button class="btn btn-danger ls-button" id="eliminar_btn"
-                    onclick="event.preventDefault(); eliminar(this.parentNode)" data-bs-toggle="tooltip"
-                    data-bs-title="Eliminar informe_inicial_es"><i class="fas fa-trash"></i></button>
-                </form>
+                {% if session['rol']=="Docente de Apoyo" %}
+                <a href="{{url_for('informe_inicial_es.editar_informe_inicial_es', id=informe[0])}}"
+                  class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
+                  data-bs-title="Ver informe"><i class="fa fa-eye"></i></i></a>
+                {% else %}
+                <a href="{{url_for('informe_inicial_es.editar_informe_inicial_es', id=informe[0])}}"
+                  class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
+                  data-bs-title="Editar informe"><i class="fas fa-edit"></i></a>
+                {% endif %}
+
               </td>
             </tr>
             {% endfor %}
