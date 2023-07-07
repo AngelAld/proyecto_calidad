@@ -80,50 +80,46 @@
 
   <div class="row mt-3">
     <div class="col-12">
-      <div class="d-flex justify-content-between align-items-center">
-        <h5 class="col-2">Objetivos</h5>
-        <div>
-          <a href="#" class="btn btn-success"><i class="fas fa-plus-circle"
-              id="btnAgregarObjetivo"></i>&nbsp;Agregar</a>
-        </div>
+      <h5 class="col-2">Objetivos</h5>
+      <div>
+        <a href="#" class="btn btn-success" id="btnAgregarObjetivo"><i class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
       </div>
-      <form>
-        <table class="table" id="tablaObjetivos">
-          <thead class="bg-light">
-            <tr>
-              <th class="col-1">Numero</th>
-              <th class="col-11">Descripcion</th>
-              <th class="col-1 text-center">Editar</th>
-              <th class="col-1 text-center">Eliminar</th>
-            </tr>
-          </thead>
-          <tbody>
-
-          </tbody>
-        </table>
-      </form>
     </div>
   </div>
-
-  <!--PARA EL BOTON AGREGAR OBJETIVO -->
+  <form>
+    <table class="table" id="tablaObjetivos">
+      <thead class="bg-light">
+        <tr>
+          <th class="col-1 text-center">Numero</th>
+          <th class="col-11">Descripcion</th>
+          <th class="col-1 text-center">Editar</th>
+          <th class="col-1 text-center">Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+  
+      </tbody>
+    </table>
+  </form>
+  
   <script>
     document.getElementById("btnAgregarObjetivo").addEventListener("click", function (event) {
-      event.preventDefault()
-
-      const tablaObjetivos = document.getElementById("tablaObjetivos")
-      const numero = tablaObjetivos.rows.length
-
-      const nuevaFila = tablaObjetivos.insertRow()
-      const celdaNumero = nuevaFila.insertCell(0)
-      const celdaDescripcion = nuevaFila.insertCell(1)
-      const celdaEditar = nuevaFila.insertCell(2)
-      const celdaEliminar = nuevaFila.insertCell(3)
-
+      event.preventDefault();
+  
+      const tablaObjetivos = document.getElementById("tablaObjetivos");
+      const numero = tablaObjetivos.rows.length + 1;
+  
+      const nuevaFila = tablaObjetivos.insertRow();
+      const celdaNumero = nuevaFila.insertCell(0);
+      const celdaDescripcion = nuevaFila.insertCell(1);
+      const celdaEditar = nuevaFila.insertCell(2);
+      const celdaEliminar = nuevaFila.insertCell(3);
+  
       celdaNumero.textContent = numero;
-      celdaDescripcion.innerHTML = `<input type="text" class="form-control" placeholder="Objetivo ${numero + 1}">`
-      celdaEditar.innerHTML = '<button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button>'
-      celdaEliminar.innerHTML = '<button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>'
-    })
+      celdaDescripcion.innerHTML = `<input type="text" class="form-control" placeholder="Objetivo ${numero}">`;
+      celdaEditar.innerHTML = '<button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button>';
+      celdaEliminar.innerHTML = '<button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>';
+    });
   </script>
 
 </div>
@@ -166,34 +162,36 @@
 <!--PARA EL BOTON AGREGAR PLAN TRABAJO -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const tablaPlanTrabajo = document.getElementById("tablaPlanTrabajo")
-    /*const filaTotalHoras  = document.getElementById("filaTotalHoras ")
-    let totalHoras = 0;*/
-    let numero = 1
+    const tablaPlanTrabajo = document.getElementById("tablaPlanTrabajo");
+    let numero = 1;
 
     document.getElementById("btnAgregarPlan").addEventListener("click", function (event) {
       event.preventDefault();
 
-      const nuevaFila = tablaPlanTrabajo.insertRow(-1)
-      const celdaNumero = nuevaFila.insertCell(0)
-      const celdaNumSemanas = nuevaFila.insertCell(1)
-      const celdaFechas = nuevaFila.insertCell(2)
-      const celdaActividades = nuevaFila.insertCell(3)
-      const celdaNumHoras = nuevaFila.insertCell(4)
-      const celdaEditar = nuevaFila.insertCell(5)
-      const celdaEliminar = nuevaFila.insertCell(6)
+      const nuevaFila = tablaPlanTrabajo.insertRow();
+      const celdaNumero = nuevaFila.insertCell(0);
+      const celdaFechas = nuevaFila.insertCell(1);
+      const celdaActividades = nuevaFila.insertCell(2);
+      const celdaNumHoras = nuevaFila.insertCell(3);
+      const celdaEditar = nuevaFila.insertCell(4);
+      const celdaEliminar = nuevaFila.insertCell(5);
 
-      celdaNumero.textContent = numero
-      celdaNumSemanas.innerHTML = `<input type="text" class="form-control" placeholder="N° ${numero}">`
+      celdaNumero.innerHTML = `<input type="text" class="form-control" value="${numero}" readonly>`;
       celdaFechas.innerHTML = `<input type="text" class="form-control" />`;
-      celdaActividades.innerHTML = `<input type="text" class="form-control" placeholder="Actividad ${numero}">`
+      celdaActividades.innerHTML = `<input type="text" class="form-control" placeholder="Actividad ${numero}">`;
       celdaNumHoras.innerHTML = `<input type="text" class="form-control" />`;
-      celdaEditar.innerHTML = `<button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button>`
-      celdaEliminar.innerHTML = `<button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>`
+      celdaEditar.innerHTML = '<button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button>';
+      celdaEliminar.innerHTML = '<button class="btn btn-danger btn-sm" onclick="eliminarFila(this)"><i class="bi bi-trash"></i></button>';
 
-      numero++
-      /*actualizarTotalHoras()*/
+      numero++;
     });
+    function eliminarFila(element) {
+      const fila = element.parentNode.parentNode;
+      tablaPlanTrabajo.deleteRow(fila.rowIndex);
+
+      // Realiza cualquier acción adicional con el identificador del plan de trabajo eliminado (por ejemplo, actualizar el total de horas).
+    }
+
     /*function actualizarTotalHoras() {
       totalHoras = 0;
       const filas = tablaPlanTrabajo.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
@@ -210,19 +208,19 @@
       }
       filaTotalHoras.querySelector("#totalHoras").textContent = totalHoras.toFixed(2);
     }*/
-  })
+  });
 </script>
 
 <div class="row mt-3">
   <div class="col-md-3">
     <h5 class="">Subir Firma del estudiante</h5>
-    <input class="form-control" type="file" id="formFile">
+    <input class="form-control" type="file" id="formFileEstudiante">
   </div>
 </div>
 <div class="row mt-3">
   <div class="col-md-3">
     <h5 class="">Subir Firma del representante</h5>
-    <input class="form-control" type="file" id="formFile">
+    <input class="form-control" type="file" id="formFileRepresentante">
   </div>
 </div>
 
