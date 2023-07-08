@@ -45,7 +45,8 @@
       </div>
     </div>
   </div>
-  <form>
+  <form action="{{url}}" method="post" id="formulario">
+    <input type="hidden" name="id_informe_inicial_es" value="{{informe[0]}}">
     <div class="row mt-3">
       <div class="col-12">
         <h4>Datos de Practica Pre Profesional</h4>
@@ -80,7 +81,7 @@
       <thead class="bg-light">
         <tr>
           <th class="col-1 text-center">Numero</th>
-          <th class="col-11 text-center">Descripcion</th>
+          <th class="col-11">Descripcion</th>
           <th class="col-1 text-center">Eliminar</th>
         </tr>
       </thead>
@@ -89,7 +90,7 @@
         <tr>
           <td class="col-1 text-center">{{ loop.index }}</td>
           <td class="col-11"><input required type="text" class="form-control" placeholder="Objetivo {{ loop.index }}"
-              value="{{ objetivo[2] }}"></td>
+              value="{{ objetivo[2] }}" name="objetivo[]"></td>
           <td class="col-1 text-center"><button class="btn btn-danger btn-sm" onclick="eliminarFilaObjetivo(this)"><i
                 class="bi bi-trash"></i></button></td>
         </tr>
@@ -112,9 +113,9 @@
       <thead class="bg-light">
         <tr>
           <th class="col-1">N° de semana</th>
-          <th class="col-2">Fecha de inicio</th>
-          <th class="col-2">Fecha de fin</th>
-          <th class="col-7">Actividad a relizar</th>
+          <th class="col-1">Fecha de inicio</th>
+          <th class="col-1">Fecha de fin</th>
+          <th class="col-7">Actividad a realizar</th>
           <th class="col-1">N° de horas</th>
           <th class="col-1 text-center">Eliminar</th>
         </tr>
@@ -122,15 +123,15 @@
       <tbody>
         {% for plan_trabajo in planes_trabajo %}
         <tr>
-          <td class="col-1 text-center">{{ loop.index }}</td>
-          <td class="col-1 text-center"><input required value="{{ plan_trabajo[3] }}" type="date" class="form-control input"
-              name="fecha_in_{{ loop.index }}" id="fecha_in_{{ loop.index }}"></td>
-          <td class="col-1 text-center"><input required value="{{ plan_trabajo[4] }}" type="date" class="form-control input"
-              name="fecha_fin_{{ loop.index }}" id="fecha_fin_{{ loop.index }}"></td>
-          <td class="col-8"><input type="text" required class="form-control" placeholder="Actividad {{ loop.index }}"
-              value="{{ plan_trabajo[5] }}"></td>
-          <td class="col-2"><input type="text" required class="form-control" placeholder="N° de horas"
-              value="{{ plan_trabajo[6] }}"></td>
+          <td class="col-1 text-center"><input class="form-control-plaintext text-center" type="text" readonly name="n_semana[]" id="n_semana[]" value="{{ plan_trabajo[2] }}"></td>
+          <td class="col-1 text-center"><input required value="{{ plan_trabajo[3] }}" type="date"
+              class="form-control input" name="fecha_in[]" id="fecha_in_{{ loop.index }}"></td>
+          <td class="col-1 text-center"><input required value="{{ plan_trabajo[4] }}" type="date"
+              class="form-control input" name="fecha_fin[]" id="fecha_fin_{{ loop.index }}"></td>
+          <td class="col-7"><input type="text" required class="form-control" placeholder="Actividad {{ loop.index }}"
+              value="{{ plan_trabajo[5] }}" name="actividad[]"></td>
+          <td class="col-1"><input type="number" required class="form-control" placeholder="N° de horas"
+              value="{{ plan_trabajo[6] }}" name="horas[]"></td>
           <td class="col-1 text-center"><button class="btn btn-danger btn-sm" onclick="eliminarFilaObjetivo(this)"><i
                 class="bi bi-trash"></i></button></td>
         </tr>
@@ -140,8 +141,12 @@
     <table class="table">
       <tfoot>
         <tr id="filaTotalHoras">
-          <td class="col-1">Total de horas</td>
-          <td class="col-1" id="totalHoras"></td>
+          <td class="col-1 text">Total de horas:</td>
+          <td class="col-1" id="totalHoras"> {{ planes_trabajo|sum(attribute=6) }}</td>
+          <td class="col-1"></td>
+          <td class="col-7"></td>
+          <td class="col-1"></td>
+          
         </tr>
       </tfoot>
     </table>
@@ -151,8 +156,8 @@
     </div>
   </div>
 </div>
-
-
+</form>
+<form action="{{url2}}" method="post" enctype="multipart/form-data" id="archivos"></form>
 <div class="row mt-3">
   <div class="col-md-3">
     <h5 class="">Subir Firma del estudiante</h5>
@@ -168,7 +173,8 @@
 
 <div class="row mt-3">
   <div class="col-12 text-center">
-    <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
+    <button onclick="event.preventDefault(); confirmar_form()" type="submit" class="btn btn-success"><i
+        class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
     <a href="{{url_for('informe_inicial_es.informe_inicial_es')}}" class="btn btn-danger mx-2"><i
         class="fa fa-times"></i>&nbsp;&nbsp;Cancelar</a>
   </div>
@@ -177,6 +183,7 @@
 </form>
 </div>
 {% endblock%}
+
 
 {% block scripts %}
 <!--PARA EL BOTON AGREGAR PLAN TRABAJO -->
@@ -190,11 +197,11 @@
 
     const nuevaFila = tablaPlanTrabajo.insertRow();
     nuevaFila.innerHTML = `
-  <td class="col-1 text-center">${numero}</td>
-  <td class="col-2 text-center"><input type="date" class="form-control input" name="fecha_in_${numero}" id="fecha_in_${numero}" required/></td>
-  <td class="col-2 text-center"><input type="date" class="form-control input" name="fecha_fin_${numero}" id="fecha_fin_${numero}" required/></td>
-  <td class="col-7"><input type="text" class="form-control" placeholder="Actividad ${numero}" value="" required/></td>
-  <td class="col-1"><input type="text" class="form-control" placeholder="N° de horas" value="" required/></td>
+  <td class="col-1 text-center"><input class="form-control-plaintext" type="text" readonly name="n_semana[]" id="n_semana[]" value="${numero}"></td>
+  <td class="col-1 text-center"><input type="date" class="form-control input" name="fecha_in[]" id="fecha_in[]" required/></td>
+  <td class="col-1 text-center"><input type="date" class="form-control input" name="fecha_fin[]" id="fecha_in[]" required/></td>
+  <td class="col-7"><input type="text" class="form-control" placeholder="Actividad ${numero}" value="" required name="actividad[]"/></td>
+  <td class="col-1"><input type="text" class="form-control" placeholder="N° de horas" value="" name="horas[]" required /></td>
   <td class="col-1 text-center"><button class="btn btn-danger btn-sm" onclick="eliminarFilaPlan(this)"><i class="bi bi-trash"></i></button></td>
 `;
     actualizarNumerosSemana(tablaPlanTrabajo);
@@ -226,7 +233,7 @@
     nuevaFila.innerHTML = `
       <tr>
         <td class="col-1 text-center">${numero}</td>
-        <td class="col-11"><input type="text" required class="form-control" placeholder="Objetivo ${numero}" value=""></td>
+        <td class="col-11"><input type="text" required class="form-control" placeholder="Objetivo ${numero}" name="objetivo[]" value=""></td>
         <td class="col-1 text-center"><button class="btn btn-danger btn-sm" onclick="eliminarFilaObjetivo(this)"><i class="bi bi-trash"></i></button></td>
       </tr>
     `;
@@ -238,5 +245,41 @@
     tablaObjetivos.deleteRow(fila.rowIndex);
   }
 </script>
+<script>
+  async function confirmar_form() {
+    const form = document.getElementById("formulario");
+    const result = await Swal.fire({
+      title: '¿Guardar cambios?',
+      text: 'Los cambios se guardarán y podrá continuar editando más tarde si lo desea.',
+      icon: 'warning',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Si',
+      reverseButtons: false
+    });
 
+    if (result.isConfirmed) {
+      form.submit()
+    }
+  }
+
+  function confirmar_volver(enlace) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Todos los cambios no guardados se perderán',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = enlace.href;
+      }
+    });
+  }
+</script>
 {% endblock %}

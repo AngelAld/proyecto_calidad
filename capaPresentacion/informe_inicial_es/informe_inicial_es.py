@@ -6,7 +6,7 @@ informe_inicial_es_bp = Blueprint(
 )
 
 
-@informe_inicial_es_bp.route("/estudiantes/informes_iniciales")
+@informe_inicial_es_bp.route("/estudiante/informes_iniciales")
 def informe_inicial_es():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
@@ -73,18 +73,17 @@ def actualizar_informe_inicial_es():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        id_informe_inicial_es = request.form["id"]
-        estado = request.form.get("estado")
-        id_detalle_practica = request.form["id_detalle_practica"]
+        id_informe_inicial_es = request.form['id_informe_inicial_es']
+        objetivos = request.form.getlist('objetivo[]')
+        print(objetivos)
 
-        mensaje = c_informe_inicial_es.actualizar_informe_inicial_es(
-            id_informe_inicial_es, estado, id_detalle_practica
-        )
+        mensaje = 'Probando'
 
+        
         if mensaje == "Operacion realizada con éxito":
             flash("Informe Inicial Actualizado con Éxito", "success")
-            url = "/informe_inicial_es"
+            url = "/estudiante/informes_iniciales"
         else:
             flash(str(mensaje), "error")
-            url = "/formulario_editar_informe_inicial/" + id_informe_inicial_es
+            url = "/estudiante/editar_informe_inicial/" + id_informe_inicial_es
         return redirect(url)

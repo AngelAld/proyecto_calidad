@@ -2,7 +2,7 @@
 {% block titulo %}
 Editar Informe Inicial Estudiante
 {% endblock %}
-{% set titulo2 = "Agregar Informen Inicial Estudiante" %}
+{% set titulo2 = "Agregar Informe Inicial Estudiante" %}
 
 {% set nombre = estudiante[0] %}
 {% set codigo_universidatrio = estudiante[1] %}
@@ -12,4 +12,9 @@ Editar Informe Inicial Estudiante
 {% set semestre = datos_practica[0] %}
 {% set fecha_inicio = datos_practica[1] %}
 {% set fecha_fin = datos_practica[2] %}
-{% set url = "#" %}
+{% set id_informe = informe[0] %}
+{% set firma_es = informe[3] %}
+{% set firma_jefe = informe[4] %}
+{% set estado = informe[5] %}
+{% set totalHoras = 0 -%}
+{% set url = url_for('informe_inicial_es.actualizar_informe_inicial_es') %}
