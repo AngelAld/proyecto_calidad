@@ -2,18 +2,6 @@
 {% block titulo %} Informe Inicial Empresa {% endblock %}
 {% set titulo2 = "Agregar Informe Inicial Empresa" %}
 {% block contenido %}
-
-<script>
-  function soloLetras(event) {
-      var charCode = event.keyCode || event.which;
-      var charStr = String.fromCharCode(charCode);
-      var pattern = /^[a-zA-Z\ssáéíóúÁÉÍÓÚñÑ]+$/;
-      if (!pattern.test(charStr)) {
-          event.preventDefault();
-          return false;
-      }
-  }
-</script>
   <div class="container-fluid">
     <div class="row mt-3">
       <div class="col-12">
@@ -22,7 +10,7 @@
           <div class="form-group row">
             <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="nombres" readonly onkeypress="return soloLetras(event)">
+              <input type="text" class="form-control" id="nombres" value="{{ nombre }}" readonly disabled  >
             </div>
           </div>
         </form>
@@ -36,19 +24,19 @@
           <div class="form-group row">
             <label for="razon_social" class="col-sm-2 col-form-label">Razon social:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="razon_social" readonly>
+              <input type="text" class="form-control" id="razon_social" value="{{ razon_social }}" readonly disabled>
             </div>
           </div>
           <div class="form-group row">
             <label for="responsable_practica" class="col-sm-2 col-form-label">Responsable de la practica:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="responsable_practica" readonly>
+              <input type="text" class="form-control" id="responsable_practica" value="{{ jefe }}" readonly disabled>
             </div>
           </div>
           <div class="form-group row">
             <label for="cargo" class="col-sm-2 col-form-label">Cargo:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="cargo" readonly>
+              <input type="text" class="form-control" id="cargo" value="{{ cargo_jefe }}" readonly disabled>
             </div>
           </div>
           <div class="form-group row">
