@@ -77,13 +77,15 @@ def consultar_informe_iniciales_estudiante(id_informe_inicial_es):
                 WHERE id_informe_inicial_es = %s
             """, (id_informe_inicial_es,))
             plan_trabajo = cursor.fetchall()
-
+            
+            cursor.execute("SELECT * FROM informe_inicial_es WHERE id_informe_inicial_es = %s", (id_informe_inicial_es,))
+            informe = cursor.fetchone()
         conexion.close()
 
-        return estudiante, datos_cppp, datos_practica, objetivos, plan_trabajo
+        return estudiante, datos_cppp, datos_practica, objetivos, plan_trabajo, informe
 
     except Exception as e:
-        return f"Error al consultar informe inicial: {str(e)}"
+        print("Error al consultar informe inicial: {str(e)}")
 
 
 

@@ -53,7 +53,10 @@ def editar_informe_inicial_es(id):
         datos_practica,
         objetivos,
         planes_trabajo,
+        informe,
     ) = c_informe_inicial_es.consultar_informe_iniciales_estudiante(id)
+
+    
     return render_template(
         "frm_editar_informe_inicial_es.html",
         estudiante=estudiante,
@@ -61,6 +64,7 @@ def editar_informe_inicial_es(id):
         datos_practica=datos_practica,
         objetivos=objetivos,
         planes_trabajo=planes_trabajo,
+        informe = informe,
     )
 
 

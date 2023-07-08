@@ -6,22 +6,49 @@
   <div class="row mt-3">
     <div class="col-12">
       <h4>Datos del Estudiante</h4>
-      <form>
-
-        <div class="form-group row mb-3">
-          <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control" id="estudiante" value="{{ nombre }}" readonly disabled>
-          </div>
+      <div class="form-group row mb-3">
+        <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="estudiante" value="{{ nombre }}" readonly disabled>
         </div>
-        <div class="form-group row mb-3">
-          <label for="codigo" class="col-sm-2 col-form-label">Codigo:</label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control" id="codigo" value="{{ codigo_universidatrio }}" disabled>
-            </select>
-          </div>
+      </div>
+      <div class="form-group row mb-3">
+        <label for="codigo" class="col-sm-2 col-form-label">Codigo:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="codigo" value="{{ codigo_universidatrio }}" disabled>
+          </select>
         </div>
+      </div>
+    </div>
+  </div>
 
+  <div class="row mt-3">
+    <div class="col-12">
+      <h4>Datos del Centro de Practica Pre Profesional</h4>
+      <div class="form-group row mb-3">
+        <label for="razon_social" class="col-sm-2 col-form-label">Razon social:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="razon_social" value="{{ razon_social }}" readonly disabled>
+        </div>
+      </div>
+      <div class="form-group row mb-3">
+        <label for="responsable_practica" class="col-sm-2 col-form-label">Responsable de la practica:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="responsable_practica" value="{{ jefe }}" readonly disabled>
+        </div>
+      </div>
+      <div class="form-group row mb-3">
+        <label for="cargo" class="col-sm-2 col-form-label">Cargo:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="cargo" value="{{ cargo_jefe }}" readonly disabled>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form>
+    <div class="row mt-3">
+      <div class="col-12">
+        <h4>Datos de Practica Pre Profesional</h4>
         <div class="form-group row mb-3">
           <label for="semestre" class="col-sm-2 col-form-label">Semestre:</label>
           <div class="col-sm-4">
@@ -29,131 +56,87 @@
             </select>
           </div>
         </div>
-      </form>
-    </div>
-  </div>
-
-  <div class="row mt-3">
-    <div class="col-12">
-      <h4>Datos del Centro de Practica Pre Profesional</h4>
-      <form>
-        <div class="form-group row mb-3">
-          <label for="razon_social" class="col-sm-2 col-form-label">Razon social:</label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control" id="razon_social" value="{{ razon_social }}" readonly disabled>
-          </div>
-        </div>
-        <div class="form-group row mb-3">
-          <label for="responsable_practica" class="col-sm-2 col-form-label">Responsable de la practica:</label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control" id="responsable_practica" value="{{ jefe }}" readonly disabled>
-          </div>
-        </div>
-        <div class="form-group row mb-3">
-          <label for="cargo" class="col-sm-2 col-form-label">Cargo:</label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control" id="cargo" value="{{ cargo_jefe }}" readonly disabled>
-          </div>
-        </div>
         <div class="form-group row mb-3">
           <label for="fecha_inicio" class="col-sm-2 col-form-label">Fecha de inicio:</label>
           <div class="col-md-2 mb-0">
-            <div class="form-floating">
-              <input value="{{fecha_inicio}}" type="date" class="form-control input" name="fecha_inicio"
-                id="fecha_inicio">
-              <label for="fecha_inicio">Fecha de inicio</label>
-            </div>
+            <input value="{{fecha_inicio}}" type="date" class="form-control input" name="fecha_inicio"
+              id="fecha_inicio">
           </div>
         </div>
         <div class="form-group row mb-3">
           <label for="fecha_fin" class="col-sm-2 col-form-label">Fecha de fin:</label>
           <div class="col-md-2 mb-0">
-            <div class="form-floating">
-              <input value="{{fecha_fin}}" type="date" class="form-control input" name="fecha_fin" id="fecha_fin">
-              <label for="fecha_fin">Fecha de fin</label>
-            </div>
+            <input value="{{fecha_fin}}" type="date" class="form-control input" name="fecha_fin" id="fecha_fin">
           </div>
         </div>
-      </form>
-    </div>
-  </div>
-
-  <div class="row mt-3">
-    <div class="col-12">
-      <h5 class="col-2">Objetivos</h5>
-      <div>
-        <a href="#" class="btn btn-success" id="btnAgregarObjetivo"><i class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
       </div>
     </div>
-  </div>
-  <form>
+    <div class="row mt-3">
+      <div class="col-12">
+        <h5 class="col-2">Objetivos</h5>
+      </div>
+    </div>
     <table class="table" id="tablaObjetivos">
       <thead class="bg-light">
         <tr>
           <th class="col-1 text-center">Numero</th>
-          <th class="col-11">Descripcion</th>
-          <th class="col-1 text-center">Editar</th>
+          <th class="col-11 text-center">Descripcion</th>
           <th class="col-1 text-center">Eliminar</th>
         </tr>
       </thead>
       <tbody>
-  
+        {% for objetivo in objetivos %}
+        <tr>
+          <td class="col-1 text-center">{{ loop.index }}</td>
+          <td class="col-11"><input required type="text" class="form-control" placeholder="Objetivo {{ loop.index }}"
+              value="{{ objetivo[2] }}"></td>
+          <td class="col-1 text-center"><button class="btn btn-danger btn-sm" onclick="eliminarFilaObjetivo(this)"><i
+                class="bi bi-trash"></i></button></td>
+        </tr>
+        {% endfor %}
       </tbody>
     </table>
-  </form>
-  
-  <script>
-    document.getElementById("btnAgregarObjetivo").addEventListener("click", function (event) {
-      event.preventDefault();
+    <div class="mb-5">
+      <button class="btn btn-success" id="btnAgregarObjetivo"><i class="fas fa-plus-circle"></i>&nbsp;Agregar</button>
+    </div>
 
-      const tablaObjetivos = document.getElementById("tablaObjetivos");
-      const numero = tablaObjetivos.rows.length;
 
-      const nuevaFila = tablaObjetivos.insertRow();
-      const celdaNumero = nuevaFila.insertCell(0);
-      const celdaDescripcion = nuevaFila.insertCell(1);
-      const celdaEditar = nuevaFila.insertCell(2);
-      const celdaEliminar = nuevaFila.insertCell(3);
-
-      celdaNumero.textContent = numero;
-      celdaDescripcion.innerHTML = `<input type="text" class="form-control" placeholder="Objetivo ${numero - 1}">`;
-      celdaEditar.innerHTML = '<button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button>';
-      celdaEliminar.innerHTML = '<button class="btn btn-danger btn-sm" onclick="eliminarFilaObjetivo(this)"><i class="bi bi-trash"></i></button>';
-    });
-
-    function eliminarFilaObjetivo(element) {
-      const fila = element.parentNode.parentNode;
-      const tablaObjetivos = document.getElementById("tablaObjetivos");
-      tablaObjetivos.deleteRow(fila.rowIndex);
-    }
-  </script>
 
 </div>
 <div class="row mt-3">
   <div class="col-12">
     <div class="d-flex justify-content-between align-items-center">
       <h5 class="col-2">Plan de trabajo</h5>
-      <div>
-        <button type="button" class="btn btn-success" id="btnAgregarPlan"><i class="fas fa-plus-circle"></i>&nbsp;Agregar</button>
-      </div>
     </div>
-    <form>
-      <table class="table" id="tablaPlanTrabajo">
-        <thead class="bg-light">
-          <tr>
-            <th class="col-1">N° de semana</th>
-            <th class="col-2">Fechas</th>
-            <th class="col-7">Actividad a relizar</th>
-            <th class="col-1">N° de horas</th>
-            <th class="col-1 text-center">Editar</th>
-            <th class="col-1 text-center">Eliminar</th>
-          </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
-      </table>
-    </form>
+    <table class="table" id="tablaPlanTrabajo">
+      <thead class="bg-light">
+        <tr>
+          <th class="col-1">N° de semana</th>
+          <th class="col-2">Fecha de inicio</th>
+          <th class="col-2">Fecha de fin</th>
+          <th class="col-7">Actividad a relizar</th>
+          <th class="col-1">N° de horas</th>
+          <th class="col-1 text-center">Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for plan_trabajo in planes_trabajo %}
+        <tr>
+          <td class="col-1 text-center">{{ loop.index }}</td>
+          <td class="col-1 text-center"><input required value="{{ plan_trabajo[3] }}" type="date" class="form-control input"
+              name="fecha_in_{{ loop.index }}" id="fecha_in_{{ loop.index }}"></td>
+          <td class="col-1 text-center"><input required value="{{ plan_trabajo[4] }}" type="date" class="form-control input"
+              name="fecha_fin_{{ loop.index }}" id="fecha_fin_{{ loop.index }}"></td>
+          <td class="col-8"><input type="text" required class="form-control" placeholder="Actividad {{ loop.index }}"
+              value="{{ plan_trabajo[5] }}"></td>
+          <td class="col-2"><input type="text" required class="form-control" placeholder="N° de horas"
+              value="{{ plan_trabajo[6] }}"></td>
+          <td class="col-1 text-center"><button class="btn btn-danger btn-sm" onclick="eliminarFilaObjetivo(this)"><i
+                class="bi bi-trash"></i></button></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
     <table class="table">
       <tfoot>
         <tr id="filaTotalHoras">
@@ -162,51 +145,13 @@
         </tr>
       </tfoot>
     </table>
+    <div class="mb-5">
+      <button type="button" class="btn btn-success" id="btnAgregarPlan"><i
+          class="fas fa-plus-circle"></i>&nbsp;Agregar</button>
+    </div>
   </div>
 </div>
 
-<!--PARA EL BOTON AGREGAR PLAN TRABAJO -->
-<script>
-  document.getElementById("btnAgregarPlan").addEventListener("click", function (event) {
-    event.preventDefault();
-
-    const tablaPlanTrabajo = document.getElementById("tablaPlanTrabajo");
-    const numero = tablaPlanTrabajo.rows.length;
-
-    const nuevaFila = tablaPlanTrabajo.insertRow();
-    const celdaNumero = nuevaFila.insertCell(0);
-    const celdaFechas = nuevaFila.insertCell(1);
-    const celdaActividades = nuevaFila.insertCell(2);
-    const celdaNumHoras = nuevaFila.insertCell(3);
-    const celdaEditar = nuevaFila.insertCell(4);
-    const celdaEliminar = nuevaFila.insertCell(5);
-
-    celdaNumero.textContent = numero;
-    celdaFechas.innerHTML = `<input type="text" class="form-control" />`;
-    celdaActividades.innerHTML = `<input type="text" class="form-control" placeholder="Actividad ${numero}">`;
-    celdaNumHoras.innerHTML = `<input type="text" class="form-control" />`;
-    celdaEditar.innerHTML = '<button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button>';
-    celdaEliminar.innerHTML = '<button class="btn btn-danger btn-sm" onclick="eliminarFilaPlan(this)"><i class="bi bi-trash"></i></button>';
-
-    actualizarNumerosSemana(tablaPlanTrabajo);
-  });
-
-  function eliminarFilaPlan(element) {
-    const fila = element.parentNode.parentNode;
-    const tablaPlanTrabajo = document.getElementById("tablaPlanTrabajo");
-    tablaPlanTrabajo.deleteRow(fila.rowIndex);
-
-    actualizarNumerosSemana(tablaPlanTrabajo);
-  }
-
-  function actualizarNumerosSemana(tabla) {
-    const filas = tabla.rows;
-    for (let i = 1; i < filas.length; i++) {
-      const celdaNumero = filas[i].cells[0];
-      celdaNumero.textContent = i;
-    }
-  }
-</script>
 
 <div class="row mt-3">
   <div class="col-md-3">
@@ -229,5 +174,69 @@
   </div>
 </div>
 <div class="mt-3"></div>
+</form>
 </div>
 {% endblock%}
+
+{% block scripts %}
+<!--PARA EL BOTON AGREGAR PLAN TRABAJO -->
+<script>
+  document.getElementById("btnAgregarPlan").addEventListener("click", function (event) {
+    event.preventDefault();
+
+    const tablaPlanTrabajo = document.getElementById("tablaPlanTrabajo");
+    const numero = tablaPlanTrabajo.rows.length;
+
+
+    const nuevaFila = tablaPlanTrabajo.insertRow();
+    nuevaFila.innerHTML = `
+  <td class="col-1 text-center">${numero}</td>
+  <td class="col-2 text-center"><input type="date" class="form-control input" name="fecha_in_${numero}" id="fecha_in_${numero}" required/></td>
+  <td class="col-2 text-center"><input type="date" class="form-control input" name="fecha_fin_${numero}" id="fecha_fin_${numero}" required/></td>
+  <td class="col-7"><input type="text" class="form-control" placeholder="Actividad ${numero}" value="" required/></td>
+  <td class="col-1"><input type="text" class="form-control" placeholder="N° de horas" value="" required/></td>
+  <td class="col-1 text-center"><button class="btn btn-danger btn-sm" onclick="eliminarFilaPlan(this)"><i class="bi bi-trash"></i></button></td>
+`;
+    actualizarNumerosSemana(tablaPlanTrabajo);
+  });
+
+  function eliminarFilaPlan(element) {
+    const fila = element.parentNode.parentNode;
+    const tablaPlanTrabajo = document.getElementById("tablaPlanTrabajo");
+    tablaPlanTrabajo.deleteRow(fila.rowIndex);
+
+    actualizarNumerosSemana(tablaPlanTrabajo);
+  }
+
+  function actualizarNumerosSemana(tabla) {
+    const filas = tabla.rows;
+    for (let i = 1; i < filas.length; i++) {
+      const celdaNumero = filas[i].cells[0];
+      celdaNumero.textContent = i;
+    }
+  }
+
+  document.getElementById("btnAgregarObjetivo").addEventListener("click", function (event) {
+    event.preventDefault();
+
+    const tablaObjetivos = document.getElementById("tablaObjetivos");
+    const numero = tablaObjetivos.rows.length;
+
+    const nuevaFila = tablaObjetivos.insertRow();
+    nuevaFila.innerHTML = `
+      <tr>
+        <td class="col-1 text-center">${numero}</td>
+        <td class="col-11"><input type="text" required class="form-control" placeholder="Objetivo ${numero}" value=""></td>
+        <td class="col-1 text-center"><button class="btn btn-danger btn-sm" onclick="eliminarFilaObjetivo(this)"><i class="bi bi-trash"></i></button></td>
+      </tr>
+    `;
+  });
+
+  function eliminarFilaObjetivo(element) {
+    const fila = element.parentNode.parentNode;
+    const tablaObjetivos = document.getElementById("tablaObjetivos");
+    tablaObjetivos.deleteRow(fila.rowIndex);
+  }
+</script>
+
+{% endblock %}
