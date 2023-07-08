@@ -57,11 +57,11 @@
               </td>
               <td class="col-1 text-center">
                 {# Pasar el id lo que hay en informe_final_es[0] #}
-                <a href="{{url_for('informe_final_es.editar_informe_final_es', id=informe_final_es[0])}}" class="text-center btn btn-primary ls-button"
+                <a href="#" class="text-center btn btn-primary ls-button"
                   data-bs-toggle="tooltip" data-bs-title="Editar informe_final_es"><i class="fas fa-edit"></i></a>
               </td>
               <td class="col-1 text-center">
-                <form action="{{url_for('informe_final_es.eliminar_informe_final_es')}}" method="POST" id="eliminar_form">
+                <form action="#" method="POST" id="eliminar_form">
                   <input type="hidden" name="id" value="{{informe_final_es[0]}}">
                   <button class="btn btn-danger ls-button" id="eliminar_btn"
                     onclick="event.preventDefault(); eliminar(this.parentNode)" data-bs-toggle="tooltip"
