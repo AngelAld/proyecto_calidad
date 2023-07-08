@@ -36,6 +36,11 @@ def agregar_practica(id_estudiante, estado, id_linea_desarrollo, id_semestre_aca
             conexion.commit()
             
             cursor.execute("INSERT INTO INFORME_INICIAL_ES (id_detalle_practica, estado) VALUES (%s, 'P')", (id_detalle_practica,))
+            cursor.execute("INSERT INTO INFORME_INICIAL_EM (DETALLE_PRACTICAid_detalle_practica, estado) VALUES (%s, 'P')", (id_detalle_practica,))
+            cursor.execute("INSERT INTO INFORME_FINAL_EM (id_detalle_practica, estado) VALUES (%s, 'P')", (id_detalle_practica,))
+            cursor.execute("INSERT INTO INFORME_FINAL_ES (id_detalle_practica, estado) VALUES (%s, 'P')", (id_detalle_practica,))
+            cursor.execute("INSERT INTO FICHA_DESEMPENO (id_detalle_practica, estado) VALUES (%s, 'P')", (id_detalle_practica,))
+            
             # Confirma la transacción
             conexion.commit()
             msg = "La práctica se registró correctamente."

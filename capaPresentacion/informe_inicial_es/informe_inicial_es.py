@@ -74,12 +74,26 @@ def actualizar_informe_inicial_es():
         return redirect(url_for("inicio.inicio"))
     else:
         id_informe_inicial_es = request.form['id_informe_inicial_es']
+        fecha_inicio = request.form['fecha_inicio']
+        fecha_fin = request.form['fecha_fin']
+        firma_es = request.form['firma_estudiante']
+        firma_jefe = request.form['firma_jefe']
+        
         objetivos = request.form.getlist('objetivo[]')
-        print(objetivos)
+        
+        # plan trabajo
+        
+        n_semanas = request.form.getlist('n_semana[]')
+        fs_inicio = request.form.getlist('fecha_in[]')
+        fs_fin = request.form.getlist('fecha_fin[]')
+        actividades = request.form.getlist('actividad[]')
+        horas = request.form.getlist('horas[]')
+
+        print(objetivos, n_semanas, fs_inicio, fs_fin, actividades, horas)
 
         mensaje = 'Probando'
 
-        
+
         if mensaje == "Operacion realizada con éxito":
             flash("Informe Inicial Actualizado con Éxito", "success")
             url = "/estudiante/informes_iniciales"

@@ -81,8 +81,8 @@ CREATE TABLE FACULTAD (
   descripcion text, 
   estado      char(1) NOT NULL, 
   PRIMARY KEY (id_facultad));
-CREATE TABLE FICHA_DESEMPEÑO (
-  id_ficha_desempeño  SERIAL NOT NULL, 
+CREATE TABLE FICHA_DESEMPENO (
+  id_ficha_desempeno  SERIAL NOT NULL, 
   responsabilidad     int4, 
   proactividad        int4, 
   comunicacion        int4, 
@@ -93,14 +93,14 @@ CREATE TABLE FICHA_DESEMPEÑO (
   estado              char(1) NOT NULL, 
   id_detalle_practica int4 NOT NULL, 
   fecha               date, 
-  PRIMARY KEY (id_ficha_desempeño));
+  PRIMARY KEY (id_ficha_desempeno));
 CREATE TABLE INFORME_FINAL_EM (
   id_informe_final_em SERIAL NOT NULL, 
   cum_objetivos       text, 
   cum_horas           text, 
   responsabilidad     text, 
   extra               text, 
-  firma               bytea, 
+  firma               text, 
   fecha               date, 
   estado              char(1) NOT NULL, 
   id_detalle_practica int4 NOT NULL, 
@@ -121,13 +121,13 @@ CREATE TABLE INFORME_FINAL_ES (
   fecha               date, 
   PRIMARY KEY (id_informe_final_es));
 CREATE TABLE INFORME_INICIAL_EM (
-  id_informe_inicial_em               SERIAL NOT NULL, 
-  compromiso                          text, 
-  labores                             text, 
-  firma                               text, 
-  estado                              char(1) NOT NULL, 
-  DETALLE_PRACTICAid_detalle_practica int4 NOT NULL, 
-  fecha                               date, 
+  id_informe_inicial_em SERIAL NOT NULL, 
+  compromiso            text, 
+  labores               text, 
+  firma                 text, 
+  estado                char(1) NOT NULL, 
+  id_detalle_practica   int4 NOT NULL, 
+  fecha                 date, 
   PRIMARY KEY (id_informe_inicial_em));
 CREATE TABLE INFORME_INICIAL_ES (
   id_informe_inicial_es SERIAL NOT NULL, 
@@ -186,9 +186,9 @@ CREATE TABLE RECOMENDACIONES (
   PRIMARY KEY (id_recomendaciones));
 CREATE TABLE RESULTADO_APRENDIZAJE (
   id_resultado_aprendizaje SERIAL NOT NULL, 
-  id_ficha_desempeño       int4 NOT NULL, 
   descripcion              varchar(255) NOT NULL, 
   escala                   int4 NOT NULL, 
+  id_ficha_desempeno       int4 NOT NULL, 
   PRIMARY KEY (id_resultado_aprendizaje));
 CREATE TABLE ROL (
   id_rol SERIAL NOT NULL, 
@@ -244,17 +244,17 @@ ALTER TABLE ESTUDIANTE ADD CONSTRAINT FKESTUDIANTE613214 FOREIGN KEY (id_semestr
 ALTER TABLE PLAN_TRABAJO ADD CONSTRAINT FKPLAN_TRABA223183 FOREIGN KEY (id_informe_inicial_es) REFERENCES INFORME_INICIAL_ES (id_informe_inicial_es);
 ALTER TABLE OBJETIVO ADD CONSTRAINT FKOBJETIVO739515 FOREIGN KEY (id_informe_inicial_es) REFERENCES INFORME_INICIAL_ES (id_informe_inicial_es);
 ALTER TABLE INFORME_INICIAL_ES ADD CONSTRAINT FKINFORME_IN64603 FOREIGN KEY (id_detalle_practica) REFERENCES DETALLE_PRACTICA (id_detalle_practica);
-ALTER TABLE INFORME_INICIAL_EM ADD CONSTRAINT FKINFORME_IN743698 FOREIGN KEY (DETALLE_PRACTICAid_detalle_practica) REFERENCES DETALLE_PRACTICA (id_detalle_practica);
+ALTER TABLE INFORME_INICIAL_EM ADD CONSTRAINT FKINFORME_IN64597 FOREIGN KEY (id_detalle_practica) REFERENCES DETALLE_PRACTICA (id_detalle_practica);
 ALTER TABLE RECOMENDACIONES ADD CONSTRAINT FKRECOMENDAC626388 FOREIGN KEY (id_informe_final_es) REFERENCES INFORME_FINAL_ES (id_informe_final_es);
 ALTER TABLE CONCLUSIONES ADD CONSTRAINT FKCONCLUSION136439 FOREIGN KEY (id_informe_final_es) REFERENCES INFORME_FINAL_ES (id_informe_final_es);
 ALTER TABLE INFORME_FINAL_ES ADD CONSTRAINT FKINFORME_FI1483 FOREIGN KEY (id_detalle_practica) REFERENCES DETALLE_PRACTICA (id_detalle_practica);
 ALTER TABLE BIBLIOGRAFIA ADD CONSTRAINT FKBIBLIOGRAF317237 FOREIGN KEY (id_informe_final_es) REFERENCES INFORME_FINAL_ES (id_informe_final_es);
 ALTER TABLE ANEXOS ADD CONSTRAINT FKANEXOS46774 FOREIGN KEY (id_informe_final_es) REFERENCES INFORME_FINAL_ES (id_informe_final_es);
 ALTER TABLE INFORME_FINAL_EM ADD CONSTRAINT FKINFORME_FI1477 FOREIGN KEY (id_detalle_practica) REFERENCES DETALLE_PRACTICA (id_detalle_practica);
-ALTER TABLE FICHA_DESEMPEÑO ADD CONSTRAINT FKFICHA_DESE746982 FOREIGN KEY (id_detalle_practica) REFERENCES DETALLE_PRACTICA (id_detalle_practica);
-ALTER TABLE RESULTADO_APRENDIZAJE ADD CONSTRAINT FKRESULTADO_316780 FOREIGN KEY (id_ficha_desempeño) REFERENCES FICHA_DESEMPEÑO (id_ficha_desempeño);
+ALTER TABLE FICHA_DESEMPENO ADD CONSTRAINT FKFICHA_DESE742921 FOREIGN KEY (id_detalle_practica) REFERENCES DETALLE_PRACTICA (id_detalle_practica);
 ALTER TABLE LINEA_DESARROLLO ADD CONSTRAINT FKLINEA_DESA831180 FOREIGN KEY (id_escuela_profesional) REFERENCES ESCUELA_PROFESIONAL (id_escuela_profesional);
 ALTER TABLE ESTUDIANTE ADD CONSTRAINT FKESTUDIANTE401223 FOREIGN KEY (id_plan_estudio) REFERENCES PLAN_ESTUDIO (id_plan_estudio);
 ALTER TABLE DETALLE_PRACTICA ADD CONSTRAINT FKDETALLE_PR399145 FOREIGN KEY (id_linea_desarrollo) REFERENCES LINEA_DESARROLLO (id_linea_desarrollo);
 ALTER TABLE JEFE_INMEDIATO ADD CONSTRAINT FKJEFE_INMED727574 FOREIGN KEY (id_usuario) REFERENCES USUARIO (id_usuario);
 ALTER TABLE CENTRO_PRACTICAS ADD CONSTRAINT FKCENTRO_PRA585086 FOREIGN KEY (id_ubicacion) REFERENCES UBICACION (id_ubicacion);
+ALTER TABLE RESULTADO_APRENDIZAJE ADD CONSTRAINT FKRESULTADO_304597 FOREIGN KEY (id_ficha_desempeno) REFERENCES FICHA_DESEMPENO (id_ficha_desempeno);

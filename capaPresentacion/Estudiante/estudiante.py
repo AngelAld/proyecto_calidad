@@ -89,7 +89,7 @@ def guardar_estudiante():
 
         if mensaje == "Operación realizada con éxito":
             flash(f"Estudiante Registrado con Exito", "success")
-            url = "/estudiante"
+            url = "/estudiantes"
         else:
             flash(str(mensaje), "error")
             url = "/agregar_estudiante"
@@ -125,7 +125,7 @@ def eliminar_estudiante():
         else:
             flash(str(mensaje), "error")
 
-        return redirect("/estudiante")
+        return redirect("/estudiantes")
 
 
 @estudiante_bp.route("/formulario_editar_estudiante/<int:id>")
@@ -163,7 +163,7 @@ def actualizar_estudiante():
 
         if mensaje == "Operación realizada con éxito":
             flash(f"Estudiante Actualizado con Exito", "success")
-            url = "/estudiante"
+            url = "/estudiantes"
         else:
             flash(str(mensaje), "error")
             url = "/formulario_editar_estudiante/" + id
@@ -184,7 +184,7 @@ def actualizar_estado():
         else:
             flash(str(mensaje), "error")
 
-        return redirect("/estudiante")
+        return redirect("/estudiantes")
     
 # solo cmb-----------------------------------------
 @estudiante_bp.route("/cmb_planestudio")
