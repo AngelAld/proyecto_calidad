@@ -109,36 +109,6 @@
     <div class="d-flex justify-content-between align-items-center">
       <h5 class="col-2">Plan de trabajo</h5>
     </div>
-    <table class="table" id="tablaPlanTrabajo">
-      <thead class="bg-light">
-        <tr>
-          <th class="col-1">N° de semana</th>
-          <th class="col-1">Fecha de inicio</th>
-          <th class="col-1">Fecha de fin</th>
-          <th class="col-7">Actividad a realizar</th>
-          <th class="col-1">N° de horas</th>
-          <th class="col-1 text-center">Eliminar</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for plan_trabajo in planes_trabajo %}
-        <tr>
-          <td class="col-1 text-center"><input class="form-control-plaintext text-center" type="text" name="n_semana[]"
-              value="{{ plan_trabajo[2] }}"></td>
-          <td class="col-1 text-center"><input required value="{{ plan_trabajo[3] }}" type="date"
-              class="form-control input" name="fecha_in[]"></td>
-          <td class="col-1 text-center"><input required value="{{ plan_trabajo[4] }}" type="date"
-              class="form-control input" name="fecha_fin[]"></td>
-          <td class="col-7"><input type="text" required class="form-control" placeholder="Actividad {{ loop.index }}"
-              value="{{ plan_trabajo[5] }}" name="actividad[]"></td>
-          <td class="col-1"><input type="number" required class="form-control" placeholder="N° de horas"
-              value="{{ plan_trabajo[6] }}" name="horas[]"></td>
-          <td class="col-1 text-center"><button class="btn btn-danger btn-sm" onclick="eliminarFilaObjetivo(this)"><i
-                class="bi bi-trash"></i></button></td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
     <table class="table">
       <tfoot>
         <tr id="filaTotalHoras">
@@ -187,49 +157,6 @@
 {% block scripts %}
 <!--PARA EL BOTON AGREGAR PLAN TRABAJO -->
 <script>
-  document.getElementById("btnAgregarPlan").addEventListener("click", function (event) {
-    event.preventDefault();
-
-    const tablaPlanTrabajo = document.getElementById("tablaPlanTrabajo");
-    const numero = tablaPlanTrabajo.rows.length;
-
-
-    const nuevaFila = tablaPlanTrabajo.insertRow();
-
-    nuevaFila.innerHTML = `
-        <tr>
-          <td class="col-1 text-center"><input class="form-control-plaintext text-center" type="text"
-              name="n_semana[]" value="${numero}"></td>
-          <td class="col-1 text-center"><input required value=" " type="date"
-              class="form-control input" name="fecha_in[]"></td>
-          <td class="col-1 text-center"><input required value=" " type="date"
-              class="form-control input" name="fecha_fin[]"></td>
-          <td class="col-7"><input type="text" required class="form-control" placeholder="Actividad ${numero}"
-              value=" " name="actividad[]"></td>
-          <td class="col-1"><input type="number" required class="form-control" placeholder="N° de horas"
-              value=" " name="horas[]"></td>
-          <td class="col-1 text-center"><button class="btn btn-danger btn-sm" onclick="eliminarFilaObjetivo(this)"><i
-                class="bi bi-trash"></i></button></td>
-        </tr>
-      `;
-  });
-
-  function eliminarFilaPlan(element) {
-    const fila = element.parentNode.parentNode;
-    const tablaPlanTrabajo = document.getElementById("tablaPlanTrabajo");
-    tablaPlanTrabajo.deleteRow(fila.rowIndex);
-
-    actualizarNumerosSemana(tablaPlanTrabajo);
-  }
-
-  function actualizarNumerosSemana(tabla) {
-    const filas = tabla.rows;
-    for (let i = 1; i < filas.length; i++) {
-      const celdaNumero = filas[i].cells[0];
-      celdaNumero.textContent = i;
-    }
-  }
-
   document.getElementById("btnAgregarObjetivo").addEventListener("click", function (event) {
     event.preventDefault();
 
@@ -252,6 +179,12 @@
     tablaObjetivos.deleteRow(fila.rowIndex);
   }
 </script>
+
+
+
+
+
+
 <script>
   async function confirmar_form() {
     const form = document.getElementById("formulario");
@@ -271,6 +204,10 @@
       form.submit()
     }
   }
+
+  
+
+
 
   function confirmar_volver(enlace) {
     Swal.fire({

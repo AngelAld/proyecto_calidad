@@ -115,24 +115,6 @@ def dar_baja_informe_inicial(p_id_informe_inicial_es, p_estado):
         return f"Error al cambiar el estado del informe: {str(e)}"
 
 
-def actualizar_informe_inicial_es(id_informe_inicial_es, estado, id_detalle_practica):
-    conexion = obtener_conexion()
-    msg = None
-    try:
-        with conexion.cursor() as cursor:
-            cursor.execute(
-                "SELECT editar_informe_inicial_es(%s, %s, %s)",
-                (id_informe_inicial_es, estado, id_detalle_practica),
-            )
-            msg = cursor.fetchone()
-        conexion.commit()
-    except Exception as e:
-        print(f"Error: {e}")
-    finally:
-        conexion.close()
-    return msg[0] if msg is not None else None
-
-
 def eliminar_informe_inicial_es(id_informe_inicial_es):
     conexion = obtener_conexion()
     msg = None
@@ -183,3 +165,24 @@ def calcular_puntaje_total_informe_inicial(id_estudiante):
 
     conexion.close()
     return puntaje_total, datos, elementos
+
+
+def actualizar_informe_inicial(id, firma_es, firma_jefe, descripciones):
+    try:
+        conexion = obtener_conexion()
+        conexion.autocommit = False
+
+        with conexion.cursor() as cursor:
+            cursor.execute("UPDATE INFORME_INICIAL_ES SET fecha = current_date, firma_es = %s, firma_jefe = %s WHERE id_informe_inicial_es = %s", (firma_es, firma_jefe, id))
+
+            for descripcion in descripciones:
+                cursor.execute("INSERT INTO OBJETIVO (id_informe_inicial_es, descripcion) VALUES (%s, %s)", (1, descripcion))
+
+        conexion.commit()
+        conexion.close()
+
+        return "Operacion realizada con éxito"
+
+    except Exception as e:
+        conexion.rollback()
+        return f"Error al cambiar el estado del informe: {str(e)}"

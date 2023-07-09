@@ -89,10 +89,10 @@ def actualizar_informe_inicial_es():
         horas = request.form.getlist('horas[]')
 
         print(list(objetivos))
-        print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-        print(list(horas))
-        
-        mensaje = 'Probando'
+        print(objetivos)
+
+
+        mensaje = c_informe_inicial_es.actualizar_informe_inicial(id=id_informe_inicial_es, firma_es=firma_es, firma_jefe=firma_jefe, descripciones=objetivos)
 
 
         if mensaje == "Operacion realizada con éxito":
@@ -102,3 +102,6 @@ def actualizar_informe_inicial_es():
             flash(str(mensaje), "error")
             url = "/estudiante/editar_informe_inicial/" + id_informe_inicial_es
         return redirect(url)
+
+
+
