@@ -133,8 +133,8 @@
               class="form-control input" name="fecha_fin[]"></td>
           <td class="col-7"><input type="text" required class="form-control" placeholder="Actividad {{ loop.index }}"
               value="{{ plan_trabajo[5] }}" name="actividad[]"></td>
-          <td class="col-1"><input type="number" required class="form-control" placeholder="N° de horas"
-              value="{{ plan_trabajo[6] }}" name="horas[]"></td>
+          <td class="col-1"><input type="number" min="0" step="1" required class="form-control" placeholder="horas"
+              value="{{ plan_trabajo[6] }}" name="horas[]" oninput="actualizarTotalHoras()"></td>
           <td class="col-1 text-center"><button class="btn btn-danger btn-sm" onclick="eliminarFilaPlan(this)"><i
                 class="bi bi-trash"></i></button></td>
         </tr>
@@ -147,7 +147,8 @@
       <tfoot>
         <tr id="filaTotalHoras">
           <td class="col-1 text">Total de horas:</td>
-          <td class="col-1" id="totalHoras"> {{ planes_trabajo|sum(attribute=6) }}</td>
+          <td class="col-1" id="totalHoras"><input type="number" min="0" step="1" name="totalHoras"
+              value="{{ planes_trabajo|sum(attribute=6) }}" class="form-control-plaintext" readonly></td>
           <td class="col-1"></td>
           <td class="col-7"></td>
           <td class="col-1"></td>
@@ -189,8 +190,9 @@
       <div class="col-12 text-center">
         <button onclick="event.preventDefault(); confirmar_form()" type="submit" class="btn btn-success"><i
             class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
-        <a href="{{url_for('informe_inicial_es.informe_inicial_es')}}" onclick="confirmar_volver()"
-          class="btn btn-danger mx-2"><i class="fa fa-times"></i>&nbsp;&nbsp;Cancelar</a>
+        <a href="{{url_for('informe_inicial_es.informe_inicial_es')}}"
+          onclick="event.preventDefault(); confirmar_volver(this)" class="btn btn-danger mx-2"><i
+            class="fa fa-times"></i>&nbsp;&nbsp;Cancelar</a>
       </div>
     </div>
 
@@ -232,6 +234,19 @@
 </script>
 
 <script>
+  function actualizarTotalHoras() {
+    const tablaPlanTrabajo = document.getElementById("tablaPlanTrabajo");
+    const filasPlan = tablaPlanTrabajo.rows;
+    let totalHoras = 0;
+
+    for (let i = 1; i < filasPlan.length; i++) {
+      const horas = filasPlan[i].cells[4].getElementsByTagName("input")[0].value;
+      totalHoras += parseInt(horas);
+    }
+
+    const inputTotalHoras = document.getElementsByName("totalHoras")[0];
+    inputTotalHoras.value = totalHoras;
+  }
   document.getElementById("btnAgregarPlan").addEventListener("click", function (event) {
     event.preventDefault();
 
@@ -245,7 +260,7 @@
         <td class="col-1 text-center"><input required type="date" class="form-control input" name="fecha_in[]"></td>
         <td class="col-1 text-center"><input required type="date" class="form-control input" name="fecha_fin[]"></td>
         <td class="col-7"><input type="text" required class="form-control" placeholder="Actividad ${numero}" name="actividad[]"></td>
-        <td class="col-1"><input type="number" required class="form-control" placeholder="N° de horas" name="horas[]"></td>
+        <td class="col-1"><input type="number" required class="form-control" min="0" step="1" placeholder="horas" name="horas[]" oninput="actualizarTotalHoras()"></td>
         <td class="col-1 text-center"><button class="btn btn-danger btn-sm" onclick="eliminarFilaPlan(this)"><i class="bi bi-trash"></i></button></td>
       </tr>
     `;
@@ -255,6 +270,12 @@
     const fila = element.parentNode.parentNode;
     const tablaPlanTrabajo = document.getElementById("tablaPlanTrabajo");
     tablaPlanTrabajo.deleteRow(fila.rowIndex);
+    actualizarTotalHoras()
+    // Actualizar el número de semana en la tabla
+    const filas = tablaPlanTrabajo.rows;
+    for (let i = 1; i < filas.length; i++) {
+      filas[i].cells[0].getElementsByTagName("input")[0].value = i;
+    }
   }
 </script>
 
@@ -263,20 +284,61 @@
 <script>
   async function confirmar_form() {
     const form = document.getElementById("formulario");
-    const result = await Swal.fire({
-      title: '¿Guardar cambios?',
-      text: 'Los cambios se guardarán y podrá continuar editando más tarde si lo desea.',
-      icon: 'warning',
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      showCancelButton: true,
-      cancelButtonText: 'Cancelar',
-      confirmButtonText: 'Si',
-      reverseButtons: false
-    });
+    const tablaPlanTrabajo = document.getElementById("tablaPlanTrabajo");
+    const tablaObjetivos = document.getElementById("tablaObjetivos");
+    let camposVacios = false;
 
-    if (result.isConfirmed) {
-      form.submit()
+    // Verificar si hay campos vacíos en la tabla Plan de Trabajo
+    const filasPlan = tablaPlanTrabajo.rows;
+    for (let i = 1; i < filasPlan.length; i++) {
+      const fechaInicio = filasPlan[i].cells[1].getElementsByTagName("input")[0];
+      const fechaFin = filasPlan[i].cells[2].getElementsByTagName("input")[0];
+      const actividad = filasPlan[i].cells[3].getElementsByTagName("input")[0];
+      const horas = filasPlan[i].cells[4].getElementsByTagName("input")[0];
+
+      if (fechaInicio.value === "" || fechaFin.value === "" || actividad.value === "" || horas.value === "") {
+        camposVacios = true;
+        break;
+      }
+    }
+
+    // Verificar si hay campos vacíos en la tabla Objetivos
+    if (!camposVacios) {
+      const filasObjetivos = tablaObjetivos.rows;
+      for (let i = 1; i < filasObjetivos.length; i++) {
+        const descripcion = filasObjetivos[i].cells[1].getElementsByTagName("input")[0];
+
+        if (descripcion.value === "") {
+          camposVacios = true;
+          break;
+        }
+      }
+    }
+
+    if (camposVacios) {
+      Swal.fire({
+        title: 'Error',
+        text: 'Por favor, complete todos los campos de las tablas Plan de Trabajo y Objetivos',
+        icon: 'error',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'OK'
+      });
+    } else {
+      const result = await Swal.fire({
+        title: '¿Guardar cambios?',
+        text: 'Los cambios se guardarán y podrá continuar editando más tarde si lo desea.',
+        icon: 'warning',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Si',
+        reverseButtons: false
+      });
+
+      if (result.isConfirmed) {
+        form.submit()
+      }
     }
   }
 
@@ -284,7 +346,7 @@
 
 
 
-  function confirmar_volver(enlace) {
+  async function confirmar_volver(enlace) {
     Swal.fire({
       title: '¿Estás seguro?',
       text: 'Todos los cambios no guardados se perderán',

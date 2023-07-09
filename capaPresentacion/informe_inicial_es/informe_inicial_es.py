@@ -87,7 +87,7 @@ def actualizar_informe_inicial_es():
         id_informe_inicial_es = request.form['id_informe_inicial_es']
         fecha_inicio = request.form['fecha_inicio']
         fecha_fin = request.form['fecha_fin']
-        
+        total_horas = request.form["totalHoras"]
         # Subir archivos de firma
         firma_es = ""
         firma_jefe = ""
@@ -127,7 +127,7 @@ def actualizar_informe_inicial_es():
 
 
 
-        mensaje = c_informe_inicial_es.actualizar_informe_inicial(fecha_fin=fecha_fin, fecha_inicio=fecha_inicio, id_informe_inicial_es=id_informe_inicial_es, firma_es=firma_es, firma_jefe=firma_jefe, descripciones=objetivos, plan_trabajo=plan_trabajo)
+        mensaje = c_informe_inicial_es.actualizar_informe_inicial(fecha_fin=fecha_fin, fecha_inicio=fecha_inicio, id_informe_inicial_es=id_informe_inicial_es, firma_es=firma_es, firma_jefe=firma_jefe, descripciones=objetivos, plan_trabajo=plan_trabajo, totalHoras=total_horas)
         print(mensaje)
         if mensaje == "Operacion realizada con éxito":
             flash("Informe Inicial Actualizado con Éxito", "success")

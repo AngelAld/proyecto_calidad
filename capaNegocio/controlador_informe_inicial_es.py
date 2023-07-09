@@ -153,7 +153,7 @@ def calcular_puntaje_total_informe_inicial(id_estudiante):
     return puntaje_total, datos, elementos
 
 
-def actualizar_informe_inicial(id_informe_inicial_es, firma_es, firma_jefe, descripciones, fecha_inicio, fecha_fin, plan_trabajo):
+def actualizar_informe_inicial(id_informe_inicial_es, totalHoras, firma_es, firma_jefe, descripciones, fecha_inicio, fecha_fin, plan_trabajo):
     try:
         conexion = obtener_conexion()
         conexion.autocommit = False
@@ -163,7 +163,26 @@ def actualizar_informe_inicial(id_informe_inicial_es, firma_es, firma_jefe, desc
 
             id_detalle_practica = cursor.fetchone()[0]
 
-            cursor.execute("UPDATE DETALLE_PRACTICA SET fecha_inicio = %s, fecha_fin = %s WHERE id_detalle_practica = %s", (fecha_inicio, fecha_fin, id_detalle_practica))
+            if fecha_inicio or fecha_fin or totalHoras:
+                sql = "UPDATE DETALLE_PRACTICA SET "
+                params = []
+
+                if fecha_inicio:
+                    sql += "fecha_inicio = %s, "
+                    params.append(fecha_inicio)
+
+                if fecha_fin:
+                    sql += "fecha_fin = %s, "
+                    params.append(fecha_fin)
+
+                if totalHoras:
+                    params.append(totalHoras)
+                    sql += "horas = %s, "
+
+                sql = sql[:-2] + " WHERE id_detalle_practica = %s"
+                params.append(id_detalle_practica)
+
+                cursor.execute(sql, params)
             
             cursor.execute("DELETE FROM OBJETIVO WHERE id_informe_inicial_es = %s", (id_informe_inicial_es,))
 
