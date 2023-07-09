@@ -122,3 +122,12 @@ def actualizar_estado_facultad():
             flash(str(mensaje), "error")
 
         return redirect("/facultades")
+
+
+@facultad_bp.route("/reporte_facultad")
+def formulario_reporte_facultad():
+    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+        return redirect(url_for("inicio.inicio"))
+    else:
+        datos,nombres_facultad = c_facultad.grafico_facultad()   
+        return render_template("reporte_facultad.html", datos=datos, nombres_facultad=nombres_facultad)

@@ -58,28 +58,6 @@ def editar_informe_inicial_em(id):
         informe=informe,
     )
 
-
-# @informe_inicial_em_bp.route("/actualizar_informe_inicial_em", methods=["POST"])
-# def actualizar_informe_inicial_em():
-#     if "rol" not in session or session["rol"] != "Docente de Apoyo":
-#         return redirect(url_for("inicio.inicio"))
-#     else:
-#         id_informe_inicial_em = request.form["id"]
-#         estado = request.form.get("estado")
-#         id_detalle_practica = request.form["id_detalle_practica"]
-
-#         mensaje = c_informe_inicial_em.actualizar_informe_inicial_em(
-#             id_informe_inicial_em, estado, id_detalle_practica
-#         )
-
-#         if mensaje == "Operacion realizada con éxito":
-#             flash("Informe Inicial Actualizado con Éxito", "success")
-#             url = "/informe_inicial_em"
-#         else:
-#             flash(str(mensaje), "error")
-#             url = "/formulario_editar_informe_inicial/" + id_informe_inicial_em
-#         return redirect(url)
-
 @informe_inicial_em_bp.route("/actualizar_informe_inicial_em", methods=["POST"])
 def actualizar_informe_inicial_em():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
