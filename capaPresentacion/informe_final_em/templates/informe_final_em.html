@@ -12,8 +12,7 @@
           <input id="searchbar" class="form-control" type="text" placeholder="&#xF002; Buscar">
         </div>
         <div class="col-auto text-end above-table">
-          <a href="{{url_for('informe_final_em.agregar_informe_final_em')}}" class="btn btn-success"><i
-              class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
+          <a href="{{url_for('informe_final_em.agregar_informe_final_em')}}" class="btn btn-success"><i class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
         </div>
       </div>
       <div class="col-auto">
@@ -30,43 +29,53 @@
             </tr>
           </thead>
           <tbody>
-            {% for informe_final_em in informe_final_em %}
+            {% for informe_empresa in informe_final_em %}
             <tr>
-              <td class="col-1 text-center d-none d-xl-table-cell">{{informe_final_em[0]}}</td>
-              <td class="col-2 text-center">{{informe_final_em[1]}}</td>
-              <td class="col-2 text-center">{{informe_final_em[3]}}</td>
-              <td class="col-2 text-center">{{informe_final_em[4]}}</td>
-              <td class="col-2 text-center">{{informe_final_em[5]}}</td>
+              <td class="col-1 text-center d-none d-xl-table-cell">{{informe_empresa[0]}}</td>
+              <td class="col-2 text-center">{{informe_empresa[1]}}</td>
               <td class="col-1 text-center d-none d-md-table-cell">
                 <form action="{{url_for('informe_final_em.actualizar_estado')}}" method="POST" class="actualizar_estado">
-                  <input type="hidden" name="id" value="{{informe_final_em[0]}}">
-                  <input type="hidden" name="estado" value="{{informe_final_em[2]}}">
-                  {% if informe_final_em[2]=='A' %}
-                  <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
-                    data-bs-title="Desactivar informe final empresa" onclick="event.preventDefault(); checkbox(this.parentNode)">
-                    <i class="bi bi-check-square-fill"></i>
-                  </button>
-                  {% else %}
-                  <button type="button" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip"
-                    data-bs-title="Activar Informe Final Empresa" onclick="event.preventDefault(); checkbox(this.parentNode)">
-                    
-                    <i class="bi bi-x-square-fill"></i>
-                  </button>
-                  {% endif %}
-                </form>
+                  <form action="" method="POST" class="actualizar_estado">
+                    <input type="hidden" name="id" value="{{informe_empresa[0]}}">
+                    <input type="hidden" name="estado" value="{{informe_empresa[2]}}">
+                    {% if informe_empresa[2]=='A' %}
+                    <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
+                      data-bs-title="Activar Informe Final Empresa"
+                      onclick="event.preventDefault(); checkbox(this.parentNode)">
+                      <i class="bi bi-check-square-fill"></i>
+                    </button>
+                    {% else %}
+                    <button type="button" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip"
+                      data-bs-title="Activar Informe Final Empresa"
+                      onclick="event.preventDefault(); checkbox(this.parentNode)">
+
+                      <i class="bi bi-x-square-fill"></i>
+                    </button>
+                    {% endif %}
+                  </form>
               </td>
+
+
               <td class="col-1 text-center">
-                {# Pasar el id lo que hay en informe_final_em[0] #}
-                <a href="{{url_for('informe_final_em.editar_informe_final_em', id=informe_final_em[0])}}" class="text-center btn btn-primary ls-button"
-                  data-bs-toggle="tooltip" data-bs-title="Editar informe_final_em"><i class="fas fa-edit"></i></a>
+                {# Pasar el id lo que hay en informe_empresa[0] #}
+                <a href="{{url_for('informe_final_em.editar_informe_final_em', id=informe_empresa[0])}}" class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
+                  data-bs-title="Editar informe_final_em"><i class="fas fa-edit"></i></a>
               </td>
               <td class="col-1 text-center">
                 <form action="{{url_for('informe_final_em.eliminar_informe_final_em')}}" method="POST" id="eliminar_form">
-                  <input type="hidden" name="id" value="{{informe_final_em[0]}}">
+                  <input type="hidden" name="id" value="{{informe_empresa[0]}}">
                   <button class="btn btn-danger ls-button" id="eliminar_btn"
                     onclick="event.preventDefault(); eliminar(this.parentNode)" data-bs-toggle="tooltip"
                     data-bs-title="Eliminar informe_final_em"><i class="fas fa-trash"></i></button>
                 </form>
+              </td>
+              <td class="col-1 text-center">
+                <a href="{{url_for('informe_final_em.editar_informe_final_em', id=informe_empresa[0])}}" class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
+                  data-bs-title="Ver informe"><i class="fa fa-eye"></i></i></a>
+              </td>
+              <td class="col-1 text-center">
+                <a href="#" class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
+                  data-bs-title="Ver informe"><i class="fa fa-download"></i></i></a>
               </td>
             </tr>
             {% endfor %}
