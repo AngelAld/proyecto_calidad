@@ -21,9 +21,7 @@ from capaPresentacion.tituloProfesional.titulo_profesional import titulo_profesi
 
 
 
-UPLOAD_FOLDER = 'static/files'
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = "nose"
 app.register_blueprint(inicio_bp)
 app.register_blueprint(semestres_bp)

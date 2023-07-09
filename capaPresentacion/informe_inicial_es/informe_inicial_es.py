@@ -1,9 +1,20 @@
 from flask import Blueprint, render_template, request, redirect, flash, session, url_for
 from capaNegocio import controlador_informe_inicial_es as c_informe_inicial_es
+import os
+from werkzeug.utils import secure_filename
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+UPLOAD_FOLDER = 'static/files'
 
 informe_inicial_es_bp = Blueprint(
     "informe_inicial_es", __name__, template_folder="templates"
 )
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
 
 
 @informe_inicial_es_bp.route("/estudiante/informes_iniciales")
@@ -76,9 +87,29 @@ def actualizar_informe_inicial_es():
         id_informe_inicial_es = request.form['id_informe_inicial_es']
         fecha_inicio = request.form['fecha_inicio']
         fecha_fin = request.form['fecha_fin']
-        firma_es = request.form['firma_estudiante']
-        firma_jefe = request.form['firma_jefe']
         
+        # Subir archivos de firma
+        firma_es = ""
+        firma_jefe = ""
+
+        if 'firma_estudiante' in request.files:
+            print('entro 1')
+            f = request.files['firma_estudiante']
+            print(f)
+            if f.filename != '':
+                print('entro 2')
+                filename = secure_filename(f.filename)
+                f.save(os.path.join(UPLOAD_FOLDER, filename))
+                firma_es = os.path.join(UPLOAD_FOLDER, filename)
+
+        if 'firma_jefe' in request.files:
+            f = request.files['firma_jefe']
+            if f.filename != '':
+                filename = secure_filename(f.filename)
+                f.save(os.path.join(UPLOAD_FOLDER, filename))
+                firma_jefe = os.path.join(UPLOAD_FOLDER, filename)
+        
+        print(firma_es, firma_jefe)
         objetivos = request.form.getlist('objetivo[]')
         
         # plan trabajo
@@ -88,12 +119,10 @@ def actualizar_informe_inicial_es():
         actividades = request.form.getlist('actividad[]')
         horas = request.form.getlist('horas[]')
 
-        print(list(objetivos))
-        print(objetivos)
+        print(request.form)
 
 
         mensaje = c_informe_inicial_es.actualizar_informe_inicial(fecha_fin=fecha_fin, fecha_inicio=fecha_inicio, id_informe_inicial_es=id_informe_inicial_es, firma_es=firma_es, firma_jefe=firma_jefe, descripciones=objetivos)
-
 
         if mensaje == "Operacion realizada con éxito":
             flash("Informe Inicial Actualizado con Éxito", "success")

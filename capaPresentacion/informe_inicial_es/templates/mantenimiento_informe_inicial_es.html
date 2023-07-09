@@ -45,7 +45,7 @@
       </div>
     </div>
   </div>
-  <form action="{{url}}" method="post" id="formulario">
+  <form action="{{url}}" method="post" id="formulario" enctype="multipart/form-data">
     <input type="hidden" name="id_informe_inicial_es" value="{{informe[0]}}">
     <div class="row mt-3">
       <div class="col-12">
@@ -128,15 +128,21 @@
   </div>
 </div>
 <div class="row mt-3">
-  <div class="col-md-3">
+  <div class="col-md-6">
     <h5 class="">Subir Firma del estudiante</h5>
     <input class="form-control" type="file" name="firma_estudiante" id="formFileEstudiante">
+    {% if firma_es %}
+    <a href="{{firma_es}}">Descargar Firma del Estudiante</a>
+    {% endif %}
   </div>
 </div>
 <div class="row mt-3">
   <div class="col-md-3">
     <h5 class="">Subir Firma del representante</h5>
     <input class="form-control" type="file" name="firma_jefe" id="formFileRepresentante">
+    {% if firma_jefe %}
+    <a href="{{firma_jefe}}" target="_blank" download>Descargar Firma del encargado de practicas</a>
+    {% endif %}
   </div>
 </div>
 
