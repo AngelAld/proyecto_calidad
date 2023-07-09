@@ -127,19 +127,21 @@ def eliminar_informe_inicial_em(id_informe_inicial_em):
 #     return msg[0] if msg is not None else None
 
 
-def actualizar_informe_inicial_em(id_informe_inicial_em, estado, id_detalle_practica):
-    conexion = obtener_conexion()
-    msg = None
+def actualizar_informe_inicial_em(firma_em, firma_es, compromiso, labores,id_informe_inicial_em):
     try:
+        conexion = obtener_conexion()
+        conexion.autocommit = False
+
         with conexion.cursor() as cursor:
-            cursor.execute(
-                "SELECT editar_informe_inicial_em(%s, %s, %s)",
-                (id_informe_inicial_em, estado, id_detalle_practica),
-            )
-            msg = cursor.fetchone()
+            cursor.execute("UPDATE INFORME_INICIAL_EM SET firma_em = %s, firma_es = %s, compromiso = %s, labores=%s WHERE id_informe_inicial_em = %s", (id_informe_inicial_em,))
+
+            #id_detalle_practica = cursor.fetchone()[0]
+
         conexion.commit()
-    except Exception as e:
-        print(f"Error: {e}")
-    finally:
         conexion.close()
-    return msg[0] if msg is not None else None
+
+        return "Operacion realizada con éxito"
+
+    except Exception as e:
+        conexion.rollback()
+        return f"Error al cambiar el estado del informe: {str(e)}"
