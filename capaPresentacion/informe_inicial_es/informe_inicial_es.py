@@ -82,15 +82,16 @@ def actualizar_informe_inicial_es():
         objetivos = request.form.getlist('objetivo[]')
         
         # plan trabajo
-        
         n_semanas = request.form.getlist('n_semana[]')
         fs_inicio = request.form.getlist('fecha_in[]')
         fs_fin = request.form.getlist('fecha_fin[]')
         actividades = request.form.getlist('actividad[]')
         horas = request.form.getlist('horas[]')
 
-        print(objetivos, n_semanas, fs_inicio, fs_fin, actividades, horas)
-
+        print(list(objetivos))
+        print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+        print(list(horas))
+        
         mensaje = 'Probando'
 
 

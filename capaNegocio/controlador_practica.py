@@ -143,47 +143,6 @@ def dar_baja_practica(id_practica, estado):
     conexion.close()
     return msg[0] if msg is not None else None
 
-def obtener_estudiantes():
-    conexion = obtener_conexion()
-    with conexion.cursor() as cursor:
-        cursor.execute("SELECT id_estudiante, nombre FROM ESTUDIANTE")
-        estudiante = cursor.fetchall()
-    conexion.close()
-    return estudiante
-
-
-def obtener_centro_practicas():
-    conexion = obtener_conexion()
-    with conexion.cursor() as cursor:
-        cursor.execute("SELECT id_centro_practicas, alias FROM CENTRO_PRACTICAS")
-        centro_practicas = cursor.fetchall()
-    conexion.close()
-    return centro_practicas
-
-def obtener_jefe_inmediato():
-    conexion = obtener_conexion()
-    with conexion.cursor() as cursor:
-        cursor.execute("SELECT id_jefe_inmediato, nombre, id_centro_practicas FROM JEFE_INMEDIATO")
-        jefeInmediato = cursor.fetchall()
-    conexion.close()
-    return jefeInmediato
-
-def obtener_semestre():
-    conexion = obtener_conexion()
-    with conexion.cursor() as cursor:
-        cursor.execute("SELECT id_semestre, nombre FROM SEMESTRE_ACADEMICO")
-        semestre_academico = cursor.fetchall()
-    conexion.close()
-    return semestre_academico
-
-def obtener_lineaDesarrollo():
-    conexion = obtener_conexion()
-    with conexion.cursor() as cursor:
-        cursor.execute("SELECT id_linea_desarrollo, nombre FROM LINEA_DESARROLLO")
-        lineaDesarrollo = cursor.fetchall()
-    conexion.close()
-    return lineaDesarrollo
-
 #--------------------------------------------------------------------#
 def grafico_meses_practica(fecha_inicio, fecha_fin):
     try:

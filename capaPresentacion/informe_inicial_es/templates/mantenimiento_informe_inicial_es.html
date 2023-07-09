@@ -123,11 +123,12 @@
       <tbody>
         {% for plan_trabajo in planes_trabajo %}
         <tr>
-          <td class="col-1 text-center"><input class="form-control-plaintext text-center" type="text" readonly name="n_semana[]" id="n_semana[]" value="{{ plan_trabajo[2] }}"></td>
+          <td class="col-1 text-center"><input class="form-control-plaintext text-center" type="text" name="n_semana[]"
+              value="{{ plan_trabajo[2] }}"></td>
           <td class="col-1 text-center"><input required value="{{ plan_trabajo[3] }}" type="date"
-              class="form-control input" name="fecha_in[]" id="fecha_in_{{ loop.index }}"></td>
+              class="form-control input" name="fecha_in[]"></td>
           <td class="col-1 text-center"><input required value="{{ plan_trabajo[4] }}" type="date"
-              class="form-control input" name="fecha_fin[]" id="fecha_fin_{{ loop.index }}"></td>
+              class="form-control input" name="fecha_fin[]"></td>
           <td class="col-7"><input type="text" required class="form-control" placeholder="Actividad {{ loop.index }}"
               value="{{ plan_trabajo[5] }}" name="actividad[]"></td>
           <td class="col-1"><input type="number" required class="form-control" placeholder="N° de horas"
@@ -146,7 +147,7 @@
           <td class="col-1"></td>
           <td class="col-7"></td>
           <td class="col-1"></td>
-          
+
         </tr>
       </tfoot>
     </table>
@@ -173,13 +174,13 @@
   <div class="col-12 text-center">
     <button onclick="event.preventDefault(); confirmar_form()" type="submit" class="btn btn-success"><i
         class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
-    <a  href="{{url_for('informe_inicial_es.informe_inicial_es')}}" onclick="confirmar_volver()"  class="btn btn-danger mx-2"><i
-        class="fa fa-times"></i>&nbsp;&nbsp;Cancelar</a>
+    <a href="{{url_for('informe_inicial_es.informe_inicial_es')}}" onclick="confirmar_volver()"
+      class="btn btn-danger mx-2"><i class="fa fa-times"></i>&nbsp;&nbsp;Cancelar</a>
   </div>
 </div>
 <div class="mt-3"></div>
-</form>
 </div>
+</form>
 {% endblock%}
 
 
@@ -194,15 +195,23 @@
 
 
     const nuevaFila = tablaPlanTrabajo.insertRow();
+
     nuevaFila.innerHTML = `
-  <td class="col-1 text-center"><input class="form-control-plaintext" type="text" readonly name="n_semana[]" id="n_semana[]" value="${numero}"></td>
-  <td class="col-1 text-center"><input type="date" class="form-control input" name="fecha_in[]" id="fecha_in[]" required/></td>
-  <td class="col-1 text-center"><input type="date" class="form-control input" name="fecha_fin[]" id="fecha_in[]" required/></td>
-  <td class="col-7"><input type="text" class="form-control" placeholder="Actividad ${numero}" value="" required name="actividad[]"/></td>
-  <td class="col-1"><input type="text" class="form-control" placeholder="N° de horas" value="" name="horas[]" required /></td>
-  <td class="col-1 text-center"><button class="btn btn-danger btn-sm" onclick="eliminarFilaPlan(this)"><i class="bi bi-trash"></i></button></td>
-`;
-    actualizarNumerosSemana(tablaPlanTrabajo);
+        <tr>
+          <td class="col-1 text-center"><input class="form-control-plaintext text-center" type="text"
+              name="n_semana[]" value="${numero}"></td>
+          <td class="col-1 text-center"><input required value=" " type="date"
+              class="form-control input" name="fecha_in[]"></td>
+          <td class="col-1 text-center"><input required value=" " type="date"
+              class="form-control input" name="fecha_fin[]"></td>
+          <td class="col-7"><input type="text" required class="form-control" placeholder="Actividad ${numero}"
+              value=" " name="actividad[]"></td>
+          <td class="col-1"><input type="number" required class="form-control" placeholder="N° de horas"
+              value=" " name="horas[]"></td>
+          <td class="col-1 text-center"><button class="btn btn-danger btn-sm" onclick="eliminarFilaObjetivo(this)"><i
+                class="bi bi-trash"></i></button></td>
+        </tr>
+      `;
   });
 
   function eliminarFilaPlan(element) {
