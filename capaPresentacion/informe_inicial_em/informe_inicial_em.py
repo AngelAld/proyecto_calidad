@@ -1,8 +1,17 @@
 from flask import Blueprint, render_template, request, redirect, flash, session, url_for
 from capaNegocio import controlador_informe_inicial_em as c_informe_inicial_em
+import os
+from werkzeug.utils import secure_filename
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+UPLOAD_FOLDER = 'static/files'
 
 informe_inicial_em_bp = Blueprint(
     "informe_inicial_em", __name__, template_folder="templates")
+
+def allowed_file(filename):
+    return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 @informe_inicial_em_bp.route("/empresas/informes_iniciales")
 def informe_inicial_em():
@@ -58,20 +67,47 @@ def editar_informe_inicial_em(id):
         informe=informe,
     )
 
+
+
 @informe_inicial_em_bp.route("/actualizar_informe_inicial_em", methods=["POST"])
 def actualizar_informe_inicial_em():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        id_informe_inicial_em = request.form["id"]
+        id_informe_inicial_em = request.form["id_informe_inicial_em"]
         compromiso = request.form["compromiso"]
         labores = request.form["labores"]
-        firma_em = request.form["firma_empresa"]
-        firma_es = request.form["firma_estudiante"]
+        
+        # subir archivo de firma
+        firma_em = ""
+        firma_es = ""
+        
+        if 'firma_empresa' in request.files:
+            print('entro 1')
+            f = request.files['firma_empresa']
+            print(f)
+            if f.filename != '':
+                print('entro 2')
+                print(f)
+                filename = secure_filename(f.filename)
+                f.save(os.path.join(UPLOAD_FOLDER, filename))
+                firma_em = os.path.join(UPLOAD_FOLDER, filename)
 
-        print(list(compromiso))
-        print(list(labores))
-        mensaje = 'probando'
+        if 'firma_estudiante' in request.files:
+            print('entro 1')
+            f = request.files['firma_estudiante']
+            print(f)
+            if f.filename != '':
+                print('entro 2')
+                filename = secure_filename(f.filename)
+                f.save(os.path.join(UPLOAD_FOLDER, filename))
+                firma_es = os.path.join(UPLOAD_FOLDER, filename)
+        
+        print(firma_em, firma_es)
+        
+        print(request.form)
+
+        mensaje = c_informe_inicial_em.actualizar_informe_inicial_em(id_informe_inicial_em=id_informe_inicial_em,compromiso=compromiso,labores=labores,firma_em=firma_em, firma_es=firma_es)
 
         if mensaje == "Operacion realizada con éxito":
             flash("Informe Inicial Actualizado con Éxito", "success")
