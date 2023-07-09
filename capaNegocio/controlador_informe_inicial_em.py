@@ -133,9 +133,7 @@ def actualizar_informe_inicial_em(firma_em, firma_es, compromiso, labores,id_inf
         conexion.autocommit = False
 
         with conexion.cursor() as cursor:
-            cursor.execute("UPDATE INFORME_INICIAL_EM SET firma_em = %s, firma_es = %s, compromiso = %s, labores=%s WHERE id_informe_inicial_em = %s", (id_informe_inicial_em,))
-
-            #id_detalle_practica = cursor.fetchone()[0]
+            cursor.execute("UPDATE INFORME_INICIAL_EM SET firma_em = %s, firma_es = %s, compromiso = %s, labores=%s WHERE id_informe_inicial_em = %s", (firma_em, firma_es, compromiso, labores,id_informe_inicial_em))
 
         conexion.commit()
         conexion.close()

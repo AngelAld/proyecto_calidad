@@ -1,5 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, flash, session, url_for
 from capaNegocio import controlador_informe_inicial_em as c_informe_inicial_em
+import os
+from werkzeug.utils import secure_filename
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+UPLOAD_FOLDER = 'static/files'
 
 informe_inicial_em_bp = Blueprint(
     "informe_inicial_em", __name__, template_folder="templates")
@@ -91,7 +95,7 @@ def actualizar_informe_inicial_em():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        id_informe_inicial_em = request.form["id"]
+        id_informe_inicial_em = request.form["id_informe_inicial_em"]
         compromiso = request.form["compromiso"]
         labores = request.form["labores"]
         
@@ -105,6 +109,7 @@ def actualizar_informe_inicial_em():
             print(f)
             if f.filename != '':
                 print('entro 2')
+                print(f)
                 filename = secure_filename(f.filename)
                 f.save(os.path.join(UPLOAD_FOLDER, filename))
                 firma_em = os.path.join(UPLOAD_FOLDER, filename)
@@ -120,9 +125,10 @@ def actualizar_informe_inicial_em():
                 firma_es = os.path.join(UPLOAD_FOLDER, filename)
         
         print(firma_em, firma_es)
+        
+        print(request.form)
 
-
-        mensaje = c_informe_inicial_em.actualizar_informe_inicial_em(id_informe_inicial_em=id_informe_inicial_em, firma_em=firma_em, firma_es=firma_es,compromiso=compromiso,labores=labores)
+        mensaje = c_informe_inicial_em.actualizar_informe_inicial_em(id_informe_inicial_em=id_informe_inicial_em,compromiso=compromiso,labores=labores,firma_em=firma_em, firma_es=firma_es)
 
         if mensaje == "Operacion realizada con éxito":
             flash("Informe Inicial Actualizado con Éxito", "success")
