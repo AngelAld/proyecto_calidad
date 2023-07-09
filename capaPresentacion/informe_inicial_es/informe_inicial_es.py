@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, flash, session, url_for
 from capaNegocio import controlador_informe_inicial_es as c_informe_inicial_es
 import os
+from datetime import datetime, date
 from werkzeug.utils import secure_filename
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 UPLOAD_FOLDER = 'static/files'
@@ -148,14 +149,37 @@ def generar_pdf(id):
         planes_trabajo,
         informe,
     ) = c_informe_inicial_es.consultar_informe_iniciales_estudiante(id)
+
+    datos_practica = list(datos_practica)
+    informe = list(informe)
+    planes_trabajo = list(planes_trabajo)
+    for i in range(len(planes_trabajo)):
+        planes_trabajo[i] = list(planes_trabajo[i])
+        planes_trabajo[i][3] = convertir_fecha(planes_trabajo[i][3])
+        planes_trabajo[i][4] = convertir_fecha(planes_trabajo[i][4])
+        print(planes_trabajo[i])
+
+    informe[2] = convertir_fecha(informe[2])
+    datos_practica[1] = convertir_fecha(datos_practica[1])
+    datos_practica[2] = convertir_fecha(datos_practica[2])
+
     return render_template(
-    "template.html",
+        "template.html",
         estudiante=estudiante,
         datos_cppp=datos_cppp,
         datos_practica=datos_practica,
         objetivos=objetivos,
         planes_trabajo=planes_trabajo,
-        informe = informe,
+        informe=informe,
     )
 
 
+def convertir_fecha(fecha):
+    try:
+        fecha_str = fecha.strftime('%Y-%m-%d')
+        fecha_dt = datetime.strptime(fecha_str, '%Y-%m-%d')
+        fecha_formateada = fecha_dt.strftime('%d/%m/%Y')
+        return fecha_formateada
+    except:
+        return('Fecha no registrada')
+    
