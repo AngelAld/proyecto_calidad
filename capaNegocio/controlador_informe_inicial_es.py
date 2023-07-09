@@ -167,16 +167,22 @@ def calcular_puntaje_total_informe_inicial(id_estudiante):
     return puntaje_total, datos, elementos
 
 
-def actualizar_informe_inicial(id, firma_es, firma_jefe, descripciones):
+def actualizar_informe_inicial(id_informe_inicial_es, firma_es, firma_jefe, descripciones, fecha_inicio, fecha_fin):
     try:
         conexion = obtener_conexion()
         conexion.autocommit = False
 
         with conexion.cursor() as cursor:
-            cursor.execute("UPDATE INFORME_INICIAL_ES SET fecha = current_date, firma_es = %s, firma_jefe = %s WHERE id_informe_inicial_es = %s", (firma_es, firma_jefe, id))
+            cursor.execute("UPDATE INFORME_INICIAL_ES SET fecha = current_date, firma_es = %s, firma_jefe = %s WHERE id_informe_inicial_es = %s RETURNING id_detalle_practica", (firma_es, firma_jefe, id_informe_inicial_es))
+
+            id_detalle_practica = cursor.fetchone()[0]
+
+            cursor.execute("UPDATE DETALLE_PRACTICA SET fecha_inicio = %s, fecha_fin = %s WHERE id_detalle_practica = %s", (fecha_inicio, fecha_fin, id_detalle_practica))
+            
+            cursor.execute("DELETE FROM OBJETIVO WHERE id_informe_inicial_es = %s", (id_informe_inicial_es,))
 
             for descripcion in descripciones:
-                cursor.execute("INSERT INTO OBJETIVO (id_informe_inicial_es, descripcion) VALUES (%s, %s)", (1, descripcion))
+                cursor.execute("INSERT INTO OBJETIVO (id_informe_inicial_es, descripcion) VALUES (%s, %s)", (id_informe_inicial_es, descripcion))
 
         conexion.commit()
         conexion.close()

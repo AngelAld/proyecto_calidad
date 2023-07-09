@@ -63,4 +63,41 @@ def editar_ficha_desempeno(id):
 
 @ficha_desempeno_bp.route("/actualizar_ficha_desempeno", methods=["POST"])
 def actualizar_ficha_desempeno():
-    return 'a'
+    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+        return redirect(url_for("inicio.inicio"))
+    else:
+        id_ficha_desempeno = request.form['id_ficha_desempeno']
+        periodo = request.form['periodo']
+        area_desempeno = request.form['areaDesempeno']
+
+        # Obtener las características a evaluar
+        caracteristicas_evaluar = {
+            'responsabilidad': request.form['responsabilidad'],
+            'proactividad': request.form['proactividad'],
+            'comunicacion': request.form['comunicacion'],
+            'trabajoequipo': request.form['trabajoequipo'],
+            'compromiso': request.form['compromiso'],
+            'organizacion': request.form['organizacion'],
+            'puntualidad': request.form['puntualidad']
+        }
+
+        # Obtener los resultados de aprendizaje
+        resultados_aprendizaje = []
+        # ...
+
+        conclusiones = request.form['txtConclusiones']
+        firma = request.files['fileRepresentante']  # Obtener la firma del archivo
+
+        # Lógica adicional para el procesamiento de la firma y los resultados de aprendizaje
+
+        # Llamar a la función actualizar_ficha_desempeno
+        mensaje = c_ficha_desempeno.actualizar_ficha_desempeno(id_ficha_desempeno, periodo, area_desempeno, caracteristicas_evaluar, resultados_aprendizaje, conclusiones, firma)
+
+        if mensaje == "Operación realizada con éxito":
+            flash("Ficha de Evaluación de Desempeño actualizada con éxito", "success")
+            url = "/ruta_de_redireccionamiento_exitoso"  # Reemplaza con la URL de redireccionamiento exitoso
+        else:
+            flash(str(mensaje), "error")
+            url = "/ruta_de_redireccionamiento_error"  # Reemplaza con la URL de redireccionamiento de error
+
+        return redirect(url)

@@ -92,7 +92,7 @@ def actualizar_informe_inicial_es():
         print(objetivos)
 
 
-        mensaje = c_informe_inicial_es.actualizar_informe_inicial(id=id_informe_inicial_es, firma_es=firma_es, firma_jefe=firma_jefe, descripciones=objetivos)
+        mensaje = c_informe_inicial_es.actualizar_informe_inicial(fecha_fin=fecha_fin, fecha_inicio=fecha_inicio, id_informe_inicial_es=id_informe_inicial_es, firma_es=firma_es, firma_jefe=firma_jefe, descripciones=objetivos)
 
 
         if mensaje == "Operacion realizada con éxito":
