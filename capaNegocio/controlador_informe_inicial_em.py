@@ -8,7 +8,7 @@ def listar_informes_iniciales_empresa():
         with conexion.cursor() as cursor:
             # Obtiene la información requerida de las tablas INFORME_INICIAL_ES, DETALLE_PRACTICA, ESTUDIANTE y CENTRO_PRACTICAS
             cursor.execute(
-                "SELECT i.id_informe_inicial_em,cp.razon_social,i.estado FROM informe_inicial_em i JOIN DETALLE_PRACTICA dp ON i.DETALLE_PRACTICAid_detalle_practica = dp.id_detalle_practica JOIN JEFE_INMEDIATO ji ON dp.id_jefe_inmediato = ji.id_jefe_inmediato JOIN CENTRO_PRACTICAS cp ON ji.id_centro_practicas = cp.id_centro_practicas"
+                "SELECT iie.id_informe_inicial_em,e.nombre,cp.razon_social,iie.estado FROM ESTUDIANTE e JOIN PRACTICA p ON e.id_estudiante = p.id_estudiante JOIN DETALLE_PRACTICA dp ON p.id_practica = dp.id_practica JOIN INFORME_INICIAL_EM iie ON dp.id_detalle_practica = iie.DETALLE_PRACTICAid_detalle_practica JOIN JEFE_INMEDIATO ji ON dp.id_jefe_inmediato = ji.id_jefe_inmediato JOIN CENTRO_PRACTICAS cp ON ji.id_centro_practicas = cp.id_centro_practicas"
             )
             informes = cursor.fetchall()
 

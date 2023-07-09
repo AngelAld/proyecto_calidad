@@ -16,7 +16,7 @@
         <table class="table table-hover align-middle table-bordered" id="tablita">
           <thead>
             <tr class="table-danger">
-              <th class="col-1 text-center d-none d-xl-table-cell">Código</th>
+              <th class="col-1 text-center d-none d-xl-table-cell">Estudiante</th>
               <th class="col-3 text-center">Empresas</th>
               <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
               <th class="col-1 text-center">{% if session['rol']=="Docente de Apoyo" %}Ver{% else %}Editar{% endif %}</th>
@@ -25,23 +25,23 @@
           <tbody>
             {% for informe in informes %}
             <tr>
-              <td class="col-1 text-center d-none d-xl-table-cell">{{informe[0]}}</td>
-              <td class="col-3 ">{{informe[1]}}</td>
+              <td class="col-1 text-center d-none d-xl-table-cell">{{informe[1]}}</td>
+              <td class="col-3 ">{{informe[2]}}</td>
               <td class="col-1 text-center d-none d-md-table-cell">
                 <form action="{{url_for('informe_inicial_em.actualizar_estado')}}" method="POST" 
                   class="actualizar_estado">
                   <input type="hidden" name="id" value="{{informe[0]}}">
                   <input type="hidden" name="estado" value="{{informe[3]}}">
                   {% if informe[3]=='P' %}
-                  <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
+                  <button type="button" class="estado btn ls-button btn-warning text-white" data-bs-toggle="tooltip"
                     data-bs-title="Aprobar informe" onclick="event.preventDefault(); checkbox(this.parentNode)">
-                    <i class="bi bi-check-square-fill"></i>
+                    <i class="fa fa-hourglass-end"></i>
                   </button>
                   {% else %}
-                  <button type="button" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip"
+                  <button type="button" class="estado btn ls-button btn-success" data-bs-toggle="tooltip"
                     data-bs-title="Revocar aprobación" onclick="event.preventDefault(); checkbox(this.parentNode)">
-                    
-                    <i class="bi bi-x-square-fill"></i>
+
+                    <i class="bi bi-check-square-fill"></i>
                   </button>
                   {% endif %}
                 </form>
