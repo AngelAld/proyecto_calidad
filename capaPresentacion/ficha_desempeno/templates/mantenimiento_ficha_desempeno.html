@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
     <div class="row mt-3">
       <div class="col-12">
-        <h5>Sírvase marcar con un radio button la respuesta que describa mejor su opinión:</h5>
+        <h5>Sírvase marcar la respuesta que describa mejor su opinión:</h5>
         <form>
           <table class="table" id="table">
             <thead class="bg-light">
@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <th class="text-center">Regular</th>
                 <th class="text-center">Bueno</th>
                 <th class="text-center">Muy Bueno</th>
+                <th class="text-center"></th> 
               </tr>
             </thead>
             <tbody id="table">
@@ -129,6 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td class="text-center"><input type="radio" name="responsabilidad" value="regular"></td>
                 <td class="text-center"><input type="radio" name="responsabilidad" value="bueno"></td>
                 <td class="text-center"><input type="radio" name="responsabilidad" value="muybueno"></td>
+                <td></td>
               </tr>
               <tr>
                 <th scope="row">2</th>
@@ -137,6 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td class="text-center"><input type="radio" name="proactividad" value="regular"></td>
                 <td class="text-center"><input type="radio" name="proactividad" value="bueno"></td>
                 <td class="text-center"><input type="radio" name="proactividad" value="muybueno"></td>
+                <td></td>
               </tr>
               <tr>
                 <th scope="row">3</th>
@@ -145,6 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td class="text-center"><input type="radio" name="comunicacion" value="regular"></td>
                 <td class="text-center"><input type="radio" name="comunicacion" value="bueno"></td>
                 <td class="text-center"><input type="radio" name="comunicacion" value="muybueno"></td>
+                <td></td>
               </tr>
               <tr>
                 <th scope="row">4</th>
@@ -153,6 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td class="text-center"><input type="radio" name="trabajoequipo" value="regular"></td>
                 <td class="text-center"><input type="radio" name="trabajoequipo" value="bueno"></td>
                 <td class="text-center"><input type="radio" name="trabajoequipo" value="muybueno"></td>
+                <td></td>
               </tr>
               <tr>
                 <th scope="row">5</th>
@@ -161,6 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td class="text-center"><input type="radio" name="compromiso" value="regular"></td>
                 <td class="text-center"><input type="radio" name="compromiso" value="bueno"></td>
                 <td class="text-center"><input type="radio" name="compromiso" value="muybueno"></td>
+                <td></td>
               </tr>
               <tr>
                 <th scope="row">6</th>
@@ -169,6 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td class="text-center"><input type="radio" name="organizacion" value="regular"></td>
                 <td class="text-center"><input type="radio" name="organizacion" value="bueno"></td>
                 <td class="text-center"><input type="radio" name="organizacion" value="muybueno"></td>
+                <td></td>
               </tr>
               <tr>
                 <th scope="row">7</th>
@@ -177,6 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td class="text-center"><input type="radio" name="puntualidad" value="regular"></td>
                 <td class="text-center"><input type="radio" name="puntualidad" value="bueno"></td>
                 <td class="text-center"><input type="radio" name="puntualidad" value="muybueno"></td>
+                <td></td>
               </tr>
             </tbody>
           </table>
@@ -255,13 +263,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const nuevaFila = `
       <tr>
-        <th scope="row">${contadorFilas}</th>
-        <td><input type="text" class="form-control" placeholder="Resultado de Aprendizaje ${contadorFilas}"></td>
-        <td class="text-center"><input type="checkbox" name="logro${contadorFilas}" value="deficiente" onclick="limitarSeleccion(this)"></td>
-        <td class="text-center"><input type="checkbox" name="logro${contadorFilas}" value="regular" onclick="limitarSeleccion(this)"></td>
-        <td class="text-center"><input type="checkbox" name="logro${contadorFilas}" value="bueno" onclick="limitarSeleccion(this)"></td>
-        <td class="text-center"><input type="checkbox" name="logro${contadorFilas}" value="muybueno" onclick="limitarSeleccion(this)"></td>
-        <td class="text-center"><button class="btn btn-danger btn-sm" onclick="eliminarFila(this)"><i class="bi bi-trash"></i></button></td>
+        <th class="col-1" scope="row">${contadorFilas}</th>
+        <td class="col-1 "><input type="text" class="form-control" placeholder="Resultado de Aprendizaje ${contadorFilas}"></td>
+        <td class="col-1 text-center"><input type="checkbox" name="logro${contadorFilas}" value="deficiente" onclick="limitarSeleccion(this)"></td>
+        <td class="col-1 text-center"><input type="checkbox" name="logro${contadorFilas}" value="regular" onclick="limitarSeleccion(this)"></td>
+        <td class="col-1 text-center"><input type="checkbox" name="logro${contadorFilas}" value="bueno" onclick="limitarSeleccion(this)"></td>
+        <td class="col-1 text-center"><input type="checkbox" name="logro${contadorFilas}" value="muybueno" onclick="limitarSeleccion(this)"></td>
+        <td class="col-1 text-center"><button class="btn btn-danger btn-sm" onclick="eliminarFila(this)"><i class="bi bi-trash"></i></button></td>
       </tr>
     `;
 

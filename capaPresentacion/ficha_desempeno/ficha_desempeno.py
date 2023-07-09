@@ -5,7 +5,8 @@ ficha_desempeno_bp = Blueprint("ficha_desempeno", __name__, template_folder="tem
 
 @ficha_desempeno_bp.route("/ficha_desempeno")
 def ficha_desempeno():
-    if "rol" not in session or session["rol"] != "Docente de Apoyo":
+    rol = session.get("rol")
+    if not rol or (rol != "Docente de Apoyo" and rol != "Estudiante"):
         return redirect(url_for("inicio.inicio"))
     else:
         try:
