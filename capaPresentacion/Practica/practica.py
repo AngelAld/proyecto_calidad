@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, flash, session, url_for
+from flask import Blueprint, render_template, request, redirect, flash, session, url_for, Flask
 from capaNegocio import controlador_practica as c_practica
 
 
@@ -83,14 +83,19 @@ def eliminar_detalle_practica():
     else:
         data = request.get_json()
         detalle_id = data['id']
+        practica = data['id_practica']
         deleted = c_practica.eliminar_detalle_practica(detalle_id)
-        print('Si esta entrando')
-        if deleted:
-            flash(f"Práctica eliminada con éxito", "success")
+        if deleted == "Operación realizada con éxito":
+            print('entra primero')
+            flash("Práctica eliminada con éxito", "success")
+            return redirect("/practicas")
         else:
-            flash("Error al eliminar la práctica", "error")
+            print('entra segundo')
+            print(flask.get_flashed_messages())
+            flash(str(deleted), "error")
+            return redirect("/formulario_editar_practica/"+practica)
 
-        return redirect("/practicas")
+        
 
 @practica_bp.route("/formulario_editar_practica/<int:id>")
 def editar_practica(id):
@@ -103,23 +108,7 @@ def editar_practica(id):
             flash("Se eliminaron todos los detalles de esta practica pre profesional", "warning")
             return redirect("/practicas")
         centro_practicas, jefeInmediatos, semestre_academicos, lineaDesarrollos = c_practica.obtener_datos_editar()
-        # centro_practicas = c_practica.obtener_centro_practicas()
-        # if centro_practicas == []:
-        #     flash("No se encontraron centros de practica", "error")
-        #     return redirect("/practicas")
-        # jefeInmediatos = c_practica.obtener_jefe_inmediato()
-        # if jefeInmediatos == []:
-        #     flash("No se encontraron Jefes inmediatos", "error")
-        #     return redirect("/practicas")
-        # semestre_academicos = c_practica.obtener_semestre()
-        # if semestre_academicos == []:
-        #     flash("No se encontraron Semestres Académicos", "error")
-        #     return redirect("/practicas")
-        # lineaDesarrollos = c_practica.obtener_lineaDesarrollo()
-        # if lineaDesarrollos == []:
-        #     flash("No se encontraron lineas de desarrollo", "error")
-        #     return redirect("/practicas")
-        return render_template("frm_editar_practica.html", detallesPracticas=practica, centro_practicas=centro_practicas, jefeInmediatos=jefeInmediatos, semestre_academicos=semestre_academicos, lineaDesarrollos=lineaDesarrollos)
+        return render_template("frm_editar_practica.html", id_practica = id, detallesPracticas=practica, centro_practicas=centro_practicas, jefeInmediatos=jefeInmediatos, semestre_academicos=semestre_academicos, lineaDesarrollos=lineaDesarrollos)
 
 
 

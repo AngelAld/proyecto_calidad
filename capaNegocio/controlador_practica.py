@@ -36,7 +36,7 @@ def agregar_practica(id_estudiante, estado, id_linea_desarrollo, id_semestre_aca
             conexion.commit()
             
             cursor.execute("INSERT INTO INFORME_INICIAL_ES (id_detalle_practica, estado) VALUES (%s, 'P')", (id_detalle_practica,))
-            cursor.execute("INSERT INTO INFORME_INICIAL_EM (DETALLE_PRACTICAid_detalle_practica, estado) VALUES (%s, 'P')", (id_detalle_practica,))
+            cursor.execute("INSERT INTO INFORME_INICIAL_EM (id_detalle_practica, estado) VALUES (%s, 'P')", (id_detalle_practica,))
             cursor.execute("INSERT INTO INFORME_FINAL_EM (id_detalle_practica, estado) VALUES (%s, 'P')", (id_detalle_practica,))
             cursor.execute("INSERT INTO INFORME_FINAL_ES (id_detalle_practica, estado) VALUES (%s, 'P')", (id_detalle_practica,))
             cursor.execute("INSERT INTO FICHA_DESEMPENO (id_detalle_practica, estado) VALUES (%s, 'P')", (id_detalle_practica,))
@@ -78,7 +78,8 @@ def eliminar_detalle_practica(id):
         msg = "Operación realizada con éxito"
     except Exception as e:
         conexion.rollback()
-        msg = str(e)       
+        msg = str(e)  
+        print(msg)     
     finally:
         conexion.close()
     return msg

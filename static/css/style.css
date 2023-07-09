@@ -18,9 +18,8 @@ body {
 }
 
 #searchbar {
-    font-family: Arial, FontAwesome
+    font-family: Arial, FontAwesome;
 }
-
 
 .pagination {
     padding-top: 13px;

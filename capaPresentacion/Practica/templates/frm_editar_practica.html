@@ -156,7 +156,7 @@
                 </button>
               </span>
               <input type="hidden" name="id" value="{{detallePractica[0]}}">
-
+              <input type="hidden" value="{{detallePractica[1]}}" name="id_practica">
 
               <a href="{{ url_for('practica.practicas') }}" class="btn btn-secondary"><i
                   class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
@@ -186,13 +186,14 @@
     if (result.isConfirmed) {
       // Envía el formulario
       let id = span.getAttribute("data-id");
+      let id_practica = '{{ id_practica }}'
       let url = "{{url_for('practica.eliminar_detalle_practica')}}";
       fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ id })
+        body: JSON.stringify({ id, id_practica })
       }).then(() => {
         location.reload();
       });

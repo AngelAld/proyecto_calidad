@@ -91,8 +91,10 @@ CREATE TABLE FICHA_DESEMPENO (
   organizacion        int4, 
   puntualidad         int4, 
   estado              char(1) NOT NULL, 
-  id_detalle_practica int4 NOT NULL, 
   fecha               date, 
+  firma_es            text, 
+  firma_em            text, 
+  id_detalle_practica int4 NOT NULL, 
   PRIMARY KEY (id_ficha_desempeno));
 CREATE TABLE INFORME_FINAL_EM (
   id_informe_final_em SERIAL NOT NULL, 
@@ -124,10 +126,11 @@ CREATE TABLE INFORME_INICIAL_EM (
   id_informe_inicial_em SERIAL NOT NULL, 
   compromiso            text, 
   labores               text, 
-  firma                 text, 
+  firma_em              text, 
+  firma_es              text, 
+  fecha                 date, 
   estado                char(1) NOT NULL, 
   id_detalle_practica   int4 NOT NULL, 
-  fecha                 date, 
   PRIMARY KEY (id_informe_inicial_em));
 CREATE TABLE INFORME_INICIAL_ES (
   id_informe_inicial_es SERIAL NOT NULL, 
