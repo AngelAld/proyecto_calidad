@@ -59,3 +59,7 @@ def editar_ficha_desempeno(id):
         resultados_aprendizaje=resultados_aprendizaje,
         ficha_desempeno=ficha_desempeno,
     )
+
+@ficha_desempeno_bp.route("/actualizar_ficha_desempeno", methods=["POST"])
+def actualizar_ficha_desempeno():
+    return 'a'
