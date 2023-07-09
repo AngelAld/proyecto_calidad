@@ -18,9 +18,6 @@ from capaPresentacion.informe_final_es.informe_final_es import informe_final_es_
 from capaPresentacion.Jefe_Inmediato.jefe_inmediato import jefe_inmediato_bp
 from capaPresentacion.tituloProfesional.titulo_profesional import titulo_profesional_bp
 
-
-
-
 app = Flask(__name__)
 app.secret_key = "nose"
 app.register_blueprint(inicio_bp)
