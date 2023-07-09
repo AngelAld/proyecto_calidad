@@ -3,7 +3,7 @@ from capaNegocio import controlador_informe_inicial_em as c_informe_inicial_em
 import os
 from werkzeug.utils import secure_filename
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
-UPLOAD_FOLDER = 'static/files'
+UPLOAD_FOLDER = 'static/files/iiem'
 
 informe_inicial_em_bp = Blueprint(
     "informe_inicial_em", __name__, template_folder="templates")

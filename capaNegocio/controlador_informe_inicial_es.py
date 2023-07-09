@@ -160,7 +160,21 @@ def actualizar_informe_inicial(id_informe_inicial_es, totalHoras, firma_es, firm
         print(firma_es)
         print(firma_jefe)
         with conexion.cursor() as cursor:
-            cursor.execute("UPDATE INFORME_INICIAL_ES SET fecha = current_date, firma_es = %s, firma_jefe = %s WHERE id_informe_inicial_es = %s RETURNING id_detalle_practica", (firma_es, firma_jefe, id_informe_inicial_es))
+            sql_firmas = "UPDATE INFORME_INICIAL_ES SET fecha = current_date"
+            params_firmas = []
+
+            if firma_es:
+                sql_firmas += ", firma_es = %s"
+                params_firmas.append(firma_es)
+
+            if firma_jefe:
+                sql_firmas += ", firma_jefe = %s"
+                params_firmas.append(firma_jefe)
+
+            sql_firmas += " WHERE id_informe_inicial_es = %s RETURNING id_detalle_practica"
+            params_firmas.append(id_informe_inicial_es)
+
+            cursor.execute(sql_firmas, params_firmas)
 
             id_detalle_practica = cursor.fetchone()[0]
 

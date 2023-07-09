@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 from weasyprint import HTML
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
-UPLOAD_FOLDER = 'static/files'
+UPLOAD_FOLDER = 'static/files/iie'
 
 informe_inicial_es_bp = Blueprint(
     "informe_inicial_es", __name__, template_folder="templates"
