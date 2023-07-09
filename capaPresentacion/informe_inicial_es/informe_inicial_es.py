@@ -93,11 +93,8 @@ def actualizar_informe_inicial_es():
         firma_jefe = ""
 
         if 'firma_estudiante' in request.files:
-            print('entro 1')
             f = request.files['firma_estudiante']
-            print(f)
             if f.filename != '':
-                print('entro 2')
                 filename = secure_filename(f.filename)
                 f.save(os.path.join(UPLOAD_FOLDER, filename))
                 firma_es = os.path.join(UPLOAD_FOLDER, filename)
@@ -109,26 +106,35 @@ def actualizar_informe_inicial_es():
                 f.save(os.path.join(UPLOAD_FOLDER, filename))
                 firma_jefe = os.path.join(UPLOAD_FOLDER, filename)
         
-        print(firma_es, firma_jefe)
         objetivos = request.form.getlist('objetivo[]')
         
-        # plan trabajo
+        # Agregar datos de planes de trabajo a una lista
+        plan_trabajo = []
         n_semanas = request.form.getlist('n_semana[]')
         fs_inicio = request.form.getlist('fecha_in[]')
         fs_fin = request.form.getlist('fecha_fin[]')
         actividades = request.form.getlist('actividad[]')
         horas = request.form.getlist('horas[]')
 
-        print(request.form)
+        for i in range(len(n_semanas)):
+            plan_trabajo.append({
+                "n_semana": i + 1,
+                "fecha_inicio": fs_inicio[i],
+                "fecha_fin": fs_fin[i],
+                "actividad": actividades[i],
+                "horas": horas[i]
+            })
 
 
-        mensaje = c_informe_inicial_es.actualizar_informe_inicial(fecha_fin=fecha_fin, fecha_inicio=fecha_inicio, id_informe_inicial_es=id_informe_inicial_es, firma_es=firma_es, firma_jefe=firma_jefe, descripciones=objetivos)
 
+        mensaje = c_informe_inicial_es.actualizar_informe_inicial(fecha_fin=fecha_fin, fecha_inicio=fecha_inicio, id_informe_inicial_es=id_informe_inicial_es, firma_es=firma_es, firma_jefe=firma_jefe, descripciones=objetivos, plan_trabajo=plan_trabajo)
+        print(mensaje)
         if mensaje == "Operacion realizada con éxito":
             flash("Informe Inicial Actualizado con Éxito", "success")
             url = "/estudiante/informes_iniciales"
         else:
-            flash(str(mensaje), "error")
+            print('entramos aqui')
+            flash(mensaje, "error")
             url = "/estudiante/editar_informe_inicial/" + id_informe_inicial_es
         return redirect(url)
 

@@ -90,7 +90,6 @@ def consultar_informe_iniciales_estudiante(id_informe_inicial_es):
 
 
 
-
 def dar_baja_informe_inicial(p_id_informe_inicial_es, p_estado):
     try:
         conexion = obtener_conexion()
@@ -114,19 +113,6 @@ def dar_baja_informe_inicial(p_id_informe_inicial_es, p_estado):
     except Exception as e:
         return f"Error al cambiar el estado del informe: {str(e)}"
 
-
-def eliminar_informe_inicial_es(id_informe_inicial_es):
-    conexion = obtener_conexion()
-    msg = None
-    with conexion.cursor() as cursor:
-        cursor.execute(
-            "SELECT fn_eliminar_informe_inicial_es(%s)",
-            (id_informe_inicial_es,),
-        )
-        msg = cursor.fetchone()
-    conexion.commit()
-    conexion.close()
-    return msg[0] if msg is not None else None
 
 
 # ********************************************* Lo uso para listar los datos de estudiante*
@@ -167,7 +153,7 @@ def calcular_puntaje_total_informe_inicial(id_estudiante):
     return puntaje_total, datos, elementos
 
 
-def actualizar_informe_inicial(id_informe_inicial_es, firma_es, firma_jefe, descripciones, fecha_inicio, fecha_fin):
+def actualizar_informe_inicial(id_informe_inicial_es, firma_es, firma_jefe, descripciones, fecha_inicio, fecha_fin, plan_trabajo):
     try:
         conexion = obtener_conexion()
         conexion.autocommit = False
@@ -184,6 +170,11 @@ def actualizar_informe_inicial(id_informe_inicial_es, firma_es, firma_jefe, desc
             for descripcion in descripciones:
                 cursor.execute("INSERT INTO OBJETIVO (id_informe_inicial_es, descripcion) VALUES (%s, %s)", (id_informe_inicial_es, descripcion))
 
+            cursor.execute("DELETE FROM PLAN_TRABAJO WHERE id_informe_inicial_es = %s", (id_informe_inicial_es,))
+
+            for trabajo in plan_trabajo:
+                cursor.execute("INSERT INTO PLAN_TRABAJO (id_informe_inicial_es, n_semana, fecha_inicio, fecha_fin, actividad, num_horas) VALUES (%s, %s, %s, %s, %s, %s)", (id_informe_inicial_es, trabajo["n_semana"], trabajo["fecha_inicio"], trabajo["fecha_fin"], trabajo["actividad"], trabajo["horas"]))
+
         conexion.commit()
         conexion.close()
 
@@ -191,4 +182,4 @@ def actualizar_informe_inicial(id_informe_inicial_es, firma_es, firma_jefe, desc
 
     except Exception as e:
         conexion.rollback()
-        return f"Error al cambiar el estado del informe: {str(e)}"
+        return f"Error al actualizar informe: {str(e)}"

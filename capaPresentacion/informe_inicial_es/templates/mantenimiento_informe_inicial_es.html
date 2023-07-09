@@ -45,6 +45,7 @@
       </div>
     </div>
   </div>
+
   <form action="{{url}}" method="post" id="formulario" enctype="multipart/form-data">
     <input type="hidden" name="id_informe_inicial_es" value="{{informe[0]}}">
     <div class="row mt-3">
@@ -101,14 +102,47 @@
       <button class="btn btn-success" id="btnAgregarObjetivo"><i class="fas fa-plus-circle"></i>&nbsp;Agregar</button>
     </div>
 
+    <div class="row mt-3">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5 class="col-2">Plan de trabajo</h5>
+        </div>
 
-
-</div>
-<div class="row mt-3">
-  <div class="col-12">
-    <div class="d-flex justify-content-between align-items-center">
-      <h5 class="col-2">Plan de trabajo</h5>
+      </div>
     </div>
+
+    <table class="table" id="tablaPlanTrabajo">
+      <thead class="bg-light">
+        <tr>
+          <th class="col-1">N° de semana</th>
+          <th class="col-1">Fecha de inicio</th>
+          <th class="col-1">Fecha de fin</th>
+          <th class="col-7">Actividad a realizar</th>
+          <th class="col-1">N° de horas</th>
+          <th class="col-1 text-center">Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for plan_trabajo in planes_trabajo %}
+        <tr>
+          <td class="col-1 text-center"><input class="form-control-plaintext text-center" type="text" name="n_semana[]"
+              value="{{ plan_trabajo[2] }}"></td>
+          <td class="col-1 text-center"><input required value="{{ plan_trabajo[3] }}" type="date"
+              class="form-control input" name="fecha_in[]"></td>
+          <td class="col-1 text-center"><input required value="{{ plan_trabajo[4] }}" type="date"
+              class="form-control input" name="fecha_fin[]"></td>
+          <td class="col-7"><input type="text" required class="form-control" placeholder="Actividad {{ loop.index }}"
+              value="{{ plan_trabajo[5] }}" name="actividad[]"></td>
+          <td class="col-1"><input type="number" required class="form-control" placeholder="N° de horas"
+              value="{{ plan_trabajo[6] }}" name="horas[]"></td>
+          <td class="col-1 text-center"><button class="btn btn-danger btn-sm" onclick="eliminarFilaPlan(this)"><i
+                class="bi bi-trash"></i></button></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
     <table class="table">
       <tfoot>
         <tr id="filaTotalHoras">
@@ -121,42 +155,53 @@
         </tr>
       </tfoot>
     </table>
+
     <div class="mb-5">
-      <button type="button" class="btn btn-success" id="btnAgregarPlan"><i
-          class="fas fa-plus-circle"></i>&nbsp;Agregar</button>
+      <button class="btn btn-success" id="btnAgregarPlan"><i class="fas fa-plus-circle"></i>&nbsp;Agregar</button>
     </div>
-  </div>
-</div>
-<div class="row mt-3">
-  <div class="col-md-6">
-    <h5 class="">Subir Firma del estudiante</h5>
-    <input class="form-control" type="file" name="firma_estudiante" id="formFileEstudiante">
-    {% if firma_es %}
-    <a href="{{firma_es}}">Descargar Firma del Estudiante</a>
-    {% endif %}
-  </div>
-</div>
-<div class="row mt-3">
-  <div class="col-md-3">
-    <h5 class="">Subir Firma del representante</h5>
-    <input class="form-control" type="file" name="firma_jefe" id="formFileRepresentante">
-    {% if firma_jefe %}
-    <a href="{{firma_jefe}}" target="_blank" download>Descargar Firma del encargado de practicas</a>
-    {% endif %}
-  </div>
+
+    <div class="row mt-3">
+      <h5 class="">Subir Firma del estudiante</h5>
+      <div class="col-md-3">
+        <input class="form-control" type="file" name="firma_estudiante" id="formFileEstudiante">
+      </div>
+      {% if firma_es %}
+      <div class="col-md-3">
+        <a href="{{ firma_es }}" class="form-control-plaintext" target="_blank" download>{{ firma_es.split("/")[-1]
+          }}</a>
+      </div>
+      {% endif %}
+    </div>
+    <div class="row mt-3">
+      <h5 class="">Subir Firma del representante</h5>
+      <div class="col-md-3">
+        <input class="form-control" type="file" name="firma_jefe" id="formFileRepresentante">
+      </div>
+      {% if firma_jefe %}
+      <div class="col-md-3">
+        <a class="form-control-plaintext" href="{{ firma_jefe }}" target="_blank" download>{{ firma_jefe.split("/")[-1]
+          }}</a>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-12 text-center">
+        <button onclick="event.preventDefault(); confirmar_form()" type="submit" class="btn btn-success"><i
+            class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
+        <a href="{{url_for('informe_inicial_es.informe_inicial_es')}}" onclick="confirmar_volver()"
+          class="btn btn-danger mx-2"><i class="fa fa-times"></i>&nbsp;&nbsp;Cancelar</a>
+      </div>
+    </div>
+
+
+    <div class="mt-3">
+
+    </div>
+
+  </form>
 </div>
 
-<div class="row mt-3">
-  <div class="col-12 text-center">
-    <button onclick="event.preventDefault(); confirmar_form()" type="submit" class="btn btn-success"><i
-        class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
-    <a href="{{url_for('informe_inicial_es.informe_inicial_es')}}" onclick="confirmar_volver()"
-      class="btn btn-danger mx-2"><i class="fa fa-times"></i>&nbsp;&nbsp;Cancelar</a>
-  </div>
-</div>
-<div class="mt-3"></div>
-</div>
-</form>
 {% endblock%}
 
 
@@ -186,8 +231,32 @@
   }
 </script>
 
+<script>
+  document.getElementById("btnAgregarPlan").addEventListener("click", function (event) {
+    event.preventDefault();
 
+    const tablaPlanTrabajo = document.getElementById("tablaPlanTrabajo");
+    const numero = tablaPlanTrabajo.rows.length;
 
+    const nuevaFila = tablaPlanTrabajo.insertRow();
+    nuevaFila.innerHTML = `
+      <tr>
+        <td class="col-1 text-center"><input class="form-control-plaintext text-center" type="text" name="n_semana[]" value="${numero}"></td>
+        <td class="col-1 text-center"><input required type="date" class="form-control input" name="fecha_in[]"></td>
+        <td class="col-1 text-center"><input required type="date" class="form-control input" name="fecha_fin[]"></td>
+        <td class="col-7"><input type="text" required class="form-control" placeholder="Actividad ${numero}" name="actividad[]"></td>
+        <td class="col-1"><input type="number" required class="form-control" placeholder="N° de horas" name="horas[]"></td>
+        <td class="col-1 text-center"><button class="btn btn-danger btn-sm" onclick="eliminarFilaPlan(this)"><i class="bi bi-trash"></i></button></td>
+      </tr>
+    `;
+  });
+
+  function eliminarFilaPlan(element) {
+    const fila = element.parentNode.parentNode;
+    const tablaPlanTrabajo = document.getElementById("tablaPlanTrabajo");
+    tablaPlanTrabajo.deleteRow(fila.rowIndex);
+  }
+</script>
 
 
 
@@ -211,7 +280,7 @@
     }
   }
 
-  
+
 
 
 
