@@ -5,12 +5,16 @@ Editar Ficha de Desempeño del Estudiante
 {% set titulo2 = "Agregar Ficha de Desempeño del Estudiante" %}
 
 {% set nombre = estudiante[0] %}
-{% set codigo_universidatrio = estudiante[1] %}
-{% set razon_social = datos_cppp[0] %}
-{% set jefe = datos_cppp[1] %}
-{% set cargo_jefe = datos_cppp[2] %}
-{% set semestre = datos_practica[0] %}
-{% set fecha_inicio = datos_practica[1] %}
+{% set escuela_Profesional = estudiante[1] %}
+{% if estudiante[2] is none or estudiante[3] is none %}
+  {% set periodo_practica = "- - -" %}
+{% else %}
+  {% set periodo_practica = estudiante[2] ~ "-" ~ estudiante[3] %}
+{% endif %}
+{% set nombre_empresa= datos_cppp[0] %}
+{% set direccion = datos_cppp[1] %}
+{% set nombre_responsable = datos_cppp[2] %}
+{% set correo_responsable = datos_cppp[3] %}
 {% set fecha_fin = datos_practica[2] %}
 {% set id_ficha = ficha_desempeno[0] %}
 {% set firma_es = ficha_desempeno[3] %}

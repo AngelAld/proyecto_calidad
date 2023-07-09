@@ -4,6 +4,31 @@
 {% block contenido %}
   <div class="container-fluid">
     <script>
+document.addEventListener('DOMContentLoaded', function() {
+  var table = document.getElementById('table');
+  var radioButtons = table.querySelectorAll('input[type="radio"]');
+
+  table.addEventListener('click', function(event) {
+    var target = event.target;
+    if (target.type === 'radio') {
+      target.checked = true;
+    } else if (target.tagName === 'TD') {
+      var rowIndex = target.parentNode.rowIndex;
+      var input = table.rows[rowIndex].querySelector('input[type="radio"][name="' + target.dataset.name + '"]');
+      if (input) {
+        input.checked = true;
+      }
+    }
+  });
+
+  for (var i = 0; i < radioButtons.length; i++) {
+    radioButtons[i].addEventListener('click', function(event) {
+      event.stopPropagation();
+    });
+  }
+});
+    </script>
+    <script>
       function soloLetras(event) {
           var charCode = event.keyCode || event.which;
           var charStr = String.fromCharCode(charCode);
@@ -23,28 +48,28 @@
       <div class="col-12">
         <h4>Datos del Estudiante</h4>
         <form>
-          <div class="form-group row">
+          <div class="form-group row mb-3">
             <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
             <div class="col-sm-4">
               <input type="text" class="form-control" id="nombres" value="{{nombre}}" readonly onkeypress="return soloLetras(event)">
             </div>           
           </div>
-          <div class="form-group row">
+          <div class="form-group row mb-3">
             <label for="escuelaProfesional" class="col-sm-2 col-form-label">Escuela Profesional:</label>
             <div class="col-sm-4">
               <input type="text" class="form-control" id="escuelaProfesional" value="{{escuela_Profesional}}" readonly>
             </div>
           </div>
-          <div class="form-group row">
+          <div class="form-group row mb-3">
             <label for="periodo" class="col-sm-2 col-form-label">Periodo de Prácticas:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="periodo" value="{{perido_practica}}" readonly>
+              <input type="text" class="form-control" id="periodo" value="{{periodo_practica}}" readonly>
             </div>
           </div>
-          <div class="form-group row">
+          <div class="form-group row mb-3">
             <label for="areaDesempeno" class="col-sm-2 col-form-label">Área de Desempeño:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="areaDesempeno" value="{{area_desempeno}}" readonly>
+              <input type="text" class="form-control" id="areaDesempeno" value="{{area_desempeno}}">
             </div>
           </div>
         </form>
@@ -54,25 +79,25 @@
       <div class="col-12">
         <h4>Datos de la Empresa</h4>
         <form>
-          <div class="form-group row">
+          <div class="form-group row mb-3">
             <label for="nombre_empresa" class="col-sm-2 col-form-label">Nombre de la Empresa:</label>
             <div class="col-sm-4">
               <input type="text" class="form-control" id="nombre_empresa" value="{{nombre_empresa}}" readonly>
             </div>
           </div>
-          <div class="form-group row">
+          <div class="form-group row mb-3">
             <label for="direccion" class="col-sm-2 col-form-label">Dirección:</label>
             <div class="col-sm-4">
               <input type="text" class="form-control" id="direccion" value="{{direccion}}" readonly>
             </div>
           </div>
-          <div class="form-group row">
+          <div class="form-group row mb-3">
             <label for="responsable" class="col-sm-2 col-form-label">Nombre del Responsable:</label>
             <div class="col-sm-4">
               <input type="text" class="form-control" id="responsable" value="{{nombre_responsable}}" readonly>
             </div>
           </div>
-          <div class="form-group row">
+          <div class="form-group row mb-3">
             <label for="correo" class="col-sm-2 col-form-label">Correo del Responsable:</label>
             <div class="col-sm-4">
               <input type="text" class="form-control" id="correo" value="{{correo_responsable}}" readonly>
@@ -83,80 +108,82 @@
     </div>
     <div class="row mt-3">
       <div class="col-12">
-        <h5>Sírvase marcar con un check la respuesta que describa mejor su opinión:</h5>
-        <form >
-          <table class="table">
+        <h5>Sírvase marcar con un radio button la respuesta que describa mejor su opinión:</h5>
+        <form>
+          <table class="table" id="table">
             <thead class="bg-light">
               <tr>
                 <th class="col-1">Número</th>
                 <th class="col">Característica a Evaluar</th>
-                <th class="text-center" >Deficiente</th>
+                <th class="text-center">Deficiente</th>
                 <th class="text-center">Regular</th>
-                <th class="text-center" >Bueno</th>
-                <th class="text-center" >Muy Bueno</th>
+                <th class="text-center">Bueno</th>
+                <th class="text-center">Muy Bueno</th>
               </tr>
             </thead>
-            <tbody>  
-                <th  scope="row">1</th>
+            <tbody id="table">
+              <tr>
+                <th scope="row">1</th>
                 <td>Responsabilidad</td>
-                <td class="text-center"><input type="checkbox" name="responsabilidad" value="deficiente"></td>
-                <td class="text-center"><input type="checkbox" name="responsabilidad" value="regular"></td>
-                <td class="text-center"><input type="checkbox" name="responsabilidad" value="bueno"></td>
-                <td class="text-center"><input type="checkbox" name="responsabilidad" value="muybueno"></td>
+                <td class="text-center"><input type="radio" name="responsabilidad" value="deficiente"></td>
+                <td class="text-center"><input type="radio" name="responsabilidad" value="regular"></td>
+                <td class="text-center"><input type="radio" name="responsabilidad" value="bueno"></td>
+                <td class="text-center"><input type="radio" name="responsabilidad" value="muybueno"></td>
               </tr>
               <tr>
                 <th scope="row">2</th>
                 <td>Proactividad</td>
-                <td class="text-center"><input type="checkbox" name="proactividad" value="deficiente"></td>
-                <td class="text-center"><input type="checkbox" name="proactividad" value="regular"></td>
-                <td class="text-center"><input type="checkbox" name="proactividad" value="bueno"></td>
-                <td class="text-center"><input type="checkbox" name="proactividad" value="muybueno"></td>
+                <td class="text-center"><input type="radio" name="proactividad" value="deficiente"></td>
+                <td class="text-center"><input type="radio" name="proactividad" value="regular"></td>
+                <td class="text-center"><input type="radio" name="proactividad" value="bueno"></td>
+                <td class="text-center"><input type="radio" name="proactividad" value="muybueno"></td>
               </tr>
               <tr>
                 <th scope="row">3</th>
                 <td>Comunicación asertiva</td>
-                <td class="text-center"><input type="checkbox" name="comunicacion" value="deficiente"></td>
-                <td class="text-center"><input type="checkbox" name="comunicacion" value="regular"></td>
-                <td class="text-center"><input type="checkbox" name="comunicacion" value="bueno"></td>
-                <td class="text-center"><input type="checkbox" name="comunicacion" value="muybueno"></td>
+                <td class="text-center"><input type="radio" name="comunicacion" value="deficiente"></td>
+                <td class="text-center"><input type="radio" name="comunicacion" value="regular"></td>
+                <td class="text-center"><input type="radio" name="comunicacion" value="bueno"></td>
+                <td class="text-center"><input type="radio" name="comunicacion" value="muybueno"></td>
               </tr>
               <tr>
                 <th scope="row">4</th>
                 <td>Trabajo en equipo</td>
-                <td class="text-center"><input type="checkbox" name="trabajoequipo" value="deficiente"></td>
-                <td class="text-center"><input type="checkbox" name="trabajoequipo" value="regular"></td>
-                <td class="text-center"><input type="checkbox" name="trabajoequipo" value="bueno"></td>
-                <td class="text-center"><input type="checkbox" name="trabajoequipo" value="muybueno"></td>
+                <td class="text-center"><input type="radio" name="trabajoequipo" value="deficiente"></td>
+                <td class="text-center"><input type="radio" name="trabajoequipo" value="regular"></td>
+                <td class="text-center"><input type="radio" name="trabajoequipo" value="bueno"></td>
+                <td class="text-center"><input type="radio" name="trabajoequipo" value="muybueno"></td>
               </tr>
               <tr>
                 <th scope="row">5</th>
                 <td>Compromiso con la calidad</td>
-                <td class="text-center"><input type="checkbox" name="compromiso" value="deficiente"></td>
-                <td class="text-center"><input type="checkbox" name="compromiso" value="regular"></td>
-                <td class="text-center"><input type="checkbox" name="compromiso" value="bueno"></td>
-                <td class="text-center"><input type="checkbox" name="compromiso" value="muybueno"></td>
+                <td class="text-center"><input type="radio" name="compromiso" value="deficiente"></td>
+                <td class="text-center"><input type="radio" name="compromiso" value="regular"></td>
+                <td class="text-center"><input type="radio" name="compromiso" value="bueno"></td>
+                <td class="text-center"><input type="radio" name="compromiso" value="muybueno"></td>
               </tr>
               <tr>
                 <th scope="row">6</th>
                 <td>Organización en el trabajo</td>
-                <td class="text-center"><input type="checkbox" name="organizacion" value="deficiente"></td>
-                <td class="text-center"><input type="checkbox" name="organizacion" value="regular"></td>
-                <td class="text-center"><input type="checkbox" name="organizacion" value="bueno"></td>
-                <td class="text-center"><input type="checkbox" name="organizacion" value="muybueno"></td>
+                <td class="text-center"><input type="radio" name="organizacion" value="deficiente"></td>
+                <td class="text-center"><input type="radio" name="organizacion" value="regular"></td>
+                <td class="text-center"><input type="radio" name="organizacion" value="bueno"></td>
+                <td class="text-center"><input type="radio" name="organizacion" value="muybueno"></td>
               </tr>
               <tr>
                 <th scope="row">7</th>
                 <td>Puntualidad y asistencia</td>
-                <td class="text-center"><input type="checkbox" name="puntualidad" value="deficiente"></td>
-                <td class="text-center"><input type="checkbox" name="puntualidad" value="regular"></td>
-                <td class="text-center"><input type="checkbox" name="puntualidad" value="bueno"></td>
-                <td class="text-center"><input type="checkbox" name="puntualidad" value="muybueno"></td>
+                <td class="text-center"><input type="radio" name="puntualidad" value="deficiente"></td>
+                <td class="text-center"><input type="radio" name="puntualidad" value="regular"></td>
+                <td class="text-center"><input type="radio" name="puntualidad" value="bueno"></td>
+                <td class="text-center"><input type="radio" name="puntualidad" value="muybueno"></td>
               </tr>
             </tbody>
           </table>
         </form>
       </div>
     </div>
+    
 
     <!-- Para validar los chebox: en caso de marcar tenemos que presionar en mismo para desmarcar -->
     <!-- <script>
@@ -188,72 +215,83 @@
       })
     </script>
 
-    <div class="row mt-3">
-      <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center">
-                  <h5>Resultados de aprendizaje</h5>
-                  <div>
-                      <a href="#" class="btn btn-success"><i class="fas fa-plus-circle" id="btnAgregarResultado"></i>&nbsp;Agregar</a>
-                  </div>
-            </div>
-        <form>
-          <table class="table" id="tablaResultados">
-            <thead class="bg-light">
-              <tr>
-                <th class="col-1">Enumeración</th>
-                <th class="col">Resultados del Aprendizaje</th>
-                <th class="col-1 text-center">Deficiente</th>
-                <th class="col-1 text-center">Regular</th>
-                <th class="col-1 text-center">Bueno</th>
-                <th class="col-1 text-center">Muy Bueno</th>
-                <th class="col-1 text-center">Editar</th>
-                <th class="col-1 text-center">Eliminar</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-        </form>
+<div class="row mt-3">
+  <div class="col-12">
+    <div class="d-flex justify-content-between align-items-center">
+      <h5>Resultados de aprendizaje</h5>
+      <div>
+        <a href="#" class="btn btn-success" id="btnAgregarResultado">
+          <i class="fas fa-plus-circle"></i>&nbsp;Agregar
+        </a>
       </div>
     </div>
-    <!-- Para agregar nuevos objetivos -->
-    <script>
-      const btnAgregarObjetivo = document.getElementById('btnAgregarResultado')
-      const tablaPlanObj = document.getElementById('tablaResultados')
-    
-      let contadorFilas = 0
-    
-      btnAgregarObjetivo.addEventListener('click', (event) => {
-        event.preventDefault()
-    
-        contadorFilas++
-    
-        const nuevaFila = `
+    <form>
+      <table class="table" id="tablaResultados">
+        <thead class="bg-light">
           <tr>
-            <th scope="row">${contadorFilas}</th>
-            <td><input type="text" class="form-control" placeholder="Resultado de Aprendizaje ${contadorFilas}"></td>
-            <td class="text-center"><input type="checkbox" name="logro${contadorFilas}" value="deficiente" onclick="limitarSeleccion(this)"></td>
-            <td class="text-center"><input type="checkbox" name="logro${contadorFilas}" value="regular" onclick="limitarSeleccion(this)"></td>
-            <td class="text-center"><input type="checkbox" name="logro${contadorFilas}" value="bueno" onclick="limitarSeleccion(this)"></td>
-            <td class="text-center"><input type="checkbox" name="logro${contadorFilas}" value="muybueno" onclick="limitarSeleccion(this)"></td>
-            <td class="text-center"><button class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></button></td>
-            <td class="text-center"><button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button></td>
+            <th class="col-1">Enumeración</th>
+            <th class="col">Resultados del Aprendizaje</th>
+            <th class="col-1 text-center">Deficiente</th>
+            <th class="col-1 text-center">Regular</th>
+            <th class="col-1 text-center">Bueno</th>
+            <th class="col-1 text-center">Muy Bueno</th>
+            <th class="col-1 text-center">Eliminar</th>
           </tr>
-        `
-    
-        tablaPlanObj.querySelector('tbody').insertAdjacentHTML('beforeend', nuevaFila)
-      })
-    
-      function limitarSeleccion(checkbox) {
-        const checkboxes = checkbox.parentNode.parentNode.getElementsByTagName('input')
-    
-        for (let i = 0; i < checkboxes.length; i++) {
-          if (checkboxes[i] !== checkbox) {
-            checkboxes[i].checked = false
-          }
-        }
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </form>
+  </div>
+</div>
+
+<script>
+  const btnAgregarResultado = document.getElementById('btnAgregarResultado');
+  const tablaResultados = document.getElementById('tablaResultados');
+
+  btnAgregarResultado.addEventListener('click', (event) => {
+    event.preventDefault();
+    const contadorFilas = tablaResultados.rows.length;
+
+    const nuevaFila = `
+      <tr>
+        <th scope="row">${contadorFilas}</th>
+        <td><input type="text" class="form-control" placeholder="Resultado de Aprendizaje ${contadorFilas}"></td>
+        <td class="text-center"><input type="checkbox" name="logro${contadorFilas}" value="deficiente" onclick="limitarSeleccion(this)"></td>
+        <td class="text-center"><input type="checkbox" name="logro${contadorFilas}" value="regular" onclick="limitarSeleccion(this)"></td>
+        <td class="text-center"><input type="checkbox" name="logro${contadorFilas}" value="bueno" onclick="limitarSeleccion(this)"></td>
+        <td class="text-center"><input type="checkbox" name="logro${contadorFilas}" value="muybueno" onclick="limitarSeleccion(this)"></td>
+        <td class="text-center"><button class="btn btn-danger btn-sm" onclick="eliminarFila(this)"><i class="bi bi-trash"></i></button></td>
+      </tr>
+    `;
+
+    tablaResultados.querySelector('tbody').insertAdjacentHTML('beforeend', nuevaFila);
+  });
+
+  function limitarSeleccion(checkbox) {
+    const checkboxes = checkbox.parentNode.parentNode.getElementsByTagName('input');
+
+    for (let i = 0; i < checkboxes.length; i++) {
+      if (checkboxes[i] !== checkbox) {
+        checkboxes[i].checked = false;
       }
-    </script>
+    }
+  }
+
+  function eliminarFila(botonEliminar) {
+    const fila = botonEliminar.parentNode.parentNode;
+    fila.remove();
+
+    const filas = tablaResultados.querySelectorAll('tbody tr');
+    for (let i = 0; i < filas.length; i++) {
+      const enumeracion = filas[i].querySelector('th');
+      enumeracion.textContent = i + 1;
+
+      const campoResultado = filas[i].querySelector('input[type="text"]');
+      campoResultado.placeholder = `Resultado de Aprendizaje ${i + 1}`;
+    }
+  }
+</script>
 
 
     <div class="row mt-3">
