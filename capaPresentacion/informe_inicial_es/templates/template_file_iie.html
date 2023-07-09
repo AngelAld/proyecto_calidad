@@ -1,0 +1,337 @@
+{% block titulo %}
+Editar Informe Inicial Estudiante
+{% endblock %}
+{% set titulo2 = "Agregar Informe Inicial Estudiante" %}
+
+{% set nombre = estudiante[0] %}
+{% set codigo_universidatrio = estudiante[1] %}
+{% set razon_social = datos_cppp[0] %}
+{% set jefe = datos_cppp[1] %}
+{% set cargo_jefe = datos_cppp[2] %}
+{% set semestre = datos_practica[0] %}
+{% set fecha_inicio = datos_practica[1] %}
+{% set fecha_fin = datos_practica[2] %}
+{% set id_informe = informe[0] %}
+{% set firma_es = informe[3] %}
+{% set firma_jefe = informe[4] %}
+{% set estado = informe[5] %}
+{% set totalHoras = 0 -%}
+{% set url = url_for('informe_inicial_es.actualizar_informe_inicial_es') %}
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta name="generator" content="Aspose.Words for .NET 23.6.0" />
+    <title></title>
+    <style type="text/css">
+        body {
+            line-height: 108%;
+            font-family: Calibri;
+            font-size: 11pt
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p {
+            margin: 0pt 0pt 8pt
+        }
+
+        li,
+        table {
+            margin-top: 0pt;
+            margin-bottom: 8pt
+        }
+
+        h1 {
+            margin-top: 24pt;
+            margin-bottom: 6pt;
+            page-break-before: auto;
+            page-break-inside: avoid;
+            page-break-after: avoid;
+            line-height: 108%;
+            font-family: Calibri;
+            font-size: 24pt;
+            font-weight: bold;
+            color: #000000
+        }
+
+        h2 {
+            margin-top: 18pt;
+            margin-bottom: 4pt;
+            page-break-before: auto;
+            page-break-inside: avoid;
+            page-break-after: avoid;
+            line-height: 108%;
+            font-family: Calibri;
+            font-size: 18pt;
+            font-weight: bold;
+            color: #000000
+        }
+
+        h3 {
+            margin-top: 14pt;
+            margin-bottom: 4pt;
+            page-break-before: auto;
+            page-break-inside: avoid;
+            page-break-after: avoid;
+            line-height: 108%;
+            font-family: Calibri;
+            font-size: 14pt;
+            font-weight: bold;
+            color: #000000
+        }
+
+        h4 {
+            margin-top: 12pt;
+            margin-bottom: 2pt;
+            page-break-before: auto;
+            page-break-inside: avoid;
+            page-break-after: avoid;
+            line-height: 108%;
+            font-family: Calibri;
+            font-size: 12pt;
+            font-weight: bold;
+            font-style: normal;
+            color: #000000
+        }
+
+        h5 {
+            margin-top: 11pt;
+            margin-bottom: 2pt;
+            page-break-before: auto;
+            page-break-inside: avoid;
+            page-break-after: avoid;
+            line-height: 108%;
+            font-family: Calibri;
+            font-size: 11pt;
+            font-weight: bold;
+            color: #000000
+        }
+
+        h6 {
+            margin-top: 10pt;
+            margin-bottom: 2pt;
+            page-break-before: auto;
+            page-break-inside: avoid;
+            page-break-after: avoid;
+            line-height: 108%;
+            font-family: Calibri;
+            font-size: 10pt;
+            font-weight: bold;
+            color: #000000
+        }
+
+        .ListParagraph {
+            margin-left: 36pt;
+            margin-bottom: 8pt;
+            line-height: 108%;
+            font-size: 11pt
+        }
+
+        .Subtitle {
+            margin-top: 18pt;
+            margin-bottom: 4pt;
+            page-break-before: auto;
+            page-break-inside: avoid;
+            page-break-after: avoid;
+            line-height: 108%;
+            font-family: Georgia;
+            font-size: 24pt;
+            font-style: italic;
+            color: #666666
+        }
+
+        .Title {
+            margin-top: 24pt;
+            margin-bottom: 6pt;
+            page-break-before: auto;
+            page-break-inside: avoid;
+            page-break-after: avoid;
+            line-height: 108%;
+            font-size: 36pt;
+            font-weight: bold
+        }
+
+        .normal0 {
+            margin-bottom: 8pt;
+            line-height: 108%;
+            font-size: 11pt
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <p style="margin-bottom:0pt; text-align:center; line-height:150%"><span style="font-weight:bold">INFORME INICIAL
+                SOBRE PRÁCTICAS PRE PROFESIONALES</span></p>
+        <p style="margin-bottom:0pt; text-align:center; line-height:150%"><span
+                style="font-weight:bold; -aw-import:ignore">&#xa0;</span></p>
+        <ol type="1" style="margin:0pt; padding-left:0pt">
+            <li style="margin-left:23pt; margin-bottom:0pt; line-height:150%; padding-left:5.35pt; font-weight:bold">
+                <span>Nombres y apellidos y del estudiante</span></li>
+        </ol>
+        <p style="margin-left:28.35pt; margin-bottom:0pt; line-height:150%"><a
+                name="_heading_h.gjdgxs"></a><span>Nombres y apellidos</span></p>
+        <ol start="2" type="1" style="margin:0pt; padding-left:0pt">
+            <li style="margin-left:23pt; margin-bottom:0pt; line-height:150%; padding-left:5.35pt; font-weight:bold">
+                <span>Código del estudiante</span></li>
+        </ol>
+        <p style="margin-left:28.35pt; margin-bottom:0pt; line-height:150%"><span>Código</span></p>
+        <ol start="3" type="1" style="margin:0pt; padding-left:0pt">
+            <li style="margin-left:23pt; margin-bottom:0pt; line-height:150%; padding-left:5.35pt; font-weight:bold">
+                <span>Semestre académico</span></li>
+        </ol>
+        <p style="margin-left:28.35pt; margin-bottom:0pt; line-height:150%"><span>2022-II</span></p>
+        <ol start="4" type="1" style="margin:0pt; padding-left:0pt">
+            <li style="margin-left:23pt; margin-bottom:0pt; line-height:150%; padding-left:5.35pt; font-weight:bold">
+                <span>Empresa/Institución donde se realizará la práctica</span></li>
+        </ol>
+        <p style="margin-left:28.35pt; margin-bottom:0pt; line-height:150%"><span>Razón social de la empresa registrada
+                en la SUNAT</span></p>
+        <ol start="5" type="1" style="margin:0pt; padding-left:0pt">
+            <li style="margin-left:23pt; margin-bottom:0pt; line-height:150%; padding-left:5.35pt; font-weight:bold">
+                <span>Persona de la Empresa/Institución responsable de la práctica</span></li>
+        </ol>
+        <p style="margin-left:28.35pt; margin-bottom:0pt; line-height:150%"><span>Grado. Nombres y apellidos</span></p>
+        <ol start="6" type="1" style="margin:0pt; padding-left:0pt">
+            <li style="margin-left:23pt; margin-bottom:0pt; line-height:150%; padding-left:5.35pt; font-weight:bold">
+                <span>Cargo que ocupa</span></li>
+        </ol>
+        <p style="margin-left:28.35pt; margin-bottom:0pt; line-height:150%"><span>Cargo</span></p>
+        <ol start="7" type="1" style="margin:0pt; padding-left:0pt">
+            <li style="margin-left:23pt; margin-bottom:0pt; line-height:150%; padding-left:5.35pt; font-weight:bold">
+                <span>Objetivos de la práctica</span></li>
+        </ol>
+        <p
+            style="margin-left:46.35pt; margin-bottom:0pt; text-indent:-18pt; line-height:150%; -aw-import:list-item; -aw-list-level-number:0; -aw-list-number-format:'✔'; -aw-list-number-styles:'bullet'; -aw-list-padding-sml:11.4pt">
+            <span style="-aw-import:ignore"><span style="font-family:'Noto Sans Symbols'">✔</span><span
+                    style="width:11.4pt; font:7pt 'Times New Roman'; display:inline-block; -aw-import:spaces">&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;
+                </span></span><span>Especificar la labor que realizará 1</span></p>
+
+
+
+        <ol start="8" type="1" style="margin:0pt; padding-left:0pt">
+            <li style="margin-left:23pt; margin-bottom:0pt; line-height:150%; padding-left:5.35pt; font-weight:bold">
+                <span>Fecha de inicio de la práctica</span></li>
+        </ol>
+        <p style="margin-left:28.35pt; margin-bottom:0pt; line-height:150%"><span>Día de mes de año</span></p>
+        <ol start="9" type="1" style="margin:0pt; padding-left:0pt">
+            <li style="margin-left:23pt; margin-bottom:0pt; line-height:150%; padding-left:5.35pt; font-weight:bold">
+                <span>Fecha de término de la práctica</span></li>
+        </ol>
+        <p style="margin-left:28.35pt; margin-bottom:0pt; line-height:150%"><span>Día de mes de año</span></p>
+    </div><br style="page-break-before:always; clear:both; mso-break-type:section-break" />
+    <div>
+        <ol start="10" type="1" style="margin:0pt; padding-left:0pt">
+            <li style="margin-left:23pt; margin-bottom:0pt; line-height:150%; padding-left:5.35pt; font-weight:bold">
+                <span>Plan de trabajo.</span></li>
+        </ol>
+        <table cellspacing="0" cellpadding="0" class="Table1"
+            style="width:673.85pt; margin-left:28.35pt; margin-bottom:0pt; border:0.75pt solid #000000; -aw-border:0.5pt single; -aw-border-insideh:0.5pt single #000000; -aw-border-insidev:0.5pt single #000000; border-collapse:collapse">
+            <tr>
+                <td
+                    style="border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle; -aw-border-bottom:0.5pt single; -aw-border-right:0.5pt single">
+                    <p style="text-align:center; line-height:108%; font-size:11pt"><span style="font-weight:bold">N° de
+                            Semana</span></p>
+                </td>
+                <td
+                    style="border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle; -aw-border-bottom:0.5pt single; -aw-border-left:0.5pt single; -aw-border-right:0.5pt single">
+                    <p style="text-align:center; line-height:108%; font-size:11pt"><span
+                            style="font-weight:bold">Fechas</span></p>
+                </td>
+                <td
+                    style="border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle; -aw-border-bottom:0.5pt single; -aw-border-left:0.5pt single; -aw-border-right:0.5pt single">
+                    <p style="text-align:center; line-height:108%; font-size:11pt"><span
+                            style="font-weight:bold">Actividades a realizar</span></p>
+                </td>
+                <td
+                    style="border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle; -aw-border-bottom:0.5pt single; -aw-border-left:0.5pt single">
+                    <p style="text-align:center; line-height:108%; font-size:11pt"><span style="font-weight:bold">N° de
+                            horas</span></p>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td
+                    style="border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle; -aw-border-bottom:0.5pt single; -aw-border-right:0.5pt single; -aw-border-top:0.5pt single">
+                    <p style="text-align:center; line-height:108%; font-size:11pt"><span
+                            style="font-weight:bold">01</span></p>
+                </td>
+                <td
+                    style="border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle; -aw-border:0.5pt single">
+                    <p style="text-align:center; line-height:108%; font-size:11pt"><span>99/99/2099 al 99/99/2099</span>
+                    </p>
+                </td>
+                <td
+                    style="border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border:0.5pt single">
+                    <p
+                        style="margin-left:10.95pt; text-indent:-10.95pt; line-height:108%; font-size:11pt; -aw-import:list-item; -aw-list-level-number:0; -aw-list-number-format:'-'; -aw-list-number-styles:'bullet'; -aw-list-padding-sml:7.58pt">
+                        <span style="-aw-import:ignore"><span><span>-</span></span><span
+                                style="width:7.58pt; font:7pt 'Times New Roman'; display:inline-block; -aw-import:spaces">&#xa0;&#xa0;&#xa0;&#xa0;
+                            </span></span><span>Actividad 1</span></p>
+                </td>
+                <td
+                    style="border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle; -aw-border-bottom:0.5pt single; -aw-border-left:0.5pt single; -aw-border-top:0.5pt single">
+                    <p style="text-align:center; line-height:108%; font-size:11pt"><span>99</span></p>
+                </td>
+            </tr>
+            
+            <tr style="height:23.55pt">
+                <td colspan="3"
+                    style="border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle; -aw-border-right:0.5pt single; -aw-border-top:0.5pt single">
+                    <p style="margin-bottom:0pt; text-align:center; font-size:11pt"><span style="font-weight:bold">Total
+                            de horas</span></p>
+                </td>
+                <td
+                    style="border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle; -aw-border-left:0.5pt single; -aw-border-top:0.5pt single">
+                    <p style="text-align:center; line-height:108%; font-size:11pt"><span
+                            style="font-weight:bold">99</span></p>
+                </td>
+            </tr>
+        </table>
+        <p style="margin-left:28.35pt; margin-bottom:0pt; line-height:150%"><span
+                style="font-weight:bold; -aw-import:ignore">&#xa0;</span></p>
+        <ol start="11" type="1" style="margin:0pt; padding-left:0pt">
+            <li style="margin-left:23pt; margin-bottom:0pt; line-height:150%; padding-left:5.35pt; font-weight:bold">
+                <span>Fecha y firma del estudiante y del responsable de la Empresa/Institución</span></li>
+        </ol>
+        <p style="margin-left:28.35pt; margin-bottom:0pt; line-height:150%"><span>Día de mes de año</span></p>
+        <p style="margin-left:28.35pt; margin-bottom:0pt; line-height:150%"><span
+                style="font-weight:bold; -aw-import:ignore">&#xa0;</span></p>
+        <p style="margin-left:28.35pt; margin-bottom:0pt; line-height:150%"><span
+                style="font-weight:bold; -aw-import:ignore">&#xa0;</span></p>
+        <table cellspacing="0" cellpadding="0" class="Table2"
+            style="width:673.3pt; margin-left:28.35pt; margin-bottom:0pt; border-collapse:collapse">
+            <tr>
+                <td style="padding-right:5.4pt; padding-left:5.4pt; vertical-align:top">
+                    <p style="margin-bottom:0pt; text-align:center; line-height:108%; font-size:11pt"><span
+                            style="font-weight:bold">Nombres y Apellidos</span></p>
+                    <p style="text-align:center; line-height:108%; font-size:11pt"><span
+                            style="font-weight:bold">Estudiante</span></p>
+                </td>
+                <td style="padding-right:5.4pt; padding-left:5.4pt; vertical-align:top">
+                    <p style="line-height:108%; font-size:11pt"><span
+                            style="font-weight:bold; -aw-import:ignore">&#xa0;</span></p>
+                </td>
+                <td style="padding-right:5.4pt; padding-left:5.4pt; vertical-align:top">
+                    <p style="margin-bottom:0pt; text-align:center; line-height:108%; font-size:11pt"><span
+                            style="font-weight:bold">Grado. Nombres y Apellidos</span></p>
+                    <p style="text-align:center; line-height:108%; font-size:11pt"><span style="font-weight:bold">Cargo
+                            del representante de la empresa</span></p>
+                </td>
+            </tr>
+        </table>
+        <p style="margin-bottom:0pt; line-height:150%"><span style="font-weight:bold; -aw-import:ignore">&#xa0;</span>
+        </p>
+    </div>
+</body>
+
+</html>

@@ -138,5 +138,24 @@ def actualizar_informe_inicial_es():
             url = "/estudiante/editar_informe_inicial/" + id_informe_inicial_es
         return redirect(url)
 
+@informe_inicial_es_bp.route("/estudiante/informe_inicial/generar_pdf/<int:id>")
+def generar_pdf(id):
+    (
+        estudiante,
+        datos_cppp,
+        datos_practica,
+        objetivos,
+        planes_trabajo,
+        informe,
+    ) = c_informe_inicial_es.consultar_informe_iniciales_estudiante(id)
+    return render_template(
+    "template.html",
+        estudiante=estudiante,
+        datos_cppp=datos_cppp,
+        datos_practica=datos_practica,
+        objetivos=objetivos,
+        planes_trabajo=planes_trabajo,
+        informe = informe,
+    )
 
 

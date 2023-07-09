@@ -115,22 +115,20 @@ document.addEventListener('DOMContentLoaded', function() {
               <tr>
                 <th class="col-1">Número</th>
                 <th class="col">Característica a Evaluar</th>
-                <th class="text-center col-1">Deficiente</th>
-                <th class="text-center col-1">Regular</th>
-                <th class="text-center col-1">Bueno</th>
-                <th class="text-center col-1">Muy Bueno</th>
-                <th class="col-1"></th>
+                <th class="text-center">Deficiente</th>
+                <th class="text-center">Regular</th>
+                <th class="text-center">Bueno</th>
+                <th class="text-center">Muy Bueno</th>
               </tr>
             </thead>
             <tbody id="table">
               <tr>
                 <th scope="row">1</th>
-                <td class="col">Responsabilidad</td>
+                <td>Responsabilidad</td>
                 <td class="text-center"><input type="radio" name="responsabilidad" value="deficiente"></td>
                 <td class="text-center"><input type="radio" name="responsabilidad" value="regular"></td>
                 <td class="text-center"><input type="radio" name="responsabilidad" value="bueno"></td>
                 <td class="text-center"><input type="radio" name="responsabilidad" value="muybueno"></td>
-                <td></td>
               </tr>
               <tr>
                 <th scope="row">2</th>
@@ -139,7 +137,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td class="text-center"><input type="radio" name="proactividad" value="regular"></td>
                 <td class="text-center"><input type="radio" name="proactividad" value="bueno"></td>
                 <td class="text-center"><input type="radio" name="proactividad" value="muybueno"></td>
-                <td></td>
               </tr>
               <tr>
                 <th scope="row">3</th>
@@ -148,7 +145,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td class="text-center"><input type="radio" name="comunicacion" value="regular"></td>
                 <td class="text-center"><input type="radio" name="comunicacion" value="bueno"></td>
                 <td class="text-center"><input type="radio" name="comunicacion" value="muybueno"></td>
-                <td></td>
               </tr>
               <tr>
                 <th scope="row">4</th>
@@ -157,7 +153,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td class="text-center"><input type="radio" name="trabajoequipo" value="regular"></td>
                 <td class="text-center"><input type="radio" name="trabajoequipo" value="bueno"></td>
                 <td class="text-center"><input type="radio" name="trabajoequipo" value="muybueno"></td>
-                <td></td>
               </tr>
               <tr>
                 <th scope="row">5</th>
@@ -166,7 +161,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td class="text-center"><input type="radio" name="compromiso" value="regular"></td>
                 <td class="text-center"><input type="radio" name="compromiso" value="bueno"></td>
                 <td class="text-center"><input type="radio" name="compromiso" value="muybueno"></td>
-                <td></td>
               </tr>
               <tr>
                 <th scope="row">6</th>
@@ -175,7 +169,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td class="text-center"><input type="radio" name="organizacion" value="regular"></td>
                 <td class="text-center"><input type="radio" name="organizacion" value="bueno"></td>
                 <td class="text-center"><input type="radio" name="organizacion" value="muybueno"></td>
-                <td></td>
               </tr>
               <tr>
                 <th scope="row">7</th>
@@ -184,7 +177,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td class="text-center"><input type="radio" name="puntualidad" value="regular"></td>
                 <td class="text-center"><input type="radio" name="puntualidad" value="bueno"></td>
                 <td class="text-center"><input type="radio" name="puntualidad" value="muybueno"></td>
-                <td></td>
               </tr>
             </tbody>
           </table>
@@ -237,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <table class="table" id="tablaResultados">
         <thead class="bg-light">
           <tr>
-            <th class="col-1">Numero</th>
+            <th class="col-1">Enumeración</th>
             <th class="col">Resultados del Aprendizaje</th>
             <th class="col-1 text-center">Deficiente</th>
             <th class="col-1 text-center">Regular</th>
@@ -269,7 +261,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <td class="text-center"><input type="checkbox" name="logro${contadorFilas}" value="regular" onclick="limitarSeleccion(this)"></td>
         <td class="text-center"><input type="checkbox" name="logro${contadorFilas}" value="bueno" onclick="limitarSeleccion(this)"></td>
         <td class="text-center"><input type="checkbox" name="logro${contadorFilas}" value="muybueno" onclick="limitarSeleccion(this)"></td>
-        <td class="text-center col-1"><button class="btn btn-danger btn-sm" onclick="eliminarFila(this)"><i class="bi bi-trash"></i></button></td>
+        <td class="text-center"><button class="btn btn-danger btn-sm" onclick="eliminarFila(this)"><i class="bi bi-trash"></i></button></td>
       </tr>
     `;
 
