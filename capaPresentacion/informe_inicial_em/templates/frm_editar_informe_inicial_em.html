@@ -1,3 +1,4 @@
+
 {% extends "mantenimiento_informe_inicial_em.html" %}
 
 {% block titulo %}Editar Informe Inicial Empresa{% endblock %}
@@ -8,4 +9,12 @@
 {% set cargo_jefe = datos_cppp[2] %}
 {% set fecha_inicio = datos_practica[0] %}
 {% set fecha_fin = datos_practica[1] %}
+{% set id_informe_inicial_em = informe[0] %}
+{% set compromiso = informe[1] %}
+{% set labores = informe[2] %}
+{% set firma_em = informe[3] %}
+{% set firma_es = informe[4] %}
+{% set fecha = informe[5] %}
+{% set estado = informe[6] %}
+{% set id_detalle_practica = informe[7] %}
 {% set url = "#" %}

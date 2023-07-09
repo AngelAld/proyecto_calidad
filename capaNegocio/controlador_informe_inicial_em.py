@@ -8,7 +8,7 @@ def listar_informes_iniciales_empresa():
         with conexion.cursor() as cursor:
             # Obtiene la información requerida de las tablas INFORME_INICIAL_ES, DETALLE_PRACTICA, ESTUDIANTE y CENTRO_PRACTICAS
             cursor.execute(
-                "SELECT iie.id_informe_inicial_em,e.nombre,cp.razon_social,iie.estado FROM ESTUDIANTE e JOIN PRACTICA p ON e.id_estudiante = p.id_estudiante JOIN DETALLE_PRACTICA dp ON p.id_practica = dp.id_practica JOIN INFORME_INICIAL_EM iie ON dp.id_detalle_practica = iie.DETALLE_PRACTICAid_detalle_practica JOIN JEFE_INMEDIATO ji ON dp.id_jefe_inmediato = ji.id_jefe_inmediato JOIN CENTRO_PRACTICAS cp ON ji.id_centro_practicas = cp.id_centro_practicas"
+                "SELECT iie.id_informe_inicial_em,e.nombre,cp.razon_social,iie.estado FROM ESTUDIANTE e JOIN PRACTICA p ON e.id_estudiante = p.id_estudiante JOIN DETALLE_PRACTICA dp ON p.id_practica = dp.id_practica JOIN INFORME_INICIAL_EM iie ON dp.id_detalle_practica = iie.id_detalle_practica JOIN JEFE_INMEDIATO ji ON dp.id_jefe_inmediato = ji.id_jefe_inmediato JOIN CENTRO_PRACTICAS cp ON ji.id_centro_practicas = cp.id_centro_practicas"
             )
             informes = cursor.fetchall()
 
@@ -34,7 +34,7 @@ def consultar_informe_iniciales_empresa(id_informe_inicial_em):
                 FROM ESTUDIANTE e
                 JOIN PRACTICA p ON e.id_estudiante = p.id_estudiante
                 JOIN DETALLE_PRACTICA dp ON p.id_practica = dp.id_practica
-                JOIN INFORME_INICIAL_EM iie ON dp.id_detalle_practica = iie.DETALLE_PRACTICAid_detalle_practica
+                JOIN INFORME_INICIAL_EM iie ON dp.id_detalle_practica = iie.id_detalle_practica
                 WHERE iie.id_informe_inicial_em = %s
             """, (id_informe_inicial_em,))
             estudiante = cursor.fetchone()
@@ -45,7 +45,7 @@ def consultar_informe_iniciales_empresa(id_informe_inicial_em):
                 FROM CENTRO_PRACTICAS cp
                 JOIN JEFE_INMEDIATO ji ON cp.id_centro_practicas = ji.id_centro_practicas
                 JOIN DETALLE_PRACTICA dp ON ji.id_jefe_inmediato = dp.id_jefe_inmediato
-                JOIN INFORME_INICIAL_EM iie ON dp.id_detalle_practica = iie.DETALLE_PRACTICAid_detalle_practica
+                JOIN INFORME_INICIAL_EM iie ON dp.id_detalle_practica = iie.id_detalle_practica
                 WHERE iie.id_informe_inicial_em = %s
             """, (id_informe_inicial_em,))
             datos_cppp = cursor.fetchone()
@@ -54,14 +54,19 @@ def consultar_informe_iniciales_empresa(id_informe_inicial_em):
             cursor.execute("""
                 SELECT dp.fecha_inicio, dp.fecha_fin
                 FROM DETALLE_PRACTICA dp
-                JOIN INFORME_INICIAL_EM iie ON dp.id_detalle_practica = iie.DETALLE_PRACTICAid_detalle_practica
+                JOIN INFORME_INICIAL_EM iie ON dp.id_detalle_practica = iie.id_detalle_practica
                 WHERE iie.id_informe_inicial_em = %s
             """, (id_informe_inicial_em,))
             datos_practica = cursor.fetchone()
 
+
+            cursor.execute("SELECT * FROM informe_inicial_em WHERE id_informe_inicial_em = %s", (id_informe_inicial_em,))
+            informe = cursor.fetchone()
+
+
         conexion.close()
 
-        return estudiante, datos_cppp, datos_practica
+        return estudiante, datos_cppp, datos_practica, informe
 
     except Exception as e:
         return f"Error al consultar informe inicial: {str(e)}"
@@ -97,14 +102,31 @@ def eliminar_informe_inicial_em(id_informe_inicial_em):
     with conexion.cursor() as cursor:
         cursor.execute(
             "SELECT fn_eliminar_informe_inicial_em(%s)",
-            (id_informe_inicial_es,),
+            (id_informe_inicial_em,),
         )
         msg = cursor.fetchone()
     conexion.commit()
     conexion.close()
     return msg[0] if msg is not None else None
 
-# aun falta hacer la funcion editar
+# def actualizar_informe_inicial_em(id_informe_inicial_em, estado, id_detalle_practica):
+#     conexion = obtener_conexion()
+#     msg = None
+#     try:
+#         with conexion.cursor() as cursor:
+#             cursor.execute(
+#                 " UPDATE informe_inicial_em SET compromiso = '', labores = '', firma_em = '', firma_es = '' WHERE id_informe_inicial_em = %s AND estado = %s AND id_detalle_practica = %s", 
+#                 (id_informe_inicial_em, estado, id_detalle_practica),
+#             )
+#             msg = cursor.fetchone()
+#         conexion.commit()
+#     except Exception as e:
+#         print(f"Error: {e}")
+#     finally:
+#         conexion.close()
+#     return msg[0] if msg is not None else None
+
+
 def actualizar_informe_inicial_em(id_informe_inicial_em, estado, id_detalle_practica):
     conexion = obtener_conexion()
     msg = None
@@ -121,6 +143,3 @@ def actualizar_informe_inicial_em(id_informe_inicial_em, estado, id_detalle_prac
     finally:
         conexion.close()
     return msg[0] if msg is not None else None
-
-
- 
