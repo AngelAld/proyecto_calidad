@@ -6,7 +6,7 @@
 <div class="text-right mb-3 col-2">
   <select class="form-select" id="selectFormulario" name="selectFormulario">
     {% for detallePractica in detallesPracticas%}
-    <option value="{{ detallePractica[0] }}"> Practica {{ loop.index }} </option>
+    <option value="{{ detallePractica[0] }}"> Practica {{ loop.index }} - {% for centro_practica in centro_practicas %} {% if detallePractica[7] == centro_practica[0] %} {{centro_practica[1]}} {% endif %} {% endfor %} </option>
     {% endfor %}
   </select>
 </div>
