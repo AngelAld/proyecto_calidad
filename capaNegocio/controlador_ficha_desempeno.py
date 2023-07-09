@@ -53,23 +53,49 @@ def consultar_ficha_desempeno(id_ficha_desempeno):
         with conexion.cursor() as cursor:
             # Obtener nombre y código universitario del estudiante
             cursor.execute("""
-                SELECT e.nombre, e.cod_universitario
-                FROM ESTUDIANTE e
-                JOIN PRACTICA p ON e.id_estudiante = p.id_estudiante
-                JOIN DETALLE_PRACTICA dp ON p.id_practica = dp.id_practica
-                JOIN FICHA_DESEMPENO fd ON dp.id_detalle_practica = fd.id_detalle_practica
-                WHERE fd.id_ficha_desempeno = %s
+                SELECT 
+                ESTUDIANTE.nombre AS nombre_estudiante,
+                ESCUELA_PROFESIONAL.nombre AS nombre_escuela_profesional,
+                INFORME_INICIAL_EM.fecha AS fecha_inicio_practica,
+                INFORME_FINAL_EM.fecha AS fecha_fin_practica
+                FROM 
+                ESTUDIANTE
+                JOIN 
+                PRACTICA ON ESTUDIANTE.id_estudiante = PRACTICA.id_estudiante
+                JOIN 
+                DETALLE_PRACTICA ON PRACTICA.id_practica = DETALLE_PRACTICA.id_practica
+                JOIN 
+                INFORME_INICIAL_EM ON DETALLE_PRACTICA.id_detalle_practica = INFORME_INICIAL_EM.id_detalle_practica
+                JOIN 
+                INFORME_FINAL_EM ON DETALLE_PRACTICA.id_detalle_practica = INFORME_FINAL_EM.id_detalle_practica
+                JOIN 
+                ESCUELA_PROFESIONAL ON ESTUDIANTE.id_plan_estudio = ESCUELA_PROFESIONAL.id_escuela_profesional
+                WHERE 
+                ESTUDIANTE.id_estudiante = %s;
             """, (id_ficha_desempeno,))
             estudiante = cursor.fetchone()
 
             # Obtener información del centro de prácticas, jefe inmediato y cargo del jefe inmediato
             cursor.execute("""
-                SELECT cp.razon_social, ji.nombre, ji.cargo
-                FROM CENTRO_PRACTICAS cp
-                JOIN JEFE_INMEDIATO ji ON cp.id_centro_practicas = ji.id_centro_practicas
-                JOIN DETALLE_PRACTICA dp ON ji.id_jefe_inmediato = dp.id_jefe_inmediato
-                JOIN FICHA_DESEMPENO fd ON dp.id_detalle_practica = fd.id_detalle_practica
-                WHERE fd.id_ficha_desempeno = %s
+                SELECT
+                cp.razon_social,
+                u.num || ' ' || u.via || ', ' || u.ciudad AS direccion,
+                ji.nombre AS nombre_responsable,
+                ji.correo AS correo_responsable
+                FROM
+                ESTUDIANTE e
+                JOIN
+                PRACTICA p ON e.id_estudiante = p.id_estudiante
+                JOIN
+                DETALLE_PRACTICA dp ON p.id_practica = dp.id_practica
+                JOIN
+                JEFE_INMEDIATO ji ON dp.id_jefe_inmediato = ji.id_jefe_inmediato
+                JOIN
+                CENTRO_PRACTICAS cp ON ji.id_centro_practicas = cp.id_centro_practicas
+                JOIN
+                UBICACION u ON cp.id_ubicacion = u.id_ubicacion
+                WHERE
+                e.id_estudiante = %s;
             """, (id_ficha_desempeno,))
             datos_cppp = cursor.fetchone()
 
