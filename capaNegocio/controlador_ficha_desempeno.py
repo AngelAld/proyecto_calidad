@@ -131,3 +131,37 @@ def consultar_ficha_desempeno(id_ficha_desempeno):
     except Exception as e:
         print(f"Error al consultar ficha de desempeño: {str(e)}")
 
+def actualizar_ficha_desempeno(id_ficha_desempeno, periodo, area_desempeno, caracteristicas_evaluar, resultados_aprendizaje, conclusiones, firma):
+    try:
+        conexion = obtener_conexion()
+        conexion.autocommit = False
+
+        with conexion.cursor() as cursor:
+            # Actualizar periodo y área de desempeño en FICHA_DESEMPENO
+            cursor.execute("UPDATE FICHA_DESEMPENO SET periodo = %s, area_desempeno = %s WHERE id_ficha_desempeno = %s",
+                           (periodo, area_desempeno, id_ficha_desempeno))
+
+            # Actualizar características a evaluar en FICHA_DESEMPENO
+            cursor.execute("UPDATE FICHA_DESEMPENO SET responsabilidad = %s, proactividad = %s, comunicacion_asertiva = %s, trabajo_equipo = %s, compromiso_calidad = %s, organizacion_trabajo = %s, puntualidad_asistencia = %s WHERE id_ficha_desempeno = %s",
+                           (caracteristicas_evaluar['responsabilidad'], caracteristicas_evaluar['proactividad'], caracteristicas_evaluar['comunicacion'], caracteristicas_evaluar['trabajoequipo'], caracteristicas_evaluar['compromiso'], caracteristicas_evaluar['organizacion'], caracteristicas_evaluar['puntualidad'], id_ficha_desempeno))
+
+            # Actualizar resultados de aprendizaje en la base de datos (tabla y lógica específica según el caso)
+            # ...
+
+            # Actualizar conclusiones en FICHA_DESEMPENO
+            cursor.execute("UPDATE FICHA_DESEMPENO SET conclusiones = %s WHERE id_ficha_desempeno = %s",
+                           (conclusiones, id_ficha_desempeno))
+
+            # Actualizar firma en FICHA_DESEMPENO
+            cursor.execute("UPDATE FICHA_DESEMPENO SET firma = %s WHERE id_ficha_desempeno = %s",
+                           (firma, id_ficha_desempeno))
+
+        conexion.commit()
+        conexion.close()
+
+        return "Operación realizada con éxito"
+
+    except Exception as e:
+        conexion.rollback()
+        return f"Error al actualizar la ficha de desempeño: {str(e)}"
+
