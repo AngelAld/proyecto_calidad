@@ -1,8 +1,10 @@
-from flask import Blueprint, render_template, request, redirect, flash, session, url_for
+from flask import Blueprint, render_template, request, redirect, flash, session, url_for,  make_response
 from capaNegocio import controlador_informe_inicial_es as c_informe_inicial_es
 import os
 from datetime import datetime, date
 from werkzeug.utils import secure_filename
+from weasyprint import HTML
+
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 UPLOAD_FOLDER = 'static/files'
 
@@ -139,8 +141,13 @@ def actualizar_informe_inicial_es():
             url = "/estudiante/editar_informe_inicial/" + id_informe_inicial_es
         return redirect(url)
 
+
+
+
+from flask import make_response
+
 @informe_inicial_es_bp.route("/estudiante/informe_inicial/generar_pdf/<int:id>")
-def generar_pdf(id):
+def generar_pdf_iie(id):
     (
         estudiante,
         datos_cppp,
@@ -157,7 +164,6 @@ def generar_pdf(id):
         planes_trabajo[i] = list(planes_trabajo[i])
         planes_trabajo[i][3] = convertir_fecha(planes_trabajo[i][3])
         planes_trabajo[i][4] = convertir_fecha(planes_trabajo[i][4])
-        print(planes_trabajo[i])
 
     informe[2] = convertir_fecha(informe[2])
     datos_practica[1] = convertir_fecha(datos_practica[1])
@@ -172,6 +178,10 @@ def generar_pdf(id):
         planes_trabajo=planes_trabajo,
         informe=informe,
     )
+
+
+
+
 
 
 def convertir_fecha(fecha):

@@ -157,7 +157,8 @@ def actualizar_informe_inicial(id_informe_inicial_es, totalHoras, firma_es, firm
     try:
         conexion = obtener_conexion()
         conexion.autocommit = False
-
+        print(firma_es)
+        print(firma_jefe)
         with conexion.cursor() as cursor:
             cursor.execute("UPDATE INFORME_INICIAL_ES SET fecha = current_date, firma_es = %s, firma_jefe = %s WHERE id_informe_inicial_es = %s RETURNING id_detalle_practica", (firma_es, firma_jefe, id_informe_inicial_es))
 
