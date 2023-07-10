@@ -28,7 +28,7 @@
                 event.preventDefault();
                 return false;
             }
-        }
+        }
     </script>
     <div class="row cppp">
         <div class="col">
@@ -40,15 +40,13 @@
 
                         <div class="form-floating mb-4">
                             <input value="{{ruc}}" required type="text" class="form-control input" placeholder="ruc"
-                                name="ruc" id="ruc"
-                                onkeypress="return soloNumeros(event)">
+                                name="ruc" id="ruc" onkeypress="return soloNumeros(event)">
                             <label for="ruc">RUC</label>
                         </div>
 
                         <div class="form-floating mb-4">
                             <input value="{{razon_social}}" required type="text" class="form-control input"
-                                name="razon_social" id="razon_social"
-                                onkeypress="return soloLetras(event)">
+                                name="razon_social" id="razon_social" onkeypress="return soloLetras(event)">
                             <label for="razon_social">Razón Social</label>
                         </div>
 
@@ -66,8 +64,7 @@
 
                         <div class="form-floating mb-4">
                             <input value="{{telefono}}" required type="text" class="form-control input" name="telefono"
-                                id="telefono"
-                                onkeypress="return soloNumeros(event)">
+                                id="telefono" onkeypress="return soloNumeros(event)">
                             <label for="alias">Teléfono</label>
                         </div>
 
@@ -288,6 +285,17 @@
 
 <script>
     window.addEventListener('load', function () {
+        const lon = '{{lon}}'
+        const lat = '{{lat}}'
+        
+
+        const coords = ol.proj.fromLonLat([lon, lat]);
+
+        map.getView().setCenter(coords);
+        map.getView().setZoom(18);
+        marker.setGeometry(new ol.geom.Point(coords));
+
+
         var rol = "{{ session['rol'] }}";
 
         if (rol === "Estudiante") {
