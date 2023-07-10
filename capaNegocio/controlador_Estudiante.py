@@ -1,5 +1,7 @@
 from capaDatos.bd import obtener_conexion
 import capaNegocio.controlador_usuarios as controlador_usuarios
+from datetime import datetime
+
 
 def getAll():
     conexion = obtener_conexion()
@@ -120,3 +122,60 @@ def obtener_usuario():
         usuario = cursor.fetchall()
     conexion.close()
     return usuario
+
+
+
+
+def importar_estudiantes(registros):
+    conexion = obtener_conexion()
+    msg = ""
+    try:
+        with conexion.cursor() as cursor:
+            # Buscar el último semestre registrado
+            cursor.execute("SELECT id_semestre, nombre FROM SEMESTRE_ACADEMICO ORDER BY fecha_fin DESC LIMIT 1")
+            ultimo_semestre = cursor.fetchone()
+            # Buscar el último plan de estudios registrado para cada escuela profesional
+            cursor.execute("SELECT id_escuela_profesional, id_plan_estudio FROM PLAN_ESTUDIO WHERE id_plan_estudio IN (SELECT MAX(id_plan_estudio) FROM PLAN_ESTUDIO GROUP BY id_escuela_profesional)")
+            ultimos_planes = cursor.fetchall()
+            ultimos_planes_dict = {plan[0]: plan[1] for plan in ultimos_planes}
+            # Buscar los nombres de las escuelas profesionales registradas
+            cursor.execute("SELECT id_escuela_profesional, nombre FROM ESCUELA_PROFESIONAL")
+            escuelas = cursor.fetchall()
+            escuelas_dict = {escuela[1]: escuela[0] for escuela in escuelas}
+            # Iterar a través de los registros y agregarlos a la tabla estudiante
+            for registro in registros:
+                cod_universitario = registro[0]
+                nombre = registro[1]
+                escuela = registro[2]
+                dni = registro[3]
+                correo_usat = registro[4]
+                correo_personal = registro[5]
+                telefono = registro[6]
+                telefono2 = registro[7]
+                semestre_ingreso = registro[8] if registro[8] else ultimo_semestre[1]
+                plan_estudio = registro[9] if registro[9] else ultimos_planes_dict.get(escuelas_dict.get(escuela))
+                # Comprobar si el estudiante ya existe
+                cursor.execute("SELECT id_estudiante FROM ESTUDIANTE WHERE cod_universitario = %s OR nombre = %s", (cod_universitario, nombre))
+                if cursor.fetchone():
+                    conexion.rollback()
+                    msg += f"El estudiante con Código Universitario {cod_universitario} o nombre {nombre} ya está registrado.\n"
+                    continue
+                # Obtener el id de la escuela profesional
+                id_escuela_profesional = escuelas_dict.get(escuela)
+                if not id_escuela_profesional:
+                    conexion.rollback()
+                    msg += f"No se encontró la escuela profesional {escuela}.\n"
+                    continue
+                # Insertar el estudiante
+                fecha_actual = datetime.utcnow()
+                cursor.execute("INSERT INTO ESTUDIANTE (cod_universitario, dni, nombre, correo_usat, correo_personal, telefono, telefono2, estado, id_usuario, id_semestre_academico_ingreso, id_plan_estudio) VALUES (%s, %s, %s, %s, %s, %s, %s, 'A', 1, %s, %s)", (cod_universitario, dni, nombre, correo_usat, correo_personal, telefono, telefono2, ultimo_semestre[0], plan_estudio))
+                conexion.commit()
+                msg += f"El estudiante {nombre} ha sido registrado exitosamente.\n"
+    except Exception as e:
+        conexion.rollback()
+        msg += f"Error: {str(e)}\n"
+    finally:
+        conexion.close()
+    return msg
+
+    

@@ -30,6 +30,14 @@
 
         </div>
     </div>
+    {% if mensaje %}
+    <div class="card">
+        <div class="card-body">
+            {{mensaje}}
+        </div>
+    </div>
+    {% endif %}
+
 
     {% if registros %}
     <div class="row">
@@ -42,12 +50,12 @@
                     <input id="searchbar" class="form-control" type="text" placeholder="Buscar">
                 </div>
                 <div class="col-auto">
-                    <button id="save-button" class="btn btn-success"><i class="fa fa-upload"
-                            aria-hidden="true"></i></i>&nbsp;Importar</button>
+                    <a href="{{url_for('estudiante.upload', lista=registros)}}" onclick="ocultarTabla()" class="btn btn-success"><i
+                            class="fa fa-upload" aria-hidden="true"></i>&nbsp;Importar</a>
                 </div>
                 <div class="col-auto">
                     <a href="{{url_for('estudiante.estudiante')}}" class="btn btn-secondary"><i
-                        class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
+                            class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
                 </div>
             </div>
         </div>
@@ -72,16 +80,16 @@
             <tbody class="table-group-divider">
                 {% for registro in registros %}
                 <tr>
-                    <td contenteditable="true">{{ registro[0] }}</td>
-                    <td contenteditable="true">{{ registro[1] }}</td>
-                    <td contenteditable="true">{{ registro[2] }}</td>
-                    <td contenteditable="true">{{ registro[3] }}</td>
-                    <td contenteditable="true">{{ registro[4] }}</td>
-                    <td contenteditable="true">{{ registro[5] }}</td>
-                    <td contenteditable="true">{{ registro[6] }}</td>
-                    <td contenteditable="true">{{ registro[7] }}</td>
-                    <td contenteditable="true">{{ registro[8] }}</td>
-                    <td contenteditable="true">{{ registro[9] }}</td>
+                    <td>{{ registro[0] }}</td>
+                    <td>{{ registro[1] }}</td>
+                    <td>{{ registro[2] }}</td>
+                    <td>{{ registro[3] }}</td>
+                    <td>{{ registro[4] }}</td>
+                    <td>{{ registro[5] }}</td>
+                    <td>{{ registro[6] }}</td>
+                    <td>{{ registro[7] }}</td>
+                    <td>{{ registro[8] }}</td>
+                    <td>{{ registro[9] }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -106,7 +114,7 @@
     <script>
         $(document).ready(function () {
             $('.toast').toast('show');
-            
+
             $('#save-button').on('click', function () {
                 console.log('aaa')
                 var data = [];
@@ -120,12 +128,11 @@
                         data.push(row);
                     }
                 });
-
+                console.log(data)
                 // enviar los datos actualizados al servidor utilizando AJAX
                 $.ajax({
-                    url: "{{url_for('estudiante.upload')}}",
+                    url: "",
                     method: 'POST',
-                    data: { data: data },
                     success: function (response) {
                         console.log(response);
                     },
@@ -138,7 +145,10 @@
     </script>
     {% endif %}
     <script>
-
+        function ocultarTabla() {
+            var tabla = document.getElementById("tablita");
+            tabla.style.display = "none";
+        }
         function enviar() {
             const formulario = document.querySelector('#enviar_estudiantes')
             const archivo = document.querySelector("input[type=file]").files[0];

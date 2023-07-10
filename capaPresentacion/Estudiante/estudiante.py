@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, flash, session,
 from capaNegocio import controlador_Estudiante as c_estudiante
 import pandas as pd
 from werkzeug.utils import secure_filename
-
+from flask import jsonify
 estudiante_bp = Blueprint("estudiante", __name__, template_folder="templates")
 
 
@@ -32,15 +32,17 @@ def subir_excel():
         registros = []
         for index, row in df.iterrows():
             registro = [row['Codigo Universitario'],
-                        row['Nombres Completos'],
-                        row['Escuela Profesional'],
-                        row['DNI'],
-                        row['Correo Usat'],
-                        row['Correo Personal'],
-                        row['Telefono 1'],
-                        row['Telefono 2'],
-                        row['Ciclo de Ingreso'],
-                        row['Plan de Estudios']]
+                row['Nombres Completos'],
+                row['Escuela Profesional'],
+                row['DNI'],
+                row['Correo Usat'],
+                row['Correo Personal'],
+                row['Telefono 1'],
+                row['Telefono 2'],
+                row['Ciclo de Ingreso'],
+                row['Plan de Estudios']]
+            # Reemplazar los valores NaN por '-'
+            registro = [str(valor) if pd.notna(valor) else '-' for valor in registro]
             registros.append(registro)
         return render_template('subir_excel.html', registros=registros, archivo = archivo)
     except KeyError:
@@ -54,11 +56,12 @@ def subir_excel():
         return redirect('/importar_estudiantes')
 
 
-@estudiante_bp.route("/upload", methods=['post'])
+@estudiante_bp.route("/upload/<lista>")
 def upload(lista):
-    data = request.form['data']
-    print(data)
-    return redirect('/importar_estudiantes')
+    new_list = eval(lista)
+    msg = c_estudiante.importar_estudiantes(new_list)
+    return render_template('subir_excel.html', mensaje=msg)
+    
     
 
 
