@@ -11,20 +11,15 @@
         <div class="col-auto text-end above-table">
           <input id="searchbar" class="form-control" type="text" placeholder="&#xF002; Buscar">
         </div>
-        <div class="col-auto text-end above-table">
-          <a href="{{url_for('informe_final_es.agregar_informe_final_es')}}" class="btn btn-success"><i
-              class="fas fa-plus-circle"></i>&nbsp;Agregar</a>
-        </div>
       </div>
       <div class="col-auto">
         <table class="table table-hover align-middle table-bordered" id="tablita">
           <thead>
             <tr class="table-danger">
-              <th class="col-1 text-center d-none d-xl-table-cell">Código</th>
-              <th class="col-2 text-center">Estudiantes</th>
+              <th class="col-2 text-center d-none d-xl-table-cell">Código Universitario</th>
+              <th class="col-3 text-center">Estudiantes</th>
               <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
               <th class="col-1 text-center">Editar</th>
-              <th class="col-1 text-center">Eliminar</th>
               <th class="col-1 text-center">Ver</th>
               <th class="col-1 text-center">Descargar</th>
             </tr>
@@ -32,56 +27,43 @@
           <tbody>
             {% for informe_final_es in informe_final_es %}
             <tr>
-              <td class="col-1 text-center d-none d-xl-table-cell">{{informe_final_es[0]}}</td>
-              <td class="col-2 text-center">{{informe_final_es[1]}}</td>
+              <td class="col-2 text-center d-none d-xl-table-cell">{{informe_final_es[1]}}</td>
+              <td class="col-3 text-center">{{informe_final_es[2]}}</td>
               <td class="col-1 text-center d-none d-md-table-cell">
                 <form action="{{url_for('informe_final_es.actualizar_estado')}}" method="POST" class="actualizar_estado">
                   <input type="hidden" name="id" value="{{informe_final_es[0]}}">
-                  <input type="hidden" name="estado" value="{{informe_final_es[2]}}">
-                  {% if informe_final_es[2]=='A' %}
-                  <button type="button" class="estado btn ls-button btn-primary" data-bs-toggle="tooltip"
-                    data-bs-title="Desactivar informe final estudiante" onclick="event.preventDefault(); checkbox(this.parentNode)">
-                    <i class="bi bi-check-square-fill"></i>
+                  <input type="hidden" name="estado" value="{{informe_final_es[4]}}">
+                  {% if informe_final_es[4]=='P' %}
+                  <button type="button" class="estado btn ls-button btn-warning text-white" data-bs-toggle="tooltip"
+                    data-bs-title="Aprobar informe" onclick="event.preventDefault(); checkbox(this.parentNode)">
+                    <i class="fa fa-hourglass-end"></i>
                   </button>
                   {% else %}
-                  <button type="button" class="estado btn ls-button btn-danger" data-bs-toggle="tooltip"
-                    data-bs-title="Activar Informe Final Estudiante" onclick="event.preventDefault(); checkbox(this.parentNode)">
-                    
-                    <i class="bi bi-x-square-fill"></i>
+                  <button type="button" class="estado btn ls-button btn-success" data-bs-toggle="tooltip"
+                    data-bs-title="Revocar aprobación" onclick="event.preventDefault(); checkbox(this.parentNode)">
+                    <i class="bi bi-check-square-fill"></i>
                   </button>
                   {% endif %}
                 </form>
               </td>
               <td class="col-1 text-center">
                 {# Pasar el id lo que hay en informe_final_es[0] #}
-                <a href="#" class="text-center btn btn-primary ls-button"
-                  data-bs-toggle="tooltip" data-bs-title="Editar informe_final_es"><i class="fas fa-edit"></i></a>
+                <a href="#" class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
+                  data-bs-title="Editar informe_final_es"><i class="fas fa-edit"></i></a>
               </td>
               <td class="col-1 text-center">
-                <form action="#" method="POST" id="eliminar_form">
-                  <input type="hidden" name="id" value="{{informe_final_es[0]}}">
-                  <button class="btn btn-danger ls-button" id="eliminar_btn"
-                    onclick="event.preventDefault(); eliminar(this.parentNode)" data-bs-toggle="tooltip"
-                    data-bs-title="Eliminar informe_final_es"><i class="fas fa-trash"></i></button>
-                </form>
+                <a href="#" class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
+                  data-bs-title="Ver informe"><i class="fa fa-eye"></i></i></a>
               </td>
               <td class="col-1 text-center">
-                <a href="#"
-              class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
-              data-bs-title="Ver informe"><i class="fa fa-eye"></i></i></a>
+                <a href="#" class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
+                  data-bs-title="Ver informe"><i class="fa fa-download"></i></i></a>
               </td>
-              <td class="col-1 text-center">
-              <a href="#"
-              class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
-              data-bs-title="Ver informe"><i class="fa fa-download"></i></i></a>                
-              </td>
-
             </tr>
             {% endfor %}
           </tbody>
         </table>
       </div>
-
     </div>
   </div>
 </section>

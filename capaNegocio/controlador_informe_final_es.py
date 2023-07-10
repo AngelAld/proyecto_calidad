@@ -25,27 +25,21 @@ def listar_informes_finales_estudiante():
 
 #########################################################################
 
-def dar_baja_informe_final_estudiante(p_id_informe_final_estudiante, p_estado):
+def dar_baja_informe_final_estudiante(p_id_informe_final_es, p_estado):
     try:
         conexion = obtener_conexion()
-
         if p_estado == "P":
             new_estado = "A"
         else:
             new_estado = "P"
-
         with conexion.cursor() as cursor:
             cursor.execute(
                 "SELECT fn_actualizar_estado_informe_final_estudiante(%s, %s)",
-                (p_id_informe_final_estudiante, new_estado),
+                (p_id_informe_final_es, new_estado),
             )
-
         conexion.commit()
         conexion.close()
-
         return "Operación realizada con éxito"
-
     except Exception as e:
         return f"Error al cambiar el estado del informe final del estudiante: {str(e)}"
-
 

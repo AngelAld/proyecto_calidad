@@ -2,6 +2,8 @@ from flask import Blueprint, render_template, request, redirect, flash, session,
 from capaNegocio import controlador_informe_inicial_es as c_informe_inicial_es
 import os
 from datetime import datetime, date
+from werkzeug.utils import secure_filename
+
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 UPLOAD_FOLDER = 'static/files/iie'

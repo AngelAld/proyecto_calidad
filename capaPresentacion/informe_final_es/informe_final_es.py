@@ -11,12 +11,12 @@ def informe_final_es():
         informe_final_es = c_informe_final_es.listar_informes_finales_estudiante()
         return render_template("informe_final_es.html", informe_final_es=informe_final_es)
     
-@informe_final_es_bp.route("/agregar_informe_final_es")
-def agregar_informe_final_es():
-    if "rol" not in session or session["rol"] != "Docente de Apoyo":
-        return redirect(url_for("inicio.inicio"))
-    else:
-        return render_template("mantenimiento_informe_final_es.html")
+# @informe_final_es_bp.route("/agregar_informe_final_es")
+# def agregar_informe_final_es():
+#     if "rol" not in session or session["rol"] != "Docente de Apoyo":
+#         return redirect(url_for("inicio.inicio"))
+#     else:
+#         return render_template("mantenimiento_informe_final_es.html")
     
 @informe_final_es_bp.route("/actualizar_estado_informe_final_estudiante", methods=["POST"])
 def actualizar_estado():
@@ -31,7 +31,7 @@ def actualizar_estado():
             flash("Informe Final del Estudiante Actualizado con Éxito", "success")
         else:
             flash(str(mensaje), "error")
-        return redirect(url_for("informe_final_estudiante.informe_final_estudiante"))
+        return redirect(url_for("informe_final_es.informe_final_es"))
 
     
 

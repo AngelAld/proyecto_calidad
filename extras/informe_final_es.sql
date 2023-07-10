@@ -10,7 +10,6 @@ BEGIN
         UPDATE informe_final_es
         SET estado = p_estado
         WHERE id_informe_final_es = p_id_informe_final_estudiante;
-
     EXCEPTION
         WHEN OTHERS THEN
             GET STACKED DIAGNOSTICS error_message = MESSAGE_TEXT,
@@ -23,3 +22,7 @@ BEGIN
     RETURN 'Operación realizada con éxito';
 END;
 $function$;
+
+
+
+
