@@ -4,6 +4,7 @@ import os
 from datetime import datetime, date
 from werkzeug.utils import secure_filename
 
+
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 UPLOAD_FOLDER = 'static/files/iie'
 
