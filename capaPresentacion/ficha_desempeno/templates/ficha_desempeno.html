@@ -21,9 +21,8 @@
               <th class="col-2 text-center">Centro de Práctica</th>
               <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
               {% if session['rol'] == "Docente de Apoyo" %}
-              <th class="col-1 text-center">Editar</th>
-              {% endif %}
               <th class="col-1 text-center">Ver</th>
+              {% endif %}
               <th class="col-1 text-center">Descargar</th>
             </tr>
           </thead>
@@ -52,11 +51,6 @@
                 </form>
               </td>
               {% if session['rol'] == "Docente de Apoyo" %}
-              <td class="col-1 text-center">
-                {# Pasar el id lo que hay en ficha_desempeno[0] #}
-                <a href="#" class="text-center btn btn-primary ls-button"
-                  data-bs-toggle="tooltip" data-bs-title="Editar ficha_desempeno"><i class="fas fa-edit"></i></a>
-              </td>
               {% endif %}
               <td class="col-1 text-center">
                 {% if session['rol'] == "Docente de Apoyo" %}
