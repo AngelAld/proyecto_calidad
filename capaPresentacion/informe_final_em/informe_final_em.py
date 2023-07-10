@@ -1,5 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, flash, session, url_for
 from capaNegocio import controlador_informe_final_em as c_informe_final_em
+import os
+from werkzeug.utils import secure_filename
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+UPLOAD_FOLDER = 'static/files'
 
 informe_final_em_bp = Blueprint("informe_final_em", __name__, template_folder="templates")
 
@@ -85,16 +89,25 @@ def actualizar_informe_final_em():
         cum_objetivos =  request.form['cum_objetivos']
         cum_horas =  request.form['cum_horas']
         responsabilidad =  request.form['responsabilidad']
-        extra =  request.form['cum_objetivos']
-        firma =  request.form['cum_horas']
-        fecha =  request.form['responsabilidad']
-          
-        print(list(cum_objetivos))
-        print(list(cum_horas))
-        print(list(responsabilidad))
-        print(list(extra))
-        mensaje = 'Probando'
+        extra =  request.form['extra']
+        firme =  ""
 
+        
+        if 'firme' in request.files:
+            print('entro 1')
+            f = request.files['firme']
+            print(f)
+            if f.filename != '':
+                print('entro 1')
+                print(f)
+                filename = secure_filename(f.filename)
+                f.save(os.path.join(UPLOAD_FOLDER, filename))
+                firma = os.path.join(UPLOAD_FOLDER, filename)
+          
+        print(firme)      
+        print(request.form)
+        
+        mensaje = c_informe_final_em.actualizar_informe_final_em(id_informe_final_em=id_informe_final_em,cum_objetivos=cum_objetivos,cum_horas=cum_horas,responsabilidad=responsabilidad, extra=extra, firme= firme)
 
         if mensaje == "Operacion realizada con éxito":
             flash("Informe Final Actualizado con Éxito", "success")

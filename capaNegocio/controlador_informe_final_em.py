@@ -105,3 +105,21 @@ def buscar_informe_final_em(id):
         planEstudio = cursor.fetchone()
     conexion.close()
     return planEstudio
+
+
+def actualizar_informe_final_em(cum_objetivos, cum_horas, responsabilidad, extra,firme,id_informe_final_em):
+    try:
+        conexion = obtener_conexion()
+        conexion.autocommit = False
+
+        with conexion.cursor() as cursor:
+            cursor.execute("UPDATE INFORME_FINAL_EM SET cum_objetivos= %s, cum_horas= %s, responsabilidad= %s, extra=%s, firma=%s WHERE id_informe_final_em = %s", (cum_objetivos, cum_horas, responsabilidad, extra,firme,id_informe_final_em))
+
+        conexion.commit()
+        conexion.close()
+
+        return "Operacion realizada con éxito"
+
+    except Exception as e:
+        conexion.rollback()
+        return f"Error al cambiar el estado del informe: {str(e)}"
