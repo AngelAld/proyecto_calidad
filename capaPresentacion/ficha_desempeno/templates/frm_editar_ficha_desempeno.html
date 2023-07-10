@@ -9,10 +9,11 @@ Editar Ficha de Desempeño del Estudiante
 {% if estudiante[2] is none or estudiante[3] is none %}
   {% set periodo_practica = "- - -" %}
 {% else %}
-  {% set periodo_practica = estudiante[2] ~ "-" ~ estudiante[3] %}
+  {% set periodo_practica = "(" ~ estudiante[2] ~ ")" ~ " - " ~ "(" ~ estudiante[3] ~ ")" %}
 {% endif %}
-{% set nombre_empresa= datos_cppp[0] %}
+{% set nombre_empresa = datos_cppp[0] %}
 {% set direccion = datos_cppp[1] %}
 {% set nombre_responsable = datos_cppp[2] %}
 {% set correo_responsable = datos_cppp[3] %}
+{% set area_desempeno = ficha_desempeno[12] %}
 {% set url = url_for('ficha_desempeno.actualizar_ficha_desempeno') %}

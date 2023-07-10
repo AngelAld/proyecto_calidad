@@ -54,58 +54,69 @@ def consultar_ficha_desempeno(id_ficha_desempeno):
             # Obtener nombre y código universitario del estudiante
             cursor.execute("""
                 SELECT 
-                ESTUDIANTE.nombre AS nombre_estudiante,
-                ESCUELA_PROFESIONAL.nombre AS nombre_escuela_profesional,
-                INFORME_INICIAL_EM.fecha AS fecha_inicio_practica,
-                INFORME_FINAL_EM.fecha AS fecha_fin_practica
+                    ESTUDIANTE.nombre AS nombre_estudiante,
+                    ESCUELA_PROFESIONAL.nombre AS nombre_escuela_profesional,
+                    DETALLE_PRACTICA.fecha_inicio AS fecha_inicio_practica,
+                    DETALLE_PRACTICA.fecha_fin AS fecha_fin_practica
                 FROM 
-                ESTUDIANTE
+                    ESTUDIANTE
                 JOIN 
-                PRACTICA ON ESTUDIANTE.id_estudiante = PRACTICA.id_estudiante
+                    PRACTICA ON ESTUDIANTE.id_estudiante = PRACTICA.id_estudiante
                 JOIN 
-                DETALLE_PRACTICA ON PRACTICA.id_practica = DETALLE_PRACTICA.id_practica
+                    DETALLE_PRACTICA ON PRACTICA.id_practica = DETALLE_PRACTICA.id_practica
                 JOIN 
-                INFORME_INICIAL_EM ON DETALLE_PRACTICA.id_detalle_practica = INFORME_INICIAL_EM.id_detalle_practica
+                    INFORME_INICIAL_ES ON DETALLE_PRACTICA.id_detalle_practica = INFORME_INICIAL_ES.id_detalle_practica
                 JOIN 
-                INFORME_FINAL_EM ON DETALLE_PRACTICA.id_detalle_practica = INFORME_FINAL_EM.id_detalle_practica
+                    INFORME_FINAL_ES ON DETALLE_PRACTICA.id_detalle_practica = INFORME_FINAL_ES.id_detalle_practica
                 JOIN 
-                ESCUELA_PROFESIONAL ON ESTUDIANTE.id_plan_estudio = ESCUELA_PROFESIONAL.id_escuela_profesional
+                    ESCUELA_PROFESIONAL ON ESTUDIANTE.id_plan_estudio = ESCUELA_PROFESIONAL.id_escuela_profesional
                 WHERE 
-                ESTUDIANTE.id_estudiante = %s;
+                    ESTUDIANTE.id_estudiante = %s;
+
             """, (id_ficha_desempeno,))
             estudiante = cursor.fetchone()
 
             # Obtener información del centro de prácticas, jefe inmediato y cargo del jefe inmediato
             cursor.execute("""
                 SELECT
-                cp.razon_social,
-                u.num || ' ' || u.via || ', ' || u.ciudad AS direccion,
-                ji.nombre AS nombre_responsable,
-                ji.correo AS correo_responsable
+                    cp.razon_social,
+                    u.num || ' ' || u.via || ', ' || u.ciudad AS direccion,
+                    ji.nombre AS nombre_responsable,
+                    ji.correo AS correo_responsable
                 FROM
-                ESTUDIANTE e
+                    ESTUDIANTE e
                 JOIN
-                PRACTICA p ON e.id_estudiante = p.id_estudiante
+                    PRACTICA p ON e.id_estudiante = p.id_estudiante
                 JOIN
-                DETALLE_PRACTICA dp ON p.id_practica = dp.id_practica
+                    DETALLE_PRACTICA dp ON p.id_practica = dp.id_practica
                 JOIN
-                JEFE_INMEDIATO ji ON dp.id_jefe_inmediato = ji.id_jefe_inmediato
+                    JEFE_INMEDIATO ji ON dp.id_jefe_inmediato = ji.id_jefe_inmediato
                 JOIN
-                CENTRO_PRACTICAS cp ON ji.id_centro_practicas = cp.id_centro_practicas
+                    CENTRO_PRACTICAS cp ON ji.id_centro_practicas = cp.id_centro_practicas
                 JOIN
-                UBICACION u ON cp.id_ubicacion = u.id_ubicacion
+                    UBICACION u ON cp.id_ubicacion = u.id_ubicacion
                 WHERE
-                e.id_estudiante = %s;
+                    e.id_estudiante = %s;
             """, (id_ficha_desempeno,))
             datos_cppp = cursor.fetchone()
 
             # Obtener información del detalle de práctica
             cursor.execute("""
-                SELECT sa.nombre, dp.fecha_inicio, dp.fecha_fin
-                FROM DETALLE_PRACTICA dp
-                JOIN SEMESTRE_ACADEMICO sa ON dp.id_semestre_academico = sa.id_semestre
-                JOIN FICHA_DESEMPENO fd ON dp.id_detalle_practica = fd.id_detalle_practica
-                WHERE fd.id_ficha_desempeno = %s
+                SELECT 
+                    sa.nombre, 
+                    dp.fecha_inicio, 
+                    dp.fecha_fin,
+                    ld.nombre AS area_desempeno
+                FROM 
+                    DETALLE_PRACTICA dp
+                JOIN 
+                    SEMESTRE_ACADEMICO sa ON dp.id_semestre_academico = sa.id_semestre
+                JOIN 
+                    FICHA_DESEMPENO fd ON dp.id_detalle_practica = fd.id_detalle_practica
+                JOIN 
+                    LINEA_DESARROLLO ld ON dp.id_linea_desarrollo = ld.id_linea_desarrollo
+                WHERE 
+                    fd.id_ficha_desempeno = %s
             """, (id_ficha_desempeno,))
             datos_practica = cursor.fetchone()
 
@@ -119,66 +130,67 @@ def consultar_ficha_desempeno(id_ficha_desempeno):
 
             # Obtener el registro de la ficha de desempeño específica
             cursor.execute("""
-            SELECT *
-            FROM ficha_desempeno where id_ficha_desempeno=%s
+                SELECT *
+                FROM ficha_desempeno
+                WHERE id_ficha_desempeno = %s
             """, (id_ficha_desempeno,))
             ficha_desempeno = cursor.fetchone()
 
+            # Obtener las conclusiones asociadas a la ficha de desempeño
+            cursor.execute("""
+                SELECT conclusiones
+                FROM ficha_desempeno
+                WHERE id_ficha_desempeno = %s
+            """, (id_ficha_desempeno,))
+            conclusiones = cursor.fetchone()[0] if cursor.rowcount > 0 else ""
+
         conexion.close()
 
-        return estudiante, datos_cppp, datos_practica, resultados_aprendizaje, ficha_desempeno
+        return estudiante, datos_cppp, datos_practica, resultados_aprendizaje, ficha_desempeno, conclusiones
 
     except Exception as e:
         print(f"Error al consultar ficha de desempeño: {str(e)}")
 
-def actualizar_informe_inicial(id_ficha_desempeno, firma_em,responsabilidad, proactividad, comunicacion, trabajo_equipo,compromiso_calidad,organizacion,puntualidad,fecha,area_desempeno):
+
+def actualizar_ficha_desempeno(id_ficha_desempeno,area_desempeno,conclusiones,responsabilidad,proactividad,comunicacion,trabajoequipo,compromiso,organizacion,puntualidad, firma_em, resultados_aprendizaje):
     try:
         conexion = obtener_conexion()
         conexion.autocommit = False
-        print(firma_em)
+
+        
         with conexion.cursor() as cursor:
             sql_firmas = "UPDATE FICHA_DESEMPENO SET fecha = current_date"
             params_firmas = []
+            
             if firma_em:
                 sql_firmas += ", firma_em = %s"
                 params_firmas.append(firma_em)
 
             sql_firmas += " WHERE id_ficha_desempeno = %s RETURNING id_detalle_practica"
             params_firmas.append(id_ficha_desempeno)
-
-            cursor.execute(sql_firmas, params_firmas)
-
-            id_detalle_practica = cursor.fetchone()[0]
-
-            if fecha:
-                sql = "UPDATE DETALLE_PRACTICA SET "
-                params = []
-
-                if fecha:
-                    sql += "fecha = %s, "
-                    params.append(fecha)
-
-                sql = sql[:-2] + " WHERE id_detalle_practica = %s"
-                params.append(id_detalle_practica)
-
-                cursor.execute(sql, params)
             
-            cursor.execute("DELETE FROM OBJETIVO WHERE id_informe_inicial_es = %s", (id_informe_inicial_es,))
+            cursor.execute(sql_firmas, params_firmas)
+            
+            cursor.execute("DELETE FROM RESULTADO_APRENDIZAJE WHERE id_ficha_desempeno = %s", (id_ficha_desempeno,))
+            
+            for resultado in resultados_aprendizaje:
+                escala = resultado["escala"]
+                descripcion = resultado["descripcion"]
+                cursor.execute("INSERT INTO RESULTADO_APRENDIZAJE (escala, id_ficha_desempeno, descripcion) VALUES (%s, %s, %s)",
+                               (escala, id_ficha_desempeno, descripcion))
 
-            for descripcion in descripciones:
-                cursor.execute("INSERT INTO OBJETIVO (id_informe_inicial_es, descripcion) VALUES (%s, %s)", (id_informe_inicial_es, descripcion))
+            cursor.execute("UPDATE FICHA_DESEMPENO SET area_desemp=%s, responsabilidad = %s, proactividad = %s, comunicacion = %s, trabajo_equipo = %s, compromiso_calidad = %s, organizacion = %s, puntualidad = %s, firma_em = %s, conclusiones = %s WHERE id_ficha_desempeno = %s",
+               (area_desempeno,responsabilidad, proactividad, comunicacion, trabajoequipo, compromiso, organizacion, puntualidad,firma_em, conclusiones, id_ficha_desempeno))
 
-            cursor.execute("DELETE FROM PLAN_TRABAJO WHERE id_informe_inicial_es = %s", (id_informe_inicial_es,))
-
-            for trabajo in plan_trabajo:
-                cursor.execute("INSERT INTO PLAN_TRABAJO (id_informe_inicial_es, n_semana, fecha_inicio, fecha_fin, actividad, num_horas) VALUES (%s, %s, %s, %s, %s, %s)", (id_informe_inicial_es, trabajo["n_semana"], trabajo["fecha_inicio"], trabajo["fecha_fin"], trabajo["actividad"], trabajo["horas"]))
 
         conexion.commit()
         conexion.close()
 
-        return "Operacion realizada con éxito"
+        return "Operación realizada con éxito"
 
     except Exception as e:
         conexion.rollback()
         return f"Error al actualizar informe: {str(e)}"
+
+
 
