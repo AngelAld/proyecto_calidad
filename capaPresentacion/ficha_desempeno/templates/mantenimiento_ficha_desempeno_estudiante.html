@@ -1,0 +1,348 @@
+{% extends "maestra/maestra.html" %}
+{% block titulo %} Ficha de Evaluacion Desempeño {% endblock %}
+{% set titulo2 = "Agregar Ficha de Evaluacion de Desempeño" %}
+{% block contenido %}
+<form action="{{url}}" method="post" class="formulario" enctype="multipart/form-data">
+  <input type="hidden" name="id_ficha_desempeno" value="{{ficha_desempeno[0]}}">
+  <div class="container-fluid">
+    <p class="form-control-static">
+      La Universidad Católica Santo Toribio de Mogrovejo (USAT) agradece la valiosa colaboración de su Institución en la
+      formación profesional de los estudiantes de nuestra casa de estudios.
+      El objetivo de esta evaluación es recoger información sobre el desempeño de nuestros estudiantes durante el
+      periodo
+      de prácticas pre profesionales. En tal sentido, le agradeceremos responderla de manera objetiva, ya que su opinión
+      nos ayudará a mejorar el nivel de las Prácticas Pre profesionales que son requisito para la titulación de nuestros
+      estudiantes.
+    </p>
+
+    <div class="row mt-3">
+      <div class="col-12">
+        <h4>Datos del Estudiante</h4>
+        <div class="form-group row mb-3">
+          <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="nombres" value="{{nombre}}" readonly
+              onkeypress="return soloLetras(event)">
+          </div>
+        </div>
+        <div class="form-group row mb-3">
+          <label for="escuelaProfesional" class="col-sm-2 col-form-label">Escuela Profesional:</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="escuelaProfesional" value="{{escuela_Profesional}}" readonly>
+          </div>
+        </div>
+        <div class="form-group row mb-3">
+          <label for="periodo" class="col-sm-2 col-form-label">Periodo de Prácticas:</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="periodo" value="{{periodo_practica}}" readonly>
+          </div>
+        </div>
+        <div class="form-group row mb-3">
+          <label for="areaDesempeno" class="col-sm-2 col-form-label">Área de Desempeño:</label>
+          <div class="col-sm-4">
+            <input type="text" required class="form-control" name="area_desempeno" id="areaDesempeno" value="{{area_desempeno}}" readonly>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-12">
+        <h4>Datos de la Empresa</h4>
+        <div class="form-group row mb-3">
+          <label for="nombre_empresa" class="col-sm-2 col-form-label">Nombre de la Empresa:</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="nombre_empresa" value="{{nombre_empresa}}" readonly>
+          </div>
+        </div>
+        <div class="form-group row mb-3">
+          <label for="direccion" class="col-sm-2 col-form-label">Dirección:</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="direccion" value="{{direccion}}" readonly>
+          </div>
+        </div>
+        <div class="form-group row mb-3">
+          <label for="responsable" class="col-sm-2 col-form-label">Nombre del Responsable:</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="responsable" value="{{nombre_responsable}}" readonly>
+          </div>
+        </div>
+        <div class="form-group row mb-3">
+          <label for="correo" class="col-sm-2 col-form-label">Correo del Responsable:</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="correo" value="{{correo_responsable}}" readonly>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-12">
+        <h5>Sírvase marcar la respuesta que describa mejor su opinión:</h5>
+        <table class="table" id="tablaCara">
+          <thead class="bg-light">
+            <tr>
+              <th class="col-1">Número</th>
+              <th class="col">Característica a Evaluar</th>
+              <th class="text-center col-1">Deficiente</th>
+              <th class="text-center col-1">Regular</th>
+              <th class="text-center col-1">Bueno</th>
+              <th class="text-center col-1">Muy Bueno</th>
+              <th class="col-1"></th>
+            </tr>
+          </thead>
+          <tbody id="table">
+            <tr>
+              <th scope="row">1</th>
+              <td class="col" name="responsabilidad">Responsabilidad</td>
+              <td class="text-center"><input {% if ficha_desempeno[1] == 1 %} checked {% endif %} type="checkbox" name="responsabilidad" value="1" disabled></td>
+              <td class="text-center"><input {% if ficha_desempeno[1] == 2 %} checked {% endif %} type="checkbox" name="responsabilidad" value="2" disabled></td>
+              <td class="text-center"><input {% if ficha_desempeno[1] == 3 %} checked {% endif %} type="checkbox" name="responsabilidad" value="3" disabled></td>
+              <td class="text-center"><input {% if ficha_desempeno[1] == 4 %} checked {% endif %} type="checkbox" name="responsabilidad" value="4" disabled></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Proactividad</td>
+              <td class="text-center"><input {% if ficha_desempeno[2] == 1 %} checked {% endif %} type="checkbox" name="proactividad" value="1" disabled></td>
+              <td class="text-center"><input {%if ficha_desempeno[2] == 2 %} checked {% endif %} type="checkbox" name="proactividad" value="2" disabled></td>
+              <td class="text-center"><input {% if ficha_desempeno[2] == 3 %} checked {% endif %} type="checkbox" name="proactividad" value="3" disabled></td>
+              <td class="text-center"><input {% if ficha_desempeno[2] == 4 %} checked {% endif %} type="checkbox" name="proactividad" value="4" disabled></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Comunicación asertiva</td>
+              <td class="text-center"><input {% if ficha_desempeno[3] == 1 %} checked {% endif %} type="checkbox" name="comunicacion" value="1" disabled></td>
+              <td class="text-center"><input {% if ficha_desempeno[3] == 2 %} checked {% endif %} type="checkbox" name="comunicacion" value="2" disabled></td>
+              <td class="text-center"><input {% if ficha_desempeno[3] == 3 %} checked {% endif %} type="checkbox" name="comunicacion" value="3" disabled></td>
+              <td class="text-center"><input {% if ficha_desempeno[3] == 4 %} checked {% endif %} type="checkbox" name="comunicacion" value="4" disabled></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>Trabajo en equipo</td>
+              <td class="text-center"><input {% if ficha_desempeno[4] == 1 %} checked {% endif %} type="checkbox" name="trabajoequipo" value="1" disabled></td>
+              <td class="text-center"><input {% if ficha_desempeno[4] == 2 %} checked {% endif %} type="checkbox" name="trabajoequipo" value="2" disabled></td>
+              <td class="text-center"><input {% if ficha_desempeno[4] == 3 %} checked {% endif %} type="checkbox" name="trabajoequipo" value="3" disabled></td>
+              <td class="text-center"><input {% if ficha_desempeno[4] == 4 %} checked {% endif %} type="checkbox" name="trabajoequipo" value="4" disabled></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th scope="row">5</th>
+              <td>Compromiso con la calidad</td>
+              <td class="text-center"><input {% if ficha_desempeno[5] == 1 %} checked {% endif %} type="checkbox" name="compromiso" value="1" disabled></td>
+              <td class="text-center"><input {% if ficha_desempeno[5] == 2 %} checked {% endif %} type="checkbox" name="compromiso" value="2" disabled></td>
+              <td class="text-center"><input {% if ficha_desempeno[5] == 3 %} checked {% endif %} type="checkbox" name="compromiso" value="3" disabled></td>
+              <td class="text-center"><input {% if ficha_desempeno[5] == 4 %} checked {% endif %} type="checkbox" name="compromiso" value="4" disabled></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th scope="row">6</th>
+              <td>Organización en el trabajo</td>
+              <td class="text-center"><input {% if ficha_desempeno[6] == 1 %} checked {% endif %} type="checkbox" name="organizacion" value="1" disabled></td>
+              <td class="text-center"><input {% if ficha_desempeno[6] == 2 %} checked {% endif %} type="checkbox" name="organizacion" value="2" disabled></td>
+              <td class="text-center"><input {% if ficha_desempeno[6] == 3 %} checked {% endif %} type="checkbox" name="organizacion" value="3" disabled></td>
+              <td class="text-center"><input {% if ficha_desempeno[6] == 4 %} checked {% endif %} type="checkbox" name="organizacion" value="4" disabled></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th scope="row">7</th>
+              <td>Puntualidad y asistencia</td>
+              <td class="text-center"><input {% if ficha_desempeno[7] == 1 %} checked {% endif %} type="checkbox" name="puntualidad" value="1" disabled></td>
+              <td class="text-center"><input {% if ficha_desempeno[7] == 2 %} checked {% endif %} type="checkbox" name="puntualidad" value="2" disabled></td>
+              <td class="text-center"><input {% if ficha_desempeno[7] == 3 %} checked {% endif %} type="checkbox" name="puntualidad" value="3" disabled></td>
+              <td class="text-center"><input {% if ficha_desempeno[7] == 4 %} checked {% endif %} type="checkbox" name="puntualidad" value="4" disabled></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5>Resultados de aprendizaje</h5>
+          <div>
+            <a href="#" class="btn btn-success" id="btnAgregarResultado">
+              <i class="fas fa-plus-circle"></i>&nbsp;Agregar
+            </a>
+          </div>
+        </div>
+        <table class="table" id="tablaResultados">
+          <thead class="bg-light">
+            <tr>
+              <th class="col-1">Numero</th>
+              <th class="col">Resultados del Aprendizaje</th>
+              <th class="col-1 text-center">Deficiente</th>
+              <th class="col-1 text-center">Regular</th>
+              <th class="col-1 text-center">Bueno</th>
+              <th class="col-1 text-center">Muy Bueno</th>
+              <thclass="col-1 text-center">Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for resultado in resultados_aprendizaje %}
+            <tr>
+              <th scope="row">{{ loop.index }}</th>
+              <td><input type="text" class="form-control" placeholder="Resultado de Aprendizaje {{ loop.index }}" value="{{ resultado[1] }}" readonly></td>
+              <td class="text-center"><input type="checkbox" name="deficiente[]" {% if resultado[2] == 1 %} checked {% endif %}  value="1" disabled onclick="limitarSeleccion(this)"></td>
+              <td class="text-center"><input type="checkbox" name="regular[]" {% if resultado[2] == 2 %} checked {% endif %} value="2" disabled onclick="limitarSeleccion(this)"></td>
+              <td class="text-center"><input type="checkbox" name="bueno[]" {% if resultado[2] == 3 %} checked {% endif %} value="3" disabled onclick="limitarSeleccion(this)"></td>
+              <td class="text-center"><input type="checkbox" name="muybueno[]" {% if resultado[2] == 4 %} checked {% endif %} value="4" disabled onclick="limitarSeleccion(this)"></td>
+              <td class="text-center"><button class="btn btn-danger btn-sm" onclick="eliminarFila(this)" disabled><i class="bi bi-trash"></i></button></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-12">
+        <h5>Conclusiones</h5>
+        <textarea class="form-control" rows="4" id="txtConclusiones" name="conclusiones" placeholder="Ingrese la conclusion" readonly>{{conclusiones}}</textarea>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-3">
+        <h5 class="">Subir firma del representante de la institución</h5>
+        <input class="form-control" type="file" id="fileRepresentante" name="firma" disabled>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-12 text-center">
+        <button type="submit" class="btn btn-success" disabled><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
+        <a href="{{url_for('ficha_desempeno.ficha_desempeno')}}" onclick="confirmar_volver()"
+          class="btn btn-danger mx-2"><i class="fa fa-times"></i>&nbsp;&nbsp;Cancelar</a>
+      </div>
+    </div>
+    <div class="mt-3"></div>
+  </div>
+</form>
+
+{% endblock%}
+
+
+{% block scripts %}
+<script>
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]')
+
+  checkboxes.forEach((checkbox) => {
+    checkbox.addEventListener('change', () => {
+      const selectedCheckboxes = document.querySelectorAll(`input[name="${checkbox.name}"]`)
+
+      selectedCheckboxes.forEach((cb) => {
+        if (cb !== checkbox) {
+          cb.checked = false
+        }
+      })
+    })
+  })
+</script>
+
+<script>
+  const btnAgregarResultado = document.getElementById('btnAgregarResultado');
+  const tablaResultados = document.getElementById('tablaResultados');
+
+  btnAgregarResultado.addEventListener('click', (event) => {
+    event.preventDefault();
+    const contadorFilas = tablaResultados.rows.length;
+
+    const nuevaFila = `
+      <tr>
+        <th scope="row">${contadorFilas}</th>
+        <td><input type="text" required class="form-control" name="resultado[]" placeholder="Resultado de Aprendizaje ${contadorFilas}"></td>
+        <td class="text-center"><input type="checkbox" name="escala[]" value="1" onclick="limitarSeleccion(this)"></td>
+        <td class="text-center"><input type="checkbox" name="escala[]" value="2" onclick="limitarSeleccion(this)"></td>
+        <td class="text-center"><input type="checkbox" name="escala[]" value="3" onclick="limitarSeleccion(this)"></td>
+        <td class="text-center"><input type="checkbox" name="escala[]" value="4" onclick="limitarSeleccion(this)"></td>
+        <td class="text-center"><button class="btn btn-danger btn-sm" onclick="eliminarFila(this)"><i class="bi bi-trash"></i></button></td>
+      </tr>
+    `;
+
+    tablaResultados.querySelector('tbody').insertAdjacentHTML('beforeend', nuevaFila);
+  });
+
+  function limitarSeleccion(checkbox) {
+    const checkboxes = checkbox.parentNode.parentNode.getElementsByTagName('input');
+
+    for (let i = 0; i < checkboxes.length; i++) {
+      if (checkboxes[i] !== checkbox) {
+        checkboxes[i].checked = false;
+      }
+    }
+  }
+
+  function eliminarFila(botonEliminar) {
+    const fila = botonEliminar.parentNode.parentNode;
+    fila.remove();
+
+    const filas = tablaResultados.querySelectorAll('tbody tr');
+    for (let i = 0; i < filas.length; i++) {
+      const enumeracion = filas[i].querySelector('th');
+      enumeracion.textContent = i + 1;
+
+      const campoResultado = filas[i].querySelector('input[type="text"]');
+      campoResultado.placeholder = `Resultado de Aprendizaje ${i + 1}`;
+    }
+  }
+</script>
+
+<script>
+  async function confirmar_form() {
+    const form = document.getElementById('formulario');
+    const tablaResultados = document.getElementById("tablaResultados");
+    let camposVacios = false;
+
+    const filasResultados = tablaResultados.tBodies[0].rows;
+    for (let i = 0; i < filasResultados.length; i++) {
+      const numero = filasResultados[i].cells[0].textContent;
+      const resultado = filasResultados[i].cells[1].getElementsByTagName("input")[0];
+      const opciones = filasResultados[i].cells[2].getElementsByTagName("input");
+
+      let opcionSeleccionada = false;
+      console.log(opcionSeleccionada);
+      for (let j = 0; j < opciones.length; j++) {
+        if (opciones[j].checked) {
+          opcionSeleccionada = true;
+          console.log(opcionSeleccionada);
+          break;
+        }
+      }
+
+      if (numero === "" || resultado.value === "" || !opcionSeleccionada) {
+        camposVacios = true;
+        break;
+      }
+    }
+
+    if (camposVacios) {
+      Swal.fire({
+        title: 'Error',
+        text: 'Por favor, complete todos los campos de la tabla de Resultados de Aprendizaje',
+        icon: 'error',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'OK'
+      });
+    } else {
+      const result = await Swal.fire({
+        title: '¿Guardar cambios?',
+        text: 'Los cambios se guardarán y podrá continuar editando más tarde si lo desea.',
+        icon: 'warning',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Si',
+        reverseButtons: false
+      });
+
+      if (result.isConfirmed) {
+        form.submit();
+        // Aquí puedes realizar la acción que desees al confirmar el formulario
+      }
+    }
+  }
+
+</script>
+{% endblock %}

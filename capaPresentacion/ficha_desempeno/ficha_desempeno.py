@@ -10,19 +10,20 @@ ficha_desempeno_bp = Blueprint("ficha_desempeno", __name__, template_folder="tem
 @ficha_desempeno_bp.route("/ficha_desempeno")
 def ficha_desempeno():
     rol = session.get("rol")
-    if not rol or (rol != "Docente de Apoyo" and rol != "Estudiante"):
+    if not rol or (rol != "Estudiante" and rol != "Docente de Apoyo"):
         return redirect(url_for("inicio.inicio"))
     else:
         try:
             ficha_desempenos = c_ficha_desempeno.listar_fichas_desempeno()
-            if isinstance(ficha_desempenos,list):
+            if isinstance(ficha_desempenos, list):
                 return render_template("ficha_desempeno.html", ficha_desempenos=ficha_desempenos)
             else:
                 print(str(ficha_desempenos))
                 return redirect(url_for("inicio.inicio"))
         except Exception as e:
             print(f"Error al obtener fichas de desempeño: {e}")
-            return redirect(url_for("inicio.inicio"))            
+            return redirect(url_for("inicio.inicio"))
+           
 
 @ficha_desempeno_bp.route("/agregar_ficha_desempeno")
 def agregar_ficha_desempeno():

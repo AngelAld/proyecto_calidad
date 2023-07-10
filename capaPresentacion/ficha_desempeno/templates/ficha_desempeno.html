@@ -20,9 +20,7 @@
               <th class="col-2 text-center">Estudiantes</th>
               <th class="col-2 text-center">Centro de Práctica</th>
               <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
-              {% if session['rol'] == "Docente de Apoyo" %}
               <th class="col-1 text-center">Ver</th>
-              {% endif %}
               <th class="col-1 text-center">Descargar</th>
             </tr>
           </thead>
@@ -50,18 +48,13 @@
                   {% endif %}
                 </form>
               </td>
-              {% if session['rol'] == "Docente de Apoyo" %}
-              {% endif %}
               <td class="col-1 text-center">
-                {% if session['rol'] == "Docente de Apoyo" %}
                 <a href="{{url_for('ficha_desempeno.editar_ficha_desempeno', id=ficha_desempeno[0])}}"
                   class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
                   data-bs-title="Ver informe"><i class="fa fa-eye"></i></i></a>
-                {% else %}
-                <a href="{{url_for('ficha_desempeno.editar_ficha_desempeno', id=ficha_desempeno[0])}}"
+                <a href="{{url_for('ficha_desempeno.editar_ficha_desempeno_estudiante', id=ficha_desempeno[0])}}"
                   class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
                   data-bs-title="Editar informe"><i class="fas fa-edit"></i></a>
-                {% endif %}
               </td>
               <td class="col-1 text-center">
                 <a href="#"
