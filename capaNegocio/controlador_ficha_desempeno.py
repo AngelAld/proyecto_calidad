@@ -131,37 +131,54 @@ def consultar_ficha_desempeno(id_ficha_desempeno):
     except Exception as e:
         print(f"Error al consultar ficha de desempeño: {str(e)}")
 
-def actualizar_ficha_desempeno(id_ficha_desempeno, periodo, area_desempeno, caracteristicas_evaluar, resultados_aprendizaje, conclusiones, firma):
+def actualizar_informe_inicial(id_ficha_desempeno, firma_em,responsabilidad, proactividad, comunicacion, trabajo_equipo,compromiso_calidad,organizacion,puntualidad,fecha,area_desempeno):
     try:
         conexion = obtener_conexion()
         conexion.autocommit = False
-
+        print(firma_em)
         with conexion.cursor() as cursor:
-            # Actualizar periodo y área de desempeño en FICHA_DESEMPENO
-            cursor.execute("UPDATE FICHA_DESEMPENO SET periodo = %s, area_desempeno = %s WHERE id_ficha_desempeno = %s",
-                           (periodo, area_desempeno, id_ficha_desempeno))
+            sql_firmas = "UPDATE FICHA_DESEMPENO SET fecha = current_date"
+            params_firmas = []
+            if firma_em:
+                sql_firmas += ", firma_em = %s"
+                params_firmas.append(firma_em)
 
-            # Actualizar características a evaluar en FICHA_DESEMPENO
-            cursor.execute("UPDATE FICHA_DESEMPENO SET responsabilidad = %s, proactividad = %s, comunicacion_asertiva = %s, trabajo_equipo = %s, compromiso_calidad = %s, organizacion_trabajo = %s, puntualidad_asistencia = %s WHERE id_ficha_desempeno = %s",
-                           (caracteristicas_evaluar['responsabilidad'], caracteristicas_evaluar['proactividad'], caracteristicas_evaluar['comunicacion'], caracteristicas_evaluar['trabajoequipo'], caracteristicas_evaluar['compromiso'], caracteristicas_evaluar['organizacion'], caracteristicas_evaluar['puntualidad'], id_ficha_desempeno))
+            sql_firmas += " WHERE id_ficha_desempeno = %s RETURNING id_detalle_practica"
+            params_firmas.append(id_ficha_desempeno)
 
-            # Actualizar resultados de aprendizaje en la base de datos (tabla y lógica específica según el caso)
-            # ...
+            cursor.execute(sql_firmas, params_firmas)
 
-            # Actualizar conclusiones en FICHA_DESEMPENO
-            cursor.execute("UPDATE FICHA_DESEMPENO SET conclusiones = %s WHERE id_ficha_desempeno = %s",
-                           (conclusiones, id_ficha_desempeno))
+            id_detalle_practica = cursor.fetchone()[0]
 
-            # Actualizar firma en FICHA_DESEMPENO
-            cursor.execute("UPDATE FICHA_DESEMPENO SET firma = %s WHERE id_ficha_desempeno = %s",
-                           (firma, id_ficha_desempeno))
+            if fecha:
+                sql = "UPDATE DETALLE_PRACTICA SET "
+                params = []
+
+                if fecha:
+                    sql += "fecha = %s, "
+                    params.append(fecha)
+
+                sql = sql[:-2] + " WHERE id_detalle_practica = %s"
+                params.append(id_detalle_practica)
+
+                cursor.execute(sql, params)
+            
+            cursor.execute("DELETE FROM OBJETIVO WHERE id_informe_inicial_es = %s", (id_informe_inicial_es,))
+
+            for descripcion in descripciones:
+                cursor.execute("INSERT INTO OBJETIVO (id_informe_inicial_es, descripcion) VALUES (%s, %s)", (id_informe_inicial_es, descripcion))
+
+            cursor.execute("DELETE FROM PLAN_TRABAJO WHERE id_informe_inicial_es = %s", (id_informe_inicial_es,))
+
+            for trabajo in plan_trabajo:
+                cursor.execute("INSERT INTO PLAN_TRABAJO (id_informe_inicial_es, n_semana, fecha_inicio, fecha_fin, actividad, num_horas) VALUES (%s, %s, %s, %s, %s, %s)", (id_informe_inicial_es, trabajo["n_semana"], trabajo["fecha_inicio"], trabajo["fecha_fin"], trabajo["actividad"], trabajo["horas"]))
 
         conexion.commit()
         conexion.close()
 
-        return "Operación realizada con éxito"
+        return "Operacion realizada con éxito"
 
     except Exception as e:
         conexion.rollback()
-        return f"Error al actualizar la ficha de desempeño: {str(e)}"
+        return f"Error al actualizar informe: {str(e)}"
 

@@ -51,13 +51,13 @@ def consultar_informe_final_empresa(id_informe_final_em):
             datos_cppp = cursor.fetchone()           
             
             cursor.execute("SELECT * FROM informe_final_em WHERE id_informe_final_em = %s", (id_informe_final_em,))
+            informe = cursor.fetchone()
         conexion.close()
-
-        return estudiante, datos_cppp
+      
+        return estudiante, datos_cppp, informe
 
     except Exception as e:
         print("Error al consultar informe final empresa: {str(e)}")
-
 
 
 def dar_baja_informe_final(p_id_informe_final_em, p_estado):

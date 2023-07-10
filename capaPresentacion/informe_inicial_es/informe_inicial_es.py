@@ -1,9 +1,12 @@
-from flask import Blueprint, render_template, request, redirect, flash, session, url_for
+from flask import Blueprint, render_template, request, redirect, flash, session, url_for,  make_response
 from capaNegocio import controlador_informe_inicial_es as c_informe_inicial_es
 import os
+from datetime import datetime, date
 from werkzeug.utils import secure_filename
+from weasyprint import HTML
+
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
-UPLOAD_FOLDER = 'static/files'
+UPLOAD_FOLDER = 'static/files/iie'
 
 informe_inicial_es_bp = Blueprint(
     "informe_inicial_es", __name__, template_folder="templates"
@@ -13,8 +16,6 @@ informe_inicial_es_bp = Blueprint(
 def allowed_file(filename):
     return '.' in filename and \
         filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
 
 
 @informe_inicial_es_bp.route("/estudiante/informes_iniciales")
@@ -140,3 +141,53 @@ def actualizar_informe_inicial_es():
 
 
 
+
+from flask import make_response
+
+@informe_inicial_es_bp.route("/estudiante/informe_inicial/generar_pdf/<int:id>")
+def generar_pdf_iie(id):
+    (
+        estudiante,
+        datos_cppp,
+        datos_practica,
+        objetivos,
+        planes_trabajo,
+        informe,
+    ) = c_informe_inicial_es.consultar_informe_iniciales_estudiante(id)
+
+    datos_practica = list(datos_practica)
+    informe = list(informe)
+    planes_trabajo = list(planes_trabajo)
+    for i in range(len(planes_trabajo)):
+        planes_trabajo[i] = list(planes_trabajo[i])
+        planes_trabajo[i][3] = convertir_fecha(planes_trabajo[i][3])
+        planes_trabajo[i][4] = convertir_fecha(planes_trabajo[i][4])
+
+    informe[2] = convertir_fecha(informe[2])
+    datos_practica[1] = convertir_fecha(datos_practica[1])
+    datos_practica[2] = convertir_fecha(datos_practica[2])
+
+    return render_template(
+        "template.html",
+        estudiante=estudiante,
+        datos_cppp=datos_cppp,
+        datos_practica=datos_practica,
+        objetivos=objetivos,
+        planes_trabajo=planes_trabajo,
+        informe=informe,
+    )
+
+
+
+
+
+
+def convertir_fecha(fecha):
+    try:
+        fecha_str = fecha.strftime('%Y-%m-%d')
+        fecha_dt = datetime.strptime(fecha_str, '%Y-%m-%d')
+        fecha_formateada = fecha_dt.strftime('%d/%m/%Y')
+        return fecha_formateada
+    except:
+        return('Fecha no registrada')
+    

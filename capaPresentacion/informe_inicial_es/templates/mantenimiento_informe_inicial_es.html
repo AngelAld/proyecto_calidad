@@ -282,11 +282,13 @@
 
 
 <script>
-  async function confirmar_form() {
+async function confirmar_form() {
     const form = document.getElementById("formulario");
     const tablaPlanTrabajo = document.getElementById("tablaPlanTrabajo");
     const tablaObjetivos = document.getElementById("tablaObjetivos");
     let camposVacios = false;
+    let firmaEstudianteValida = true;
+    let firmaRepresentanteValida = true;
 
     // Verificar si hay campos vacíos en la tabla Plan de Trabajo
     const filasPlan = tablaPlanTrabajo.rows;
@@ -314,11 +316,37 @@
         }
       }
     }
+    
+    // Verificar si se subió una firma del estudiante
+    const firmaEstudiante = document.getElementById("formFileEstudiante").value;
+    if (firmaEstudiante !== "") {
+      const ext = firmaEstudiante.split(".").pop().toLowerCase();
+      if (ext !== "jpg" && ext !== "jpeg" && ext !== "png") {
+        firmaEstudianteValida = false;
+      }
+    }
 
-    if (camposVacios) {
+    // Verificar si se subió una firma del representante
+    const firmaRepresentante = document.getElementById("formFileRepresentante").value;
+    if (firmaRepresentante !== "") {
+      const ext = firmaRepresentante.split(".").pop().toLowerCase();
+      if (ext !== "jpg" && ext !== "jpeg" && ext !== "png") {
+        firmaRepresentanteValida = false;
+      }
+    }
+
+    if (camposVacios || !firmaEstudianteValida || !firmaRepresentanteValida) {
+      let mensaje = 'Por favor, complete todos los campos de las tablas Plan de Trabajo y Objetivos';
+      if (!firmaEstudianteValida && !firmaRepresentanteValida) {
+        mensaje = 'Las firmas del estudiante y del representante deben ser archivos JPG, JPEG o PNG.';
+      } else if (!firmaEstudianteValida) {
+        mensaje = 'La firma del estudiante debe ser un archivo JPG, JPEG o PNG.';
+      } else if (!firmaRepresentanteValida) {
+        mensaje = 'La firma del representante debe ser un archivo JPG, JPEG o PNG.';
+      }
       Swal.fire({
         title: 'Error',
-        text: 'Por favor, complete todos los campos de las tablas Plan de Trabajo y Objetivos',
+        text: mensaje,
         icon: 'error',
         confirmButtonColor: '#3085d6',
         confirmButtonText: 'OK'
@@ -341,8 +369,6 @@
       }
     }
   }
-
-
 
 
 

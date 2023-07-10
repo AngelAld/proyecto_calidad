@@ -57,18 +57,23 @@ def eliminar_informe_final_em():
 
         return redirect("/estudiante/informe_final_em")
     
+@informe_final_em_bp.route("/asd/<int:id>")
+def frm_editar_informe_final_em(id):
+    print(c_informe_final_em.consultar_informe_final_empresa(id))
+    return redirect(url_for("inicio.inicio"))  
+
 @informe_final_em_bp.route("/estudiante/editar_informe_final/<int:id>")
 def editar_informe_final_em(id):
     (
         estudiante,
-        datos_cppp
-    ) = c_informe_final_em.consultar_informe_final_empresa(id)
-
-    
+        datos_cppp,
+        informe
+    ) = c_informe_final_em.consultar_informe_final_empresa(id)  
     return render_template(
         "frm_editar_informe_final_em.html",
         estudiante=estudiante,
-        datos_cppp=datos_cppp
+        datos_cppp=datos_cppp,
+        informe=informe
     )
 
 @informe_final_em_bp.route("/actualizar_informe_final_em", methods=["POST"])
@@ -76,34 +81,27 @@ def actualizar_informe_final_em():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        id_informe_inicial_es = request.form['id_informe_inicial_es']
-        fecha_inicio = request.form['fecha_inicio']
-        fecha_fin = request.form['fecha_fin']
-        firma_es = request.form['firma_estudiante']
-        firma_jefe = request.form['firma_jefe']
-        
-        objetivos = request.form.getlist('objetivo[]')
-        
-        # plan trabajo
-        n_semanas = request.form.getlist('n_semana[]')
-        fs_inicio = request.form.getlist('fecha_in[]')
-        fs_fin = request.form.getlist('fecha_fin[]')
-        actividades = request.form.getlist('actividad[]')
-        horas = request.form.getlist('horas[]')
-
-        print(list(objetivos))
-        print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-        print(list(horas))
-        
+        id_informe_final_em = request.form['id_informe_final_em']
+        cum_objetivos =  request.form['cum_objetivos']
+        cum_horas =  request.form['cum_horas']
+        responsabilidad =  request.form['responsabilidad']
+        extra =  request.form['cum_objetivos']
+        firma =  request.form['cum_horas']
+        fecha =  request.form['responsabilidad']
+          
+        print(list(cum_objetivos))
+        print(list(cum_horas))
+        print(list(responsabilidad))
+        print(list(extra))
         mensaje = 'Probando'
 
 
         if mensaje == "Operacion realizada con éxito":
-            flash("Informe Inicial Actualizado con Éxito", "success")
-            url = "/estudiante/informes_iniciales"
+            flash("Informe Final Actualizado con Éxito", "success")
+            url = "/estudiante/informe_final_em"
         else:
             flash(str(mensaje), "error")
-            url = "/estudiante/editar_informe_inicial/" + id_informe_inicial_es
+            url = "/estudiante/editar_informe_final/" + id_informe_final_em
         return redirect(url)
 
 

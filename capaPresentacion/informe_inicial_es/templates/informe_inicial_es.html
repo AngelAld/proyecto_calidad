@@ -20,7 +20,9 @@
               <th class="col-3 text-center">Estudiante</th>
               <th class="col-3 text-center">Centro de prácticas</th>
               <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
-              <th class="col-1 text-center">{% if session['rol']=="Docente de Apoyo" %}Ver{% else %}Editar{% endif %}</th>
+              <th class="col-1 text-center">{% if session['rol']=="Docente de Apoyo" %}Ver{% else %}Editar{% endif %}
+              </th>
+              <th class="col-1 text-center">Descargar</th>
             </tr>
           </thead>
           <tbody>
@@ -51,14 +53,18 @@
               <td class="col-1 text-center">
                 {% if session['rol']=="Docente de Apoyo" %}
                 <a href="{{url_for('informe_inicial_es.editar_informe_inicial_es', id=informe[0])}}"
-                  class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
-                  data-bs-title="Ver informe"><i class="fa fa-eye"></i></i></a>
+                  class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip" data-bs-title="Ver informe"><i
+                    class="fa fa-eye"></i></i></a>
                 {% else %}
                 <a href="{{url_for('informe_inicial_es.editar_informe_inicial_es', id=informe[0])}}"
                   class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
                   data-bs-title="Editar informe"><i class="fas fa-edit"></i></a>
                 {% endif %}
 
+              </td>
+              <td class="col-1 text-center">
+                <a href="{{url_for('informe_inicial_es.generar_pdf_iie', id=informe[0])}}"  target="_blank" download class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
+                  data-bs-title="Ver informe"><i class="fa fa-download"></i></i></a>
               </td>
             </tr>
             {% endfor %}

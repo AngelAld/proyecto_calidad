@@ -4,208 +4,220 @@
 {% block contenido %}
 <form action="{{url}}" method="post" class="formulario" enctype="multipart/form-data">
   <input type="hidden" name="id_ficha_desempeno" value="{{ficha_desempeno[0]}}">
-<div class="container-fluid">
-  <p class="form-control-static">
-    La Universidad Católica Santo Toribio de Mogrovejo (USAT) agradece la valiosa colaboración de su Institución en la
-    formación profesional de los estudiantes de nuestra casa de estudios.
-    El objetivo de esta evaluación es recoger información sobre el desempeño de nuestros estudiantes durante el periodo
-    de prácticas pre profesionales. En tal sentido, le agradeceremos responderla de manera objetiva, ya que su opinión
-    nos ayudará a mejorar el nivel de las Prácticas Pre profesionales que son requisito para la titulación de nuestros
-    estudiantes.
-  </p>
+  <div class="container-fluid">
+    <p class="form-control-static">
+      La Universidad Católica Santo Toribio de Mogrovejo (USAT) agradece la valiosa colaboración de su Institución en la
+      formación profesional de los estudiantes de nuestra casa de estudios.
+      El objetivo de esta evaluación es recoger información sobre el desempeño de nuestros estudiantes durante el
+      periodo
+      de prácticas pre profesionales. En tal sentido, le agradeceremos responderla de manera objetiva, ya que su opinión
+      nos ayudará a mejorar el nivel de las Prácticas Pre profesionales que son requisito para la titulación de nuestros
+      estudiantes.
+    </p>
 
-  <div class="row mt-3">
-    <div class="col-12">
-      <h4>Datos del Estudiante</h4>
-      <div class="form-group row mb-3">
-        <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" id="nombres" value="{{nombre}}" readonly
-            onkeypress="return soloLetras(event)">
+    <div class="row mt-3">
+      <div class="col-12">
+        <h4>Datos del Estudiante</h4>
+        <div class="form-group row mb-3">
+          <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="nombres" value="{{nombre}}" readonly
+              onkeypress="return soloLetras(event)">
+          </div>
         </div>
-      </div>
-      <div class="form-group row mb-3">
-        <label for="escuelaProfesional" class="col-sm-2 col-form-label">Escuela Profesional:</label>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" id="escuelaProfesional" value="{{escuela_Profesional}}" readonly>
+        <div class="form-group row mb-3">
+          <label for="escuelaProfesional" class="col-sm-2 col-form-label">Escuela Profesional:</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="escuelaProfesional" value="{{escuela_Profesional}}" readonly>
+          </div>
         </div>
-      </div>
-      <div class="form-group row mb-3">
-        <label for="periodo" class="col-sm-2 col-form-label">Periodo de Prácticas:</label>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" id="periodo" value="{{periodo_practica}}" readonly>
+        <div class="form-group row mb-3">
+          <label for="periodo" class="col-sm-2 col-form-label">Periodo de Prácticas:</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="periodo" value="{{periodo_practica}}" readonly>
+          </div>
         </div>
-      </div>
-      <div class="form-group row mb-3">
-        <label for="areaDesempeno" class="col-sm-2 col-form-label">Área de Desempeño:</label>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" id="areaDesempeno" value="{{area_desempeno}}">
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row mt-3">
-    <div class="col-12">
-      <h4>Datos de la Empresa</h4>
-      <div class="form-group row mb-3">
-        <label for="nombre_empresa" class="col-sm-2 col-form-label">Nombre de la Empresa:</label>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" id="nombre_empresa" value="{{nombre_empresa}}" readonly>
-        </div>
-      </div>
-      <div class="form-group row mb-3">
-        <label for="direccion" class="col-sm-2 col-form-label">Dirección:</label>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" id="direccion" value="{{direccion}}" readonly>
-        </div>
-      </div>
-      <div class="form-group row mb-3">
-        <label for="responsable" class="col-sm-2 col-form-label">Nombre del Responsable:</label>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" id="responsable" value="{{nombre_responsable}}" readonly>
-        </div>
-      </div>
-      <div class="form-group row mb-3">
-        <label for="correo" class="col-sm-2 col-form-label">Correo del Responsable:</label>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" id="correo" value="{{correo_responsable}}" readonly>
+        <div class="form-group row mb-3">
+          <label for="areaDesempeno" class="col-sm-2 col-form-label">Área de Desempeño:</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="areaDesempeno" value="{{area_desempeno}}">
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row mt-3">
-    <div class="col-12">
-      <h5>Sírvase marcar la respuesta que describa mejor su opinión:</h5>
-      <table class="table" id="tablaCara">
-        <thead class="bg-light">
-          <tr>
-            <th class="col-1">Número</th>
-            <th class="col">Característica a Evaluar</th>
-            <th class="text-center col-1">Deficiente</th>
-            <th class="text-center col-1">Regular</th>
-            <th class="text-center col-1">Bueno</th>
-            <th class="text-center col-1">Muy Bueno</th>
-            <th class="col-1"></th>
-          </tr>
-        </thead>
-        <tbody id="table">
-          <tr>
-            <th scope="row">1</th>
-            <td class="col">Responsabilidad</td>
-            <td class="text-center"><input type="checkbox" name="responsabilidad" value="1"></td>
-            <td class="text-center"><input type="checkbox" name="responsabilidad" value="regular"></td>
-            <td class="text-center"><input type="checkbox" name="responsabilidad" value="bueno"></td>
-            <td class="text-center"><input type="checkbox" name="responsabilidad" value="muybueno"></td>
-            <td></td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Proactividad</td>
-            <td class="text-center"><input type="checkbox" name="proactividad" value="1"></td>
-            <td class="text-center"><input type="checkbox" name="proactividad" value="regular"></td>
-            <td class="text-center"><input type="checkbox" name="proactividad" value="bueno"></td>
-            <td class="text-center"><input type="checkbox" name="proactividad" value="muybueno"></td>
-            <td></td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Comunicación asertiva</td>
-            <td class="text-center"><input type="checkbox" name="comunicacion" value="1"></td>
-            <td class="text-center"><input type="checkbox" name="comunicacion" value="regular"></td>
-            <td class="text-center"><input type="checkbox" name="comunicacion" value="bueno"></td>
-            <td class="text-center"><input type="checkbox" name="comunicacion" value="muybueno"></td>
-            <td></td>
-          </tr>
-          <tr>
-            <th scope="row">4</th>
-            <td>Trabajo en equipo</td>
-            <td class="text-center"><input type="checkbox" name="trabajoequipo" value="1"></td>
-            <td class="text-center"><input type="checkbox" name="trabajoequipo" value="regular"></td>
-            <td class="text-center"><input type="checkbox" name="trabajoequipo" value="bueno"></td>
-            <td class="text-center"><input type="checkbox" name="trabajoequipo" value="muybueno"></td>
-            <td></td>
-          </tr>
-          <tr>
-            <th scope="row">5</th>
-            <td>Compromiso con la calidad</td>
-            <td class="text-center"><input type="checkbox" name="compromiso" value="1"></td>
-            <td class="text-center"><input type="checkbox" name="compromiso" value="regular"></td>
-            <td class="text-center"><input type="checkbox" name="compromiso" value="bueno"></td>
-            <td class="text-center"><input type="checkbox" name="compromiso" value="muybueno"></td>
-            <td></td>
-          </tr>
-          <tr>
-            <th scope="row">6</th>
-            <td>Organización en el trabajo</td>
-            <td class="text-center"><input type="checkbox" name="organizacion" value="1"></td>
-            <td class="text-center"><input type="checkbox" name="organizacion" value="regular"></td>
-            <td class="text-center"><input type="checkbox" name="organizacion" value="bueno"></td>
-            <td class="text-center"><input type="checkbox" name="organizacion" value="muybueno"></td>
-            <td></td>
-          </tr>
-          <tr>
-            <th scope="row">7</th>
-            <td>Puntualidad y asistencia</td>
-            <td class="text-center"><input type="checkbox" name="puntualidad" value="1"></td>
-            <td class="text-center"><input type="checkbox" name="puntualidad" value="regular"></td>
-            <td class="text-center"><input type="checkbox" name="puntualidad" value="bueno"></td>
-            <td class="text-center"><input type="checkbox" name="puntualidad" value="muybueno"></td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="row mt-3">
-    <div class="col-12">
-      <div class="d-flex justify-content-between align-items-center">
-        <h5>Resultados de aprendizaje</h5>
-        <div>
-          <a href="#" class="btn btn-success" id="btnAgregarResultado">
-            <i class="fas fa-plus-circle"></i>&nbsp;Agregar
-          </a>
+    <div class="row mt-3">
+      <div class="col-12">
+        <h4>Datos de la Empresa</h4>
+        <div class="form-group row mb-3">
+          <label for="nombre_empresa" class="col-sm-2 col-form-label">Nombre de la Empresa:</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="nombre_empresa" value="{{nombre_empresa}}" readonly>
+          </div>
+        </div>
+        <div class="form-group row mb-3">
+          <label for="direccion" class="col-sm-2 col-form-label">Dirección:</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="direccion" value="{{direccion}}" readonly>
+          </div>
+        </div>
+        <div class="form-group row mb-3">
+          <label for="responsable" class="col-sm-2 col-form-label">Nombre del Responsable:</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="responsable" value="{{nombre_responsable}}" readonly>
+          </div>
+        </div>
+        <div class="form-group row mb-3">
+          <label for="correo" class="col-sm-2 col-form-label">Correo del Responsable:</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="correo" value="{{correo_responsable}}" readonly>
+          </div>
         </div>
       </div>
-      <table class="table" id="tablaResultados">
-        <thead class="bg-light">
-          <tr>
-            <th class="col-1">Numero</th>
-            <th class="col">Resultados del Aprendizaje</th>
-            <th class="col-1 text-center">Deficiente</th>
-            <th class="col-1 text-center">Regular</th>
-            <th class="col-1 text-center">Bueno</th>
-            <th class="col-1 text-center">Muy Bueno</th>
-            <th class="col-1 text-center">Eliminar</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
     </div>
-  </div>
-  <div class="row mt-3">
-    <div class="col-12">
-      <h5>Conclusiones</h5>
-      <textarea class="form-control" rows="4" id="txtConclusiones" placeholder="Ingrese la conclusion"></textarea>
+    <div class="row mt-3">
+      <div class="col-12">
+        <h5>Sírvase marcar la respuesta que describa mejor su opinión:</h5>
+        <table class="table" id="tablaCara">
+          <thead class="bg-light">
+            <tr>
+              <th class="col-1">Número</th>
+              <th class="col">Característica a Evaluar</th>
+              <th class="text-center col-1">Deficiente</th>
+              <th class="text-center col-1">Regular</th>
+              <th class="text-center col-1">Bueno</th>
+              <th class="text-center col-1">Muy Bueno</th>
+              <th class="col-1"></th>
+            </tr>
+          </thead>
+          <tbody id="table">
+            <tr>
+              <th scope="row">1</th>
+              <td class="col">Responsabilidad</td>
+              <td class="text-center"><input type="checkbox" name="responsabilidad" value="1"></td>
+              <td class="text-center"><input type="checkbox" name="responsabilidad" value="regular"></td>
+              <td class="text-center"><input type="checkbox" name="responsabilidad" value="bueno"></td>
+              <td class="text-center"><input type="checkbox" name="responsabilidad" value="muybueno"></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Proactividad</td>
+              <td class="text-center"><input type="checkbox" name="proactividad" value="1"></td>
+              <td class="text-center"><input type="checkbox" name="proactividad" value="regular"></td>
+              <td class="text-center"><input type="checkbox" name="proactividad" value="bueno"></td>
+              <td class="text-center"><input type="checkbox" name="proactividad" value="muybueno"></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Comunicación asertiva</td>
+              <td class="text-center"><input type="checkbox" name="comunicacion" value="1"></td>
+              <td class="text-center"><input type="checkbox" name="comunicacion" value="regular"></td>
+              <td class="text-center"><input type="checkbox" name="comunicacion" value="bueno"></td>
+              <td class="text-center"><input type="checkbox" name="comunicacion" value="muybueno"></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>Trabajo en equipo</td>
+              <td class="text-center"><input type="checkbox" name="trabajoequipo" value="1"></td>
+              <td class="text-center"><input type="checkbox" name="trabajoequipo" value="regular"></td>
+              <td class="text-center"><input type="checkbox" name="trabajoequipo" value="bueno"></td>
+              <td class="text-center"><input type="checkbox" name="trabajoequipo" value="muybueno"></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th scope="row">5</th>
+              <td>Compromiso con la calidad</td>
+              <td class="text-center"><input type="checkbox" name="compromiso" value="1"></td>
+              <td class="text-center"><input type="checkbox" name="compromiso" value="regular"></td>
+              <td class="text-center"><input type="checkbox" name="compromiso" value="bueno"></td>
+              <td class="text-center"><input type="checkbox" name="compromiso" value="muybueno"></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th scope="row">6</th>
+              <td>Organización en el trabajo</td>
+              <td class="text-center"><input type="checkbox" name="organizacion" value="1"></td>
+              <td class="text-center"><input type="checkbox" name="organizacion" value="regular"></td>
+              <td class="text-center"><input type="checkbox" name="organizacion" value="bueno"></td>
+              <td class="text-center"><input type="checkbox" name="organizacion" value="muybueno"></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th scope="row">7</th>
+              <td>Puntualidad y asistencia</td>
+              <td class="text-center"><input type="checkbox" name="puntualidad" value="1"></td>
+              <td class="text-center"><input type="checkbox" name="puntualidad" value="regular"></td>
+              <td class="text-center"><input type="checkbox" name="puntualidad" value="bueno"></td>
+              <td class="text-center"><input type="checkbox" name="puntualidad" value="muybueno"></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
+    <div class="row mt-3">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5>Resultados de aprendizaje</h5>
+          <div>
+            <a href="#" class="btn btn-success" id="btnAgregarResultado">
+              <i class="fas fa-plus-circle"></i>&nbsp;Agregar
+            </a>
+          </div>
+        </div>
+        <table class="table" id="tablaResultados">
+          <thead class="bg-light">
+            <tr>
+              <th class="col-1">Numero</th>
+              <th class="col">Resultados del Aprendizaje</th>
+              <th class="col-1 text-center">Deficiente</th>
+              <th class="col-1 text-center">Regular</th>
+              <th class="col-1 text-center">Bueno</th>
+              <th class="col-1 text-center">Muy Bueno</th>
+              <th class="col-1 text-center">Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for resultado in resultados_aprendizaje %}
+            <tr>
+              <th scope="row">{{ loop.index }}</th>
+              <td><input type="text" class="form-control" placeholder="Resultado de Aprendizaje {{ loop.index }}"></td>
+              <td class="text-center"><input type="checkbox" name="deficiente[]" value="1" onclick="limitarSeleccion(this)"></td>
+              <td class="text-center"><input type="checkbox" name="regular[]" value="regular" onclick="limitarSeleccion(this)"></td>
+              <td class="text-center"><input type="checkbox" name="bueno[]" value="bueno" onclick="limitarSeleccion(this)"></td>
+              <td class="text-center"><input type="checkbox" name="muybueno[]" value="muybueno" onclick="limitarSeleccion(this)"></td>
+              <td class="text-center"><button class="btn btn-danger btn-sm" onclick="eliminarFila(this)"><i class="bi bi-trash"></i></button></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-12">
+        <h5>Conclusiones</h5>
+        <textarea class="form-control" rows="4" id="txtConclusiones" placeholder="Ingrese la conclusion"></textarea>
+      </div>
+    </div>
 
-  <div class="row mt-3">
-    <div class="col-md-3">
-      <h5 class="">Subir firma del representante de la institución</h5>
-      <input class="form-control" type="file" id="fileRepresentante">
+    <div class="row mt-3">
+      <div class="col-md-3">
+        <h5 class="">Subir firma del representante de la institución</h5>
+        <input class="form-control" type="file" id="fileRepresentante">
+      </div>
     </div>
-  </div>
 
-  <div class="row mt-3">
-    <div class="col-12 text-center">
-      <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
-      <a href="{{url_for('ficha_desempeno.ficha_desempeno')}}" onclick="confirmar_volver()"
-        class="btn btn-danger mx-2"><i class="fa fa-times"></i>&nbsp;&nbsp;Cancelar</a>
+    <div class="row mt-3">
+      <div class="col-12 text-center">
+        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
+        <a href="{{url_for('ficha_desempeno.ficha_desempeno')}}" onclick="confirmar_volver()"
+          class="btn btn-danger mx-2"><i class="fa fa-times"></i>&nbsp;&nbsp;Cancelar</a>
+      </div>
     </div>
+    <div class="mt-3"></div>
   </div>
-  <div class="mt-3"></div>
-</div>
 </form>
 
 {% endblock%}
@@ -239,11 +251,11 @@
       <tr>
         <th scope="row">${contadorFilas}</th>
         <td><input type="text" class="form-control" placeholder="Resultado de Aprendizaje ${contadorFilas}"></td>
-        <td class="text-center"><input type="checkbox" name="logro${contadorFilas}" value="1" onclick="limitarSeleccion(this)"></td>
-        <td class="text-center"><input type="checkbox" name="logro${contadorFilas}" value="regular" onclick="limitarSeleccion(this)"></td>
-        <td class="text-center"><input type="checkbox" name="logro${contadorFilas}" value="bueno" onclick="limitarSeleccion(this)"></td>
-        <td class="text-center"><input type="checkbox" name="logro${contadorFilas}" value="muybueno" onclick="limitarSeleccion(this)"></td>
-        <td class="text-center col-1"><button class="btn btn-danger btn-sm" onclick="eliminarFila(this)"><i class="bi bi-trash"></i></button></td>
+        <td class="text-center"><input type="checkbox" name="deficiente[]" value="1" onclick="limitarSeleccion(this)"></td>
+        <td class="text-center"><input type="checkbox" name="regular[]" value="regular" onclick="limitarSeleccion(this)"></td>
+        <td class="text-center"><input type="checkbox" name="bueno[]" value="bueno" onclick="limitarSeleccion(this)"></td>
+        <td class="text-center"><input type="checkbox" name="muybueno[]" value="muybueno" onclick="limitarSeleccion(this)"></td>
+        <td class="text-center"><button class="btn btn-danger btn-sm" onclick="eliminarFila(this)"><i class="bi bi-trash"></i></button></td>
       </tr>
     `;
 

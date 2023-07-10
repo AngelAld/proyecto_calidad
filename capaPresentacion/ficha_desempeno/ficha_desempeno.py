@@ -91,7 +91,8 @@ def actualizar_ficha_desempeno():
         # Lógica adicional para el procesamiento de la firma y los resultados de aprendizaje
 
         # Llamar a la función actualizar_ficha_desempeno
-        mensaje = c_ficha_desempeno.actualizar_ficha_desempeno(id_ficha_desempeno, periodo, area_desempeno, caracteristicas_evaluar, resultados_aprendizaje, conclusiones, firma)
+        mensaje='probando'
+        #mensaje = c_ficha_desempeno.actualizar_ficha_desempeno(id_ficha_desempeno, periodo, area_desempeno, caracteristicas_evaluar, resultados_aprendizaje, conclusiones, firma)
 
         if mensaje == "Operación realizada con éxito":
             flash("Ficha de Evaluación de Desempeño actualizada con éxito", "success")
