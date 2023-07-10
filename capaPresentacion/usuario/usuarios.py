@@ -20,6 +20,8 @@ def iniciar_sesion():
             session['id'] = usuario[0]
             session['nombre'] = usuario[2]
             session['rol'] = usuario[6]
+            print(usuario[6])
+            print('cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc')
             return redirect(url_for('inicio.inicio'))
         else:
             flash("Contraseña incorrecta", "error")
