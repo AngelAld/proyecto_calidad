@@ -3,7 +3,6 @@ from capaNegocio import controlador_informe_inicial_es as c_informe_inicial_es
 import os
 from datetime import datetime, date
 from werkzeug.utils import secure_filename
-from weasyprint import HTML
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 UPLOAD_FOLDER = 'static/files/iie'
