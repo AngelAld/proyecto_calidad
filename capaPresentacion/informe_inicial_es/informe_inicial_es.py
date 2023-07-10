@@ -2,6 +2,11 @@ from flask import Blueprint, render_template, request, redirect, flash, session,
 from capaNegocio import controlador_informe_inicial_es as c_informe_inicial_es
 import os
 from datetime import datetime, date
+from werkzeug.utils import secure_filename
+import weasyprint
+from weasyprint import HTML, CSS
+
+
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 UPLOAD_FOLDER = 'static/files/iie'
@@ -139,9 +144,6 @@ def actualizar_informe_inicial_es():
 
 
 
-
-from flask import make_response
-
 @informe_inicial_es_bp.route("/estudiante/informe_inicial/generar_pdf/<int:id>")
 def generar_pdf_iie(id):
     (
@@ -165,7 +167,8 @@ def generar_pdf_iie(id):
     datos_practica[1] = convertir_fecha(datos_practica[1])
     datos_practica[2] = convertir_fecha(datos_practica[2])
 
-    return render_template(
+    # Crear una nueva plantilla HTML a partir de la original
+    template_html = render_template(
         "template.html",
         estudiante=estudiante,
         datos_cppp=datos_cppp,
@@ -174,6 +177,25 @@ def generar_pdf_iie(id):
         planes_trabajo=planes_trabajo,
         informe=informe,
     )
+
+    # Definir la hoja de estilo CSS personalizada para establecer los márgenes
+    style_css = 'body { margin: -5; }'
+
+    # Crear un objeto HTML a partir de la plantilla
+    html = HTML(string=template_html)
+
+    # Crear un objeto CSS a partir de la hoja de estilo personalizada
+    css = CSS(string=style_css)
+
+    # Generar el PDF a partir del objeto HTML y la lista de objetos CSS
+    pdf_bytes = html.write_pdf(page_size=(8.5, 11, 'in'),
+    margin=(0.5, 0.5, 0.5, 0.5, 'in'),)
+
+    # Devolver el PDF generado como una respuesta HTTP
+    response = make_response(pdf_bytes)
+    response.headers["Content-Type"] = "application/pdf"
+    response.headers["Content-Disposition"] = "inline; filename=informe_inicial.pdf"
+    return response    
 
 
 

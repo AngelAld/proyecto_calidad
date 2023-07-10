@@ -21,6 +21,7 @@
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <meta name="generator" content="Aspose.Words for .NET 23.6.0" />
     <title>Informe Inicial Estudiante</title>
+    <script src="{{ url_for('static', filename='js/jspdf.js') }}"></script>
     <style type="text/css">
         body {
             line-height: 108%;
@@ -162,9 +163,10 @@
     </style>
 </head>
 
-<body>
+<body onload="generatePDF()">
     <div>
-        <p style="margin-bottom:0pt; text-align:center; line-height:150%"><span style="font-weight:bold">INFORME INICIAL
+        <p style=" margin-bottom:0pt; text-align:center; line-height:150%"><span style="font-weight:bold">INFORME
+                INICIAL
                 SOBRE PRÁCTICAS PRE PROFESIONALES</span></p>
         <p style="margin-bottom:0pt; text-align:center; line-height:150%"><span
                 style="font-weight:bold; -aw-import:ignore">&#xa0;</span></p>
@@ -272,12 +274,13 @@
             <tr>
                 <td
                     style="border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle; -aw-border-bottom:0.5pt single; -aw-border-right:0.5pt single; -aw-border-top:0.5pt single">
-                    <p style="text-align:center; line-height:108%; font-size:11pt"><span
-                            style="font-weight:bold">{{ plan_trabajo[2] }}</span></p>
+                    <p style="text-align:center; line-height:108%; font-size:11pt"><span style="font-weight:bold">{{
+                            plan_trabajo[2] }}</span></p>
                 </td>
                 <td
                     style="border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle; -aw-border:0.5pt single">
-                    <p style="text-align:center; line-height:108%; font-size:11pt"><span>{{ plan_trabajo[3] }} al {{ plan_trabajo[4] }}</span>
+                    <p style="text-align:center; line-height:108%; font-size:11pt"><span>{{ plan_trabajo[3] }} al {{
+                            plan_trabajo[4] }}</span>
                     </p>
                 </td>
                 <td
@@ -291,7 +294,8 @@
                 </td>
                 <td
                     style="border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle; -aw-border-bottom:0.5pt single; -aw-border-left:0.5pt single; -aw-border-top:0.5pt single">
-                    <p style="text-align:center; line-height:108%; font-size:11pt"><span>{{ plan_trabajo[6] }}</span></p>
+                    <p style="text-align:center; line-height:108%; font-size:11pt"><span>{{ plan_trabajo[6] }}</span>
+                    </p>
                 </td>
             </tr>
 
@@ -305,8 +309,8 @@
                 </td>
                 <td
                     style="border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle; -aw-border-left:0.5pt single; -aw-border-top:0.5pt single">
-                    <p style="text-align:center; line-height:108%; font-size:11pt"><span
-                            style="font-weight:bold">{{ planes_trabajo|sum(attribute=6) }}</span></p>
+                    <p style="text-align:center; line-height:108%; font-size:11pt"><span style="font-weight:bold">{{
+                            planes_trabajo|sum(attribute=6) }}</span></p>
                 </td>
             </tr>
         </table>
@@ -326,14 +330,23 @@
             style="width:673.3pt; margin-left:28.35pt; margin-bottom:0pt; border-collapse:collapse">
             <tr>
                 <td style="padding-right:5.4pt; padding-left:5.4pt; vertical-align:top">
-                    <p style="text-align:center; line-height:108%; font-size:11pt"><img style="width: 200px;" src="{{ url_for('static', filename=firma_es.split('static/')[1]) }}" alt="Firma del estudiante">
+                    <p style="text-align:center; line-height:108%; font-size:11pt">
+                        {% if firma_es %}
+                        <img style="width: 200px;" src="{{ url_for('static', filename=firma_es.split('static/')[1]) }}"
+                            alt="Firma del estudiante">
+                        {% endif %}
                 </td>
                 <td style="padding-right:5.4pt; padding-left:5.4pt; vertical-align:top">
                     <p style="line-height:108%; font-size:11pt"><span
                             style="font-weight:bold; -aw-import:ignore">&#xa0;</span></p>
                 </td>
                 <td style="padding-right:5.4pt; padding-left:5.4pt; vertical-align:top">
-                    <p style="text-align:center; line-height:108%; font-size:11pt"><img style="width: 200px;" src="{{ url_for('static', filename=firma_jefe.split('static/')[1]) }}" alt="Firma del responsable de práctica">
+                    <p style="text-align:center; line-height:108%; font-size:11pt">
+                        {% if firma_jefe %}
+                        <img style="width: 200px;"
+                            src="{{ url_for('static', filename=firma_jefe.split('static/')[1]) }}"
+                            alt="Firma del responsable de práctica">
+                        {% endif %}
                 </td>
             </tr>
             <tr>
@@ -358,6 +371,23 @@
         <p style="margin-bottom:0pt; line-height:150%"><span style="font-weight:bold; -aw-import:ignore">&#xa0;</span>
         </p>
     </div>
+
+    <script>
+        function generatePDF() {
+            try {
+                const element = document.getElementById('content');
+                const pdf = new jsPDF();
+
+                pdf.html(element, {
+                    callback: function (pdf) {
+                        pdf.save('documento.pdf');
+                    }
+                });
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    </script>
 </body>
 
 </html>

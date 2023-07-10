@@ -1,0 +1,188 @@
+body {
+    line-height: 108%;
+    font-family: Calibri;
+    font-size: 11pt;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0pt 0pt 8pt;
+}
+
+li,
+table {
+    margin-top: 0pt;
+    margin-bottom: 8pt;
+}
+
+h1 {
+    margin-top: 24pt;
+    margin-bottom: 6pt;
+    page-break-before: auto;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+    line-height: 108%;
+    font-family: Calibri;
+    font-size: 24pt;
+    font-weight: bold;
+    color: #000000;
+}
+
+h2 {
+    margin-top: 18pt;
+    margin-bottom: 4pt;
+    page-break-before: auto;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+    line-height: 108%;
+    font-family: Calibri;
+    font-size: 18pt;
+    font-weight: bold;
+    color: #000000;
+}
+
+h3 {
+    margin-top: 14pt;
+    margin-bottom: 4pt;
+    page-break-before: auto;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+    line-height: 108%;
+    font-family: Calibri;
+    font-size: 14pt;
+    font-weight: bold;
+    color: #000000;
+}
+
+h4 {
+    margin-top: 12pt;
+    margin-bottom: 2pt;
+    page-break-before: auto;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+    line-height: 108%;
+    font-family: Calibri;
+    font-size: 12pt;
+    font-weight: bold;
+    font-style: normal;
+    color: #000000;
+}
+
+h5 {
+    margin-top: 11pt;
+    margin-bottom: 2pt;
+    page-break-before: auto;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+    line-height: 108%;
+    font-family: Calibri;
+    font-size: 11pt;
+    font-weight: bold;
+    color: #000000;
+}
+
+h6 {
+    margin-top: 10pt;
+    margin-bottom: 2pt;
+    page-break-before: auto;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+    line-height: 108%;
+    font-family: Calibri;
+    font-size: 10pt;
+    font-weight: bold;
+    color: #000000;
+}
+
+.ListParagraph {
+    margin-left: 36pt;
+    margin-bottom: 8pt;
+    line-height: 108%;
+    font-size: 11pt;
+}
+
+.Subtitle {
+    margin-top: 18pt;
+    margin-bottom: 4pt;
+    page-break-before: auto;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+    line-height: 108%;
+    font-family: Georgia;
+    font-size: 24pt;
+    font-style: italic;
+    color: #666666;
+}
+
+.Title {
+    margin-top: 24pt;
+    margin-bottom: 6pt;
+    page-break-before: auto;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+    line-height: 108%;
+    font-size: 36pt;
+    font-weight: bold;
+}
+
+.normal0 {
+    margin-bottom: 8pt;
+    line-height: 108%;
+    font-size: 11pt;
+}
+
+.Table1 {
+    width: 673.85pt;
+    margin-left: 28.35pt;
+    margin-bottom: 0pt;
+    border: 0.75pt solid #000000;
+    -aw-border: 0.5pt single;
+    -aw-border-insideh: 0.5pt single #000000;
+    -aw-border-insidev: 0.5pt single #000000;
+    border-collapse: collapse;
+}
+
+.Table1 td {
+    border-right-style: solid;
+    border-right-width: 0.75pt;
+    border-bottom-style: solid;
+    border-bottom-width: 0.75pt;
+    padding-right: 5.03pt;
+    padding-left: 5.03pt;
+    vertical-align: middle;
+    -aw-border-bottom: 0.5pt single;
+    -aw-border-right: 0.5pt single;
+}
+
+.Table1 tr:first-child td {
+    border-top-style: solid;
+    border-top-width: 0.75pt;
+}
+
+.Table1 tr:last-child td {
+    border-bottom-style: solid;
+    border-bottom-width: 0.75pt;
+}
+
+.Table1 tr td:first-child {
+    border-left-style: solid;
+    border-left-width: 0.75pt;
+}
+
+.Table2 {
+    width: 673.3pt;
+    margin-left: 28.35pt;
+    margin-bottom: 0pt;
+    border-collapse: collapse;
+}
+
+.Table2 td {
+    padding-right: 5.4pt;
+    padding-left: 5.4pt;
+    vertical-align: top;
+}

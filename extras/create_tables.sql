@@ -1,10 +1,9 @@
 CREATE TABLE ANEXOS (
-  id_anexo            int4 NOT NULL, 
+  id_anexo            SERIAL NOT NULL, 
   id_informe_final_es int4 NOT NULL, 
   descripcion         varchar(255) NOT NULL, 
   anexo               varchar(255) NOT NULL, 
-  PRIMARY KEY (id_anexo, 
-  id_informe_final_es));
+  PRIMARY KEY (id_anexo));
 CREATE TABLE BIBLIOGRAFIA (
   id_bibliografia     SERIAL NOT NULL, 
   id_informe_final_es int4 NOT NULL, 
@@ -92,8 +91,9 @@ CREATE TABLE FICHA_DESEMPENO (
   puntualidad         int4, 
   estado              char(1) NOT NULL, 
   fecha               date, 
-  firma_es            text, 
+  conclusiones        text, 
   firma_em            text, 
+  area_desemp         varchar(255), 
   id_detalle_practica int4 NOT NULL, 
   PRIMARY KEY (id_ficha_desempeno));
 CREATE TABLE INFORME_FINAL_EM (
@@ -109,6 +109,7 @@ CREATE TABLE INFORME_FINAL_EM (
   PRIMARY KEY (id_informe_final_em));
 CREATE TABLE INFORME_FINAL_ES (
   id_informe_final_es SERIAL NOT NULL, 
+  introduccion        text, 
   cant_trabajadores   int4, 
   representante_legal text, 
   vision              text, 

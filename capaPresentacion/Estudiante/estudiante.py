@@ -26,21 +26,21 @@ def subir_excel():
     try:
         archivo = request.files['file']
         df = pd.read_excel(archivo)
-        if not all(col in df.columns for col in ['Codigo Universitario', 'Nombres', 'Escuela Profesional', 'DNI', 'Correo Usat', 'Correo Personal', 'telefono 1', 'telefono 2', 'Ciclo de Ingreso', 'Plan de estudios']):
+        if not all(col in df.columns for col in ['Codigo Universitario', 'Nombres Completos', 'Escuela Profesional', 'DNI', 'Correo Usat', 'Correo Personal', 'Telefono 1', 'Telefono 2', 'Ciclo de Ingreso', 'Plan de Estudios']):
             flash('El archivo no tiene la estructura requerida. Asegúrese de que contenga las siguientes columnas: Codigo Universitario, Nombres, Escuela Profesional, DNI, Correo Usat, Correo Personal, telefono 1, telefono 2, Ciclo de Ingreso, Plan de estudios', 'error')
             return redirect('/importar_estudiantes')
         registros = []
         for index, row in df.iterrows():
             registro = [row['Codigo Universitario'],
-                        row['Nombres'],
+                        row['Nombres Completos'],
                         row['Escuela Profesional'],
                         row['DNI'],
                         row['Correo Usat'],
                         row['Correo Personal'],
-                        row['telefono 1'],
-                        row['telefono 2'],
+                        row['Telefono 1'],
+                        row['Telefono 2'],
                         row['Ciclo de Ingreso'],
-                        row['Plan de estudios']]
+                        row['Plan de Estudios']]
             registros.append(registro)
         return render_template('subir_excel.html', registros=registros, archivo = archivo)
     except KeyError:
@@ -55,7 +55,7 @@ def subir_excel():
 
 
 @estudiante_bp.route("/upload", methods=['post'])
-def upload():
+def upload(lista):
     data = request.form['data']
     print(data)
     return redirect('/importar_estudiantes')
