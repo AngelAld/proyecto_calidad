@@ -19,7 +19,6 @@
               <th class="col-2 text-center d-none d-xl-table-cell">Código Universitario</th>
               <th class="col-3 text-center">Estudiantes</th>
               <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
-              <th class="col-1 text-center">Editar</th>
               <th class="col-1 text-center">Ver</th>
               <th class="col-1 text-center">Descargar</th>
             </tr>
@@ -47,17 +46,12 @@
                 </form>
               </td>
               <td class="col-1 text-center">
-                {# Pasar el id lo que hay en informe_final_es[0] #}
-                <a href="#" class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
-                  data-bs-title="Editar informe_final_es"><i class="fas fa-edit"></i></a>
-              </td>
-              <td class="col-1 text-center">
-                <a href="#" class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
+                <a href="{{url_for('informe_final_es.editar_informe_final_es', id=informe_final_es[0])}}" class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
                   data-bs-title="Ver informe"><i class="fa fa-eye"></i></i></a>
               </td>
               <td class="col-1 text-center">
                 <a href="#" class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
-                  data-bs-title="Ver informe"><i class="fa fa-download"></i></i></a>
+                  data-bs-title="Descargar Informe"><i class="fa fa-download"></i></i></a>
               </td>
             </tr>
             {% endfor %}

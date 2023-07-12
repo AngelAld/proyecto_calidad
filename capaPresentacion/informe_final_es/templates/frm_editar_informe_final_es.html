@@ -1,0 +1,13 @@
+{% extends "mantenimiento_informe_final_es.html" %}
+{% block titulo %}
+Editar Informe Final Estudiante
+{% endblock %}
+{% set titulo2 = "Agregar Informe Final Estudiante" %}
+
+{% set nombre = estudiante[0] %}
+{% set escuela = estudiante[1] %}
+{% set razon_social = datos_cppp[0] %}
+{% set direccion = datos_cppp[1] %}
+{% set giro = datos_cppp[2] %}
+{% set representante = datos_cppp[4] %}
+{% set url = url_for('informe_final_es.actualizar_informe_final_es') %}
