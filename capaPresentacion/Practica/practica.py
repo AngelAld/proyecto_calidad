@@ -67,6 +67,7 @@ def eliminar_practica_route():
         if mensaje == "Operación realizada con éxito":
             flash(f"Práctica eliminada con éxito", "success")
         else:
+            print(mensaje)
             flash(str(mensaje), "error")
 
         return redirect("/practicas")
