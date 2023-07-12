@@ -110,29 +110,11 @@ def consultar_informe_finales_estudiante(id_informe_final_es):
     except Exception as e:
         print(f"Error al consultar informe inicial: {str(e)}")
 
-def actualizar_informe_final(id_informe_final_es, firma_es, firma_jefe, conclusiones, recomendaciones, bibliografia):
+def actualizar_informe_final(id_informe_final_es, conclusiones, recomendaciones, bibliografia):
     try:
         conexion = obtener_conexion()
         conexion.autocommit = False
         with conexion.cursor() as cursor:
-            sql_firmas = "UPDATE INFORME_FINAL_ES SET fecha = current_date"
-            params_firmas = []
-
-            if firma_es:
-                sql_firmas += ", firma_es = %s"
-                params_firmas.append(firma_es)
-
-            if firma_jefe:
-                sql_firmas += ", firma_jefe = %s"
-                params_firmas.append(firma_jefe)
-
-            sql_firmas += " WHERE id_informe_final_es = %s RETURNING id_detalle_practica"
-            params_firmas.append(id_informe_final_es)
-
-            cursor.execute(sql_firmas, params_firmas)
-
-            id_detalle_practica = cursor.fetchone()[0]
-
             cursor.execute("DELETE FROM CONCLUSION WHERE id_informe_final_es = %s", (id_informe_final_es,))
 
             for conclusion in conclusiones:
@@ -145,8 +127,8 @@ def actualizar_informe_final(id_informe_final_es, firma_es, firma_jefe, conclusi
 
             cursor.execute("DELETE FROM BIBLIOGRAFIA WHERE id_informe_final_es = %s", (id_informe_final_es,))
 
-            for bibliografia in bibliografia:
-                cursor.execute("INSERT INTO BIBLIOGRAFIA (id_informe_final_es, descripcion) VALUES (%s, %s)", (id_informe_final_es, bibliografia))
+            for bibliografia_item in bibliografia:
+                cursor.execute("INSERT INTO BIBLIOGRAFIA (id_informe_final_es, descripcion) VALUES (%s, %s)", (id_informe_final_es, bibliografia_item))
 
         conexion.commit()
         conexion.close()
@@ -156,4 +138,7 @@ def actualizar_informe_final(id_informe_final_es, firma_es, firma_jefe, conclusi
     except Exception as e:
         conexion.rollback()
         return f"Error al actualizar informe: {str(e)}"
+
+
+
 
