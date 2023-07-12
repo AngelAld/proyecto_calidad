@@ -1,7 +1,9 @@
 from capaDatos.bd import obtener_conexion
 import capaNegocio.controlador_usuarios as controlador_usuarios
 from datetime import datetime
-
+import psycopg2
+from psycopg2 import Error
+from psycopg2.errors import UniqueViolation
 
 def getAll():
     conexion = obtener_conexion()
@@ -52,6 +54,7 @@ def delete(id):
     msg = []
     with conexion.cursor() as cursor:
         cursor.execute("SELECT fn_eliminar_estudiante(%s)", (id,))
+        cursor.execute("DELETE FROM ")
         msg = cursor.fetchone()
     conexion.commit()
     conexion.close()
@@ -116,67 +119,181 @@ def obtener_semesteacademico():
     conexion.close()
     return semesteacademico
 
-def obtener_usuario():
-    conexion = obtener_conexion()
-    with conexion.cursor() as cursor:
-        cursor.execute("SELECT id_usuario,usuario from usuario where estado='A'")
-        usuario = cursor.fetchall()
-    conexion.close()
-    return usuario
 
 
 
 
-def importar_estudiantes(registros):
-    conexion = obtener_conexion()
-    msg = ""
+def importar(registros):
+    mensajes = []
+    inserts = []
+    try:
+        conexion = obtener_conexion()
+    except:
+        return "Error al conectar a la base de datos"
     try:
         with conexion.cursor() as cursor:
-            # Buscar el último semestre registrado
-            cursor.execute("SELECT id_semestre, nombre FROM SEMESTRE_ACADEMICO ORDER BY fecha_fin DESC LIMIT 1")
-            ultimo_semestre = cursor.fetchone()
-            # Buscar el último plan de estudios registrado para cada escuela profesional
-            cursor.execute("SELECT id_escuela_profesional, id_plan_estudio FROM PLAN_ESTUDIO WHERE id_plan_estudio IN (SELECT MAX(id_plan_estudio) FROM PLAN_ESTUDIO GROUP BY id_escuela_profesional)")
-            ultimos_planes = cursor.fetchall()
-            ultimos_planes_dict = {plan[0]: plan[1] for plan in ultimos_planes}
-            # Buscar los nombres de las escuelas profesionales registradas
-            cursor.execute("SELECT id_escuela_profesional, nombre FROM ESCUELA_PROFESIONAL")
-            escuelas = cursor.fetchall()
-            escuelas_dict = {escuela[1]: escuela[0] for escuela in escuelas}
-            # Iterar a través de los registros y agregarlos a la tabla estudiante
-            for registro in registros:
-                cod_universitario = registro[0]
-                nombre = registro[1]
-                escuela = registro[2]
-                dni = registro[3]
-                correo_usat = registro[4]
-                correo_personal = registro[5]
-                telefono = registro[6]
-                telefono2 = registro[7]
-                semestre_ingreso = registro[8] if registro[8] else ultimo_semestre[1]
-                plan_estudio = registro[9] if registro[9] else ultimos_planes_dict.get(escuelas_dict.get(escuela))
-                # Comprobar si el estudiante ya existe
-                cursor.execute("SELECT id_estudiante FROM ESTUDIANTE WHERE cod_universitario = %s OR nombre = %s", (cod_universitario, nombre))
-                if cursor.fetchone():
-                    conexion.rollback()
-                    msg += f"El estudiante con Código Universitario {cod_universitario} o nombre {nombre} ya está registrado.\n"
-                    continue
-                # Obtener el id de la escuela profesional
-                id_escuela_profesional = escuelas_dict.get(escuela)
-                if not id_escuela_profesional:
-                    conexion.rollback()
-                    msg += f"No se encontró la escuela profesional {escuela}.\n"
-                    continue
-                # Insertar el estudiante
-                fecha_actual = datetime.utcnow()
-                cursor.execute("INSERT INTO ESTUDIANTE (cod_universitario, dni, nombre, correo_usat, correo_personal, telefono, telefono2, estado, id_usuario, id_semestre_academico_ingreso, id_plan_estudio) VALUES (%s, %s, %s, %s, %s, %s, %s, 'A', 1, %s, %s)", (cod_universitario, dni, nombre, correo_usat, correo_personal, telefono, telefono2, ultimo_semestre[0], plan_estudio))
-                conexion.commit()
-                msg += f"El estudiante {nombre} ha sido registrado exitosamente.\n"
-    except Exception as e:
-        conexion.rollback()
-        msg += f"Error: {str(e)}\n"
-    finally:
+            cursor.execute("select id_escuela_profesional, nombre from escuela_profesional where estado='A'")
+            lista_escuelas = cursor.fetchall()
+            cursor.execute("select id_plan_estudio, nombre, id_escuela_profesional from plan_estudio")
+            lista_planes = cursor.fetchall()
+            cursor.execute("select id_semestre, nombre from semestre_academico")
+            lista_semestres = cursor.fetchall()
         conexion.close()
-    return msg
+    except Exception as e:
+        problema = "Error:" + repr(e).strip("'").replace("\\n", " ") 
+        mensajes.append(['ERROR', 'ERROR', problema])
 
-    
+    for registro in registros:
+        codigo_universitario = registro[0]
+        nombre = registro[1]
+        escuela_profesional = registro[2]
+        dni = registro[3]
+        correo_usat = registro[4]
+        correo_personal = registro[5]
+        telefono1 = registro[6]
+        telefono2 = registro[7]
+        semestre_ingreso = registro[8]
+        plan_estudios = registro[9]
+        
+        problema = ""
+        
+        # Verificar si la escuela profesional existe en la lista
+        escuela_encontrada = False
+        id_escuela_profesional = None
+        for escuela in lista_escuelas:
+            if escuela[1] == escuela_profesional:
+                escuela_encontrada = True
+                id_escuela_profesional = escuela[0]
+                break
+        
+        if not escuela_encontrada:
+            problema = f"No existe la escuela: {escuela_profesional}"
+            mensajes.append([codigo_universitario, nombre, problema])
+            continue
+        
+        # Verificar si el DNI tiene 8 dígitos numéricos
+        if not dni.isdigit() or len(dni) != 8:
+            problema = "El DNI debe tener 8 dígitos numéricos"
+            mensajes.append([codigo_universitario, nombre, problema])
+            continue
+
+        if  len(codigo_universitario) != 10:
+            problema = "El Codigo universitario debe tener 10 caracteres"
+            mensajes.append([codigo_universitario, nombre, problema])
+            continue
+        # Verificar si el correo USAT tiene el dominio correcto
+        if not correo_usat.endswith("@usat.pe"):
+            problema = "El correo USAT debe tener el dominio @usat.pe"
+            mensajes.append([codigo_universitario, nombre, problema])
+            continue
+        
+        # Verificar si el correo personal tiene el formato adecuado
+        if "@" not in correo_personal or "." not in correo_personal:
+            problema = "El correo personal debe contener al menos un '@' y un '.'"
+            mensajes.append([codigo_universitario, nombre, problema])
+            continue
+        
+        # Obtener el ID del plan de estudios
+        id_plan_estudio = None
+        for plan in lista_planes:
+            if plan[1] == plan_estudios and plan[2] == id_escuela_profesional:
+                id_plan_estudio = plan[0]
+                break
+        if id_plan_estudio is None:
+            problema = "Plan de estudios no encontrado, se insertará el ultimo plan de estudios"
+            mensajes.append([codigo_universitario, nombre, problema])
+            id_plan_estudio = lista_planes[-1][0]
+        
+        # Obtener el ID del semestre de ingreso
+        id_semestre_academico_ingreso = None
+        for semestre in lista_semestres:
+            if semestre[1] == semestre_ingreso:
+                id_semestre_academico_ingreso = semestre[0]
+                break
+        if id_semestre_academico_ingreso is None:
+            problema = "Semestre de ingreso no encontrado, se insertará el ultimo semestre"
+            mensajes.append([codigo_universitario, nombre, problema])
+            id_semestre_academico_ingreso = lista_semestres[-1][0]
+        
+        # Generar el comando INSERT INTO
+        columnas_insert = [
+            codigo_universitario,
+            dni,
+            nombre,
+            correo_usat,
+            correo_personal,
+            telefono1,
+            telefono2,
+            'A',
+            id_semestre_academico_ingreso,
+            id_plan_estudio
+        ]
+        inserts.append(columnas_insert)
+    return mensajes, inserts
+
+
+
+
+import psycopg2
+from psycopg2.errors import UniqueViolation
+
+def insertar_importados(inserts):
+    i = 0
+    mensaje = ""
+    problemas = []
+    try:
+        conexion = obtener_conexion()
+    except:
+        return "Error al conectar a la base de datos", []
+    try:
+        conexion.autocommit = False
+        with conexion.cursor() as cursor:
+            cursor.execute("SELECT id_rol FROM ROL WHERE nombre = 'Estudiante'")
+            id_rol = cursor.fetchone()[0]
+            estado = 'A'
+            # Agregar punto de guardado antes de la iteración
+            cursor.execute("SAVEPOINT start")
+            for insert in inserts:
+                codigo_universitario = insert[0]
+                dni = insert[1]
+                nombre = insert[2]
+                correo_usat = insert[3]
+                correo_personal = insert[4]
+                telefono = insert[5]
+                telefono2 = insert[6]
+                id_semestre_academico_ingreso = insert[8]
+                id_plan_estudio = insert[9]
+                try:
+                    # Agregar punto de guardado antes de cada inserción
+                    cursor.execute("SAVEPOINT insert_estudiante")
+                    cursor.execute(f"INSERT INTO ESTUDIANTE (cod_universitario, dni, nombre, correo_usat, correo_personal, telefono, telefono2, estado, id_semestre_academico_ingreso, id_plan_estudio) VALUES ('{codigo_universitario}', '{dni}', '{nombre}', '{correo_usat}', '{correo_personal}', '{telefono}', '{telefono2}', 'A', {id_semestre_academico_ingreso}, {id_plan_estudio});")
+                    clave = ''.join([nombre[:3], codigo_universitario[:3]])
+                    cursor.execute("SAVEPOINT insert_usuario")
+                    cursor.execute("INSERT INTO USUARIO (usuario, nombre, clave, estado, id_rol) VALUES (%s, %s, %s, %s, %s) RETURNING id_usuario", (codigo_universitario, nombre, controlador_usuarios.generate_password(clave), estado, id_rol))
+                    id_usuario = cursor.fetchone()[0]
+                    cursor.execute("UPDATE ESTUDIANTE SET id_usuario = %s WHERE cod_universitario = %s", (id_usuario, str(codigo_universitario)))
+                    i += 1
+                except UniqueViolation as e:
+                    problema = f"Error al importar: Registro duplicado"
+                    problemas.append([codigo_universitario, nombre, problema])
+                    # Deshacer esta subtransacción y seguir con la siguiente
+                    cursor.execute("ROLLBACK TO SAVEPOINT insert_estudiante")
+                except Exception as e:
+                    problema = "Error al importar: " + repr(e).strip("'").replace("\\n", " ")
+                    problemas.append([codigo_universitario, nombre, problema])
+                    # Deshacer esta subtransacción y seguir con la siguiente
+                    cursor.execute("ROLLBACK TO SAVEPOINT insert_estudiante")
+                # Agregar un punto de guardado después de cada inserción exitosa
+                cursor.execute("SAVEPOINT after_insert")
+            # Si todo va bien, hacer commit de la transacción
+            conexion.commit()
+            mensaje = f"Se importaron {i} estudiantes"
+        conexion.close()
+    except Exception as e:
+        conexion.close()
+        mensaje = "Error al importar: " + repr(e).strip("'").replace("\\n", " ")
+        # Si algo falla, deshacer la transacción hasta el último punto de guardado
+        cursor.execute("ROLLBACK TO SAVEPOINT start")
+    finally:
+        return mensaje, problemas
+

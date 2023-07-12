@@ -26,8 +26,8 @@ def subir_excel():
     try:
         archivo = request.files['file']
         df = pd.read_excel(archivo)
-        if not all(col in df.columns for col in ['Codigo Universitario', 'Nombres Completos', 'Escuela Profesional', 'DNI', 'Correo Usat', 'Correo Personal', 'Telefono 1', 'Telefono 2', 'Ciclo de Ingreso', 'Plan de Estudios']):
-            flash('El archivo no tiene la estructura requerida. Asegúrese de que contenga las siguientes columnas: Codigo Universitario, Nombres, Escuela Profesional, DNI, Correo Usat, Correo Personal, telefono 1, telefono 2, Ciclo de Ingreso, Plan de estudios', 'error')
+        if not all(col in df.columns for col in ['Codigo Universitario', 'Nombres Completos', 'Escuela Profesional', 'DNI', 'Correo Usat', 'Correo Personal', 'Telefono 1', 'Telefono 2', 'Semestre de Ingreso', 'Plan de Estudios']):
+            flash('El archivo no tiene la estructura requerida. Asegúrese de que contenga las siguientes columnas: Codigo Universitario, Nombres, Escuela Profesional, DNI, Correo Usat, Correo Personal, telefono 1, telefono 2, Semestre de Ingreso, Plan de estudios', 'error')
             return redirect('/importar_estudiantes')
         registros = []
         for index, row in df.iterrows():
@@ -39,7 +39,7 @@ def subir_excel():
                 row['Correo Personal'],
                 row['Telefono 1'],
                 row['Telefono 2'],
-                row['Ciclo de Ingreso'],
+                row['Semestre de Ingreso'],
                 row['Plan de Estudios']]
             # Reemplazar los valores NaN por '-'
             registro = [str(valor) if pd.notna(valor) else '-' for valor in registro]
@@ -56,14 +56,19 @@ def subir_excel():
         return redirect('/importar_estudiantes')
 
 
-@estudiante_bp.route("/upload/<lista>")
-def upload(lista):
-    new_list = eval(lista)
-    msg = c_estudiante.importar_estudiantes(new_list)
-    return render_template('subir_excel.html', mensaje=msg)
+@estudiante_bp.route("/upload/<registros>", methods=['post'])
+def upload(registros):
+    new_list = eval(registros)
+    problemas1, inserts = c_estudiante.importar(new_list)
+    mensaje, problemas2 = c_estudiante.insertar_importados(inserts)
+    problemas = problemas1 + problemas2
+    return resultados_importacion(problemas, mensaje)
     
     
-
+@estudiante_bp.route("/resultados_importacion")
+def resultados_importacion(problemas, mensaje):
+    flash(str(mensaje), "success")
+    return render_template('subir_excel.html', problemas=problemas)
 
 
 

@@ -35,6 +35,7 @@ CREATE TABLE DETALLE_PRACTICA (
   id_jefe_inmediato     int4 NOT NULL, 
   id_semestre_academico int4 NOT NULL, 
   id_linea_desarrollo   int4 NOT NULL, 
+  tipo_practica         text NOT NULL, 
   PRIMARY KEY (id_detalle_practica));
 CREATE TABLE DIRECTOR_ESCUELA (
   id_director_escuela    SERIAL NOT NULL, 
@@ -71,11 +72,11 @@ CREATE TABLE ESTUDIANTE (
   dni                           char(8) NOT NULL UNIQUE, 
   nombre                        varchar(255) NOT NULL UNIQUE, 
   correo_usat                   varchar(255) NOT NULL UNIQUE, 
-  correo_personal               varchar(255) UNIQUE, 
+  correo_personal               varchar(255), 
   telefono                      varchar(20) NOT NULL UNIQUE, 
-  telefono2                     varchar(20) UNIQUE, 
+  telefono2                     varchar(20), 
   estado                        char(1) NOT NULL, 
-  id_usuario                    int4 NOT NULL, 
+  id_usuario                    int4, 
   id_semestre_academico_ingreso int4, 
   id_plan_estudio               int4, 
   PRIMARY KEY (id_estudiante));
