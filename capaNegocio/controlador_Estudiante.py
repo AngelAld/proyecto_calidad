@@ -34,8 +34,9 @@ def insert(cod_universitario, dni, nombre, correo_usat, correo_personal, telefon
                 # Insertar un nuevo estudiante
                 cursor.execute("INSERT INTO ESTUDIANTE (cod_universitario, dni, nombre, correo_usat, correo_personal, telefono, telefono2, estado, id_usuario, id_semestre_academico_ingreso, id_plan_estudio) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (cod_universitario, dni, nombre, correo_usat, correo_personal, telefono, telefono2, estado, id_usuario, id_semestre_academico_ingreso, id_plan_estudio))
                 
-                controlador_usuarios.enviar_correo(contrasena=clave, nombres=nombre, usuario=cod_universitario, correo=correo_personal)
-                
+                # controlador_usuarios.enviar_correo(contrasena=clave, nombres=nombre, usuario=cod_universitario, correo=correo_personal)
+                # controlador_usuarios.enviar_correo(contrasena=clave, nombres=nombre, usuario=cod_universitario, correo=correo_usat)
+               
                 msg = "Operación realizada con éxito"
                 conexion.commit()
             except Exception as e:
