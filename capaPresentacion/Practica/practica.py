@@ -11,11 +11,6 @@ def formulario_agregar_practica():
         return redirect(url_for("inicio.inicio"))
     else:
         estudiantes, centro_practicas, jefeInmediatos, semestre_academicos, lineaDesarrollos = c_practica.obtener_datos_agregar()
-        # estudiantes = c_practica.obtener_estudiantes()
-        # centro_practicas = c_practica.obtener_centro_practicas()
-        # jefeInmediatos=c_practica.obtener_jefe_inmediato()
-        # semestre_academicos=c_practica.obtener_semestre()
-        # lineaDesarrollos=c_practica.obtener_lineaDesarrollo()
         return render_template("frm_agregar_practica.html",estudiantes=estudiantes,centro_practicas=centro_practicas,jefeInmediatos=jefeInmediatos,semestre_academicos=semestre_academicos,lineaDesarrollos=lineaDesarrollos)
 
 
@@ -81,18 +76,16 @@ def eliminar_detalle_practica():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
-        data = request.get_json()
-        detalle_id = data['id']
-        practica = data['id_practica']
-        deleted = c_practica.eliminar_detalle_practica(detalle_id)
-        if deleted == "Operación realizada con éxito":
-            print('entra primero')
+        detalle_id = request.form["id"]
+        practica = request.form["id_practica"]
+        
+        mensaje = c_practica.eliminar_detalle_practica(detalle_id)
+
+        if mensaje == "Operación realizada con éxito":
             flash("Práctica eliminada con éxito", "success")
             return redirect("/practicas")
         else:
-            print('entra segundo')
-            print(flask.get_flashed_messages())
-            flash(str(deleted), "error")
+            flash(str(mensaje), "error")
             return redirect("/formulario_editar_practica/"+practica)
 
         

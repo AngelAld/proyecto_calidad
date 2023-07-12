@@ -6,7 +6,8 @@
 <div class="text-right mb-3 col-2">
   <select class="form-select" id="selectFormulario" name="selectFormulario">
     {% for detallePractica in detallesPracticas%}
-    <option value="{{ detallePractica[0] }}"> Practica {{ loop.index }} - {% for centro_practica in centro_practicas %} {% if detallePractica[7] == centro_practica[0] %} {{centro_practica[1]}} {% endif %} {% endfor %} </option>
+    <option value="{{ detallePractica[0] }}"> Practica {{ loop.index }} - {% for centro_practica in centro_practicas %}
+      {% if detallePractica[7] == centro_practica[0] %} {{centro_practica[1]}} {% endif %} {% endfor %} </option>
     {% endfor %}
   </select>
 </div>
@@ -29,12 +30,14 @@
 
 
 <div class="formulario" id="{{ detallePractica[0] }}">
-  <form action="{{url}}" method="post">
-    <section class="section">
-      <div class="row">
-        <div class="col">
-          <div class="card">
-            <div class="card-body">
+
+  <section class="section">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+
+            <form action="{{url}}" method="post" id="actualizar_form">
               <div class="form-group mb-4 row">
                 <label for="estudiante" class="col-lg-2 col-form-label">Estudiante:</label>
                 <div class="col-lg-6">
@@ -68,7 +71,8 @@
                   <select class="form-select input" id="centro_practica" name="centro_practica"
                     value="{{centro_practica}}">
                     {% for centro_practica in centro_practicas %}
-                    <option value="{{ centro_practica[0] }}" {% if centro_practica[0]==centro_practica %} selected {% endif %}>{{ centro_practica[1] }}</option>
+                    <option value="{{ centro_practica[0] }}" {% if centro_practica[0]==centro_practica %} selected {%
+                      endif %}>{{ centro_practica[1] }}</option>
                     {% endfor %}
                   </select>
                 </div>
@@ -148,30 +152,36 @@
                 <div class="col d-none d-xl-block">
                 </div>
               </div>
-              <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
-              <span class="eliminar_detalle_practica" data-id="{{detallePractica[0]}}" onclick="eliminar2(this)">
-                <button type="button" class="btn btn-danger" data-bs-toggle="tooltip"
-                  data-bs-title="Eliminar Detalle Practica">
-                  <i class="bi bi-trash-fill"></i>&nbsp;&nbsp;Eliminar
-                </button>
-              </span>
               <input type="hidden" name="id" value="{{detallePractica[0]}}">
               <input type="hidden" value="{{detallePractica[1]}}" name="id_practica">
+            </form>
 
-              <a href="{{ url_for('practica.practicas') }}" class="btn btn-secondary"><i
-                  class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
-            </div>
+
+            <form action="{{ url_for('practica.eliminar_detalle_practica') }}" id="eliminar_form" method="post">
+              <input type="hidden" name="id" value="{{detallePractica[0]}}">
+              <input type="hidden" value="{{detallePractica[1]}}" name="id_practica">
+            </form>
+
+            <button type="submit" form="actualizar_form" class="btn btn-success"><i
+                class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
+            <button type="submit" form="eliminar_form" class="btn btn-danger" data-bs-toggle="tooltip"
+              data-bs-title="Eliminar Detalle Practica" onclick="event.preventDefault(); eliminar2()">
+              <i class="bi bi-trash-fill"></i>&nbsp;&nbsp;Eliminar
+            </button>
+            <a href="{{ url_for('practica.practicas') }}" class="btn btn-secondary"><i
+                class="fas fa-arrow-left"></i></i>&nbsp;&nbsp;Regresar</a>
           </div>
         </div>
-    </section>
-  </form>
+      </div>
+  </section>
+
 </div>
 {% endfor %}
 
 
 
 <script>
-  async function eliminar2(span) {
+  async function eliminar2() {
 
     const result = await Swal.fire({
       title: '¿Estás seguro?',
@@ -184,19 +194,8 @@
     });
 
     if (result.isConfirmed) {
-      // Envía el formulario
-      let id = span.getAttribute("data-id");
-      let id_practica = '{{ id_practica }}'
-      let url = "{{url_for('practica.eliminar_detalle_practica')}}";
-      fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ id, id_practica })
-      }).then(() => {
-        location.reload();
-      });
+      const form = document.getElementById('eliminar_form')
+      form.submit()
     }
 
 

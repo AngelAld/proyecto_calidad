@@ -1,0 +1,28 @@
+# DATOS
+
+## CENTRO PRACTICAS
+
+12345678910
+UNIVERSIDAD CATOLICA SANTO TORIBIO DE MOGROVEJO
+USAT
+Educación
+123456789
+usat@usat.pe
+
+## RESPONSABLE PPP
+
+Ivan Galvez
+ivangc@gmail.com
+123456789
+Jefe de ciberseguridad
+
+## Estudiante
+
+1234567890
+12345678
+Delgado Cabrejos Hugo
+12345678@usat.pe
+12345678@gmail.com
+123456789
+123456789
+

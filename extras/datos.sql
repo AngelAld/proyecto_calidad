@@ -20,9 +20,9 @@ INSERT INTO USUARIO(id_rol, nombre, usuario, clave, estado) VALUES(
 );
 
 --FUNCIONES DE FACULTAD PROBADAS -----------------------------------------------------------------------------------------
-select * from fn_agregar_facultad('Ingenieria', 'AAA', 'A');
+select * from fn_agregar_facultad('Ingenieria', 'Ingenieria', 'A');
 
-select * from fn_agregar_facultad('Medicina', 'AAA', 'A');
+select * from fn_agregar_facultad('Medicina', 'Medicina', 'A');
 
 -- select * from  fn_listar_facultad();
 
