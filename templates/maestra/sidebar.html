@@ -42,7 +42,14 @@
 
       <a class="list-group-item list-group-item-action " href="{{url_for('jefe_inmediato.jefe_inmediato')}}">Responsable de Prácticas PPP</a>
       <a class="list-group-item list-group-item-action " href="{{url_for('centroPPP.centro_PPP')}}">Centro de prácticas</a>
-    </ul>      
+    </ul>
+    <a href="#moduloReportes" data-bs-toggle="collapse" aria-expanded="false"
+      class="list-group-item list-group-item-action fw-bolder flex-wrap"><i class="fas fa-file-alt"></i>
+      <span class="d-none d-sm-inline">Reportes</span></a>
+      <ul class="collapse " id="moduloReportes">
+        <a class="list-group-item list-group-item-action" href="{{url_for('facultad.facultades')}}">Reporte General</a>
+      </ul>
+
   </div>
 
 </div>

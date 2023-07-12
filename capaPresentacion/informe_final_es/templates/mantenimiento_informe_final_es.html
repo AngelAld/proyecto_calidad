@@ -2,164 +2,174 @@
 {% block titulo %} Informe Final Estudiante {% endblock %}
 {% set titulo2 = "Agregar Informe Final Estudiante" %}
 {% block contenido %}
+<form action="{{url}}" method="post" id="formulario" enctype="multipart/form-data">
+  <input type="hidden" name="id_informe_final_es" value="{{informe[0]}}">
   <script>
     function soloLetras(event) {
-        var charCode = event.keyCode || event.which;
-        var charStr = String.fromCharCode(charCode);
-        var pattern = /^[a-zA-Z\ssáéíóúÁÉÍÓÚñÑ]+$/;
-        if (!pattern.test(charStr)) {
-            event.preventDefault();
-            return false;
-        }
+      var charCode = event.keyCode || event.which;
+      var charStr = String.fromCharCode(charCode);
+      var pattern = /^[a-zA-Z\ssáéíóúÁÉÍÓÚñÑ]+$/;
+      if (!pattern.test(charStr)) {
+        event.preventDefault();
+        return false;
+      }
     }
   </script>
-    <div class="container-fluid">
+  <div class="container-fluid">
 
-      <div class="row mt-3">
-          <div class="col-12">
-              <h5>Introducción</h5>
-              <textarea class="form-control" rows="4" placeholder="Ingrese el texto"></textarea>
-          </div>
+    <div class="row mt-3">
+      <div class="col-12">
+        <h5>Introducción</h5>
+        <textarea class="form-control" rows="4" placeholder="Ingrese el texto"></textarea>
       </div>
+    </div>
 
-      <div class="row mt-3">
-          <div class="col-12">
-              <h4>Datos del Estudiante</h4>
-              <form>
-                  <div class="form-group row">
-                      <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
-                      <div class="col-sm-4 mb-4">
-                          <input type="text" class="form-control" id="nombres" value="{{ nombre }}" readonly onkeypress="return soloLetras(event)">
-                      </div>
-                  </div>
-                  <div class="form-group row">
-                      <label for="escuela" class="col-sm-2 col-form-label">Escuela Profesional:</label>
-                      <div class="col-sm-4 mb-4">
-                          <input type="text" class="form-control" id="escuela" value="{{ escuela }}" readonly>
-                      </div>
-                  </div>
-              </form>
+    <div class="row mt-3">
+      <div class="col-12">
+        <h4>Datos del Estudiante</h4>
+        <form>
+          <div class="form-group row">
+            <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
+            <div class="col-sm-4 mb-4">
+              <input type="text" class="form-control" id="nombres" value="{{ nombre }}" readonly
+                onkeypress="return soloLetras(event)">
+            </div>
           </div>
+          <div class="form-group row">
+            <label for="escuela" class="col-sm-2 col-form-label">Escuela Profesional:</label>
+            <div class="col-sm-4 mb-4">
+              <input type="text" class="form-control" id="escuela" value="{{ escuela }}" readonly>
+            </div>
+          </div>
+        </form>
       </div>
+    </div>
 
-      <div class="row mt-3">
-          <div class="col-12">
-              <h4>Descripcion de la institución</h4>
-              <form>
-                  <div class="form-group row">
-                      <label for="razon_social" class="col-sm-2 col-form-label">Razon social:</label>
-                      <div class="col-sm-4 mb-4">
-                          <input type="text" class="form-control" id="razon_social" value="{{ razon_social }}" readonly>
-                      </div>
-                  </div>
-                  <div class="form-group row">
-                      <label for="direccion" class="col-sm-2 col-form-label">Dirección:</label>
-                      <div class="col-sm-4 mb-4">
-                          <input type="text" class="form-control" id="direccion" value="{{ direccion }}" readonly>
-                      </div>
-                  </div>
-                  <div class="form-group row">
-                      <label for="giro" class="col-sm-2 col-form-label">Giro de la institución:</label>
-                      <div class="col-sm-4 mb-4">
-                          <input type="text" class="form-control" id="giro" value="{{ giro }}" readonly>
-                      </div>
-                  </div>
-                  <div class="form-group row">
-                      <label for="representante" class="col-sm-2 col-form-label">Representante legal:</label>
-                      <div class="col-sm-4 mb-4">
-                          <input type="text" class="form-control" id="representante" value="{{ representante }}" readonly>
-                      </div>
-                  </div>
-                  <div class="form-group row">
-                      <label for="cantidad" class="col-sm-2 col-form-label">Cantidad de trabajadores:</label>
-                      <div class="col-sm-4 mb-4">
-                          <input type="text" class="form-control" id="cantidad" >
-                      </div>
-                  </div>
-              </form>
-
-              <div class="row mt-3">
-                  <div class="col-6">
-                      <h5>Misión</h5>
-                      <div class="form-group">
-                          <textarea class="form-control" rows="4" placeholder="Ingrese la mision de la institución" id="mision"></textarea>
-                      </div>
-                  </div>
-                  <div class="col-6">
-                      <h5>Visión</h5>
-                      <div class="form-group">
-                          <textarea class="form-control" rows="4" placeholder="Ingrese la vision de la institución" id="vision"></textarea>
-                      </div>
-                  </div>
-              </div>
-              <div class="row mt-3">
-                  <div class="col-6">
-                      <h5>Infraestructura fisica</h5>
-                      <div class="form-group">
-                          <textarea class="form-control" rows="4" placeholder="Describa la nfraestructura fisica de la institución" id="infraFisica"></textarea>
-                      </div>
-                  </div>
-                  <div class="col-6">
-                      <h5>Infraestructura tecnológica</h5>
-                      <div class="form-group">
-                          <textarea class="form-control" rows="4" placeholder="Describa la infraestructura tecnologica de la institución" id="infraTecnologica"></textarea>
-                      </div>
-                  </div>
-              </div>  
+    <div class="row mt-3">
+      <div class="col-12">
+        <h4>Descripcion de la institución</h4>
+        <form>
+          <div class="form-group row">
+            <label for="razon_social" class="col-sm-2 col-form-label">Razon social:</label>
+            <div class="col-sm-4 mb-4">
+              <input type="text" class="form-control" id="razon_social" value="{{ razon_social }}" readonly>
+            </div>
           </div>
-      </div>
-
-      <div class="row mt-3">
-          <div class="col-md-3">
-              <h5 class="">Subir Organigrama</h5>
-              <input class="form-control" type="file" id="fileOrganigrama">
+          <div class="form-group row">
+            <label for="direccion" class="col-sm-2 col-form-label">Dirección:</label>
+            <div class="col-sm-4 mb-4">
+              <input type="text" class="form-control" id="direccion" value="{{ direccion }}" readonly>
+            </div>
           </div>
-      </div>
-
-      <div class="row mt-3">
-          <div class="col-12 ">
-              <h5>Labores del estudiante</h5>
-              <textarea class="form-control mb-4" rows="4" placeholder="Descripcion y detalle del area de trabajo y relaciones laborales" id="areaTrabajo"></textarea>
-              <textarea class="form-control " rows="4" placeholder="Descripcion y detalle  de las labores realizadas" id="laboresRealizadas"></textarea>
+          <div class="form-group row">
+            <label for="giro" class="col-sm-2 col-form-label">Giro de la institución:</label>
+            <div class="col-sm-4 mb-4">
+              <input type="text" class="form-control" id="giro" value="{{ giro }}" readonly>
+            </div>
           </div>
-      </div>
-
-      <!-- CODIGO DE CONCLUSIONES -------------------------------------------------------------------------------------------------------->
-
-      <div class="row mt-3">
-        <div class="col-12">
-          <div class="d-flex justify-content-between align-items-center">
-            <h5>Conclusiones</h5>
-
+          <div class="form-group row">
+            <label for="representante" class="col-sm-2 col-form-label">Representante legal:</label>
+            <div class="col-sm-4 mb-4">
+              <input type="text" class="form-control" id="representante" value="{{ representante }}" readonly>
+            </div>
           </div>
-          <form>
-            <table class="table" id="tablaConclusiones">
-              <thead class="bg-light">
-                <tr>
-                  <th class="col-1">Número</th>
-                  <th class="col-11">Conclusiones</th>
-                  <th class="col-1 text-center">Eliminar</th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-          </form>
-            <a href="#" class="btn btn-success" id="btnAgregarConclusion">
-              <i class="fas fa-plus-circle"></i>&nbsp;Agregar
-            </a>
+          <div class="form-group row">
+            <label for="cantidad" class="col-sm-2 col-form-label">Cantidad de trabajadores:</label>
+            <div class="col-sm-4 mb-4">
+              <input type="text" class="form-control" id="cantidad">
+            </div>
+          </div>
+        </form>
+
+        <div class="row mt-3">
+          <div class="col-6">
+            <h5>Misión</h5>
+            <div class="form-group">
+              <textarea class="form-control" rows="4" placeholder="Ingrese la mision de la institución"
+                id="mision"></textarea>
+            </div>
+          </div>
+          <div class="col-6">
+            <h5>Visión</h5>
+            <div class="form-group">
+              <textarea class="form-control" rows="4" placeholder="Ingrese la vision de la institución"
+                id="vision"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-6">
+            <h5>Infraestructura fisica</h5>
+            <div class="form-group">
+              <textarea class="form-control" rows="4" placeholder="Describa la nfraestructura fisica de la institución"
+                id="infraFisica"></textarea>
+            </div>
+          </div>
+          <div class="col-6">
+            <h5>Infraestructura tecnológica</h5>
+            <div class="form-group">
+              <textarea class="form-control" rows="4"
+                placeholder="Describa la infraestructura tecnologica de la institución"
+                id="infraTecnologica"></textarea>
+            </div>
+          </div>
         </div>
       </div>
-      
-      <script>
-        const btnAgregarConclusion = document.getElementById('btnAgregarConclusion');
-        const tablaConclusiones = document.getElementById('tablaConclusiones');
-        let contadorFilas = 0;
-      
-        btnAgregarConclusion.addEventListener('click', (event) => {
-          event.preventDefault();
-          contadorFilas++;
-          const nuevaFila = `
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-3">
+        <h5 class="">Subir Organigrama</h5>
+        <input class="form-control" type="file" id="fileOrganigrama">
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-12 ">
+        <h5>Labores del estudiante</h5>
+        <textarea class="form-control mb-4" rows="4"
+          placeholder="Descripcion y detalle del area de trabajo y relaciones laborales" id="areaTrabajo"></textarea>
+        <textarea class="form-control " rows="4" placeholder="Descripcion y detalle  de las labores realizadas"
+          id="laboresRealizadas"></textarea>
+      </div>
+    </div>
+
+    <!-- CODIGO DE CONCLUSIONES -------------------------------------------------------------------------------------------------------->
+
+    <div class="row mt-3">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5>Conclusiones</h5>
+
+        </div>
+        <form>
+          <table class="table" id="tablaConclusiones">
+            <thead class="bg-light">
+              <tr>
+                <th class="col-1">Número</th>
+                <th class="col-11">Conclusiones</th>
+                <th class="col-1 text-center">Eliminar</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </form>
+        <a href="#" class="btn btn-success" id="btnAgregarConclusion">
+          <i class="fas fa-plus-circle"></i>&nbsp;Agregar
+        </a>
+      </div>
+    </div>
+
+    <script>
+      const btnAgregarConclusion = document.getElementById('btnAgregarConclusion');
+      const tablaConclusiones = document.getElementById('tablaConclusiones');
+      let contadorFilas = 0;
+
+      btnAgregarConclusion.addEventListener('click', (event) => {
+        event.preventDefault();
+        contadorFilas++;
+        const nuevaFila = `
             <tr>
               <th class="col-1 numero-fila" scope="row">${contadorFilas}</th>
               <td class="col-11">
@@ -172,73 +182,69 @@
               </td>
             </tr>
           `;
-          tablaConclusiones.querySelector('tbody').insertAdjacentHTML('beforeend', nuevaFila);
-      
-          const botonesEliminar = tablaConclusiones.querySelectorAll('.btnEliminar');
-          botonesEliminar.forEach((btnEliminar) => {
-            btnEliminar.addEventListener('click', eliminarFila);
-          });
-      
-          actualizarNumerosFilas();
+        tablaConclusiones.querySelector('tbody').insertAdjacentHTML('beforeend', nuevaFila);
+
+        const botonesEliminar = tablaConclusiones.querySelectorAll('.btnEliminar');
+        botonesEliminar.forEach((btnEliminar) => {
+          btnEliminar.addEventListener('click', eliminarFila);
         });
-      
-        function eliminarFila(event) {
-          event.preventDefault();
-          const fila = event.target.closest('tr');
-          fila.remove();
-          actualizarNumerosFilas();
-        }
-      
-        function actualizarNumerosFilas() {
-          const celdasNumeros = tablaConclusiones.querySelectorAll('.numero-fila');
-          celdasNumeros.forEach((celda, index) => {
-            celda.textContent = index + 1;
-            const input = celda.nextElementSibling.querySelector('input');
-            input.placeholder = `Ingrese la conclusión ${index + 1}`;
-          });
-        }
-      </script>
-      
-      
-      
 
-      <!-- CODIGO DE Recomendaciones --------------------------------------------------------------------------------------------------->
+        actualizarNumerosFilas();
+      });
 
-      <div class="row mt-3">
-        <div class="col-12">
-          <div class="d-flex justify-content-between align-items-center">
-            <h5>Recomendaciones</h5>
-          </div>
-          <form>
-            <table class="table" id="tablaRecomendaciones">
-              <thead class="bg-light">
-                <tr>
-                  <th class="col-1">Número</th>
-                  <th class="col-11">Recomendaciones</th>
-                  <th class="col-1 text-center">Eliminar</th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-          </form>
-          <div>
-            <a href="#" class="btn btn-success" id="btnAgregarRecomendacion">
-              <i class="fas fa-plus-circle"></i>&nbsp;Agregar
-            </a>
-          </div>
+      function eliminarFila(event) {
+        event.preventDefault();
+        const fila = event.target.closest('tr');
+        fila.remove();
+        actualizarNumerosFilas();
+      }
+
+      function actualizarNumerosFilas() {
+        const celdasNumeros = tablaConclusiones.querySelectorAll('.numero-fila');
+        celdasNumeros.forEach((celda, index) => {
+          celda.textContent = index + 1;
+          const input = celda.nextElementSibling.querySelector('input');
+          input.placeholder = `Ingrese la conclusión ${index + 1}`;
+        });
+      }
+    </script>
+    <!-- CODIGO DE Recomendaciones --------------------------------------------------------------------------------------------------->
+
+    <div class="row mt-3">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5>Recomendaciones</h5>
+        </div>
+        <form>
+          <table class="table" id="tablaRecomendaciones">
+            <thead class="bg-light">
+              <tr>
+                <th class="col-1">Número</th>
+                <th class="col-11">Recomendaciones</th>
+                <th class="col-1 text-center">Eliminar</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </form>
+        <div>
+          <a href="#" class="btn btn-success" id="btnAgregarRecomendacion">
+            <i class="fas fa-plus-circle"></i>&nbsp;Agregar
+          </a>
         </div>
       </div>
-      
-      <script>
-        const btnAgregarRecomendacion = document.getElementById('btnAgregarRecomendacion');
-        const tablaRecomendaciones = document.getElementById('tablaRecomendaciones');
-        let contadorFilas1 = 0;
-      
-        btnAgregarRecomendacion.addEventListener('click', (event) => {
-          event.preventDefault();
-          contadorFilas1++;
-          const nuevaFila = `
+    </div>
+
+    <script>
+      const btnAgregarRecomendacion = document.getElementById('btnAgregarRecomendacion');
+      const tablaRecomendaciones = document.getElementById('tablaRecomendaciones');
+      let contadorFilas1 = 0;
+
+      btnAgregarRecomendacion.addEventListener('click', (event) => {
+        event.preventDefault();
+        contadorFilas1++;
+        const nuevaFila = `
             <tr>
               <th scope="row" class="numero-fila">${contadorFilas1}</th>
               <td>
@@ -251,74 +257,75 @@
               </td>
             </tr>
           `;
-          tablaRecomendaciones.querySelector('tbody').insertAdjacentHTML('beforeend', nuevaFila);
-          const botonesEliminar = tablaRecomendaciones.querySelectorAll('.btnEliminarRecomendacion');
-          botonesEliminar.forEach((btnEliminar) => {
-            btnEliminar.addEventListener('click', eliminarFilaRecomendacion);
-          });
-          actualizarNumerosFilasRecomendacion();
+        tablaRecomendaciones.querySelector('tbody').insertAdjacentHTML('beforeend', nuevaFila);
+        const botonesEliminar = tablaRecomendaciones.querySelectorAll('.btnEliminarRecomendacion');
+        botonesEliminar.forEach((btnEliminar) => {
+          btnEliminar.addEventListener('click', eliminarFilaRecomendacion);
         });
-      
-        function eliminarFilaRecomendacion(event) {
-          event.preventDefault();
-          const fila = event.target.closest('tr');
-          fila.remove();
-          actualizarNumerosFilasRecomendacion();
-          actualizarPlaceholdersRecomendaciones();
-        }
-      
-        function actualizarNumerosFilasRecomendacion() {
-          const celdasNumeros = tablaRecomendaciones.querySelectorAll('.numero-fila');
-          celdasNumeros.forEach((celda, index) => {
-            celda.textContent = index + 1;
-          });
-        }
-      
-        function actualizarPlaceholdersRecomendaciones() {
-          const inputsRecomendaciones = tablaRecomendaciones.querySelectorAll('.input-recomendacion');
-          inputsRecomendaciones.forEach((input, index) => {
-            input.placeholder = `Ingrese la recomendación ${index + 1}`;
-          });
-        }
-      </script>
+        actualizarNumerosFilasRecomendacion();
+      });
 
-<!-- CODIGO DE Bibliografía -------------------------------------------------------------------------------------------------------->
+      function eliminarFilaRecomendacion(event) {
+        event.preventDefault();
+        const fila = event.target.closest('tr');
+        fila.remove();
+        actualizarNumerosFilasRecomendacion();
+        actualizarPlaceholdersRecomendaciones();
+      }
 
-<div class="row mt-3">
-  <div class="col-12">
-    <div class="d-flex justify-content-between align-items-center">
-      <h5>Bibliografía</h5>
+      function actualizarNumerosFilasRecomendacion() {
+        const celdasNumeros = tablaRecomendaciones.querySelectorAll('.numero-fila');
+        celdasNumeros.forEach((celda, index) => {
+          celda.textContent = index + 1;
+        });
+      }
+
+      function actualizarPlaceholdersRecomendaciones() {
+        const inputsRecomendaciones = tablaRecomendaciones.querySelectorAll('.input-recomendacion');
+        inputsRecomendaciones.forEach((input, index) => {
+          input.placeholder = `Ingrese la recomendación ${index + 1}`;
+        });
+      }
+    </script>
+
+    <!-- CODIGO DE Bibliografía -------------------------------------------------------------------------------------------------------->
+
+    <div class="row mt-3">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5>Bibliografía</h5>
+        </div>
+        <form>
+          <table class="table" id="tablaBibliografia">
+            <thead class="bg-light">
+              <tr>
+                <th class="col-1">Número</th>
+                <th class="col-11">Bibliografía</th>
+                <th class="col-1 text-center">Eliminar</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </form>
+        <div>
+          <a href="#" class="btn btn-success" id="btnAgregarBibliografia">
+            <i class="fas fa-plus-circle"></i>&nbsp;Agregar
+          </a>
+        </div>
+      </div>
     </div>
-    <form>
-      <table class="table" id="tablaBibliografia">
-        <thead class="bg-light">
-          <tr>
-            <th class="col-1">Número</th>
-            <th class="col-11">Bibliografía</th>
-            <th class="col-1 text-center">Eliminar</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-    </form>
-    <div>
-      <a href="#" class="btn btn-success" id="btnAgregarBibliografia">
-        <i class="fas fa-plus-circle"></i>&nbsp;Agregar
-      </a>
-    </div>
-  </div>
-</div>
 
-<script>
-  const btnAgregarBibliografia = document.getElementById('btnAgregarBibliografia');
-  const tablaBibliografia = document.getElementById('tablaBibliografia');
-  let contadorFilasBibliografia = 0;
 
-  btnAgregarBibliografia.addEventListener('click', (event) => {
-    event.preventDefault();
-    contadorFilasBibliografia++;
-    const nuevaFila = `
+    <script>
+      const btnAgregarBibliografia = document.getElementById('btnAgregarBibliografia');
+      const tablaBibliografia = document.getElementById('tablaBibliografia');
+      let contadorFilasBibliografia = 0;
+
+      btnAgregarBibliografia.addEventListener('click', (event) => {
+        event.preventDefault();
+        contadorFilasBibliografia++;
+        const nuevaFila = `
       <tr>
         <th class="col-1" scope="row">${contadorFilasBibliografia}</th>
         <td class="col-11">
@@ -331,62 +338,62 @@
         </td>
       </tr>
     `;
-    tablaBibliografia.querySelector('tbody').insertAdjacentHTML('beforeend', nuevaFila);
-    const botonesEliminar = tablaBibliografia.querySelectorAll('.btnEliminarBibliografia');
-    botonesEliminar.forEach((btnEliminar) => {
-      btnEliminar.addEventListener('click', eliminarFilaBibliografia);
-    });
-  });
+        tablaBibliografia.querySelector('tbody').insertAdjacentHTML('beforeend', nuevaFila);
+        const botonesEliminar = tablaBibliografia.querySelectorAll('.btnEliminarBibliografia');
+        botonesEliminar.forEach((btnEliminar) => {
+          btnEliminar.addEventListener('click', eliminarFilaBibliografia);
+        });
+      });
 
-  function eliminarFilaBibliografia(event) {
-    event.preventDefault();
-    const fila = event.target.closest('tr');
-    fila.remove();
-  }
-</script>
+      function eliminarFilaBibliografia(event) {
+        event.preventDefault();
+        const fila = event.target.closest('tr');
+        fila.remove();
+      }
+    </script>
 
-<!-- CODIGO DE ANEXOS ----------------------------------------->
+    <!-- CODIGO DE ANEXOS ----------------------------------------->
 
-<div class="row mt-3">
-  <div class="col-6">
-    <div class="d-flex justify-content-between align-items-center">
-      <h5>Anexos</h5>
+    <div class="row mt-3">
+      <div class="col-6">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5>Anexos</h5>
+        </div>
+        <form>
+          <table class="table table-responsive-md" id="tablaAnexos">
+            <thead class="bg-light">
+              <tr>
+                <th class="col-1">Número</th>
+                <th class="col-1">Anexos</th>
+                <th class="col-1 text-center">Subir</th>
+                <th class="col-1 text-center">Ver</th>
+                <th class="col-1 text-center">Eliminar</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </form>
+        <div>
+          <a href="#" class="btn btn-success" id="btnAgregarAnexo">
+            <i class="fas fa-plus-circle"></i>&nbsp;Agregar
+          </a>
+        </div>
+      </div>
     </div>
-    <form>
-      <table class="table table-responsive-md" id="tablaAnexos">
-        <thead class="bg-light">
-          <tr>
-            <th class="col-1">Número</th>
-            <th class="col-1">Anexos</th>
-            <th class="col-1 text-center">Subir</th>
-            <th class="col-1 text-center">Ver</th>
-            <th class="col-1 text-center">Eliminar</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-    </form>
-    <div>
-      <a href="#" class="btn btn-success" id="btnAgregarAnexo">
-        <i class="fas fa-plus-circle"></i>&nbsp;Agregar
-      </a>
-    </div>
-  </div>
-</div>
 
-<script>
-  const btnAgregarAnexo = document.querySelector('#btnAgregarAnexo');
-  const tablaAnexos = document.querySelector('#tablaAnexos');
+    <script>
+      const btnAgregarAnexo = document.querySelector('#btnAgregarAnexo');
+      const tablaAnexos = document.querySelector('#tablaAnexos');
 
-  let contadorAnexos = 0;
+      let contadorAnexos = 0;
 
-  btnAgregarAnexo.addEventListener('click', (event) => {
-    event.preventDefault();
+      btnAgregarAnexo.addEventListener('click', (event) => {
+        event.preventDefault();
 
-    contadorAnexos++;
+        contadorAnexos++;
 
-    const nuevaFila = `
+        const nuevaFila = `
       <tr>
         <th scope="row" class="numero-anexo">${contadorAnexos}</th>
         <td>Anexo ${contadorAnexos}</td>
@@ -403,65 +410,66 @@
       </tr>
     `;
 
-    tablaAnexos.querySelector('tbody').insertAdjacentHTML('beforeend', nuevaFila);
-    actualizarNumerosAnexos();
-    const botonesEliminarAnexo = tablaAnexos.querySelectorAll('.btnEliminarAnexo');
-    botonesEliminarAnexo.forEach((btnEliminar) => {
-      btnEliminar.addEventListener('click', eliminarFilaAnexo);
-    });
-  });
+        tablaAnexos.querySelector('tbody').insertAdjacentHTML('beforeend', nuevaFila);
+        actualizarNumerosAnexos();
+        const botonesEliminarAnexo = tablaAnexos.querySelectorAll('.btnEliminarAnexo');
+        botonesEliminarAnexo.forEach((btnEliminar) => {
+          btnEliminar.addEventListener('click', eliminarFilaAnexo);
+        });
+      });
 
-  function subirAnexo(event, numAnexo) {
-    event.preventDefault();
-    const inputAnexo = document.getElementById(`anexo${numAnexo}`);
-    inputAnexo.click();
-    inputAnexo.addEventListener('change', () => {
-      const nombreAnexo = inputAnexo.files[0].name;
-      const spanNombreAnexo = document.getElementById(`nombreAnexo${numAnexo}`);
-      spanNombreAnexo.textContent = nombreAnexo;
-    });
-  }
+      function subirAnexo(event, numAnexo) {
+        event.preventDefault();
+        const inputAnexo = document.getElementById(`anexo${numAnexo}`);
+        inputAnexo.click();
+        inputAnexo.addEventListener('change', () => {
+          const nombreAnexo = inputAnexo.files[0].name;
+          const spanNombreAnexo = document.getElementById(`nombreAnexo${numAnexo}`);
+          spanNombreAnexo.textContent = nombreAnexo;
+        });
+      }
 
-  function eliminarFilaAnexo(event) {
-    event.preventDefault();
-    const fila = event.target.closest('tr');
-    fila.remove();
-    actualizarNumerosAnexos();
-    actualizarNombresAnexos();
-  }
+      function eliminarFilaAnexo(event) {
+        event.preventDefault();
+        const fila = event.target.closest('tr');
+        fila.remove();
+        actualizarNumerosAnexos();
+        actualizarNombresAnexos();
+      }
 
-  function actualizarNumerosAnexos() {
-    const filasAnexos = tablaAnexos.querySelectorAll('tbody tr');
-    filasAnexos.forEach((fila, index) => {
-      const numeroAnexo = fila.querySelector('.numero-anexo');
-      numeroAnexo.textContent = index + 1;
-    });
-  }
+      function actualizarNumerosAnexos() {
+        const filasAnexos = tablaAnexos.querySelectorAll('tbody tr');
+        filasAnexos.forEach((fila, index) => {
+          const numeroAnexo = fila.querySelector('.numero-anexo');
+          numeroAnexo.textContent = index + 1;
+        });
+      }
 
-  function actualizarNombresAnexos() {
-    const filasAnexos = tablaAnexos.querySelectorAll('tbody tr');
-    filasAnexos.forEach((fila, index) => {
-      const nombreAnexo = fila.querySelector('td:nth-child(2)');
-      nombreAnexo.textContent = `Anexo ${index + 1}`;
-    });
-  }
-</script>
+      function actualizarNombresAnexos() {
+        const filasAnexos = tablaAnexos.querySelectorAll('tbody tr');
+        filasAnexos.forEach((fila, index) => {
+          const nombreAnexo = fila.querySelector('td:nth-child(2)');
+          nombreAnexo.textContent = `Anexo ${index + 1}`;
+        });
+      }
+    </script>
 
 
-<!-- CODIGO DE GUARDAR ------------------------------------------------------>
-<div class="row mt-3">
-  <div class="col-12 text-center">
-    <button onclick="event.preventDefault(); confirmar_form()" type="submit" class="btn btn-success"><i
-        class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
-    <a href="{{url_for('informe_final_es.informe_final_es')}}"
-      onclick="event.preventDefault(); confirmar_volver(this)" class="btn btn-danger mx-2"><i
-        class="fa fa-times"></i>&nbsp;&nbsp;Cancelar</a>
-  </div>
-  <div class="mt-3">
+    <!-- CODIGO DE GUARDAR ------------------------------------------------------>
+    <div class="row mt-3">
+      <div class="col-12 text-center">
+        <button onclick="event.preventDefault(); confirmar_form()" type="submit" class="btn btn-success"><i
+            class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
+        <a href="{{url_for('informe_final_es.informe_final_es')}}"
+          onclick="event.preventDefault(); confirmar_volver(this)" class="btn btn-danger mx-2"><i
+            class="fa fa-times"></i>&nbsp;&nbsp;Cancelar</a>
+      </div>
+      <div class="mt-3">
 
-  </div>
-</div>
-  {% endblock%}
+      </div>
+    </div>
+</form>
+{% endblock%}
 {% block scripts %}
 <script>
   async function confirmar_form() {
