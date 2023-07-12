@@ -28,14 +28,14 @@
         <form>
           <div class="form-group row">
             <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
-            <div class="col-sm-4">
-              <input type="text" class="form-control" id="nombres" readonly onkeypress="return soloLetras(event)">
+            <div class="col-sm-4 mb-4">
+              <input type="text" class="form-control" id="nombres" value="{{ nombre }}"  readonly onkeypress="return soloLetras(event)">
             </div>
           </div>
           <div class="form-group row">
             <label for="escuela" class="col-sm-2 col-form-label">Escuela Profesional:</label>
-            <div class="col-sm-4">
-              <input type="text" class="form-control" id="escuela" readonly>
+            <div class="col-sm-4 mb-4">
+              <input type="text" class="form-control" id="escuela" value="{{ escuela }}" readonly>
             </div>
           </div>
           <div class="form-group row">
@@ -58,25 +58,25 @@
           <div class="form-group row">
             <label for="razon_social" class="col-sm-2 col-form-label">Razon social:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="razon_social" readonly>
+              <input type="text" class="form-control" id="razon_social" value="{{ razon_social }}" readonly>
             </div>
           </div>
           <div class="form-group row">
             <label for="direccion" class="col-sm-2 col-form-label">Dirección:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="direccion" readonly>
+              <input type="text" class="form-control" id="direccion" value="{{ direccion }}" readonly>
             </div>
           </div>
           <div class="form-group row">
             <label for="giro" class="col-sm-2 col-form-label">Giro de la institución:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="giro" readonly>
+              <input type="text" class="form-control" id="giro" value="{{ giro }}" readonly>
             </div>
           </div>
           <div class="form-group row">
             <label for="representante" class="col-sm-2 col-form-label">Representante legal:</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="representante" readonly>
+              <input type="text" class="form-control" id="representante" value="{{ representante }}" readonly>
             </div>
           </div>
           <div class="form-group row">
