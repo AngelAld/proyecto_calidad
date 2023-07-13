@@ -106,5 +106,5 @@ def obtener_centro_practicas():
         centro_PPP = cursor.fetchall() #verificar si está así
     conexion.close()
     return centro_PPP #verificar si está así
-
+##
 #***************************************************************
