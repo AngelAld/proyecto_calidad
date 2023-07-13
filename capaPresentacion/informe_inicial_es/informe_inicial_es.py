@@ -178,18 +178,13 @@ def generar_pdf_iie(id):
         informe=informe,
     )
 
-    # Definir la hoja de estilo CSS personalizada para establecer los márgenes
-    style_css = 'body { margin: 0; }'
 
-    # Crear un objeto HTML a partir de la plantilla
     html = HTML(string=template_html)
 
     # Crear un objeto CSS a partir de la hoja de estilo personalizada
-    css = CSS(string=style_css)
 
     # Generar el PDF a partir del objeto HTML y la lista de objetos CSS
-    pdf_bytes = html.write_pdf(page_size=(8.5, 11, 'in'),
-    margin=(0.5, 0.5, 0.5, 0.5, 'in'),)
+    pdf_bytes = html.write_pdf()
 
     # Devolver el PDF generado como una respuesta HTTP
     response = make_response(pdf_bytes)
