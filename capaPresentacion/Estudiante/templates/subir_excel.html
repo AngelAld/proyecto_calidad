@@ -30,17 +30,39 @@
 
         </div>
     </div>
-    {% if mensaje %}
-    <div class="card">
-        <div class="card-body">
-            {{mensaje}}
-        </div>
+    {% if problemas %}
+    <div class="mb-4">
+        <p class="h4">Ocurrieron los siguientes errores al importar Estudiantes:</p>
+    </div>
+    <div>
+        <table class="table table-hover align-middle table-bordered" id="tablita">
+            <thead>
+                <tr class="table-danger">
+                    <th>Codigo Universitario</th>
+                    <th>Estudiante</th>
+                    <th>Problema</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                {% for problema in problemas %}
+                <tr>
+                    <td class="col-2">{{ problema[0] }}</td>
+                    <td class="col-2">{{ problema[1] }}</td>
+                    <td class="col-6">{{ problema[2] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
     </div>
     {% endif %}
 
 
     {% if registros %}
-    <div class="row">
+    <div class="row mt-2">
+        <div>
+            <p class="h4">Estudiantes a importar:</p>
+        </div>
         <div class="col">
 
         </div>
@@ -49,9 +71,12 @@
                 <div class="col text-end">
                     <input id="searchbar" class="form-control" type="text" placeholder="Buscar">
                 </div>
+
                 <div class="col-auto">
-                    <a href="{{url_for('estudiante.upload', lista=registros)}}" onclick="ocultarTabla()" class="btn btn-success"><i
-                            class="fa fa-upload" aria-hidden="true"></i>&nbsp;Importar</a>
+                    <form action="{{url_for('estudiante.upload', registros=registros)}}" , method="post">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-upload"
+                                aria-hidden="true"></i>&nbsp;Importar</button>
+                    </form>
                 </div>
                 <div class="col-auto">
                     <a href="{{url_for('estudiante.estudiante')}}" class="btn btn-secondary"><i

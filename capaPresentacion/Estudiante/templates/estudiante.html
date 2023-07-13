@@ -23,7 +23,7 @@
           <thead>
             <tr class="table-danger">
 
-              <th class="col-2 text-center">Cod universitario</th>
+              <th class="col-2 text-center">Codigo universitario</th>
               <th class="col-2 text-center">DNI</th>
               <th class="col-2 text-center">Nombre</th>
               <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
@@ -34,9 +34,9 @@
           <tbody>
             {% for estudiante in estudiante %}
             <tr>
-              <td class="col-2 text-center">{{estudiante[1]}}</td>
-              <td class="col-2 text-center">{{estudiante[2]}}</td>
-              <td class="col-2 text-center">{{estudiante[3]}}</td>
+              <td class="col-2 align=left">{{estudiante[1]}}</td>
+              <td class="col-2 align=left">{{estudiante[2]}}</td>
+              <td class="col-2 align=left">{{estudiante[3]}}</td>
               <td class="col-1 text-center d-none d-md-table-cell">
                 <form action="{{url_for('estudiante.actualizar_estado')}}" method="POST" class="actualizar_estado">
                   <input type="hidden" name="id" value="{{estudiante[0]}}">
