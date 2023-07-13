@@ -15,6 +15,7 @@ def allowed_file(filename):
     return '.' in filename and \
         filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+
 @informe_inicial_em_bp.route("/empresas/informes_iniciales")
 def informe_inicial_em():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
@@ -35,6 +36,7 @@ def informe_inicial_em():
 def frm_editar_informe_inicial_em(id):
     print(c_informe_inicial_em.consultar_informe_iniciales_empresa(id))
     return redirect(url_for("inicio.inicio"))  
+
 
 
 @informe_inicial_em_bp.route("/actualizar_estado_informe_inicial_em", methods=["POST"])
