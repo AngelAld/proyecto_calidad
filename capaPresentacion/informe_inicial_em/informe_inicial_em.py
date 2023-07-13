@@ -166,7 +166,6 @@ def generar_pdf_iie(id):
     response.headers["Content-Disposition"] = "inline; filename=informe_inicial.pdf"
     return response    
 
-
 def convertir_fecha(fecha):
     try:
         fecha_str = fecha.strftime('%Y-%m-%d')
