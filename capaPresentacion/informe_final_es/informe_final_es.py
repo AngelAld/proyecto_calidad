@@ -69,20 +69,32 @@ def actualizar_informe_final_es():
         return redirect(url_for("inicio.inicio"))
     else:
         id_informe_final_es = request.form['id_informe_final_es']
+        introduccion = request.form['introduccion']
+        cantidad_trabajadores = request.form['cant_trabajadores']
+        mision = request.form['mision']
+        vision = request.form['vision']
+        infra_fisica = request.form['infraFisica']
+        infra_tecnologica = request.form['infraTecnologica']
+        desc_labores_r = request.form['laboresEstudiante']
         conclusiones = request.form.getlist('conclusion[]')
         recomendaciones = request.form.getlist('recomendacion[]')
         bibliografia = request.form.getlist('bibliografia[]')
 
-        mensaje = c_informe_final_es.actualizar_informe_final(id_informe_final_es, conclusiones, recomendaciones, bibliografia)
+        mensaje = c_informe_final_es.actualizar_informe_final(id_informe_final_es, introduccion, cantidad_trabajadores, mision, vision, infra_fisica, infra_tecnologica, desc_labores_r, conclusiones, recomendaciones, bibliografia)
 
+        print(mensaje)
         if mensaje == "Operación realizada con éxito":
             flash("Informe Final Actualizado con Éxito", "success")
-            url = "/estudiante/informes_finales"
+            url = url_for("informe_final_es.informe_final_es")
         else:
             flash(mensaje, "error")
-            url = "/estudiante/editar_informe_final/" + id_informe_final_es
+            url = url_for("informe_final_es.editar_informe_final_es", id=id_informe_final_es)
 
         return redirect(url)
+
+
+
+
 
 
 
