@@ -119,6 +119,7 @@ def actualizar_informe_inicial_em():
         return redirect(url)
 
 
+
 @informe_inicial_em_bp.route("/empresas/informe_inicial/generar_pdf/<int:id>")
 def generar_pdf_iie(id):
     (
