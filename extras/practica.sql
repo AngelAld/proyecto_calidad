@@ -257,7 +257,8 @@ RETURNS TABLE (
     id_semestre_academico INTEGER,
     horas INTEGER,
     id_jefe_inmediato INTEGER,
-    informacion_adicional TEXT
+    informacion_adicional TEXT,
+    tipo_practica TEXT
 )
 LANGUAGE plpgsql
 AS $function$
@@ -275,7 +276,8 @@ BEGIN
         dp.id_semestre_academico,
         dp.horas,
         dp.id_jefe_inmediato,
-        dp.informacion_adicional
+        dp.informacion_adicional,
+        dp.tipo_practica
     FROM
         practica p
     INNER JOIN

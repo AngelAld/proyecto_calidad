@@ -25,10 +25,11 @@ def guardar_practica():
         id_semestre_academico = request.form["semestreAcademico"]
         id_jefe_inmediato = request.form["jefeInmediato"]
         informacion_adicional = request.form["informacionAdicional"]
+        tipo_practica = request.form["tipo_practica"]
     try:
         mensaje = c_practica.agregar_practica(
             id_estudiante, estado, id_linea_desarrollo, id_semestre_academico, id_jefe_inmediato,
-            informacion_adicional
+            informacion_adicional, tipo_practica
         )
 
         flash("Práctica registrada con éxito", "success")
@@ -117,8 +118,8 @@ def actualizar_practica():
         id_semestre_academico = request.form.get("semestreAcademico")
         id_jefe_inmediato = request.form.get("jefeInmediato")
         informacion_adicional = request.form.get("informacionAdicional")
-
-        mensaje = c_practica.actualizar_practica(id_d_practica, id_linea_desarrollo, id_jefe_inmediato, informacion_adicional, estado, id_semestre_academico)
+        tipo_practica = request.form["tipo_practica"]
+        mensaje = c_practica.actualizar_practica(id_d_practica, id_linea_desarrollo, id_jefe_inmediato, informacion_adicional, estado, id_semestre_academico, tipo_practica)
 
         if mensaje == "Operación realizada con éxito":
             flash("Práctica actualizada con éxito", "success")

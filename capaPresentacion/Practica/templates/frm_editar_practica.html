@@ -22,10 +22,10 @@
 {% set jefe_inmediato = detallePractica[10] %}
 {% set semestre = detallePractica[8] %}
 {% set linea_desarrollo = detallePractica[4] %}
-
 {% set horas = detallePractica[9] %}
 {% set informacion_adicional = detallePractica[11] %}
 {% set estado = detallePractica[3] %}
+{% set tipo_practica = detallePractica[12] %}
 {% set url = url_for('practica.actualizar_practica') %}
 
 
@@ -141,12 +141,22 @@
                 </div>
               </div>
               <div class="form-group mb-4 row">
+                <label for="estado" class="col-lg-2 col-form-label">Tipo de practica:</label>
+                <div class="col-lg-6">
+                  <select class="form-select input" id="tipo_practica" name="tipo_practica">
+                    <option value="Regular" {% if estado == 'Regular' %} selected {% endif %}>Regular</option>
+                    <option value="Convalidada" {% if estado == 'Convalidada' %} selected {% endif %}>Convalidada</option>
+                  </select>
+                </div>
+                <div class="col d-none d-xl-block">
+                </div>
+              </div>
+              <div class="form-group mb-4 row">
                 <label for="estado" class="col-lg-2 col-form-label">Estado:</label>
                 <div class="col-lg-6">
                   <select class="form-select input" id="estado" name="estado" value="{{estado}}">
-                    <option value="P">En Proceso</option>
-                    <option value="F">Finalizado</option>
-                    <option value="O">Otro estado</option>
+                    <option value="P" {% if estado == 'P' %} selected {% endif %}>En Proceso</option>
+                    <option value="F" {% if estado == 'F' %} selected {% endif %}>Finalizado</option>
                   </select>
                 </div>
                 <div class="col d-none d-xl-block">
