@@ -135,8 +135,8 @@ def generar_pdf_iie(id):
     informe = list(informe)
 
     informe[5] = convertir_fecha(informe[5])
-    datos_practica[0] = convertir_fecha(datos_practica[1])
-    datos_practica[1] = convertir_fecha(datos_practica[2])
+    datos_practica[0] = convertir_fecha(datos_practica[0])
+    datos_practica[1] = convertir_fecha(datos_practica[1])
 
     # Crear una nueva plantilla HTML a partir de la original
     template_html = render_template(
