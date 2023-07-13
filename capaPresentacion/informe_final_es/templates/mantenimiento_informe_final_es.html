@@ -2,7 +2,7 @@
 {% block titulo %} Informe Final Estudiante {% endblock %}
 {% set titulo2 = "Agregar Informe Final Estudiante" %}
 {% block contenido %}
-<form action="{{url}}" method="POST" id="formulario" enctype="multipart/form-data">
+<form action="{{url}}" method="post" id="formulario" enctype="multipart/form-data">
   <input type="hidden" name="id_informe_final_es" value="{{informe[0]}}">
   <script>
     function soloLetras(event) {
@@ -16,99 +16,103 @@
     }
   </script>
   <div class="container-fluid">
+
     <div class="row mt-3">
       <div class="col-12">
         <h5>Introducción</h5>
-        <textarea class="form-control" rows="4" placeholder="Ingrese el texto" name="introduccion">{{ introduccion }}</textarea>
+        <textarea class="form-control" rows="4" placeholder="Ingrese el texto"></textarea>
       </div>
     </div>
 
     <div class="row mt-3">
       <div class="col-12">
         <h4>Datos del Estudiante</h4>
-        <div class="form-group row">
-          <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
-          <div class="col-sm-4 mb-4">
-            <input type="text" class="form-control" id="nombres" value="{{ nombre }}" readonly onkeypress="return soloLetras(event)">
+        <form>
+          <div class="form-group row">
+            <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
+            <div class="col-sm-4 mb-4">
+              <input type="text" class="form-control" id="nombres" value="{{ nombre }}" readonly
+                onkeypress="return soloLetras(event)">
+            </div>
           </div>
-        </div>
-        <div class="form-group row">
-          <label for="escuela" class="col-sm-2 col-form-label">Escuela Profesional:</label>
-          <div class="col-sm-4 mb-4">
-            <input type="text" class="form-control" id="escuela" value="{{ escuela }}" readonly>
+          <div class="form-group row">
+            <label for="escuela" class="col-sm-2 col-form-label">Escuela Profesional:</label>
+            <div class="col-sm-4 mb-4">
+              <input type="text" class="form-control" id="escuela" value="{{ escuela }}" readonly>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
 
     <div class="row mt-3">
       <div class="col-12">
         <h4>Descripcion de la institución</h4>
-        <div class="form-group row">
-          <label for="razon_social" class="col-sm-2 col-form-label">Razon social:</label>
-          <div class="col-sm-4 mb-4">
-            <input type="text" class="form-control" id="razon_social" value="{{ razon_social }}" readonly>
+        <form>
+          <div class="form-group row">
+            <label for="razon_social" class="col-sm-2 col-form-label">Razon social:</label>
+            <div class="col-sm-4 mb-4">
+              <input type="text" class="form-control" id="razon_social" value="{{ razon_social }}" readonly>
+            </div>
           </div>
-        </div>
-        <div class="form-group row">
-          <label for="direccion" class="col-sm-2 col-form-label">Dirección:</label>
-          <div class="col-sm-4 mb-4">
-            <input type="text" class="form-control" id="direccion" value="{{ direccion }}" readonly>
+          <div class="form-group row">
+            <label for="direccion" class="col-sm-2 col-form-label">Dirección:</label>
+            <div class="col-sm-4 mb-4">
+              <input type="text" class="form-control" id="direccion" value="{{ direccion }}" readonly>
+            </div>
           </div>
-        </div>
-        <div class="form-group row">
-          <label for="giro" class="col-sm-2 col-form-label">Giro de la institución:</label>
-          <div class="col-sm-4 mb-4">
-            <input type="text" class="form-control" id="giro" value="{{ giro }}" readonly>
+          <div class="form-group row">
+            <label for="giro" class="col-sm-2 col-form-label">Giro de la institución:</label>
+            <div class="col-sm-4 mb-4">
+              <input type="text" class="form-control" id="giro" value="{{ giro }}" readonly>
+            </div>
           </div>
-        </div>
-        <div class="form-group row">
-          <label for="representante" class="col-sm-2 col-form-label">Representante legal:</label>
-          <div class="col-sm-4 mb-4">
-            <input type="text" class="form-control" id="representante" value="{{ representante }}" readonly>
+          <div class="form-group row">
+            <label for="representante" class="col-sm-2 col-form-label">Representante legal:</label>
+            <div class="col-sm-4 mb-4">
+              <input type="text" class="form-control" id="representante" value="{{ representante }}" readonly>
+            </div>
           </div>
-        </div>
-        <div class="form-group row">
-          <label for="cantidad" class="col-sm-2 col-form-label">Cantidad de trabajadores:</label>
-          <div class="col-sm-4 mb-4">
-            <input type="text" class="form-control" id="cantidad" name="cant_trabajadores">
+          <div class="form-group row">
+            <label for="cantidad" class="col-sm-2 col-form-label">Cantidad de trabajadores:</label>
+            <div class="col-sm-4 mb-4">
+              <input type="text" class="form-control" id="cantidad">
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </form>
 
-    <div class="row mt-3">
-      <div class="col-12">
-        <h5>Misión</h5>
-        <div class="form-group">
-          <textarea class="form-control" rows="4" placeholder="Ingrese la misión de la institución" id="mision" name="mision"></textarea>
+        <div class="row mt-3">
+          <div class="col-6">
+            <h5>Misión</h5>
+            <div class="form-group">
+              <textarea class="form-control" rows="4" placeholder="Ingrese la mision de la institución"
+                id="mision"></textarea>
+            </div>
+          </div>
+          <div class="col-6">
+            <h5>Visión</h5>
+            <div class="form-group">
+              <textarea class="form-control" rows="4" placeholder="Ingrese la vision de la institución"
+                id="vision"></textarea>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-
-    <div class="row mt-3">
-      <div class="col-12">
-        <h5>Visión</h5>
-        <div class="form-group">
-          <textarea class="form-control" rows="4" placeholder="Ingrese la visión de la institución" id="vision" name="vision"></textarea>
-        </div>
-      </div>
-    </div>
-
-    <div class="row mt-3">
-      <div class="col-12">
-        <h5>Infraestructura física</h5>
-        <div class="form-group">
-          <textarea class="form-control" rows="4" placeholder="Describa la infraestructura física de la institución" id="infraFisica" name="infraFisica"></textarea>
-        </div>
-      </div>
-    </div>
-
-    <div class="row mt-3">
-      <div class="col-12">
-        <h5>Infraestructura tecnológica</h5>
-        <div class="form-group">
-          <textarea class="form-control" rows="4" placeholder="Describa la infraestructura tecnológica de la institución" id="infraTecnologica" name="infraTecnologica"></textarea>
+        <div class="row mt-3">
+          <div class="col-6">
+            <h5>Infraestructura fisica</h5>
+            <div class="form-group">
+              <textarea class="form-control" rows="4" placeholder="Describa la nfraestructura fisica de la institución"
+                id="infraFisica"></textarea>
+            </div>
+          </div>
+          <div class="col-6">
+            <h5>Infraestructura tecnológica</h5>
+            <div class="form-group">
+              <textarea class="form-control" rows="4"
+                placeholder="Describa la infraestructura tecnologica de la institución"
+                id="infraTecnologica"></textarea>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -123,8 +127,10 @@
     <div class="row mt-3">
       <div class="col-12 ">
         <h5>Labores del estudiante</h5>
-        <textarea class="form-control mb-4" rows="4" placeholder="Descripción y detalle del área de trabajo y relaciones laborales" id="areaTrabajo" name="laboresEstudiante"></textarea>
-        <textarea class="form-control" rows="4" placeholder="Descripción y detalle de las labores realizadas" id="laboresRealizadas"></textarea>
+        <textarea class="form-control mb-4" rows="4"
+          placeholder="Descripcion y detalle del area de trabajo y relaciones laborales" id="areaTrabajo"></textarea>
+        <textarea class="form-control " rows="4" placeholder="Descripcion y detalle  de las labores realizadas"
+          id="laboresRealizadas"></textarea>
       </div>
     </div>
 
@@ -134,18 +140,21 @@
       <div class="col-12">
         <div class="d-flex justify-content-between align-items-center">
           <h5>Conclusiones</h5>
+
         </div>
-        <table class="table" id="tablaConclusiones">
-          <thead class="bg-light">
-            <tr>
-              <th class="col-1">Número</th>
-              <th class="col-11">Conclusiones</th>
-              <th class="col-1 text-center">Eliminar</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
+        <form>
+          <table class="table" id="tablaConclusiones">
+            <thead class="bg-light">
+              <tr>
+                <th class="col-1">Número</th>
+                <th class="col-11">Conclusiones</th>
+                <th class="col-1 text-center">Eliminar</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </form>
         <a href="#" class="btn btn-success" id="btnAgregarConclusion">
           <i class="fas fa-plus-circle"></i>&nbsp;Agregar
         </a>
@@ -164,7 +173,7 @@
             <tr>
               <th class="col-1 numero-fila" scope="row">${contadorFilas}</th>
               <td class="col-11">
-                <input type="text" class="form-control" placeholder="Ingrese la conclusión ${contadorFilas}" name="conclusion[]" required>
+                <input type="text" class="form-control" placeholder="Ingrese la conclusión ${contadorFilas}">
               </td>
               <td class="col-1 text-center">
                 <button class="btn btn-danger btn-sm btnEliminar">
@@ -206,17 +215,19 @@
         <div class="d-flex justify-content-between align-items-center">
           <h5>Recomendaciones</h5>
         </div>
-        <table class="table" id="tablaRecomendaciones">
-          <thead class="bg-light">
-            <tr>
-              <th class="col-1">Número</th>
-              <th class="col-11">Recomendaciones</th>
-              <th class="col-1 text-center">Eliminar</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
+        <form>
+          <table class="table" id="tablaRecomendaciones">
+            <thead class="bg-light">
+              <tr>
+                <th class="col-1">Número</th>
+                <th class="col-11">Recomendaciones</th>
+                <th class="col-1 text-center">Eliminar</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </form>
         <div>
           <a href="#" class="btn btn-success" id="btnAgregarRecomendacion">
             <i class="fas fa-plus-circle"></i>&nbsp;Agregar
@@ -237,7 +248,7 @@
             <tr>
               <th scope="row" class="numero-fila">${contadorFilas1}</th>
               <td>
-                <input type="text" class="form-control input-recomendacion" placeholder="Ingrese la recomendación ${contadorFilas1}" name="recomendacion[]" required>
+                <input type="text" class="form-control input-recomendacion" placeholder="Ingrese la recomendación ${contadorFilas1}">
               </td>
               <td class="col-1 text-center">
                 <button class="btn btn-danger btn-sm btnEliminarRecomendacion">
@@ -259,12 +270,20 @@
         const fila = event.target.closest('tr');
         fila.remove();
         actualizarNumerosFilasRecomendacion();
+        actualizarPlaceholdersRecomendaciones();
       }
 
       function actualizarNumerosFilasRecomendacion() {
         const celdasNumeros = tablaRecomendaciones.querySelectorAll('.numero-fila');
         celdasNumeros.forEach((celda, index) => {
           celda.textContent = index + 1;
+        });
+      }
+
+      function actualizarPlaceholdersRecomendaciones() {
+        const inputsRecomendaciones = tablaRecomendaciones.querySelectorAll('.input-recomendacion');
+        inputsRecomendaciones.forEach((input, index) => {
+          input.placeholder = `Ingrese la recomendación ${index + 1}`;
         });
       }
     </script>
@@ -276,17 +295,19 @@
         <div class="d-flex justify-content-between align-items-center">
           <h5>Bibliografía</h5>
         </div>
-        <table class="table" id="tablaBibliografia">
-          <thead class="bg-light">
-            <tr>
-              <th class="col-1">Número</th>
-              <th class="col-11">Bibliografía</th>
-              <th class="col-1 text-center">Eliminar</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
+        <form>
+          <table class="table" id="tablaBibliografia">
+            <thead class="bg-light">
+              <tr>
+                <th class="col-1">Número</th>
+                <th class="col-11">Bibliografía</th>
+                <th class="col-1 text-center">Eliminar</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </form>
         <div>
           <a href="#" class="btn btn-success" id="btnAgregarBibliografia">
             <i class="fas fa-plus-circle"></i>&nbsp;Agregar
@@ -308,7 +329,7 @@
       <tr>
         <th class="col-1" scope="row">${contadorFilasBibliografia}</th>
         <td class="col-11">
-          <input type="text" class="form-control" placeholder="Ingrese la bibliografía ${contadorFilasBibliografia}" name="bibliografia[]" required>
+          <input type="text" class="form-control" placeholder="Ingrese la bibliografía ${contadorFilasBibliografia}">
         </td>
         <td class="col-1 text-center">
           <button class="btn btn-danger btn-sm btnEliminarBibliografia">
@@ -338,22 +359,24 @@
         <div class="d-flex justify-content-between align-items-center">
           <h5>Anexos</h5>
         </div>
-        <table class="table table-responsive-md" id="tablaAnexos" name="anexos">
-          <thead class="bg-light">
-            <tr>
-              <th class="col-1">Número</th>
-              <th class="col-1">Anexos</th>
-              <th class="col-1 text-center">Subir</th>
-              <th class="col-1 text-center">Ver</th>
-              <th class="col-1 text-center">Eliminar</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
+        <form>
+          <table class="table table-responsive-md" id="tablaAnexos">
+            <thead class="bg-light">
+              <tr>
+                <th class="col-1">Número</th>
+                <th class="col-1">Anexos</th>
+                <th class="col-1 text-center">Subir</th>
+                <th class="col-1 text-center">Ver</th>
+                <th class="col-1 text-center">Eliminar</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </form>
         <div>
           <a href="#" class="btn btn-success" id="btnAgregarAnexo">
-            <i class="fas fa-plus-circle" ></i>&nbsp;Agregar
+            <i class="fas fa-plus-circle"></i>&nbsp;Agregar
           </a>
         </div>
       </div>
@@ -375,7 +398,7 @@
         <th scope="row" class="numero-anexo">${contadorAnexos}</th>
         <td>Anexo ${contadorAnexos}</td>
         <td class="text-center">
-          <input type="file" id="anexo${contadorAnexos}" class="form-control-file input-anexo" style="display: none;" name="anexo[]" required>
+          <input type="file" id="anexo${contadorAnexos}" class="form-control-file input-anexo" style="display: none;">
           <button onclick="subirAnexo(event, ${contadorAnexos})" class="btn btn-primary btn-sm"><i class="bi bi-upload"></i></button>
         </td>
         <td class="text-center">
@@ -467,50 +490,85 @@
     }
 
     // Verificar campos vacíos en la tabla Recomendaciones
-    const filasRecomendaciones = tablaRecomendaciones.rows;
-    for (let i = 1; i < filasRecomendaciones.length; i++) {
-      const recomendacion = filasRecomendaciones[i].cells[1].querySelector("input");
-      if (recomendacion.value === "") {
-        camposVacios = true;
-        break;
+    if (!camposVacios) {
+      const filasRecomendaciones = tablaRecomendaciones.rows;
+      for (let i = 1; i < filasRecomendaciones.length; i++) {
+        const recomendacion = filasRecomendaciones[i].cells[1].querySelector("input");
+        if (recomendacion.value === "") {
+          camposVacios = true;
+          break;
+        }
       }
     }
 
     // Verificar campos vacíos en la tabla Bibliografía
-    const filasBibliografia = tablaBibliografia.rows;
-    for (let i = 1; i < filasBibliografia.length; i++) {
-      const bibliografia = filasBibliografia[i].cells[1].querySelector("input");
-      if (bibliografia.value === "") {
-        camposVacios = true;
-        break;
+    if (!camposVacios) {
+      const filasBibliografia = tablaBibliografia.rows;
+      for (let i = 1; i < filasBibliografia.length; i++) {
+        const bibliografia = filasBibliografia[i].cells[1].querySelector("input");
+        if (bibliografia.value === "") {
+          camposVacios = true;
+          break;
+        }
       }
     }
 
     // Verificar campos vacíos en la tabla Anexos
-    const filasAnexos = tablaAnexos.rows;
-    for (let i = 1; i < filasAnexos.length; i++) {
-      const anexo = filasAnexos[i].cells[2].querySelector("input");
-      if (anexo.files.length === 0) {
-        camposVacios = true;
-        break;
+    if (!camposVacios) {
+      const filasAnexos = tablaAnexos.rows;
+      for (let i = 1; i < filasAnexos.length; i++) {
+        const inputAnexo = filasAnexos[i].querySelector(".input-anexo");
+        if (inputAnexo.files.length === 0) {
+          camposVacios = true;
+          break;
+        }
       }
     }
 
     if (camposVacios) {
-      const confirmacion = confirm("Hay campos vacíos en el formulario. ¿Desea continuar?");
-      if (!confirmacion) {
-        return;
+      Swal.fire({
+        title: 'Error',
+        text: 'Por favor, complete todos los campos',
+        icon: 'error',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'OK'
+      });
+    } else {
+      const result = await Swal.fire({
+        title: '¿Guardar cambios?',
+        text: 'Los cambios se guardarán y podrá continuar editando más tarde si lo desea.',
+        icon: 'warning',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Si',
+        reverseButtons: false
+      });
+
+      if (result.isConfirmed) {
+        document.getElementById("formulario").submit();
       }
     }
-
-    document.getElementById("formulario").submit();
   }
 
-  function confirmar_volver(element) {
-    const confirmacion = confirm("¿Desea cancelar y volver a la lista de informes?");
-    if (confirmacion) {
-      window.location.href = element.href;
-    }
+  async function confirmar_volver(enlace) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Todos los cambios no guardados se perderán',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = enlace.href;
+      }
+    });
   }
 </script>
+
+
 {% endblock %}

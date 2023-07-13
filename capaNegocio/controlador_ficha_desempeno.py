@@ -53,21 +53,25 @@ def consultar_ficha_desempeno(id_ficha_desempeno):
         with conexion.cursor() as cursor:
             # Obtener nombre y código universitario del estudiante
             cursor.execute("""
-                SELECT
+                SELECT 
                     ESTUDIANTE.nombre AS nombre_estudiante,
                     ESCUELA_PROFESIONAL.nombre AS nombre_escuela_profesional,
                     DETALLE_PRACTICA.fecha_inicio AS fecha_inicio_practica,
                     DETALLE_PRACTICA.fecha_fin AS fecha_fin_practica
-                FROM
+                FROM 
                     ESTUDIANTE
-                    JOIN PRACTICA ON ESTUDIANTE.id_estudiante = PRACTICA.id_estudiante
-                    JOIN DETALLE_PRACTICA ON PRACTICA.id_practica = DETALLE_PRACTICA.id_practica
-                    JOIN INFORME_INICIAL_ES ON DETALLE_PRACTICA.id_detalle_practica = INFORME_INICIAL_ES.id_detalle_practica
-                    JOIN INFORME_FINAL_ES ON DETALLE_PRACTICA.id_detalle_practica = INFORME_FINAL_ES.id_detalle_practica
-                    JOIN ESCUELA_PROFESIONAL ON ESTUDIANTE.id_plan_estudio = ESCUELA_PROFESIONAL.id_escuela_profesional
-                    JOIN FICHA_DESEMPENO ON DETALLE_PRACTICA.id_detalle_practica = FICHA_DESEMPENO.id_detalle_practica
-                WHERE
-                    FICHA_DESEMPENO.id_ficha_desempeno = %s;
+                JOIN 
+                    PRACTICA ON ESTUDIANTE.id_estudiante = PRACTICA.id_estudiante
+                JOIN 
+                    DETALLE_PRACTICA ON PRACTICA.id_practica = DETALLE_PRACTICA.id_practica
+                JOIN 
+                    INFORME_INICIAL_ES ON DETALLE_PRACTICA.id_detalle_practica = INFORME_INICIAL_ES.id_detalle_practica
+                JOIN 
+                    INFORME_FINAL_ES ON DETALLE_PRACTICA.id_detalle_practica = INFORME_FINAL_ES.id_detalle_practica
+                JOIN 
+                    ESCUELA_PROFESIONAL ON ESTUDIANTE.id_plan_estudio = ESCUELA_PROFESIONAL.id_escuela_profesional
+                WHERE 
+                    ESTUDIANTE.id_estudiante = %s;
 
             """, (id_ficha_desempeno,))
             estudiante = cursor.fetchone()
