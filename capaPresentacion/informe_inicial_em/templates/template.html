@@ -141,7 +141,8 @@
         </div>
         <div class="signatures">
 
-            <div class="signature">
+
+            <div class="signature" style="text-align: center;">
                 {% if firma_em %}
                 <img src="{{ url_for('static', filename=firma_em.split('static/')[1], _external=True )}}"
                     alt="firma del jefe" width="250" height="200">
@@ -149,6 +150,7 @@
                 <div><strong>{{jefe}}</strong></div>
                 <div><strong>{{cargo_jefe}}</strong></div>
             </div>
+            
         </div>
     </div>
 </body>
