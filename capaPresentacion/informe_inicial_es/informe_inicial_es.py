@@ -7,9 +7,9 @@ import weasyprint
 from weasyprint import HTML, CSS
 
 
-
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 UPLOAD_FOLDER = 'static/files/iie'
+
 
 informe_inicial_es_bp = Blueprint(
     "informe_inicial_es", __name__, template_folder="templates"
