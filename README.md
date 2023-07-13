@@ -16,7 +16,7 @@ py -3 -m venv .venv # crea el entorno virtual de python (importante, si no lo ha
 
 .venv\Scripts\activate # inicia el entorno virtual
 
-pip install Flask psycopg2 pandas weasyprint openpyxl # instala las dependencias 
+pip install Flask psycopg2 pandas weasyprint openpyxl # instala las dependencias
 
 ```
 
