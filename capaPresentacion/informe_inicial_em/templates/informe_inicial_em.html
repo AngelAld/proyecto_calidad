@@ -20,7 +20,9 @@
               <th class="col-3 text-center">Empresas</th>
               <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
               <th class="col-1 text-center">{% if session['rol']=="Docente de Apoyo" %}Ver{% else %}Editar{% endif %}</th>
+              <th class="col-1 text-center">Descargar</th>
             </tr>
+            
           </thead>
           <tbody>
             {% for informe in informes %}
@@ -40,7 +42,6 @@
                   {% else %}
                   <button type="button" class="estado btn ls-button btn-success" data-bs-toggle="tooltip"
                     data-bs-title="Revocar aprobación" onclick="event.preventDefault(); checkbox(this.parentNode)">
-
                     <i class="bi bi-check-square-fill"></i>
                   </button>
                   {% endif %}
@@ -57,6 +58,10 @@
                   data-bs-title="Editar informe"><i class="fas fa-edit"></i></a>
                 {% endif %}
 
+              </td>
+              <td class="col-1 text-center">
+                <a href="{{url_for('informe_inicial_em.generar_pdf_iie', id=informe[0])}}"  target="_blank" class="text-center btn btn-primary ls-button" data-bs-toggle="tooltip"
+                  data-bs-title="Ver informe"><i class="fa fa-download"></i></i></a>
               </td>
             </tr>
             {% endfor %}
