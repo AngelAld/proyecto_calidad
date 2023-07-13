@@ -95,7 +95,7 @@ def actualizar_estado_docente(id, estado):
 def obtener_titulo():
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT id_titulo, nombre FROM TITULO_PROFESIONAL")
+        cursor.execute("SELECT id_titulo, nombre FROM TITULO_PROFESIONAL where estado = 'A'")
         titulo = cursor.fetchall()
     conexion.close()
     return titulo
@@ -103,7 +103,7 @@ def obtener_titulo():
 def obtener_escuela_profesional():
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT id_escuela_profesional, nombre FROM ESCUELA_PROFESIONAL")
+        cursor.execute("SELECT id_escuela_profesional, nombre FROM ESCUELA_PROFESIONAL where estado = 'A'")
         escuelaprofesional = cursor.fetchall()
     conexion.close()
     return escuelaprofesional
