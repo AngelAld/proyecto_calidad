@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template, request, redirect, flash, session, url_for
+from flask import Blueprint, render_template, request, redirect, flash, session, url_for, make_response
 from capaNegocio import controlador_informe_inicial_em as c_informe_inicial_em
 import os
+from datetime import datetime, date
 from werkzeug.utils import secure_filename
 import weasyprint
 from weasyprint import HTML, CSS
