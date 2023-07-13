@@ -53,7 +53,7 @@ def consultar_ficha_desempeno(id_ficha_desempeno):
         with conexion.cursor() as cursor:
             # Obtener nombre y código universitario del estudiante
             cursor.execute("""
-                SELECT
+                                SELECT
                     ESTUDIANTE.nombre AS nombre_estudiante,
                     ESCUELA_PROFESIONAL.nombre AS nombre_escuela_profesional,
                     DETALLE_PRACTICA.fecha_inicio AS fecha_inicio_practica,
