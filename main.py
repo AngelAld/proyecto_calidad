@@ -17,6 +17,7 @@ from capaPresentacion.informe_final_em.informe_final_em import informe_final_em_
 from capaPresentacion.informe_final_es.informe_final_es import informe_final_es_bp
 from capaPresentacion.Jefe_Inmediato.jefe_inmediato import jefe_inmediato_bp
 from capaPresentacion.tituloProfesional.titulo_profesional import titulo_profesional_bp
+from capaPresentacion.Reporte_Informes_Finalizados.reporte_informes_finalizados import informes_finales_bp
 
 app = Flask(__name__)
 app.secret_key = "nose"
@@ -38,6 +39,7 @@ app.register_blueprint(informe_final_em_bp)
 app.register_blueprint(informe_final_es_bp)
 app.register_blueprint(jefe_inmediato_bp)
 app.register_blueprint(titulo_profesional_bp)
+app.register_blueprint(informes_finales_bp)
 
 
 # @app.errorhandler(404)
