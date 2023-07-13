@@ -85,22 +85,18 @@ def actualizar_informe_inicial_em():
         firma_es = ""
         
         if 'firma_empresa' in request.files:
-            print('entro 1')
             f = request.files['firma_empresa']
             print(f)
             if f.filename != '':
-                print('entro 2')
                 print(f)
                 filename = secure_filename(f.filename)
                 f.save(os.path.join(UPLOAD_FOLDER, filename))
                 firma_em = os.path.join(UPLOAD_FOLDER, filename)
 
         if 'firma_estudiante' in request.files:
-            print('entro 1')
             f = request.files['firma_estudiante']
             print(f)
             if f.filename != '':
-                print('entro 2')
                 filename = secure_filename(f.filename)
                 f.save(os.path.join(UPLOAD_FOLDER, filename))
                 firma_es = os.path.join(UPLOAD_FOLDER, filename)
@@ -147,24 +143,18 @@ def generar_pdf_iie(id):
         informe=informe,
     )
 
-    # Definir la hoja de estilo CSS personalizada para establecer los márgenes
-    style_css = 'body { margin: 0; }'
-
-    # Crear un objeto HTML a partir de la plantilla
     html = HTML(string=template_html)
 
-    # Crear un objeto CSS a partir de la hoja de estilo personalizada
-    css = CSS(string=style_css)
 
     # Generar el PDF a partir del objeto HTML y la lista de objetos CSS
-    pdf_bytes = html.write_pdf(page_size=(8.5, 11, 'in'),
-    margin=(0.5, 0.5, 0.5, 0.5, 'in'),)
+    pdf_bytes = html.write_pdf()
 
     # Devolver el PDF generado como una respuesta HTTP
     response = make_response(pdf_bytes)
     response.headers["Content-Type"] = "application/pdf"
     response.headers["Content-Disposition"] = "inline; filename=informe_inicial.pdf"
     return response    
+
 
 def convertir_fecha(fecha):
     try:

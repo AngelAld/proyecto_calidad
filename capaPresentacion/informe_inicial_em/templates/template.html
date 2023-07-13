@@ -14,56 +14,143 @@
 {% set id_detalle_practica = informe[7] %}
 
 
-<p style="text-align: center;"><strong>INFORME INICIAL SOBRE PR&Aacute;CTICAS PRE PROFESIONALES</strong></p>
-<p style="text-align: center;"><strong>(ELABORADO POR LA EMPRESA/INSTITUCI&Oacute;N)</strong></p>
-<p style="text-align: center;"><strong>&nbsp;</strong></p>
-<ol>
-<li><strong>Nombre de la Empresa/Instituci&oacute;n</strong></li>
-</ol>
-<p style="padding-left: 40px;">{{razon_social}}</p>
-<ol start="2">
-<li><strong>Persona de la Empresa/Instituci&oacute;n responsable de la pr&aacute;ctica</strong></li>
-</ol>
-<p style="padding-left: 40px;">{{jefe}}</p>
-<ol start="3">
-<li><strong>Cargo que ocupa</strong></li>
-</ol>
-<p style="padding-left: 40px;">{{cargo_jefe}}</p>
-<ol start="4">
-<li><strong>Nombres y apellidos y del estudiante</strong></li>
-</ol>
-<p style="padding-left: 40px;">{{nombre}}</p>
-<ol start="5">
-<li><strong>Fecha de inicio de la pr&aacute;ctica</strong></li>
-</ol>
-<p style="padding-left: 40px;">{{fecha_inicio}}</p>
-<ol start="6">
-<li><strong>Fecha de t&eacute;rmino de la pr&aacute;ctica</strong></li>
-</ol>
-<p style="padding-left: 40px;">{{fecha_fin}}</p>
-<ol start="7">
-<li><strong>Aceptaci&oacute;n por parte de la Empresa/Instituci&oacute;n para la realizaci&oacute;n de la pr&aacute;ctica y compromiso para atender al estudiante durante toda la ejecuci&oacute;n</strong></li>
-</ol>
-<p style="padding-left: 40px;">{{compromiso}}</p>
-<ol start="8">
-<li><strong>Labores del practicante</strong></li>
-</ol>
-<p style="padding-left: 40px;">{{labores}}</p>
-<ol start="9">
-<li><strong>Fecha, firma del responsable y sello de la Empresa/Instituci&oacute;n</strong></li>
-</ol>
-<div style="display: flex; flex-direction: row;">
+<!DOCTYPE html>
+<html lang="es">
 
-  <img src="{{firma_es}}" alt="firma" width="400" height="200"/> 
-  
-  <img src="{{firma_em}}" alt="sello" width="400" height="200"/>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Informe Inicial Empresa</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12pt;
+        }
 
-</div>
-<p><strong>&nbsp;</strong></p>
-<p><strong>&nbsp;</strong></p>
-<p><strong>&nbsp;</strong></p>
-<p><strong>&nbsp;</strong></p>
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-<p style="text-align: center;"><strong>{{nombre}}</strong></p>
+        .header strong {
+            font-size: 17px;
+        }
 
-<p style="text-align: center;"><strong>{{razon_social}}</strong></p>
+        .info {
+            padding-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .info strong {
+            font-size: 14px;
+        }
+
+        .work-plan {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .work-plan th,
+        .work-plan td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+
+        .work-plan th {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .total-hours {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .signatures {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .signature {
+            text-align: center;
+        }
+
+        .signature img {
+            width: 300px;
+            height: 200px;
+        }
+
+        .signature strong {
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <strong>INFORME INICIAL SOBRE PRÁCTICAS PRE PROFESIONALES</strong>
+    </div>
+    <div>
+        <div class="info">
+            <strong>1. Nombre de la Empresa/Institución</strong>
+            <br>
+            {{razon_social}}
+        </div>
+        <div class="info">
+            <strong>2. Persona de la Empresa/Institución responsable de la práctica</strong>
+            <br>
+            {{jefe}}
+        </div>
+        <div class="info">
+            <strong>3. Cargo que ocupa</strong>
+            <br>
+            {{cargo_jefe}}
+        </div>
+        <div class="info">
+            <strong>4. Nombres y apellidos y del estudiante</strong>
+            <br>
+            {{nombre}}
+        </div>
+        <div class="info">
+            <strong>5. Fecha de inicio de la práctica</strong>
+            <br>
+            {{fecha_inicio}}
+        </div>
+        <div class="info">
+            <strong>6. Fecha de término de la práctica</strong>
+            <br>
+            {{fecha_fin}}
+        </div>
+        <div class="info">
+            <strong>7. Aceptación por parte de la Empresa/Institución para la realización de la práctica y 
+              compromiso para atender al estudiante durante toda la ejecución</strong>
+            <br>
+            {{compromiso}}
+        </div>
+        <div class="info">
+            <strong>8. Labores del practicante</strong>
+            <br>
+            {{labores}}
+        </div>
+        <div class="info">
+            <strong>9. Fecha, firma del responsable y sello de la Empresa/Institución</strong>
+            <br>
+            {{fecha}}
+        </div>
+        <div class="signatures">
+
+            <div class="signature">
+                {% if firma_em %}
+                <img src="{{ url_for('static', filename=firma_em.split('static/')[1], _external=True )}}"
+                    alt="firma del jefe" width="250" height="200">
+                {% endif %}
+                <div><strong>{{jefe}}</strong></div>
+                <div><strong>{{cargo_jefe}}</strong></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
