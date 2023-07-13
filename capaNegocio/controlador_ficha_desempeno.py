@@ -80,23 +80,23 @@ def consultar_ficha_desempeno(id_ficha_desempeno):
             cursor.execute("""
                 SELECT
                     cp.razon_social,
-                    u.num || ' ' || u.via || ', ' || u.ciudad AS direccion,
+                    CONCAT(u.num, ' ', u.via, ', ', u.ciudad) AS direccion,
                     ji.nombre AS nombre_responsable,
                     ji.correo AS correo_responsable
                 FROM
-                    ESTUDIANTE e
+                    FICHA_DESEMPENO fd
                 JOIN
-                    PRACTICA p ON e.id_estudiante = p.id_estudiante
-                JOIN
-                    DETALLE_PRACTICA dp ON p.id_practica = dp.id_practica
+                    DETALLE_PRACTICA dp ON fd.id_detalle_practica = dp.id_detalle_practica
                 JOIN
                     JEFE_INMEDIATO ji ON dp.id_jefe_inmediato = ji.id_jefe_inmediato
                 JOIN
                     CENTRO_PRACTICAS cp ON ji.id_centro_practicas = cp.id_centro_practicas
                 JOIN
                     UBICACION u ON cp.id_ubicacion = u.id_ubicacion
+                JOIN
+                    PRACTICA p ON dp.id_practica = p.id_practica
                 WHERE
-                    e.id_estudiante = %s;
+                    fd.id_ficha_desempeno = %s;
             """, (id_ficha_desempeno,))
             datos_cppp = cursor.fetchone()
 
