@@ -71,35 +71,41 @@
           </div>
 
         <div class="row mt-3">
-          <div class="col-md-6">
             <h5 class="">Subir Firma del estudiante</h5>
-            <input class="form-control" type="file" name="firma_estudiante" id="formFileEstudiante">
+            <div class="col-md-3">
+              <input class="form-control" type="file" name="firma_estudiante" id="formFileEstudiante">
+            </div>
             {% if firma_es %}
-            <a href="{{firma_es}}">Descargar Firma del Estudiante</a>
+            <div class="col-md-3">
+              <a href="{{firma_es}}" class="form-control-plaintext" target="_blank" download>{{ firma_es.split("/")[-1]
+                }}</a>
+            </div>
             {% endif %}
-          </div>
         </div>
 
         <div class="row mt-3">
-          <div class="col-md-6">
-            <h5 class="">Subir sello de la empresa</h5>
-            <input class="form-control" type="file" name="firma_empresa" id="formFileEmpresa">
-            {% if firma_em %}
-            <a href="{{firma_em}}">Descargar sello de la empresa</a>
-            {% endif %}
+          <h5 class="">Subir sello de la empresa</h5>
+          <div class="col-md-3">
+            <input class="form-control" type="file" name="firma_em" id="formFileEmpresa">
           </div>
-        </div>
-        
+          {% if firma_em %}
+          <div class="col-md-3">
+            <a href="{{firma_em}}" class="form-control-plaintext" target="_blank" download>{{ firma_em.split("/")[-1]
+              }}</a>
+          </div>
+          {% endif %}
+      </div>
+
       </div>
     </div>
-
 
     <div class="row mt-3">
       <div class="col-12 text-center">
         <button onclick="event.preventDefault(); confirmar_form()" type="submit" class="btn btn-success"><i
             class="fas fa-save"></i>&nbsp;&nbsp;Guardar</button>
-        <a href="{{url_for('informe_inicial_em.informe_inicial_em')}}" onclick="confirmar_volver()"
-          class="btn btn-danger mx-2"><i class="fa fa-times"></i>&nbsp;&nbsp;Cancelar</a>
+        <a href="{{url_for('informe_inicial_em.informe_inicial_em')}}" 
+        onclick=" event.preventDefault(); confirmar_volver(this)" class="btn btn-danger mx-2"><i 
+        class="fa fa-times"></i>&nbsp;&nbsp;Cancelar</a>
       </div>
     </div>
     <div class="mt-3"></div>
@@ -110,7 +116,7 @@
 
   {% block scripts %}
 
-  <!--PARA EL BOTON AGREGAR PLAN TRABAJO -->
+  <!--PARA EL BOTON AGREGAR -->
   <script>
     async function confirmar_form() {
       const form = document.getElementById("formulario");
@@ -143,7 +149,8 @@
         cancelButtonText: 'Cancelar'
       }).then((result) => {
         if (result.isConfirmed) {
-          window.location.href = href="{{url_for('informe_inicial_em.informe_inicial_em')}}";
+          window.location.href = enlace.href;          
+          //window.location.href = href="{{url_for('informe_inicial_em.informe_inicial_em')}}";
         }
       });
     }
