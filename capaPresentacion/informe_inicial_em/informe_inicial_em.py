@@ -8,7 +8,6 @@ from weasyprint import HTML, CSS
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 UPLOAD_FOLDER = 'static/files/iiem'
 
-
 informe_inicial_em_bp = Blueprint(
     "informe_inicial_em", __name__, template_folder="templates")
 
