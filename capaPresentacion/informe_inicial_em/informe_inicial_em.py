@@ -3,8 +3,8 @@ from capaNegocio import controlador_informe_inicial_em as c_informe_inicial_em
 import os
 from datetime import datetime, date
 from werkzeug.utils import secure_filename
-import weasyprint
-from weasyprint import HTML, CSS
+# import weasyprint
+# from weasyprint import HTML, CSS
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 UPLOAD_FOLDER = 'static/files/iiem'
@@ -85,22 +85,22 @@ def actualizar_informe_inicial_em():
         firma_em = ""
         firma_es = ""
         
-        if 'firma_empresa' in request.files:
-            f = request.files['firma_empresa']
-            print(f)
-            if f.filename != '':
-                print(f)
-                filename = secure_filename(f.filename)
-                f.save(os.path.join(UPLOAD_FOLDER, filename))
-                firma_em = os.path.join(UPLOAD_FOLDER, filename)
+        # if 'firma_empresa' in request.files:
+        #     f = request.files['firma_empresa']
+        #     print(f)
+        #     if f.filename != '':
+        #         print(f)
+        #         filename = secure_filename(f.filename)
+        #         f.save(os.path.join(UPLOAD_FOLDER, filename))
+        #         firma_em = os.path.join(UPLOAD_FOLDER, filename)
 
-        if 'firma_estudiante' in request.files:
-            f = request.files['firma_estudiante']
-            print(f)
-            if f.filename != '':
-                filename = secure_filename(f.filename)
-                f.save(os.path.join(UPLOAD_FOLDER, filename))
-                firma_es = os.path.join(UPLOAD_FOLDER, filename)
+        # if 'firma_estudiante' in request.files:
+        #     f = request.files['firma_estudiante']
+        #     print(f)
+        #     if f.filename != '':
+        #         filename = secure_filename(f.filename)
+        #         f.save(os.path.join(UPLOAD_FOLDER, filename))
+        #         firma_es = os.path.join(UPLOAD_FOLDER, filename)
         
         print(firma_em, firma_es)
         
