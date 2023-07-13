@@ -7,7 +7,7 @@ UPLOAD_FOLDER = 'static/files'
 
 informe_final_em_bp = Blueprint("informe_final_em", __name__, template_folder="templates")
 
-@informe_final_em_bp.route("/estudiante/informe_final_em")
+@informe_final_em_bp.route("/empresa/informe_final_em")
 def informe_final_em():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
@@ -59,14 +59,14 @@ def eliminar_informe_final_em():
         else:
             flash(str(mensaje), "error")
 
-        return redirect("/estudiante/informe_final_em")
+        return redirect("/empresa/informe_final_em")
     
 @informe_final_em_bp.route("/asd/<int:id>")
 def frm_editar_informe_final_em(id):
     print(c_informe_final_em.consultar_informe_final_empresa(id))
     return redirect(url_for("inicio.inicio"))  
 
-@informe_final_em_bp.route("/estudiante/editar_informe_final/<int:id>")
+@informe_final_em_bp.route("/empresa/editar_informe_final/<int:id>")
 def editar_informe_final_em(id):
     (
         estudiante,
@@ -111,10 +111,10 @@ def actualizar_informe_final_em():
 
         if mensaje == "Operacion realizada con éxito":
             flash("Informe Final Actualizado con Éxito", "success")
-            url = "/estudiante/informe_final_em"
+            url = "/empresa/informe_final_em"
         else:
             flash(str(mensaje), "error")
-            url = "/estudiante/editar_informe_final/" + id_informe_final_em
+            url = "/empresa/editar_informe_final/" + id_informe_final_em
         return redirect(url)
 
 
