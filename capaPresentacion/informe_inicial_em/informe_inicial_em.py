@@ -15,7 +15,6 @@ def allowed_file(filename):
     return '.' in filename and \
         filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-
 @informe_inicial_em_bp.route("/empresas/informes_iniciales")
 def informe_inicial_em():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
