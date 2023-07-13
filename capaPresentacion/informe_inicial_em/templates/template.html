@@ -1,0 +1,69 @@
+{% set nombre = estudiante[0] %}
+{% set razon_social = datos_cppp[0] %}
+{% set jefe = datos_cppp[1] %}
+{% set cargo_jefe = datos_cppp[2] %}
+{% set fecha_inicio = datos_practica[0] %}
+{% set fecha_fin = datos_practica[1] %}
+{% set id_informe_inicial_em = informe[0] %}
+{% set compromiso = informe[1] %}
+{% set labores = informe[2] %}
+{% set firma_em = informe[3] %}
+{% set firma_es = informe[4] %}
+{% set fecha = informe[5] %}
+{% set estado = informe[6] %}
+{% set id_detalle_practica = informe[7] %}
+
+
+<p style="text-align: center;"><strong>INFORME INICIAL SOBRE PR&Aacute;CTICAS PRE PROFESIONALES</strong></p>
+<p style="text-align: center;"><strong>(ELABORADO POR LA EMPRESA/INSTITUCI&Oacute;N)</strong></p>
+<p style="text-align: center;"><strong>&nbsp;</strong></p>
+<ol>
+<li><strong>Nombre de la Empresa/Instituci&oacute;n</strong></li>
+</ol>
+<p style="padding-left: 40px;">{{razon_social}}</p>
+<ol start="2">
+<li><strong>Persona de la Empresa/Instituci&oacute;n responsable de la pr&aacute;ctica</strong></li>
+</ol>
+<p style="padding-left: 40px;">{{jefe}}</p>
+<ol start="3">
+<li><strong>Cargo que ocupa</strong></li>
+</ol>
+<p style="padding-left: 40px;">{{cargo_jefe}}</p>
+<ol start="4">
+<li><strong>Nombres y apellidos y del estudiante</strong></li>
+</ol>
+<p style="padding-left: 40px;">{{nombre}}</p>
+<ol start="5">
+<li><strong>Fecha de inicio de la pr&aacute;ctica</strong></li>
+</ol>
+<p style="padding-left: 40px;">{{fecha_inicio}}</p>
+<ol start="6">
+<li><strong>Fecha de t&eacute;rmino de la pr&aacute;ctica</strong></li>
+</ol>
+<p style="padding-left: 40px;">{{fecha_fin}}</p>
+<ol start="7">
+<li><strong>Aceptaci&oacute;n por parte de la Empresa/Instituci&oacute;n para la realizaci&oacute;n de la pr&aacute;ctica y compromiso para atender al estudiante durante toda la ejecuci&oacute;n</strong></li>
+</ol>
+<p style="padding-left: 40px;">{{compromiso}}</p>
+<ol start="8">
+<li><strong>Labores del practicante</strong></li>
+</ol>
+<p style="padding-left: 40px;">{{labores}}</p>
+<ol start="9">
+<li><strong>Fecha, firma del responsable y sello de la Empresa/Instituci&oacute;n</strong></li>
+</ol>
+<div style="display: flex; flex-direction: row;">
+
+  <img src="{{firma_es}}" alt="firma" width="400" height="200"/> 
+  
+  <img src="{{firma_em}}" alt="sello" width="400" height="200"/>
+
+</div>
+<p><strong>&nbsp;</strong></p>
+<p><strong>&nbsp;</strong></p>
+<p><strong>&nbsp;</strong></p>
+<p><strong>&nbsp;</strong></p>
+
+<p style="text-align: center;"><strong>{{nombre}}</strong></p>
+
+<p style="text-align: center;"><strong>{{razon_social}}</strong></p>

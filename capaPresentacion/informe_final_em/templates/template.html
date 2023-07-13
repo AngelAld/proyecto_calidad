@@ -1,0 +1,65 @@
+{% set nombre = estudiante[0] %}
+{% set fecha_inicio = estudiante[1] %}
+{% set fecha_termino = estudiante[2] %}
+{% set razon_social = datos_cppp[0] %}
+{% set responsable = datos_cppp[1] %}
+{% set cargo = datos_cppp[2] %}
+
+{% set id_informe_final_em = informe[0] %}
+{% set cum_objetivos = informe[1] %}
+{% set cum_horas = informe[2] %}
+{% set responsabilidad = informe[3] %}
+{% set extra = informe[4] %}
+{% set firma = informe[5] %}
+{% set fecha = informe[6] %}
+{% set estado = informe[7] %}
+{% set id_detalle_practica = informe[8] %}
+
+<h3 style="text-align: center; margin-top: 5%;">INFORME FINAL SOBRE LAS PRACTICAS PRE PROFESIONALES</h3>
+<h3 style="text-align: center; margin-top: 0%;">(ELABORADO POR LA EMPRESA/INSTITUCI&Oacute;N)</h3>
+<ol style="margin-left: 10%; margin-top: 3%;">
+    <li><strong>Nombre de la Empresa/Instituci&oacute;n</strong> <br />{{context.razon_social}}</li>
+    <br />
+    <li><strong>Persona de la Empresa/Intituci&ograve;n responsable de la practica</strong>
+        <br />{{context.responsable}}
+    </li>
+    <br />
+    <li><strong>Cargo</strong> <br />{{context.cargo}}</li>
+    <br />
+    <li><strong>Nombre y apellidos del estudiante</strong> <br />{{context.nombre}}</li>
+    <br />
+    <li><strong>Fecha de inicio de la practica</strong> <br />{{context.fecha_inicio}}</li>
+    <br />
+    <li><strong>Fecha de t&eacute;rmino de la practica</strong> <br />{{context.fecha_termino}}</li>
+    <br />
+    <li><strong>Valoraci&oacute;n sobre el trabajo realizado por el estudiante</strong>
+        <ul style="list-style-type: disc;">
+            {% for valoracion in context.cum_objetivos %}
+            <li>{{cum_objetivos}}</li>
+            {% endfor %}
+        </ul>
+        <ul style="list-style-type: disc;">
+            {% for valoracion in context.cum_horas %}
+            <li>{{cum_horas}}</li>
+            {% endfor %}
+        </ul>
+        <ul style="list-style-type: disc;">
+            {% for valoracion in context.responsabilidad %}
+            <li>{{responsabilidad}}</li>
+            {% endfor %}
+        </ul>
+        <ul style="list-style-type: disc;">
+            {% for valoracion in context.extra %}
+            <li>{{extra}}</li>
+            {% endfor %}
+        </ul>
+    </li> 
+    <li style="margin-top: 5%;"><strong>Fecha, firma del responsable y sello de la
+            Empresa/Instituci&oacute;n</strong><br /><br />
+            <img src="{{firma}}" alt="firma" width="650" height="200" /> 
+    </li>
+</ol>
+<h4 style="text-align: center; margin-bottom: 0%;">
+    <strong>{{context.responsable}}</strong>
+</h4>
+<h4 style="text-align: center; margin-top: 0%;"><strong>{{context.cargo}}</strong></h4>
