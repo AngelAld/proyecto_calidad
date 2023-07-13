@@ -5,7 +5,7 @@
         function soloLetras(event) {
             var charCode = event.keyCode || event.which;
             var charStr = String.fromCharCode(charCode);
-            var pattern = /^[a-zA-Z\ssáéíóúÁÉÍÓÚñÑ]+$/;
+            var pattern = /^[a-zA-Z\ssáéíóúÁÉÍÓÚñÑ.°-]+$/;
             if (!pattern.test(charStr)) {
                 event.preventDefault();
                 return false;
