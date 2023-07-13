@@ -7,14 +7,12 @@ import weasyprint
 from weasyprint import HTML, CSS
 
 
-
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 UPLOAD_FOLDER = 'static/files/iie'
 
 informe_inicial_es_bp = Blueprint(
     "informe_inicial_es", __name__, template_folder="templates"
 )
-
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -191,10 +189,6 @@ def generar_pdf_iie(id):
     response.headers["Content-Type"] = "application/pdf"
     response.headers["Content-Disposition"] = "inline; filename=informe_inicial.pdf"
     return response    
-
-
-
-
 
 
 def convertir_fecha(fecha):

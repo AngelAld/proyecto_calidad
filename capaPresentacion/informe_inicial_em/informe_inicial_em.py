@@ -2,6 +2,9 @@ from flask import Blueprint, render_template, request, redirect, flash, session,
 from capaNegocio import controlador_informe_inicial_em as c_informe_inicial_em
 import os
 from werkzeug.utils import secure_filename
+import weasyprint
+from weasyprint import HTML, CSS
+
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 UPLOAD_FOLDER = 'static/files/iiem'
 
@@ -35,6 +38,7 @@ def frm_editar_informe_inicial_em(id):
     return redirect(url_for("inicio.inicio"))  
 
 
+
 @informe_inicial_em_bp.route("/actualizar_estado_informe_inicial_em", methods=["POST"])
 def actualizar_estado():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
@@ -66,8 +70,6 @@ def editar_informe_inicial_em(id):
         datos_practica=datos_practica,
         informe=informe,
     )
-
-
 
 @informe_inicial_em_bp.route("/actualizar_informe_inicial_em", methods=["POST"])
 def actualizar_informe_inicial_em():
@@ -113,6 +115,64 @@ def actualizar_informe_inicial_em():
             flash("Informe Inicial Actualizado con Éxito", "success")
             url = "/empresas/informes_iniciales"
         else:
+            print('entramos aqui')
             flash(str(mensaje), "error")
             url = "/empresas/editar_informe_inicial/" + id_informe_inicial_em
         return redirect(url)
+
+
+
+@informe_inicial_em_bp.route("/empresas/informe_inicial/generar_pdf/<int:id>")
+def generar_pdf_iie(id):
+    (
+        estudiante,
+        datos_cppp,
+        datos_practica,
+        informe,
+    ) = c_informe_inicial_em.consultar_informe_iniciales_empresa(id)
+
+    datos_practica = list(datos_practica)
+    informe = list(informe)
+
+    informe[5] = convertir_fecha(informe[5])
+    datos_practica[0] = convertir_fecha(datos_practica[1])
+    datos_practica[1] = convertir_fecha(datos_practica[2])
+
+    # Crear una nueva plantilla HTML a partir de la original
+    template_html = render_template(
+        "template.html",
+        estudiante=estudiante,
+        datos_cppp=datos_cppp,
+        datos_practica=datos_practica,
+        informe=informe,
+    )
+
+    # Definir la hoja de estilo CSS personalizada para establecer los márgenes
+    style_css = 'body { margin: 0; }'
+
+    # Crear un objeto HTML a partir de la plantilla
+    html = HTML(string=template_html)
+
+    # Crear un objeto CSS a partir de la hoja de estilo personalizada
+    css = CSS(string=style_css)
+
+    # Generar el PDF a partir del objeto HTML y la lista de objetos CSS
+    pdf_bytes = html.write_pdf(page_size=(8.5, 11, 'in'),
+    margin=(0.5, 0.5, 0.5, 0.5, 'in'),)
+
+    # Devolver el PDF generado como una respuesta HTTP
+    response = make_response(pdf_bytes)
+    response.headers["Content-Type"] = "application/pdf"
+    response.headers["Content-Disposition"] = "inline; filename=informe_inicial.pdf"
+    return response    
+
+
+def convertir_fecha(fecha):
+    try:
+        fecha_str = fecha.strftime('%Y-%m-%d')
+        fecha_dt = datetime.strptime(fecha_str, '%Y-%m-%d')
+        fecha_formateada = fecha_dt.strftime('%d/%m/%Y')
+        return fecha_formateada
+    except:
+        return('Fecha no registrada')
+    
