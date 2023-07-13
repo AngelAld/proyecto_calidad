@@ -3,13 +3,13 @@ from capaNegocio import controlador_informe_inicial_es as c_informe_inicial_es
 import os
 from datetime import datetime, date
 from werkzeug.utils import secure_filename
-# import weasyprint
-# from weasyprint import HTML, CSS
+import weasyprint
+from weasyprint import HTML, CSS
 
 
 
-# ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
-# UPLOAD_FOLDER = 'static/files/iie'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+UPLOAD_FOLDER = 'static/files/iie'
 
 informe_inicial_es_bp = Blueprint(
     "informe_inicial_es", __name__, template_folder="templates"
@@ -144,58 +144,58 @@ def actualizar_informe_inicial_es():
 
 
 
-# @informe_inicial_es_bp.route("/estudiante/informe_inicial/generar_pdf/<int:id>")
-# def generar_pdf_iie(id):
-#     (
-#         estudiante,
-#         datos_cppp,
-#         datos_practica,
-#         objetivos,
-#         planes_trabajo,
-#         informe,
-#     ) = c_informe_inicial_es.consultar_informe_iniciales_estudiante(id)
+@informe_inicial_es_bp.route("/estudiante/informe_inicial/generar_pdf/<int:id>")
+def generar_pdf_iie(id):
+    (
+        estudiante,
+        datos_cppp,
+        datos_practica,
+        objetivos,
+        planes_trabajo,
+        informe,
+    ) = c_informe_inicial_es.consultar_informe_iniciales_estudiante(id)
 
-#     datos_practica = list(datos_practica)
-#     informe = list(informe)
-#     planes_trabajo = list(planes_trabajo)
-#     for i in range(len(planes_trabajo)):
-#         planes_trabajo[i] = list(planes_trabajo[i])
-#         planes_trabajo[i][3] = convertir_fecha(planes_trabajo[i][3])
-#         planes_trabajo[i][4] = convertir_fecha(planes_trabajo[i][4])
+    datos_practica = list(datos_practica)
+    informe = list(informe)
+    planes_trabajo = list(planes_trabajo)
+    for i in range(len(planes_trabajo)):
+        planes_trabajo[i] = list(planes_trabajo[i])
+        planes_trabajo[i][3] = convertir_fecha(planes_trabajo[i][3])
+        planes_trabajo[i][4] = convertir_fecha(planes_trabajo[i][4])
 
-#     informe[2] = convertir_fecha(informe[2])
-#     datos_practica[1] = convertir_fecha(datos_practica[1])
-#     datos_practica[2] = convertir_fecha(datos_practica[2])
+    informe[2] = convertir_fecha(informe[2])
+    datos_practica[1] = convertir_fecha(datos_practica[1])
+    datos_practica[2] = convertir_fecha(datos_practica[2])
 
-#     # Crear una nueva plantilla HTML a partir de la original
-#     template_html = render_template(
-#         "template.html",
-#         estudiante=estudiante,
-#         datos_cppp=datos_cppp,
-#         datos_practica=datos_practica,
-#         objetivos=objetivos,
-#         planes_trabajo=planes_trabajo,
-#         informe=informe,
-#     )
+    # Crear una nueva plantilla HTML a partir de la original
+    template_html = render_template(
+        "template.html",
+        estudiante=estudiante,
+        datos_cppp=datos_cppp,
+        datos_practica=datos_practica,
+        objetivos=objetivos,
+        planes_trabajo=planes_trabajo,
+        informe=informe,
+    )
 
-#     # Definir la hoja de estilo CSS personalizada para establecer los márgenes
-#     style_css = 'body { margin: -5; }'
+    # Definir la hoja de estilo CSS personalizada para establecer los márgenes
+    style_css = 'body { margin: 0; }'
 
-#     # Crear un objeto HTML a partir de la plantilla
-#     html = HTML(string=template_html)
+    # Crear un objeto HTML a partir de la plantilla
+    html = HTML(string=template_html)
 
-#     # Crear un objeto CSS a partir de la hoja de estilo personalizada
-#     css = CSS(string=style_css)
+    # Crear un objeto CSS a partir de la hoja de estilo personalizada
+    css = CSS(string=style_css)
 
-#     # Generar el PDF a partir del objeto HTML y la lista de objetos CSS
-#     pdf_bytes = html.write_pdf(page_size=(8.5, 11, 'in'),
-#     margin=(0.5, 0.5, 0.5, 0.5, 'in'),)
+    # Generar el PDF a partir del objeto HTML y la lista de objetos CSS
+    pdf_bytes = html.write_pdf(page_size=(8.5, 11, 'in'),
+    margin=(0.5, 0.5, 0.5, 0.5, 'in'),)
 
-#     # Devolver el PDF generado como una respuesta HTTP
-#     response = make_response(pdf_bytes)
-#     response.headers["Content-Type"] = "application/pdf"
-#     response.headers["Content-Disposition"] = "inline; filename=informe_inicial.pdf"
-#     return response    
+    # Devolver el PDF generado como una respuesta HTTP
+    response = make_response(pdf_bytes)
+    response.headers["Content-Type"] = "application/pdf"
+    response.headers["Content-Disposition"] = "inline; filename=informe_inicial.pdf"
+    return response    
 
 
 
