@@ -61,66 +61,30 @@ def editar_informe_final_es(id):
         plan_trabajo=plan_trabajo,
         informe=informe,
     )
+
+
 @informe_final_es_bp.route("/actualizar_informe_final_es", methods=["POST"])
 def actualizar_informe_final_es():
     if "rol" not in session or session["rol"] != "Docente de Apoyo":
         return redirect(url_for("inicio.inicio"))
     else:
         id_informe_final_es = request.form['id_informe_final_es']
-        fecha_inicio = request.form['fecha_inicio']
-        fecha_fin = request.form['fecha_fin']
-        total_horas = request.form["totalHoras"]
-        # Subir archivos de firma
-        firma_es = ""
-        firma_jefe = ""
+        conclusiones = request.form.getlist('conclusion[]')
+        recomendaciones = request.form.getlist('recomendacion[]')
+        bibliografia = request.form.getlist('bibliografia[]')
 
-        if 'firma_estudiante' in request.files:
-            f = request.files['firma_estudiante']
-            if f.filename != '':
-                filename = secure_filename(f.filename)
-                f.save(os.path.join(UPLOAD_FOLDER, filename))
-                firma_es = os.path.join(UPLOAD_FOLDER, filename)
+        mensaje = c_informe_final_es.actualizar_informe_final(id_informe_final_es, conclusiones, recomendaciones, bibliografia)
 
-        if 'firma_jefe' in request.files:
-            f = request.files['firma_jefe']
-            if f.filename != '':
-                filename = secure_filename(f.filename)
-                f.save(os.path.join(UPLOAD_FOLDER, filename))
-                firma_jefe = os.path.join(UPLOAD_FOLDER, filename)
-
-        objetivos = request.form.getlist('objetivo[]')
-
-        # Agregar datos de planes de trabajo a una lista
-        plan_trabajo = []
-        n_semanas = request.form.getlist('n_semana[]')
-        fs_inicio = request.form.getlist('fecha_in[]')
-        fs_fin = request.form.getlist('fecha_fin[]')
-        actividades = request.form.getlist('actividad[]')
-        horas = request.form.getlist('horas[]')
-
-        for i in range(len(n_semanas)):
-            plan_trabajo.append({
-                "n_semana": i + 1,
-                "fecha_inicio": fs_inicio[i],
-                "fecha_fin": fs_fin[i],
-                "actividad": actividades[i],
-                "horas": horas[i]
-            })
-
-        mensaje = c_informe_final_es.actualizar_informe_final(fecha_fin=fecha_fin, fecha_inicio=fecha_inicio,
-                                                              id_informe_final_es=id_informe_final_es,
-                                                              firma_es=firma_es, firma_jefe=firma_jefe,
-                                                              descripciones=objetivos, plan_trabajo=plan_trabajo,
-                                                              totalHoras=total_horas)
-        print(mensaje)
-        if mensaje == "Operacion realizada con éxito":
+        if mensaje == "Operación realizada con éxito":
             flash("Informe Final Actualizado con Éxito", "success")
             url = "/estudiante/informes_finales"
         else:
-            print('entramos aqui')
             flash(mensaje, "error")
             url = "/estudiante/editar_informe_final/" + id_informe_final_es
+
         return redirect(url)
+
+
 
 
     
