@@ -179,9 +179,6 @@ def generar_pdf_iie(id):
 
     html = HTML(string=template_html)
 
-    # Crear un objeto CSS a partir de la hoja de estilo personalizada
-
-    # Generar el PDF a partir del objeto HTML y la lista de objetos CSS
     pdf_bytes = html.write_pdf()
 
     # Devolver el PDF generado como una respuesta HTTP

@@ -1,0 +1,72 @@
+{% extends "maestra/maestra.html" %}
+{% block titulo %} Informes Finalizados {% endblock %}
+{% set titulo2 = "Informes Finalizados" %}
+{% block contenido %}
+<section class="section contenido">
+  <div class="columns">
+    <div class="col">
+      <div class="row">
+        <div class="col d-none d-sm-block above-table">
+        </div>
+        <div class="col-auto text-end above-table">
+          <input id="searchbar" class="form-control" type="text" placeholder="Buscar">
+        </div>
+      </div>
+      <div class="col-auto">
+        <table class="table table-hover align-middle table-bordered" id="tablita">
+          <thead>
+            <tr class="table-danger">
+              <th class="col-2 text-center d-none d-xl-table-cell">Semestre Academico</th>
+              <th class="col-1 text-center d-none d-xl-table-cell">Codigo del Estudiante</th>
+              <th class="col-2 text-center">Estudiante</th>
+              <th class="col-2 text-center">Tipo de Practica</th>
+              <th class="col-2 text-center">Fecha de inicio de la Practica</th>
+              <th class="col-2 text-center">Fecha de fin de la Practica</th>
+              <th class="col-2 text-center">Razon social</th>
+              <th class="col-1 text-center d-none d-md-table-cell">Estado</th>
+              <th class="col-2 text-center">Informe Inicial Estudiante</th>
+              <th class="col-2 text-center">Informe Inicial Empresa</th>
+              <th class="col-2 text-center">Informe Final Estudiante</th>
+              <th class="col-2 text-center">Informe Final Empresa</th>
+              <th class="col-2 text-center">Constancia de la Practica</th>
+              <th class="col-2 text-center">Ficha de desempeño</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for informe_final in informes_finales %}
+            <tr>
+              <td class="col-1 text-center d-none d-xl-table-cell">{{informe_final[0]}}</td>
+              <td class="col-2 text-center">{{informe_final[1]}}</td>
+              <td class="col-2 text-center">{{informe_final[2]}}</td>
+              <td class="col-1 text-center d-none d-xl-table-cell">{{informe_final[3]}}</td>
+              <td class="col-2 text-center">{{informe_final[4]}}</td>
+              <td class="col-2 text-center">{{informe_final[5]}}</td>
+              <td class="col-2 text-center">{{informe_final[6]}}</td>
+              <td class="col-1 text-center d-none d-md-table-cell">{{informe_final[7]}}</td>
+              <td class="col-1 text-center d-none d-xl-table-cell">
+                <input type="checkbox">
+              </td>
+              <td class="col-2 text-center">
+                <input type="checkbox">
+              </td>
+              <td class="col-2 text-center">
+                <input type="checkbox">
+              </td>
+              <td class="col-2 text-center">
+                <input type="checkbox">
+              </td>
+              <td class="col-2 text-center">
+                <input type="checkbox">
+              </td>
+              <td class="col-2 text-center">
+                <input type="checkbox">
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

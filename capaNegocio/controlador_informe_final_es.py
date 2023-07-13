@@ -67,10 +67,9 @@ def consultar_informe_finales_estudiante(id_informe_final_es):
                 SELECT cp.razon_social, u.ciudad, cp.rubro, cp.alias, ji.nombre AS representante_legal
                 FROM CENTRO_PRACTICAS cp
                 JOIN UBICACION u ON cp.id_ubicacion = u.id_ubicacion
-                JOIN PRACTICA p ON cp.id_centro_practicas = p.id_estudiante
-                JOIN DETALLE_PRACTICA dp ON p.id_practica = dp.id_practica
-                JOIN INFORME_FINAL_ES ife ON dp.id_detalle_practica = ife.id_detalle_practica
                 JOIN JEFE_INMEDIATO ji ON cp.id_centro_practicas = ji.id_centro_practicas
+                JOIN DETALLE_PRACTICA dp ON cp.id_centro_practicas = dp.id_jefe_inmediato
+                JOIN INFORME_FINAL_ES ife ON dp.id_detalle_practica = ife.id_detalle_practica
                 WHERE ife.id_informe_final_es = %s;
             """, (id_informe_final_es,))
             datos_cppp = cursor.fetchone()
@@ -110,25 +109,29 @@ def consultar_informe_finales_estudiante(id_informe_final_es):
     except Exception as e:
         print(f"Error al consultar informe inicial: {str(e)}")
 
-def actualizar_informe_final(id_informe_final_es, conclusiones, recomendaciones, bibliografia):
+def actualizar_informe_final(id_informe_final_es, introduccion, cantidad_trabajadores, mision, vision, infraestructura_fisica, infraestructura_tecnologica, desc_labores_r, conclusiones, recomendaciones, bibliografia):
     try:
         conexion = obtener_conexion()
         conexion.autocommit = False
+
         with conexion.cursor() as cursor:
-            cursor.execute("DELETE FROM CONCLUSION WHERE id_informe_final_es = %s", (id_informe_final_es,))
+            cursor.execute("UPDATE INFORME_FINAL_ES SET introduccion = %s, cant_trabajadores = %s, mision = %s, vision = %s, infra_fisica = %s, infra_tecnologica = %s, desc_labores_r = %s WHERE id_informe_final_es = %s",
+                           (introduccion, cantidad_trabajadores, mision, vision, infraestructura_fisica, infraestructura_tecnologica, desc_labores_r, id_informe_final_es))
 
-            for conclusion in conclusiones:
-                cursor.execute("INSERT INTO CONCLUSION (id_informe_final_es, descripcion) VALUES (%s, %s)", (id_informe_final_es, conclusion))
+            cursor.execute("DELETE FROM CONCLUSIONES WHERE id_informe_final_es = %s", (id_informe_final_es,))
+            if conclusiones:
+                values = [(id_informe_final_es, conclusion) for conclusion in conclusiones]
+                cursor.executemany("INSERT INTO CONCLUSIONES (id_informe_final_es, descripcion) VALUES (%s, %s)", values)
 
-            cursor.execute("DELETE FROM RECOMENDACION WHERE id_informe_final_es = %s", (id_informe_final_es,))
-
-            for recomendacion in recomendaciones:
-                cursor.execute("INSERT INTO RECOMENDACION (id_informe_final_es, descripcion) VALUES (%s, %s)", (id_informe_final_es, recomendacion))
+            cursor.execute("DELETE FROM RECOMENDACIONES WHERE id_informe_final_es = %s", (id_informe_final_es,))
+            if recomendaciones:
+                values = [(id_informe_final_es, recomendacion) for recomendacion in recomendaciones]
+                cursor.executemany("INSERT INTO RECOMENDACIONES (id_informe_final_es, descripcion) VALUES (%s, %s)", values)
 
             cursor.execute("DELETE FROM BIBLIOGRAFIA WHERE id_informe_final_es = %s", (id_informe_final_es,))
-
-            for bibliografia_item in bibliografia:
-                cursor.execute("INSERT INTO BIBLIOGRAFIA (id_informe_final_es, descripcion) VALUES (%s, %s)", (id_informe_final_es, bibliografia_item))
+            if bibliografia:
+                values = [(id_informe_final_es, item) for item in bibliografia]
+                cursor.executemany("INSERT INTO BIBLIOGRAFIA (id_informe_final_es, descripcion) VALUES (%s, %s)", values)
 
         conexion.commit()
         conexion.close()
@@ -138,6 +141,9 @@ def actualizar_informe_final(id_informe_final_es, conclusiones, recomendaciones,
     except Exception as e:
         conexion.rollback()
         return f"Error al actualizar informe: {str(e)}"
+
+
+
 
 
 
